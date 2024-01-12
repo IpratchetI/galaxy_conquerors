@@ -1,0 +1,27 @@
+// TODO: удалить миксины и константы ниже после полного перехода
+
+$font-size-20: 20px;
+$font-size-30: 30px;
+$font-size-45: 45px;
+$font-size-60: 60px;
+$font-size-80: 80px;
+
+@mixin h1 {
+  font-size: $font-size-80;
+}
+
+@mixin h2 {
+  font-size: $font-size-60;
+}
+
+@mixin h3 {
+  font-size: $font-size-45;
+}
+
+@mixin h4 {
+  font-size: $font-size-30;
+}
+
+@mixin h5 {
+  font-size: $font-size-20;
+}
