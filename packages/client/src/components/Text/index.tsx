@@ -1,6 +1,5 @@
 import { memo, createElement } from 'react'
-import { classnames } from '../../utils/classnames'
-import { parseBRTagFromText } from './utils/parseBRTagFromText'
+import { classnames } from '@/utils/classnames'
 import styles from './index.module.scss'
 
 type TextVariant = 'normal' | 'selected' | 'focus'
@@ -11,18 +10,17 @@ type TextSize = 's' | 'm' | 'l' | 'xl' | 'xxl'
 
 interface TextProps {
 	className?: string
-	text: string
+	children: string
 	tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span'
 	variant?: TextVariant
 	align?: TextAlign
 	size?: TextSize
-	strokeWidth?: string
 }
 
 export const Text = memo((props: TextProps) => {
 	const {
 		className,
-		text,
+		children,
 		tag = 'p',
 		variant = 'normal',
 		align = 'left',
@@ -39,6 +37,6 @@ export const Text = memo((props: TextProps) => {
 				styles[size]
 			])
 		},
-		parseBRTagFromText(text)
+		children
 	)
 })

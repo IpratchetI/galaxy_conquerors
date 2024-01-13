@@ -1,7 +1,7 @@
 import React, { ButtonHTMLAttributes } from 'react'
 
 type Props = {
-	children: JSX.Element
+	// TODO: пропсы кнопки
 } & ButtonHTMLAttributes<HTMLButtonElement>
 
 // TODO: компонент кнопки

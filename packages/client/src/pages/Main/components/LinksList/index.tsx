@@ -1,24 +1,9 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
-import { Link, Text } from '../../../../components'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { Link, Text } from '@/components'
+import { navLinks } from './constants'
 import styles from './index.module.scss'
 
-type NavLink = {
-	id: number
-	text: string
-	path: string
-	type: 'button' | 'link'
-}
-
-const navLinks: NavLink[] = [
-	// TODO: заменить path, когда будут готовы
-	{ id: 0, type: 'link', path: '/game', text: 'Play' },
-	{ id: 1, type: 'link', path: '/highscore', text: 'Highscore' },
-	{ id: 2, type: 'link', path: '/authors', text: 'Authors' },
-	{ id: 3, type: 'link', path: '/forum', text: 'Forum' },
-	{ id: 4, type: 'button', path: '/sign-in', text: 'Exit' }
-]
-
-export const LinksList = memo(() => {
+export const LinksList = () => {
 	const [activeLinkId, setActiveLinkId] = useState<number>(0)
 	const activeLinkRef = useRef(null)
 
@@ -27,7 +12,7 @@ export const LinksList = memo(() => {
 		console.log('exit')
 	}, [])
 
-	const handleKeyDown = useCallback((event: KeyboardEvent) => {
+	const handleKeyDown = (event: KeyboardEvent) => {
 		event.preventDefault()
 
 		switch (event.key) {
@@ -59,7 +44,7 @@ export const LinksList = memo(() => {
 			default:
 				return
 		}
-	}, [])
+	}
 
 	useEffect(() => {
 		document.addEventListener('keydown', handleKeyDown)
@@ -69,9 +54,9 @@ export const LinksList = memo(() => {
 		}
 	}, [handleKeyDown])
 
-	const renderNavLinks = useCallback(
-		(data: NavLink[]) => {
-			return data.map(({ id, path, text, type }, index) => {
+	return (
+		<ul className={styles.list}>
+			{navLinks.map(({ id, path, text, action }) => {
 				const isActive = id === activeLinkId
 
 				return (
@@ -79,23 +64,19 @@ export const LinksList = memo(() => {
 						<Link
 							ref={isActive ? activeLinkRef : null}
 							path={path}
-							linkType={type}
 							onMouseEnter={() => setActiveLinkId(id)}
-							onClick={type === 'button' ? onExit : undefined}>
+							onClick={action ? onExit : undefined}>
 							<Text
 								size="l"
-								text={text}
 								variant={
 									id === activeLinkId ? 'selected' : 'normal'
-								}
-							/>
+								}>
+								{text}
+							</Text>
 						</Link>
 					</li>
 				)
-			})
-		},
-		[activeLinkId, onExit]
+			})}
+		</ul>
 	)
-
-	return <ul className={styles.list}>{renderNavLinks(navLinks)}</ul>
-})
+}

@@ -2,5 +2,5 @@ root = true
 
 [*.{jsx,tsx,js,ts}]
 indent_style = tab
-indent_size = 4
-tab_width = 4
+indent_size = 2
+tab_width = 2
