@@ -1,22 +1,19 @@
 import React, { memo } from 'react'
-import { Spacer, Text } from '../../components'
-import { withBackground } from '../../hocs/withBackground'
+import { Spacer, Text } from '@/components'
 import { LinksList } from './components/LinksList'
 import styles from './index.module.scss'
 
 const Main = memo(() => (
-	<Spacer className={styles.page} direction="column" fullHeight gap="80">
-		<Text
-			tag="h1"
-			className={styles.title}
-			size="xxl"
-			align="center"
-			text="Galaxy <br /> Conquerors"
-		/>
-		<nav>
-			<LinksList />
-		</nav>
-	</Spacer>
+	<main className={styles.background}>
+		<Spacer direction="column" fullHeight gap="80">
+			<Text tag="h1" size="xxl" align="center">
+				{'Galaxy \n Conquerors'}
+			</Text>
+			<nav>
+				<LinksList />
+			</nav>
+		</Spacer>
+	</main>
 ))
 
-export default withBackground(Main, 'main')
+export default Main
