@@ -1,6 +1,6 @@
 type TopicsHeaderProps = {
-	className: string
-}
+	className: string;
+};
 
 export const TopicsHeader = ({ className }: TopicsHeaderProps) => {
 	return (
@@ -8,5 +8,5 @@ export const TopicsHeader = ({ className }: TopicsHeaderProps) => {
 			<span>Themes:</span>
 			<span>Comments:</span>
 		</div>
-	)
-}
+	);
+};

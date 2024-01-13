@@ -1,18 +1,18 @@
-import { useCallback } from 'react'
-import { Topics } from '@models/types/topics'
-import s from './TopicsList.module.scss'
-import { Link } from '@components/Link/Link'
-import { TopicsHeader } from '../TopicsHeader/TopicsHeader'
-import { abbreviateNumber } from '@/utils/abbreviateNumber'
+import { useCallback } from 'react';
+import { Topics } from '@models/types/topics';
+import s from './TopicsList.module.scss';
+import { Link } from '@components/Link/Link';
+import { TopicsHeader } from '../TopicsHeader/TopicsHeader';
+import { abbreviateNumber } from '@/utils/abbreviateNumber';
 
 type TopicsListProps = {
-	topics?: Topics
-}
+	topics?: Topics;
+};
 
 export const TopicsList = ({ topics }: TopicsListProps) => {
 	const handleClick = useCallback(() => {
 		// todo: add handler
-	}, [])
+	}, []);
 
 	return (
 		<>
@@ -34,5 +34,5 @@ export const TopicsList = ({ topics }: TopicsListProps) => {
 				))}
 			</ul>
 		</>
-	)
-}
+	);
+};

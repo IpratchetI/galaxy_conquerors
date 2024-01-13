@@ -9,7 +9,6 @@
     "lint": "eslint .",
     "lint:fix": "yarn run lint --fix",
     "format": "prettier --write .",
-    "fix": "yarn run lint:fix && yarn run format",
     "test": "jest ./"
   },
   "dependencies": {
