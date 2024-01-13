@@ -1,7 +1,7 @@
 export interface ITopic {
-	id: number
-	name: string
-	comments: number
+	id: number;
+	name: string;
+	comments: number;
 }
 
-export type Topics = ITopic[]
+export type Topics = ITopic[];
