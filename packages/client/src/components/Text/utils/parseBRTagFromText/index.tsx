@@ -1,3 +1,5 @@
+import { Fragment } from 'react'
+
 export const parseBRTagFromText = (text: string) => {
 	if (text.indexOf('<br />') === -1) {
 		return text
@@ -13,10 +15,10 @@ export const parseBRTagFromText = (text: string) => {
 				}
 
 				return (
-					<>
+					<Fragment key={index}>
 						{partOfText.trim()}
 						<br />
-					</>
+					</Fragment>
 				)
 			})}
 		</>
