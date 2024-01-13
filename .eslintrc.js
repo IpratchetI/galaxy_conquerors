@@ -16,5 +16,14 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   rules: {
     '@typescript-eslint/ban-ts-comment': 1,
+		'semi': ['error', 'always'],
+		'@typescript-eslint/no-unused-vars': 0,
+		'@typescript-eslint/no-unnecessary-condition': 'off',
+		'@typescript-eslint/quotes': [ 'error', 'single' ],
+		'@typescript-eslint/ban-types': 'off',
+		'@typescript-eslint/no-explicit-any': 'warn',
+		'quotes': 'off',
+		'no-shadow': 'off',
+		'object-curly-spacing': ['error', 'always']
   },
-}
+};
