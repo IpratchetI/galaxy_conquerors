@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes } from 'react';
 import classNames from 'classnames';
 import s from './index.module.scss';
-import SelectIcon from './components/SelectIcon.svg';
+import SelectIcon from './SelectIcon.svg';
 
 export enum ButtonVariant {
 	DEFAULT = 'Default',

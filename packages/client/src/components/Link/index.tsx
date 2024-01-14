@@ -7,7 +7,7 @@ export type LinkProps = {
 	params?: Record<string, string>;
 } & AnchorHTMLAttributes<HTMLAnchorElement>;
 
-export const Index = (props: LinkProps) => {
+export const Link = (props: LinkProps) => {
 	const { children, href, className, params, ...otherProps } = props;
 
 	const createPath = () => {

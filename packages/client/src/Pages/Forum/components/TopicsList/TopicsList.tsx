@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { Topics } from '@models/types/topics';
 import s from './TopicsList.module.scss';
-import { Link } from '@components/Link/Link';
+import { Link } from '@components/Link';
 import { TopicsHeader } from '../TopicsHeader/TopicsHeader';
 import { abbreviateNumber } from '@/utils/abbreviateNumber';
 

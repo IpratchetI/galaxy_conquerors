@@ -16,6 +16,7 @@ body {
 }
 
 @mixin page-container {
+  padding: 85px 104px 65px;
   min-height: 100vh;
   min-width: 100vw;
 }
@@ -32,4 +33,9 @@ body {
     'title'
     'main'
     'actions';
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
 }

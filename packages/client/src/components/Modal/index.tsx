@@ -12,7 +12,7 @@ type ModalProps = {
 	children?: ReactNode;
 };
 
-export const Index = (props: ModalProps) => {
+export const Modal = (props: ModalProps) => {
 	const { className, children, isOpen, onClose } = props;
 
 	const mods = {
