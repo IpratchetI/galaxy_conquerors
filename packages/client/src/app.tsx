@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import Main from './pages/Main'
 import './app.css'
 
 function App() {
