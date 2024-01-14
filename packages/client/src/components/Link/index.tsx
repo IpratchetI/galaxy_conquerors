@@ -1,5 +1,5 @@
-// todo: заменить на router Link
-import s from './Link.module.scss';
+// todo: заменить на router Index
+import s from './index.module.scss';
 import { AnchorHTMLAttributes } from 'react';
 import classNames from 'classnames';
 
@@ -7,7 +7,7 @@ export type LinkProps = {
 	params?: Record<string, string>;
 } & AnchorHTMLAttributes<HTMLAnchorElement>;
 
-export const Link = (props: LinkProps) => {
+export const Index = (props: LinkProps) => {
 	const { children, href, className, params, ...otherProps } = props;
 
 	const createPath = () => {

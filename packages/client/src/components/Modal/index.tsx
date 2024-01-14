@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import s from './Modal.module.scss';
+import s from './index.module.scss';
 import { ReactNode } from 'react';
 import { Portal } from './components/Portal/Portal';
 import { Overlay } from './components/Overlay/Overlay';
@@ -12,7 +12,7 @@ type ModalProps = {
 	children?: ReactNode;
 };
 
-export const Modal = (props: ModalProps) => {
+export const Index = (props: ModalProps) => {
 	const { className, children, isOpen, onClose } = props;
 
 	const mods = {
