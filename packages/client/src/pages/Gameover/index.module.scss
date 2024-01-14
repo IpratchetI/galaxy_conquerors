@@ -1,0 +1,33 @@
+@import '../../style/backgrounds';
+
+.background {
+  @include gameplay-background;
+}
+
+.container {
+  position: relative;
+}
+
+.linkText {
+  z-index: 20;
+}
+
+.img_container {
+  position: relative;
+  z-index: 10;
+}
+
+.shot_container {
+  position: absolute;
+  width: 160px;
+  display: flex;
+  align-items: flex-start;
+  bottom: 100px;
+
+  :nth-child(2) {
+    padding-left: 35px;
+  }
+  :nth-child(3) {
+    padding-left: 70px;
+  }
+}

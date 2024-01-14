@@ -2,3 +2,8 @@
   background: url('@assets/img/main.png') no-repeat;
   background-size: cover;
 }
+
+@mixin gameplay-background {
+  background: url('@assets/img/gameplay.png') no-repeat;
+  background-size: cover;
+}
