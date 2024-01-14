@@ -5,9 +5,7 @@ import { SMILES } from '../../lib/constants';
 
 export const SmileMenu = () => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [selectedSmile, setSelectedSmile] = useState<string | undefined>(
-		undefined
-	);
+	const [selectedSmile, setSelectedSmile] = useState<string | undefined>(undefined);
 
 	const handlerMenuOpen = () => {
 		setIsOpen(prevState => !prevState);
@@ -25,7 +23,8 @@ export const SmileMenu = () => {
 						<button
 							key={`smile-${i}`}
 							className={s.Smile}
-							onClick={() => handlerSelectSmile(smile)}>
+							onClick={() => handlerSelectSmile(smile)}
+						>
 							{smile}
 						</button>
 					))}

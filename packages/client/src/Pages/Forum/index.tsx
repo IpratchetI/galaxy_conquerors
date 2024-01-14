@@ -26,10 +26,7 @@ export const ForumPage = () => {
 				<Button onClick={handleOpenTopicCreator}>Add new theme</Button>
 			</div>
 
-			<Modal
-				className={s.ForumModal}
-				isOpen={isModalOpen}
-				onClose={handleOpenTopicCreator}>
+			<Modal className={s.ForumModal} isOpen={isModalOpen} onClose={handleOpenTopicCreator}>
 				<NewTopicForm onClick={handleOpenTopicCreator} />
 			</Modal>
 		</div>
