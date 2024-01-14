@@ -24,6 +24,7 @@ module.exports = {
 		'@typescript-eslint/no-explicit-any': 'warn',
 		'quotes': 'off',
 		'no-shadow': 'off',
+		'max-len': ['warn', { 'code': 80, 'ignoreComments': true }],
 		'object-curly-spacing': ['error', 'always']
   },
 };
