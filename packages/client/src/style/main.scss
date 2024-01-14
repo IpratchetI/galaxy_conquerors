@@ -1,9 +1,14 @@
-@import "colors.scss";
-@import "typography.scss";
-@import "reset.scss";
+@import 'colors.scss';
+@import 'typography.scss';
+@import 'reset.scss';
+@import 'variables.scss';
 
 * {
-    font-family: 'Press Start 2P', system-ui;
-    color: white;
-    -webkit-text-stroke: 1px $black;
+  font-family: 'Press Start 2P', system-ui;
+  color: var(--white);
+  -webkit-text-stroke: 1px $black;
+}
+
+main {
+  height: 100vh;
 }
