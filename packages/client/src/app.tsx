@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import './App.css';
-import { TopicPage } from '@pages/TopicPage';
+import { TopicPage } from '@pages/Topic';
 
 function App() {
 	useEffect(() => {
