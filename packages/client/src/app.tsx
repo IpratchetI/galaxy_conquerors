@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import Main from './pages/Main'
-import './app.css'
 import Gameover from './pages/Gameover'
+import './app.css'
 
 function App() {
 	useEffect(() => {
@@ -14,11 +14,7 @@ function App() {
 
 		fetchServerData()
 	}, [])
-	return (
-		<div className="App">
-			<Gameover />
-		</div>
-	)
+	return <div className="App">Приложение будет тут</div>
 }
 
 export default App
