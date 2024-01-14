@@ -16,15 +16,29 @@ module.exports = {
   plugins: [ '@typescript-eslint' ],
   rules: {
     '@typescript-eslint/ban-ts-comment': 'warn',
-    '@typescript-eslint/no-unused-vars': 0,
+    '@typescript-eslint/no-unused-vars': 'warn',
     '@typescript-eslint/no-unnecessary-condition': 'off',
     '@typescript-eslint/quotes': [ 'error', 'single' ],
     '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/no-explicit-any': 'warn',
-    'quotes': 'off',
     'no-shadow': 'off',
     'comma-dangle': [ 'error', 'never' ],
     'object-curly-spacing': [ 'error', 'always' ],
-    'no-constant-condition': 'warn'
+    'no-constant-condition': 'warn',
+    semi: ['warn', 'always', { omitLastInOneLineBlock: true }],
+    'semi-style': ['warn', 'last'],
+    '@typescript-eslint/no-extra-semi': ['warn'],
+    'quotes': ['error', 'single'],
+    '@typescript-eslint/member-delimiter-style': ['warn' , {
+      'multiline': {
+        'delimiter': 'semi',
+        'requireLast': true
+      },
+      'singleline': {
+        'delimiter': 'semi',
+        'requireLast': false
+      },
+      'multilineDetection': 'brackets'
+    }]
   }
-}
+};

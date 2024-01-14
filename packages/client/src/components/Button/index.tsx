@@ -1,16 +1,16 @@
-import React, { ButtonHTMLAttributes } from 'react'
+import { ButtonHTMLAttributes } from 'react';
 
-type Props = {
-	// TODO: пропсы кнопки
-} & ButtonHTMLAttributes<HTMLButtonElement>
+import styles from './Button.module.scss';
 
-// TODO: компонент кнопки
-export const Button = (props: Props) => {
-	const { children, onClick, className } = props
-
-	return (
-		<button className={className} type="button" onClick={onClick}>
-			{children}
-		</button>
-	)
+interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+	title: string;
 }
+
+export const Button = (props: IButtonProps) => {
+	const { title, ...restProps } = props;
+	return (
+		<button className={styles.button} {...restProps}>
+			{title}
+		</button>
+	);
+};

@@ -1,4 +1,4 @@
-import { NavLink } from '../types'
+import { NavLink } from '../types';
 
 export const navLinks: NavLink[] = [
 	{ id: 0, path: '/game', text: 'Play' },
@@ -6,4 +6,4 @@ export const navLinks: NavLink[] = [
 	{ id: 2, path: '/authors', text: 'Authors' },
 	{ id: 3, path: '/forum', text: 'Forum' },
 	{ id: 4, action: true, path: '/sign-in', text: 'Exit' }
-]
+];

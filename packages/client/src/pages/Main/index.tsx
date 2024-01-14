@@ -1,7 +1,7 @@
-import React, { memo } from 'react'
-import { Spacer, Text } from '@/components'
-import { LinksList } from './components/LinksList'
-import styles from './index.module.scss'
+import React, { memo } from 'react';
+import { Spacer, Text } from '@/components';
+import { LinksList } from './components/LinksList';
+import styles from './index.module.scss';
 
 const Main = memo(() => (
 	<main className={styles.background}>
@@ -14,6 +14,6 @@ const Main = memo(() => (
 			</nav>
 		</Spacer>
 	</main>
-))
+));
 
-export default Main
+export default Main;
