@@ -5,16 +5,14 @@ import {
 	MutableRefObject,
 	useCallback,
 	useMemo,
-	useState,
+	useState
 } from 'react';
 import classNames from 'classnames';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { GlobalError } from 'react-hook-form/dist/types/errors';
 import { useTextarea } from './lib/useTextarea';
 
-type InputAttrVariable = InputHTMLAttributes<
-	HTMLInputElement | HTMLTextAreaElement
->;
+type InputAttrVariable = InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>;
 
 export type InputProps = {
 	textareaRef?: MutableRefObject<HTMLTextAreaElement | any>;
@@ -44,22 +42,19 @@ export const Input = (props: InputProps) => {
 
 	useTextarea({
 		textareaRef,
-		value,
+		value
 	});
 
 	const mods = {
-		[s.Textarea]: isTextarea,
+		[s.Textarea]: isTextarea
 	};
 
 	// todo: update
-	const handleChange = useCallback(
-		(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-			event.preventDefault();
-			otherProps?.onChange?.(event);
-			setValue(event.target?.value);
-		},
-		[]
-	);
+	const handleChange = useCallback((event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+		event.preventDefault();
+		otherProps?.onChange?.(event);
+		setValue(event.target?.value);
+	}, []);
 
 	return (
 		<div className={s.InputWrapper}>

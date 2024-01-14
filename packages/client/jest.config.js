@@ -11,9 +11,9 @@ export default {
 		'^@assets/(.*)$': '<rootDir>/src/assets/$1',
 		'^@components/(.*)$': '<rootDir>/src/components/$1',
 		'^@models/(.*)$': '<rootDir>/src/models/$1',
-		'\\.(css|scss)$': 'identity-obj-proxy',
+		'\\.(css|scss)$': 'identity-obj-proxy'
 	},
 	globals: {
-		__SERVER_PORT__: process.env.SERVER_PORT,
-	},
+		__SERVER_PORT__: process.env.SERVER_PORT
+	}
 };

@@ -26,7 +26,7 @@ export const Overlay = (props: OverlayProps) => {
 		<div
 			onClick={onClick}
 			className={classnames(s.Overlay, {
-				[s.Opened]: openedState,
+				[s.Opened]: openedState
 			})}
 		/>
 	);

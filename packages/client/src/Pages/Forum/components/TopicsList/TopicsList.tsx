@@ -23,10 +23,11 @@ export const TopicsList = ({ topics }: TopicsListProps) => {
 						<Link
 							href={`/forum/${topic.id}`}
 							params={{
-								topicName: topic.name,
+								topicName: topic.name
 							}}
 							className={s.Topic}
-							onClick={handleClick}>
+							onClick={handleClick}
+						>
 							<span className={s.TopicName}>{topic.name}</span>
 							<span>{abbreviateNumber(topic.comments, 0)}</span>
 						</Link>

@@ -16,7 +16,7 @@ export const Modal = (props: ModalProps) => {
 	const { className, children, isOpen, onClose } = props;
 
 	const mods = {
-		[s.Opened]: isOpen,
+		[s.Opened]: isOpen
 	};
 
 	return (

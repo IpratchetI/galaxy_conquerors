@@ -6,16 +6,16 @@ export const CURRENT_USER_ID = 2;
 export const USERS: IUser[] = [
 	{
 		id: 0,
-		name: 'user1',
+		name: 'user1'
 	},
 	{
 		id: 1,
-		name: 'user2',
+		name: 'user2'
 	},
 	{
 		id: 2,
-		name: 'user3',
-	},
+		name: 'user3'
+	}
 ];
 
 export const COMMENTS_LIST: IComment[] = [
@@ -25,9 +25,9 @@ export const COMMENTS_LIST: IComment[] = [
 		messages: [
 			{
 				id: 0,
-				text: 'text',
-			},
-		],
+				text: 'text'
+			}
+		]
 	},
 	{
 		id: 1,
@@ -35,13 +35,13 @@ export const COMMENTS_LIST: IComment[] = [
 		messages: [
 			{
 				id: 0,
-				text: 'loooooong very veeeery looooooooooooooon super long text with numbers and some words',
+				text: 'loooooong very veeeery looooooooooooooon super long text with numbers and some words'
 			},
 			{
 				id: 1,
-				text: 'not very long',
-			},
-		],
+				text: 'not very long'
+			}
+		]
 	},
 	{
 		id: 2,
@@ -49,10 +49,10 @@ export const COMMENTS_LIST: IComment[] = [
 		messages: [
 			{
 				id: 0,
-				text: 'simple answer text',
-			},
-		],
-	},
+				text: 'simple answer text'
+			}
+		]
+	}
 ];
 
 export const SMILES = ['😁', '😉', '🥲', '🤗', '🤔'];

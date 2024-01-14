@@ -16,7 +16,7 @@ export const Comment = (props: CommentProps) => {
 	}, []);
 
 	const mods = {
-		[s.CurrentUserComment]: isMainComment,
+		[s.CurrentUserComment]: isMainComment
 	};
 
 	return (

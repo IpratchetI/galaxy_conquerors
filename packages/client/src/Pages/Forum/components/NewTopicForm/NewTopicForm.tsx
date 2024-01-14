@@ -16,7 +16,7 @@ export const NewTopicForm = ({ onClick }: NewTopicFormProps) => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors }
 	} = useForm<FormValues>();
 
 	const onSubmit: SubmitHandler<FormValues> = () => {
@@ -31,8 +31,9 @@ export const NewTopicForm = ({ onClick }: NewTopicFormProps) => {
 			<Input
 				error={errors?.topicName}
 				{...register('topicName', {
-					required: true,
-				})}>
+					required: true
+				})}
+			>
 				Theme name
 			</Input>
 			<div className={s.ModalButtons}>

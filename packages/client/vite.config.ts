@@ -14,19 +14,19 @@ export default defineConfig({
 			'@pages': path.resolve(__dirname, './src/pages'),
 			'@models': path.resolve(__dirname, './src/models'),
 			'@components': path.resolve(__dirname, './src/components'),
-			'@assets': path.resolve(__dirname, './src/assets'),
-		},
+			'@assets': path.resolve(__dirname, './src/assets')
+		}
 	},
 	server: {
-		port: Number(process.env.CLIENT_PORT) || 3000,
+		port: Number(process.env.CLIENT_PORT) || 3000
 	},
 	define: {
-		__SERVER_PORT__: process.env.SERVER_PORT,
+		__SERVER_PORT__: process.env.SERVER_PORT
 	},
 	plugins: [
 		svgr({
-			include: '**/*.svg',
+			include: '**/*.svg'
 		}),
-		react(),
-	],
+		react()
+	]
 });

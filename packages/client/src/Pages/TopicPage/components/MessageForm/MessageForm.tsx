@@ -11,12 +11,12 @@ export const MessageForm = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors }
 	} = useForm<FormValues>();
 
 	const messageInputRef = useRef<HTMLTextAreaElement | null>(null);
 	const { ref, ...otherRegister } = register('message', {
-		required: true,
+		required: true
 	});
 
 	useImperativeHandle(ref, () => messageInputRef.current);

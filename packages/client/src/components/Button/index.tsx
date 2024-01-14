@@ -5,7 +5,7 @@ import SelectIcon from './SelectIcon.svg';
 
 export enum ButtonVariant {
 	DEFAULT = 'Default',
-	TEXT = 'Text',
+	TEXT = 'Text'
 }
 
 type ButtonProps = {
@@ -23,17 +23,12 @@ export const Button = (props: ButtonProps) => {
 
 	const mods = {
 		[s.Text]: variant === ButtonVariant.TEXT,
-		[s.Default]: variant === ButtonVariant.DEFAULT,
+		[s.Default]: variant === ButtonVariant.DEFAULT
 	};
 
 	return (
-		<button
-			{...otherProps}
-			className={classNames(s.Button, mods, className)}
-			type={type}>
-			<span className={s.SelectIcon}>
-				{variant === ButtonVariant.TEXT && <SelectIcon />}
-			</span>
+		<button {...otherProps} className={classNames(s.Button, mods, className)} type={type}>
+			<span className={s.SelectIcon}>{variant === ButtonVariant.TEXT && <SelectIcon />}</span>
 			{children}
 		</button>
 	);
