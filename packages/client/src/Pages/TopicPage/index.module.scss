@@ -1,0 +1,35 @@
+@import 'src/style/main';
+
+.TopicPage {
+  font-size: var(--font-size-45);
+
+  @include page-container;
+  @include main-background;
+  @include grid-template;
+}
+
+.Title {
+  font-size: 60px;
+  margin-bottom: 70px;
+  grid-area: title;
+}
+
+.TopicContent {
+  grid-area: main;
+  border-radius: 20px;
+  background-color: var(--white);
+  padding: 30px;
+  height: 100%;
+}
+
+.Actions {
+  display: flex;
+  justify-content: space-between;
+  grid-area: actions;
+  gap: 32px;
+  margin-top: 63px;
+
+  .BackButton {
+    margin-top: 10px;
+  }
+}
