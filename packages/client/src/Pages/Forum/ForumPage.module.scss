@@ -7,9 +7,22 @@
 
   @include page-container;
   @include main-background;
+  @include grid-template;
 }
 
 .Title {
   font-size: 60px;
   margin-bottom: 85px;
+  grid-area: title;
+}
+
+.Buttons {
+  display: flex;
+  justify-content: space-between;
+  grid-area: actions;
+}
+
+.ForumModal {
+  width: 830px;
+  height: 463px;
 }

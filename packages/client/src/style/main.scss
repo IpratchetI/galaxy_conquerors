@@ -24,3 +24,12 @@ body {
   background: url('@assets/img/background.png') no-repeat;
   background-size: cover;
 }
+
+@mixin grid-template {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    'title'
+    'main'
+    'actions';
+}

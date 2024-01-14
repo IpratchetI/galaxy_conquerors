@@ -15,7 +15,7 @@ export const TopicsList = ({ topics }: TopicsListProps) => {
 	}, []);
 
 	return (
-		<>
+		<div className={s.Topics}>
 			<TopicsHeader className={s.Topic} />
 			<ul className={s.TopicsList} aria-label="forum-topics-list">
 				{topics?.map(topic => (
@@ -33,6 +33,6 @@ export const TopicsList = ({ topics }: TopicsListProps) => {
 					</li>
 				))}
 			</ul>
-		</>
+		</div>
 	);
 };
