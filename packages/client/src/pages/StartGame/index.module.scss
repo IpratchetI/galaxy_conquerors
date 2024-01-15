@@ -1,0 +1,12 @@
+@import '../../style/backgrounds';
+
+.background {
+  @include startgame-background;
+  position: relative;
+}
+
+.astronaut {
+  left: 0;
+  bottom: 0;
+  position: absolute;
+}
