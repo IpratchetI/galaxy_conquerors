@@ -10,3 +10,14 @@
   bottom: 0;
   position: absolute;
 }
+
+.textContainer {
+  background-color: white;
+  border-radius: 28px;
+  box-shadow: 5px -5px black;
+  bottom: 20px;
+  position: absolute;
+  height: 320px;
+  padding: 48px, 57px;
+  // width: calc(100% - 200px);
+}
