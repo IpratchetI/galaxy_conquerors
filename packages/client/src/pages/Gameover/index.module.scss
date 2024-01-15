@@ -12,16 +12,14 @@
   z-index: 20;
 }
 
-.img_container {
+.imgContainer {
   position: relative;
   z-index: 10;
 }
 
-.shot_container {
+.shotContainer {
   position: absolute;
   width: 160px;
-  display: flex;
-  align-items: flex-start;
   bottom: 100px;
 
   :nth-child(2) {

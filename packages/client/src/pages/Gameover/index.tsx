@@ -23,13 +23,17 @@ const Gameover = () => {
 				<Text tag="h1" size="xxl" align="center">
 					{'GAME OVER'}
 				</Text>
-				<nav className={styles.linkText}>
+				<div className={styles.linkText}>
 					<Link onClick={onExit}>
 						<Text size="l">{'Exit'}</Text>
 					</Link>
-				</nav>
-				<Spacer direction="column" gap="6" className={styles.img_container}>
-					<Spacer direction="column" gap="20" className={styles.shot_container}>
+				</div>
+				<Spacer direction="column" gap="6" className={styles.imgContainer}>
+					<Spacer
+						direction="column"
+						gap="20"
+						align="start"
+						className={styles.shotContainer}>
 						{new Array(3).fill(1).map((el, i) => {
 							return <img src={shot} key={i} />
 						})}
