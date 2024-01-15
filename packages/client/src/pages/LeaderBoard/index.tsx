@@ -1,12 +1,13 @@
-import React from 'react'
-import s from './index.module.scss'
-import { Button } from '@components/Button'
-import { HighscoreList } from './components/HighscoreList/highscoreList'
+import React from 'react';
+import { Button } from '@components/Button';
+
+import s from './index.module.scss';
+import { HighscoreList } from './components/HighscoreList/highscoreList';
 
 export const LeaderBoard: React.FC = () => {
 	const handleHistoryBack = () => {
 		// todo: add back
-	}
+	};
 
 	return (
 		<div className={s.leaderboardPage}>
@@ -18,5 +19,5 @@ export const LeaderBoard: React.FC = () => {
 				Back
 			</Button>
 		</div>
-	)
-}
+	);
+};

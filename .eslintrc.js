@@ -13,7 +13,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 11
   },
-  plugins: [ '@typescript-eslint' ],
+  plugins: [ '@typescript-eslint', 'import' ],
   rules: {
     '@typescript-eslint/ban-ts-comment': 'warn',
     '@typescript-eslint/no-unused-vars': 'warn',
@@ -25,7 +25,7 @@ module.exports = {
     'comma-dangle': [ 'error', 'never' ],
     'object-curly-spacing': [ 'error', 'always' ],
     'no-constant-condition': 'warn',
-    semi: ['warn', 'always', { omitLastInOneLineBlock: true }],
+    'semi': ['warn', 'always', { 'omitLastInOneLineBlock': true }],
     'semi-style': ['warn', 'last'],
     '@typescript-eslint/no-extra-semi': ['warn'],
     'quotes': ['error', 'single'],
@@ -39,6 +39,15 @@ module.exports = {
         'requireLast': false
       },
       'multilineDetection': 'brackets'
+    }],
+    'import/order': ['error', {
+      'groups': ['builtin', 'external', 'internal', 'sibling', 'index', 'type'],
+      'pathGroups': [{
+        'pattern': '@/**',
+        'group': 'internal',
+        'position': 'after'
+      }],
+      'newlines-between': 'always'
     }]
   }
 };

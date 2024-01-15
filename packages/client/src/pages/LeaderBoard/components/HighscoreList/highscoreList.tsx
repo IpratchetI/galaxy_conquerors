@@ -1,5 +1,6 @@
-import React from 'react'
-import s from './highscoreList.module.scss'
+import React from 'react';
+
+import s from './highscoreList.module.scss';
 
 const mockHighscores = [
 	{ username: '#playerName1', score: 19000 },
@@ -8,7 +9,7 @@ const mockHighscores = [
 	{ username: '#playerName4', score: 800 },
 	{ username: '#playerName5', score: 500 }
 	// todo:заменить моковые данные на данные из бэка
-]
+];
 
 export const HighscoreList: React.FC = () => {
 	return (
@@ -19,5 +20,5 @@ export const HighscoreList: React.FC = () => {
 				))}
 			</ul>
 		</div>
-	)
-}
+	);
+};

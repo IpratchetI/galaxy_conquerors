@@ -1,7 +1,8 @@
+import { resolve } from 'path';
+
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import dotenv from 'dotenv';
-import { resolve } from 'path';
 
 import tsconfig from './tsconfig.paths.json';
 
@@ -21,12 +22,10 @@ export default defineConfig({
 		alias: {
 			...Object.fromEntries(
 				// Отсекаем "/*" с конца путей из tsconfig'а
-				Object.entries(tsconfig.compilerOptions.paths || []).map(
-					([alias, [folder]]) => [
-						alias.replace(/(.*)(\/\*)$/, '$1').toString(),
-						resolve(__dirname, folder.replace(/(.*)(\/\*)$/, '$1'))
-					]
-				)
+				Object.entries(tsconfig.compilerOptions.paths || []).map(([alias, [folder]]) => [
+					alias.replace(/(.*)(\/\*)$/, '$1').toString(),
+					resolve(__dirname, folder.replace(/(.*)(\/\*)$/, '$1'))
+				])
 			)
 		}
 	}

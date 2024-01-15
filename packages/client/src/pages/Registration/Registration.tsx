@@ -1,22 +1,16 @@
-import { Input } from '@components/Input';
-import styles from './Registration.module.scss';
-import { Button } from '@components/Button';
 import { useForm } from 'react-hook-form';
+import { Input } from '@components/Input';
+import { Button } from '@components/Button';
 import { UserModel } from '@models/UserModel';
+import { regInputsConfig, regInputsDefaults } from '@pages/Registration/constants';
 
 import '@styles/main.scss';
+import styles from './Registration.module.scss';
 
 /**Страница регистрации нового пользователя */
 export const Registration = () => {
 	const { register, getValues } = useForm<UserModel>({
-		defaultValues: {
-			first_name: '',
-			second_name: '',
-			login: '',
-			email: '',
-			password: '',
-			phone: ''
-		}
+		defaultValues: regInputsDefaults
 	});
 
 	const submitHandler = (data: UserModel) => {
@@ -31,12 +25,9 @@ export const Registration = () => {
 				</div>
 				<div className={styles.content}>
 					<form>
-						<Input {...register('first_name')} label="first name" />
-						<Input {...register('second_name')} label="second name" />
-						<Input {...register('login')} label="login" />
-						<Input {...register('email')} label="email" />
-						<Input {...register('password')} label="password" />
-						<Input {...register('phone')} label="phone" />
+						{regInputsConfig.map(({ fieldName, label }) => (
+							<Input {...register(fieldName)} label={label} />
+						))}
 					</form>
 				</div>
 				<div className={styles.footer}>

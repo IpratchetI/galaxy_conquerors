@@ -1,5 +1,7 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
+
 import { Spacer, Text } from '@/components';
+
 import { LinksList } from './components/LinksList';
 import styles from './index.module.scss';
 

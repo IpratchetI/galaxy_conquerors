@@ -1,4 +1,4 @@
-import { ErrorContent, ErrorType } from '../types'
+import { ErrorContent, ErrorType } from '../types';
 
 export const errorContent: Record<ErrorType, ErrorContent> = {
 	'500': {
@@ -13,4 +13,4 @@ export const errorContent: Record<ErrorType, ErrorContent> = {
 		title: 'Oops',
 		description: 'Radar broken, so do not get lost, start over'
 	}
-}
+};

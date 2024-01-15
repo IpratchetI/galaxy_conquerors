@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+
 import { Link, Text } from '@/components';
+
 import { navLinks } from './constants';
 import styles from './index.module.scss';
 
