@@ -1,5 +1,5 @@
 import s from './index.module.scss';
-import { TOPICS_LIST } from './lib/constants';
+import { TOPICS_LIST } from './lib/mocks';
 import { TopicsList } from './components/TopicsList/TopicsList';
 import { Button } from '@components/Button';
 import { Modal } from '@components/Modal';

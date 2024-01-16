@@ -4,6 +4,7 @@ import s from './TopicsList.module.scss';
 import { Link } from '@components/Link';
 import { TopicsHeader } from '../TopicsHeader/TopicsHeader';
 import { abbreviateNumber } from '@/utils/abbreviateNumber';
+import { TOPICS_PATH } from '@pages/Forum/lib/constants';
 
 type TopicsListProps = {
 	topics?: Topics;
@@ -21,7 +22,7 @@ export const TopicsList = ({ topics }: TopicsListProps) => {
 				{topics?.map(topic => (
 					<li key={topic.id} className={s.topicItem} title={topic.name}>
 						<Link
-							href={`/forum/${topic.id}`}
+							href={TOPICS_PATH(topic.id)}
 							params={{
 								topicName: topic.name
 							}}
