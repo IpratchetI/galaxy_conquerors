@@ -2,7 +2,7 @@ import SmileMenuIcon from '../SmileMenu/SmileMenu.svg';
 import s from './SmileMenu.module.scss';
 import { useState } from 'react';
 import { SMILES } from '../../lib/constants';
-import { Spacer } from '@/components';
+import { Button, Spacer } from '@/components';
 
 export const SmileMenu = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -21,23 +21,23 @@ export const SmileMenu = () => {
 			{isOpen && (
 				<div className={s.openedMenu}>
 					{SMILES.map((smile, i) => (
-						<button
+						<Button
 							key={`smile-${i}`}
 							className={s.smile}
 							onClick={() => handlerSelectSmile(smile)}
 						>
 							{smile}
-						</button>
+						</Button>
 					))}
 				</div>
 			)}
-			<button className={s.smileMenuButton} onClick={handlerMenuOpen}>
+			<Button className={s.smileMenuButton} onClick={handlerMenuOpen}>
 				{selectedSmile ? (
 					<span className={s.selectedReaction}>{selectedSmile}</span>
 				) : (
 					<SmileMenuIcon />
 				)}
-			</button>
+			</Button>
 		</Spacer>
 	);
 };
