@@ -1,0 +1,12 @@
+@import '../../style/backgrounds';
+
+.background {
+  @include error-background;
+  padding-top: 100px;
+}
+
+.backLink {
+  &:hover {
+    color: var(--sky);
+  }
+}

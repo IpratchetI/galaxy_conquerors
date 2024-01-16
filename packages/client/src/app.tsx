@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
-import './App.css';
-import { TopicPage } from '@pages/Topic';
-import { ForumPage } from '@pages/Forum';
+import './app.css';
 
 function App() {
 	useEffect(() => {
@@ -14,11 +12,7 @@ function App() {
 
 		fetchServerData();
 	}, []);
-	return (
-		<div className="App">
-			<ForumPage />
-		</div>
-	);
+	return <div className="App">Приложение будет тут</div>;
 }
 
 export default App;

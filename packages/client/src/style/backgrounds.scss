@@ -1,4 +1,16 @@
-@mixin main-background {
-  background: url('@assets/img/main.png') no-repeat;
+@mixin background {
+  background-repeat: no-repeat;
   background-size: cover;
+}
+
+@mixin main-background {
+  background: url('@assets/img/main.png');
+}
+
+@mixin error-background {
+  background: url('@assets/img/error.jpeg');
+}
+
+@mixin gameplay-background {
+  background: url('@assets/img/gameplay.png');
 }
