@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, Text } from '@/components';
-import { navLinks } from './constants';
+import { navLinks } from './constants/mocks';
 import styles from './index.module.scss';
 import classNames from 'classnames';
 

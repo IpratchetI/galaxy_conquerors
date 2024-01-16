@@ -1,7 +1,7 @@
 import s from './index.module.scss';
 import { Button } from '@components/Button';
 import { MessageForm } from './components/MessageForm/MessageForm';
-import { COMMENTS_LIST } from '@pages/Topic/lib/constants';
+import { COMMENTS_LIST } from './lib/mocks';
 import { Comment } from './components/Comment/Comment';
 
 export const TopicPage = () => {
