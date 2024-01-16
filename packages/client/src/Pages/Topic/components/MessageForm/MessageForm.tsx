@@ -40,7 +40,7 @@ export const MessageForm = () => {
 				textareaRef={messageInputRef}
 				error={errors?.message}
 				placeholder="Text your comment..."
-				onKeyPress={handleUserKeyPress}
+				onKeyDown={handleUserKeyPress}
 				{...otherRegister}
 			/>
 		</form>
