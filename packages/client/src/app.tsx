@@ -1,4 +1,6 @@
 import { useEffect } from 'react'
+import Main from './pages/Main'
+import Gameover from './pages/Gameover'
 import './app.css'
 
 function App() {

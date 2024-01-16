@@ -10,3 +10,7 @@
 @mixin error-background {
   background: url('@assets/img/error.jpeg');
 }
+
+@mixin gameplay-background {
+  background: url('@assets/img/gameplay.png');
+}
