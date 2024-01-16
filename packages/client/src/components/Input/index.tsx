@@ -36,9 +36,7 @@ export const Input = (props: InputProps) => {
 
 	// todo: change to state from store and use dispatcher mb
 	const [value, setValue] = useState(initialValue ?? '');
-	const InputTag = useMemo(() => {
-		return isTextarea ? 'textarea' : 'input';
-	}, []);
+	const InputTag = isTextarea ? 'textarea' : 'input';
 
 	useTextarea({
 		textareaRef,
