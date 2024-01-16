@@ -1,13 +1,13 @@
-.Topics {
+.topics {
   grid-area: main;
 }
 
-.TopicsList {
+.topicsList {
   font-size: var(--font-size-30);
   margin: 70px 0;
 }
 
-.TopicItem {
+.topicItem {
   & + & {
     margin-top: 55px;
   }
@@ -18,12 +18,14 @@
   }
 }
 
-.Topic {
+.topic {
+  font-size: var(--font-size-45);
   display: grid;
-  grid-template-columns: calc(2 / 3 * 1fr) calc(1 / 3 * 1fr);
+  grid-template-columns: 2fr 1fr;
+  column-gap: 45px;
 }
 
-.TopicName {
+.topicName {
   width: 100%;
   display: -webkit-box;
   -webkit-line-clamp: 2;

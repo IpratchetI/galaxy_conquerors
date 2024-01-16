@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import './App.css';
 import { TopicPage } from '@pages/Topic';
+import { ForumPage } from '@pages/Forum';
 
 function App() {
 	useEffect(() => {
@@ -15,7 +16,7 @@ function App() {
 	}, []);
 	return (
 		<div className="App">
-			<TopicPage />
+			<ForumPage />
 		</div>
 	);
 }

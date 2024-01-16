@@ -1,11 +1,10 @@
 @import 'src/style/main';
 
-.CommentsWrapper,
-.Comment {
+.commentsWrapper {
   @include flex-column;
 }
 
-.CommentsWrapper {
+.commentsWrapper {
   gap: 25px;
   font-size: var(--font-size-20);
 
@@ -14,7 +13,7 @@
   }
 }
 
-.Comment {
+.comment {
   position: relative;
   background-color: var(--white);
   width: 100%;
@@ -29,7 +28,7 @@
   }
 }
 
-.Author {
+.author {
   width: 100%;
   text-align: left;
   display: -webkit-box;
@@ -41,10 +40,10 @@
   text-stroke: 2px var(--black);
 }
 
-.CurrentUserComment {
+.currentUserComment {
   background-color: var(--sky);
 
-  .Author {
+  .author {
     text-align: right;
     color: var(--white);
   }

@@ -3,6 +3,7 @@ import { Button, ButtonVariant } from '@components/Button';
 import { MouseEvent } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Input } from '@components/Input';
+import { Spacer } from '@/components';
 
 type NewTopicFormProps = {
 	onClick(): void;
@@ -27,7 +28,7 @@ export const NewTopicForm = ({ onClick }: NewTopicFormProps) => {
 
 	// todo: change to form component
 	return (
-		<form className={s.NewTopicForm} onSubmit={handleSubmit(onSubmit)}>
+		<form className={s.newTopicForm} onSubmit={handleSubmit(onSubmit)}>
 			<Input
 				error={errors?.topicName}
 				{...register('topicName', {
@@ -36,14 +37,14 @@ export const NewTopicForm = ({ onClick }: NewTopicFormProps) => {
 			>
 				Theme name
 			</Input>
-			<div className={s.ModalButtons}>
+			<Spacer align="center" direction="column" gap="35">
 				<Button type="submit" variant={ButtonVariant.TEXT}>
 					Confirm
 				</Button>
 				<Button variant={ButtonVariant.TEXT} onClick={onClick}>
 					Cancel
 				</Button>
-			</div>
+			</Spacer>
 		</form>
 	);
 };

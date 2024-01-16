@@ -15,20 +15,20 @@ export const TopicsList = ({ topics }: TopicsListProps) => {
 	}, []);
 
 	return (
-		<div className={s.Topics}>
-			<TopicsHeader className={s.Topic} />
-			<ul className={s.TopicsList} aria-label="forum-topics-list">
+		<div className={s.topics}>
+			<TopicsHeader className={s.topic} />
+			<ul className={s.topicsList} aria-label="forum-topics-list">
 				{topics?.map(topic => (
-					<li key={topic.id} className={s.TopicItem} title={topic.name}>
+					<li key={topic.id} className={s.topicItem} title={topic.name}>
 						<Link
 							href={`/forum/${topic.id}`}
 							params={{
 								topicName: topic.name
 							}}
-							className={s.Topic}
+							className={s.topic}
 							onClick={handleClick}
 						>
-							<span className={s.TopicName}>{topic.name}</span>
+							<span className={s.topicName}>{topic.name}</span>
 							<span>{abbreviateNumber(topic.comments, 0)}</span>
 						</Link>
 					</li>

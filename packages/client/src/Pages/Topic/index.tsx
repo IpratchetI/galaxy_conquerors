@@ -10,15 +10,15 @@ export const TopicPage = () => {
 	};
 
 	return (
-		<div className={s.TopicPage}>
-			<h2 className={s.Title}>Interesting projects</h2>
-			<div className={s.TopicContent}>
+		<div className={s.topicPage}>
+			<h2 className={s.title}>Interesting projects</h2>
+			<div className={s.topicContent}>
 				{COMMENTS_LIST.map(comment => (
 					<Comment key={comment.id} {...comment} />
 				))}
 			</div>
-			<div className={s.Actions}>
-				<Button className={s.BackButton} onClick={handleHistoryBack}>
+			<div className={s.actions}>
+				<Button className={s.backButton} onClick={handleHistoryBack}>
 					Back
 				</Button>
 				<MessageForm />

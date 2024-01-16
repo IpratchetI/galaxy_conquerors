@@ -16,14 +16,14 @@ export const Modal = (props: ModalProps) => {
 	const { className, children, isOpen, onClose } = props;
 
 	const mods = {
-		[s.Opened]: isOpen
+		[s.opened]: isOpen
 	};
 
 	return (
 		<Portal>
-			<div className={classNames(s.Modal, mods)}>
+			<div className={classNames(s.modal, mods)}>
 				<Overlay onClick={onClose} isOpen={isOpen} />
-				<div className={classNames(s.Content, [className])}>{children}</div>
+				<div className={classNames(s.content, [className])}>{children}</div>
 			</div>
 		</Portal>
 	);

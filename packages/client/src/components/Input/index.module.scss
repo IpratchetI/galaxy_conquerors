@@ -1,6 +1,6 @@
 @import 'src/style/main';
 
-.InputWrapper {
+.inputWrapper {
   font-size: var(--font-size-20);
   justify-content: left;
   width: inherit;
@@ -8,12 +8,12 @@
   @include flex-column;
 }
 
-.Label {
+.label {
   text-shadow: 0 3px 4px rgba(0, 0, 0, 0.7);
   margin-bottom: 10px;
 }
 
-.Input {
+.input {
   border-bottom: 1px solid var(--black);
   font-size: var(--font-size-20);
   padding: 5px;
@@ -32,19 +32,19 @@
   }
 }
 
-.ValidationError {
+.validationError {
   margin-top: 5px;
   font-size: var(--font-size-10);
   color: var(--error);
 }
 
-.Input,
-.ValidationError {
+.input,
+.validationError {
   -webkit-text-stroke: 0 transparent;
   text-stroke: 0 transparent;
 }
 
-.Textarea {
+.textarea {
   border-radius: 10px;
   border: 2px solid var(--black);
   padding: 17px;

@@ -34,7 +34,7 @@ export const MessageForm = () => {
 
 	// todo: change to form component mb
 	return (
-		<form className={s.MessageForm}>
+		<form className={s.messageForm}>
 			<Input
 				isTextarea={true}
 				textareaRef={messageInputRef}

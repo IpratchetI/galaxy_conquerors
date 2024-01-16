@@ -1,6 +1,6 @@
 @import 'src/style/main';
 
-.ForumPage {
+.forumPage {
   font-size: var(--font-size-20);
 
   @include page-container;
@@ -8,19 +8,19 @@
   @include grid-template;
 }
 
-.Title {
+.title {
   font-size: 60px;
   margin-bottom: 85px;
   grid-area: title;
 }
 
-.Buttons {
+.buttons {
   display: flex;
   justify-content: space-between;
   grid-area: actions;
 }
 
-.ForumModal {
+.forumModal {
   width: 830px;
   height: 463px;
 }

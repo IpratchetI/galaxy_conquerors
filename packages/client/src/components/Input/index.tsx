@@ -46,7 +46,7 @@ export const Input = (props: InputProps) => {
 	});
 
 	const mods = {
-		[s.Textarea]: isTextarea
+		[s.textarea]: isTextarea
 	};
 
 	// todo: update
@@ -57,18 +57,18 @@ export const Input = (props: InputProps) => {
 	}, []);
 
 	return (
-		<div className={s.InputWrapper}>
-			<label className={s.Label} htmlFor={name}>
+		<div className={s.inputWrapper}>
+			<label className={s.label} htmlFor={name}>
 				{children}
 			</label>
 			<InputTag
 				ref={textareaRef}
 				{...otherProps}
-				className={classNames(s.Input, mods, className)}
+				className={classNames(s.input, mods, className)}
 				onChange={handleChange}
 				value={value}
 			/>
-			{error && <span className={s.ValidationError}>Value is not valid</span>}
+			{error && <span className={s.validationError}>Value is not valid</span>}
 		</div>
 	);
 };

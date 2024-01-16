@@ -22,13 +22,13 @@ export const Button = (props: ButtonProps) => {
 	} = props;
 
 	const mods = {
-		[s.Text]: variant === ButtonVariant.TEXT,
-		[s.Default]: variant === ButtonVariant.DEFAULT
+		[s.text]: variant === ButtonVariant.TEXT,
+		[s.default]: variant === ButtonVariant.DEFAULT
 	};
 
 	return (
-		<button {...otherProps} className={classNames(s.Button, mods, className)} type={type}>
-			<span className={s.SelectIcon}>{variant === ButtonVariant.TEXT && <SelectIcon />}</span>
+		<button {...otherProps} className={classNames(s.button, mods, className)} type={type}>
+			<span className={s.selectIcon}>{variant === ButtonVariant.TEXT && <SelectIcon />}</span>
 			{children}
 		</button>
 	);

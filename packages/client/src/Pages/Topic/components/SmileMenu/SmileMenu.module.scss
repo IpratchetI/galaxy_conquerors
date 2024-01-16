@@ -1,23 +1,20 @@
 @import 'src/style/main';
 
-.SmileMenuButton,
-.Smile {
+.smileMenuButton,
+.smile {
   cursor: pointer;
   background: transparent;
   padding: 0;
   border: 0;
 }
 
-.SmileMenuWrapper {
+.smileMenuWrapper {
   position: absolute;
   bottom: -15px;
   right: 15px;
-  align-items: flex-end;
-
-  @include flex-column;
 }
 
-.OpenedMenu {
+.openedMenu {
   width: 100%;
   max-width: 160px;
   display: grid;
@@ -28,7 +25,7 @@
   padding: 10px;
   border-radius: 10px;
 
-  .Smile {
+  .smile {
     vertical-align: center;
     font-size: var(--font-size-20);
     padding: 0 5px 5px;
@@ -40,6 +37,6 @@
   }
 }
 
-.SelectedReaction {
+.selectedReaction {
   font-size: var(--font-size-30);
 }

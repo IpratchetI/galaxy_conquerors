@@ -18,15 +18,15 @@ export const ForumPage = () => {
 	};
 
 	return (
-		<div className={s.ForumPage}>
-			<h2 className={s.Title}>Forum</h2>
+		<div className={s.forumPage}>
+			<h2 className={s.title}>Forum</h2>
 			<TopicsList topics={TOPICS_LIST} />
-			<div className={s.Buttons}>
+			<div className={s.buttons}>
 				<Button onClick={handleHistoryBack}>Back</Button>
 				<Button onClick={handleOpenTopicCreator}>Add new theme</Button>
 			</div>
 
-			<Modal className={s.ForumModal} isOpen={isModalOpen} onClose={handleOpenTopicCreator}>
+			<Modal className={s.forumModal} isOpen={isModalOpen} onClose={handleOpenTopicCreator}>
 				<NewTopicForm onClick={handleOpenTopicCreator} />
 			</Modal>
 		</div>

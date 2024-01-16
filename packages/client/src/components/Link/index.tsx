@@ -1,4 +1,4 @@
-// todo: заменить на router Index
+// todo: заменить на router Link
 import s from './index.module.scss';
 import { AnchorHTMLAttributes } from 'react';
 import classNames from 'classnames';
@@ -18,7 +18,7 @@ export const Link = (props: LinkProps) => {
 	};
 
 	return (
-		<a {...otherProps} className={classNames(s.Link, className)} href={createPath()}>
+		<a {...otherProps} className={classNames(s.link, className)} href={createPath()}>
 			{children}
 		</a>
 	);

@@ -4,6 +4,7 @@ import s from './Comment.module.scss';
 import { IComment } from '@models/types/topics';
 import { CURRENT_USER_ID, USERS } from '../../lib/constants';
 import { SmileMenu } from '../SmileMenu/SmileMenu';
+import { Spacer } from '@/components';
 
 type CommentProps = IComment;
 
@@ -16,18 +17,18 @@ export const Comment = (props: CommentProps) => {
 	}, []);
 
 	const mods = {
-		[s.CurrentUserComment]: isMainComment
+		[s.currentUserComment]: isMainComment
 	};
 
 	return (
-		<div className={s.CommentsWrapper}>
+		<Spacer direction="column" className={s.commentsWrapper}>
 			{messages.map(({ id, text }, i) => (
-				<div key={id} className={classNames(s.Comment, mods)}>
-					{i === 0 && <span className={s.Author}>{authorName}</span>}
-					<span className={s.Text}>{text}</span>
+				<Spacer direction="column" align="start" key={id} className={classNames(s.comment, mods)}>
+					{i === 0 && <span className={s.author}>{authorName}</span>}
+					<span className={s.text}>{text}</span>
 					{!isMainComment && <SmileMenu />}
-				</div>
+				</Spacer>
 			))}
-		</div>
+		</Spacer>
 	);
 };
