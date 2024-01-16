@@ -14,7 +14,7 @@ export const abbreviateNumber = (number: number, decPlaces: number): string => {
 		if (size <= number) {
 			number = Math.round((number * decPlaces) / size) / decPlaces;
 
-			if (number === 1000 && i < abbrev.length - 1) {
+			if (number === abbreviateThreshold && i < abbrev.length - 1) {
 				number = 1;
 				i++;
 			}
