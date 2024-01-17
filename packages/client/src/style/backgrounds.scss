@@ -3,8 +3,8 @@
   background-size: cover;
 }
 @mixin leederBoard-background {
-  background: url('@assets/img/leederBoard.png');
-  background-size: cover;
+  background: url('@assets/img/leaderBoard.png');
+  @include background;
 }
 
 @mixin main-background {
