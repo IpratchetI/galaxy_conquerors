@@ -14,11 +14,7 @@ function App() {
 
 		fetchServerData()
 	}, [])
-	return (
-		<div className="App">
-			<LeaderBoard />
-		</div>
-	)
+	return <div className="App">Приложение будет тут</div>
 }
 
 export default App

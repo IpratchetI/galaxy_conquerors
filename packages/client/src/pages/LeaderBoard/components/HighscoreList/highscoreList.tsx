@@ -15,7 +15,7 @@ export const HighscoreList: React.FC = () => {
 		<div className={s.highscoreListContainer}>
 			<ul className={s.highscoreList}>
 				{mockHighscores.map((entry, index) => (
-					<li key={index}>{`${entry.username}: ${entry.score}`}</li>
+					<li key={index}>{`${entry.username}: ${entry.score}`} pts</li>
 				))}
 			</ul>
 		</div>
