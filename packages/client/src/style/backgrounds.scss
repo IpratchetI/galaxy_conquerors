@@ -2,3 +2,7 @@
   background: url('@assets/img/main.png') no-repeat;
   background-size: cover;
 }
+@mixin leederBoard-background {
+  background: url('@assets/img/leederBoard.png') no-repeat;
+  background-size: cover;
+}

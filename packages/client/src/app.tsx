@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import Main from './pages/Main'
+import { LeaderBoard } from './pages/LeaderBoard'
 import './app.css'
 
 function App() {
@@ -15,8 +16,7 @@ function App() {
 	}, [])
 	return (
 		<div className="App">
-			Приложение будет тут
-			<Main />
+			<LeaderBoard />
 		</div>
 	)
 }
