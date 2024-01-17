@@ -6,10 +6,10 @@ type Props = {
 
 // TODO: компонент кнопки
 export const Button = (props: Props) => {
-	const { children, onClick } = props
+	const { children, onClick, className } = props
 
 	return (
-		<button type="button" onClick={onClick}>
+		<button className={className} type="button" onClick={onClick}>
 			{children}
 		</button>
 	)

@@ -1,4 +1,5 @@
 import React from 'react'
+import s from './highscoreList.module.scss'
 
 const mockHighscores = [
 	{ username: '#playerName1', score: 19000 },
@@ -11,10 +12,12 @@ const mockHighscores = [
 
 export const HighscoreList: React.FC = () => {
 	return (
-		<ul>
-			{mockHighscores.map((entry, index) => (
-				<li key={index}>{`${entry.username}: ${entry.score}`}</li>
-			))}
-		</ul>
+		<div className={s.highscoreListContainer}>
+			<ul className={s.highscoreList}>
+				{mockHighscores.map((entry, index) => (
+					<li key={index}>{`${entry.username}: ${entry.score}`}</li>
+				))}
+			</ul>
+		</div>
 	)
 }

@@ -9,12 +9,12 @@ export const LeaderBoard: React.FC = () => {
 	}
 
 	return (
-		<div className={s.highscorePage}>
-			<h2 className={s.title}>Highscore</h2>
+		<div className={s.leaderboardPage}>
+			<h2 className={s.leaderboardTitle}>Highscore</h2>
 			<div className={s.highscoreList}>
 				<HighscoreList />
 			</div>
-			<Button className={s.btn} onClick={handleHistoryBack}>
+			<Button className={s.button} onClick={handleHistoryBack}>
 				Back
 			</Button>
 		</div>
