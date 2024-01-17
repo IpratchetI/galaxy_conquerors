@@ -3,6 +3,7 @@ import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 import { UserModel } from '@models/UserModel';
 import { regInputsConfig, regInputsDefaults } from '@pages/Registration/constants';
+import { FormCard } from '@components/FormCard';
 
 import '@styles/main.scss';
 import { Spacer } from '@/components';
@@ -21,24 +22,20 @@ export const Registration = () => {
 
 	return (
 		<main className={styles.registration}>
-			<section className={styles.formCard}>
-				<div className={styles.header}>
-					<p className={styles.title}>Registration</p>
-				</div>
-				<div className={styles.content}>
-					<form>
-						{regInputsConfig.map(({ fieldName, label }) => (
-							<Input {...register(fieldName)}>{label}</Input>
-						))}
-					</form>
-				</div>
-				<Spacer justify="between" className={styles.footer}>
-					<Button className={styles.registrationButton} onClick={() => submitHandler(getValues())}>
-						Register
-					</Button>
-					<Button className={styles.registrationButton}>Back</Button>
-				</Spacer>
-			</section>
+			<FormCard
+				header={<p className={styles.title}>Registration</p>}
+				footer={
+					<>
+						<Button title={'Register'} onClick={() => submitHandler(getValues())} />
+						<Button title={'Back'} />
+					</>
+				}>
+				<form>
+					{regInputsConfig.map(({ fieldName, label }) => (
+						<Input key={fieldName} label={label} {...register(fieldName)} />
+					))}
+				</form>
+			</FormCard>
 		</main>
 	);
 };

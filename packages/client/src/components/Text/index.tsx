@@ -19,7 +19,7 @@ interface TextProps {
 	size?: TextSize;
 }
 
-export const Text = memo((props: TextProps) => {
+export const Text = memo(function Text(props: TextProps) {
 	const { className, children, tag = 'p', variant = 'normal', align = 'left', size = 'm' } = props;
 
 	return createElement(
