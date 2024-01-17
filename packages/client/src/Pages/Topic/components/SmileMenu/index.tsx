@@ -1,5 +1,5 @@
 import SmileMenuIcon from '../SmileMenu/SmileMenu.svg';
-import s from './SmileMenu.module.scss';
+import s from './index.module.scss';
 import { useState } from 'react';
 import { SMILES } from '../../lib/constants';
 import { Button, Spacer } from '@/components';

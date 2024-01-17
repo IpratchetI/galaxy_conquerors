@@ -1,8 +1,8 @@
 import s from './index.module.scss';
 import { Button } from '@components/Button';
-import { MessageForm } from './components/MessageForm/MessageForm';
+import { MessageForm } from './components/MessageForm';
 import { COMMENTS_LIST } from './lib/mocks';
-import { Comment } from './components/Comment/Comment';
+import { Comment } from './components/Comment';
 
 export const TopicPage = () => {
 	const handleHistoryBack = () => {

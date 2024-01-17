@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import classNames from 'classnames';
-import s from './Comment.module.scss';
+import s from './index.module.scss';
 import { IComment } from '@models/types/topics';
 import { CURRENT_USER_ID } from '../../lib/constants';
 import { USERS } from '../../lib/mocks';
-import { SmileMenu } from '../SmileMenu/SmileMenu';
+import { SmileMenu } from '../SmileMenu';
 import { Spacer } from '@/components';
 
 type CommentProps = IComment;

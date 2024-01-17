@@ -1,6 +1,5 @@
-import s from './NewTopicForm.module.scss';
+import s from './index.module.scss';
 import { Button, ButtonVariant } from '@components/Button';
-import { MouseEvent } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Input } from '@components/Input';
 import { Spacer } from '@/components';

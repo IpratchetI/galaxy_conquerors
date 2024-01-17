@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import s from './MessageForm.module.scss';
+import s from './index.module.scss';
 import { useImperativeHandle, KeyboardEvent, useRef } from 'react';
 import { Input } from '@components/Input';
 

@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { Topics } from '@models/types/topics';
-import s from './TopicsList.module.scss';
+import s from './index.module.scss';
 import { Link } from '@components/Link';
-import { TopicsHeader } from '../TopicsHeader/TopicsHeader';
+import { TopicsHeader } from '../TopicsHeader';
 import { abbreviateNumber } from '@/utils/abbreviateNumber';
 import { TOPICS_PATH } from '@pages/Forum/lib/constants';
 
