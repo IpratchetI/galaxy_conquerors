@@ -18,15 +18,3 @@ $minGap: 25px;
 .highscoreList li {
   margin-bottom: $minGap;
 }
-
-@media (min-width: 768px) {
-  .highscoreList li {
-    margin-bottom: calc((100vw - 768px) * 0.1 + $minGap);
-  }
-}
-
-@media (min-width: 1024px) {
-  .highscoreList li {
-    margin-bottom: calc((100vw - 1024px) * 0.1 + $minGap);
-  }
-}

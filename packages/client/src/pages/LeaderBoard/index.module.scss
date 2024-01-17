@@ -1,3 +1,4 @@
+// index.module.scss
 @import 'src/style/main';
 @import '../../style/backgrounds';
 
@@ -6,6 +7,9 @@
   padding: 85px 104px;
   min-height: 100vh;
   min-width: 100vw;
+  max-height: 100vh;
+  max-width: 100vw;
+  overflow: hidden;
 
   .leaderboardTitle {
     font-size: $font-size-60;
@@ -21,6 +25,9 @@
     font-size: $font-size-30;
     width: 260px;
     height: 70px;
+    position: absolute;
+    bottom: 65px;
+    left: 104px;
     display: flex;
     justify-content: center;
     align-items: center;
