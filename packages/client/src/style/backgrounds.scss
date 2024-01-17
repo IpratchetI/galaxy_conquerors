@@ -2,6 +2,10 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+@mixin leederBoard-background {
+  background: url('@assets/img/leaderBoard.png');
+  @include background;
+}
 
 @mixin main-background {
   background: url('@assets/img/main.png');
