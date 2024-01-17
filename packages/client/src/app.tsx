@@ -1,5 +1,6 @@
-import { useEffect } from 'react'
-import Main from './pages/Main'
+import { useEffect, useState } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
+import { ErrorPage } from '@pages/Error'
 import './app.css'
 
 function App() {
@@ -13,7 +14,16 @@ function App() {
 
 		fetchServerData()
 	}, [])
-	return <div className="App">Приложение будет тут</div>
+
+	return (
+		<ErrorBoundary
+			fallback={<ErrorPage type="common" />}
+			onError={(error, info) => {
+				console.error({ error, info })
+			}}>
+			<div className="App">Вот тут будет жить ваше приложение :)</div>
+		</ErrorBoundary>
+	)
 }
 
 export default App

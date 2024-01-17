@@ -12,7 +12,7 @@ export const ErrorPage = ({ type = '404' }: { type?: ErrorType }) => {
 			<Spacer direction="column" gap="80">
 				<Spacer direction="column" gap="50">
 					<Text size="xxl">{title}</Text>
-					<Text size="xl" align="center">
+					<Text size={type === 'common' ? 'l' : 'xl'} align="center">
 						{description}
 					</Text>
 				</Spacer>
