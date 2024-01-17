@@ -1,0 +1,46 @@
+// index.module.scss
+@import 'src/style/main';
+@import '../../style/backgrounds';
+
+.leaderboardPage {
+  @include leederBoard-background;
+  padding: 85px 104px;
+  min-height: 100vh;
+  min-width: 100vw;
+  max-height: 100vh;
+  max-width: 100vw;
+  overflow: hidden;
+
+  .leaderboardTitle {
+    font-size: $font-size-60;
+    margin-bottom: 85px;
+    grid-area: title;
+  }
+
+  .button {
+    background-color: $sky;
+    border: none;
+    border-radius: 10px;
+    color: var(--white);
+    font-size: $font-size-30;
+    width: 260px;
+    height: 70px;
+    position: absolute;
+    bottom: 65px;
+    left: 104px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $white;
+      color: $sky;
+    }
+
+    &:active {
+      background-color: $white;
+      color: $sky;
+    }
+  }
+}
