@@ -1,0 +1,20 @@
+@import 'src/style/main';
+
+$minGap: 25px;
+
+.highscoreListContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: $minGap;
+}
+
+.highscoreList {
+  list-style: none;
+  padding: 0;
+  font-size: $font-size-45;
+}
+
+.highscoreList li {
+  margin-bottom: $minGap;
+}
