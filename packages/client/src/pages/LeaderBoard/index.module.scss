@@ -1,22 +1,15 @@
-// @import '../../style/backgrounds';
-// @import 'src/style/main';
-
-// .background {
-//   @include leederBoard-background;
-// }
 @import 'src/style/main';
 @import '../../style/backgrounds';
 
 .highscorePage {
   @include leederBoard-background;
-  // @include grid-template;
   padding: 85px 104px;
   min-height: 100vh;
   min-width: 100vw;
 }
 
 .title {
-  font-size: 60px;
+  font-size: $font-size-60;
   margin-bottom: 85px;
   grid-area: title;
 }
@@ -29,9 +22,4 @@
 //   height: 70px;
 //   border-radius: 10px;
 //   background: $sky;
-// }
-
-// .ForumModal {
-//   width: 830px;
-//   height: 463px;
 // }
