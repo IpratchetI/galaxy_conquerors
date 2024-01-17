@@ -1,11 +1,13 @@
-import React from 'react'
-import { Link, Spacer, Text } from '@/components'
-import { ErrorType } from './types'
-import { errorContent } from './constants'
-import styles from './index.module.scss'
+import React from 'react';
+
+import { Link, Spacer, Text } from '@/components';
+
+import { ErrorType } from './types';
+import { errorContent } from './constants';
+import styles from './index.module.scss';
 
 export const ErrorPage = ({ type = '404' }: { type?: ErrorType }) => {
-	const { title, description } = errorContent[type]
+	const { title, description } = errorContent[type];
 
 	return (
 		<main className={styles.background}>
@@ -23,5 +25,5 @@ export const ErrorPage = ({ type = '404' }: { type?: ErrorType }) => {
 				</Link>
 			</Spacer>
 		</main>
-	)
-}
+	);
+};

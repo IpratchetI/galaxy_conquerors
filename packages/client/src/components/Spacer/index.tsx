@@ -1,64 +1,53 @@
-import { ReactNode } from 'react'
-import { classnames } from '@/utils/classnames'
-import styles from './index.module.scss'
+import { ReactNode } from 'react';
 
-export type FlexJustify = 'center' | 'start' | 'end' | 'between'
-export type FlexAlign = 'center' | 'start' | 'end'
-export type FlexDirection = 'row' | 'column'
-export type FlexWrap = 'wrap' | 'nowrap'
-export type FlexSpaceVariants =
-	| '2'
-	| '4'
-	| '6'
-	| '8'
-	| '12'
-	| '16'
-	| '20'
-	| '26'
-	| '28'
-	| '30'
-	| '40'
-	| '50'
-	| '80'
+import { classnames } from '@/utils/classnames';
+
+import styles from './index.module.scss';
+
+export type FlexJustify = 'center' | 'start' | 'end' | 'between';
+export type FlexAlign = 'center' | 'start' | 'end';
+export type FlexDirection = 'row' | 'column';
+export type FlexWrap = 'wrap' | 'nowrap';
+export type FlexSpaceVariants = '2' | '4' | '6' | '8' | '12' | '16' | '20' | '26' | '28' | '30' | '40' | '50' | '80';
 
 type Props = {
-	className?: string
-	children: ReactNode
-	justify?: FlexJustify
-	align?: FlexAlign
-	direction?: FlexDirection
-	gap?: FlexSpaceVariants
-	spaceTop?: FlexSpaceVariants
-	spaceBottom?: FlexSpaceVariants
-	spaceRight?: FlexSpaceVariants
-	spaceLeft?: FlexSpaceVariants
-	wrap?: FlexWrap
-	fullHeight?: boolean
-	fullWidth?: boolean
-}
+	className?: string;
+	children: ReactNode;
+	justify?: FlexJustify;
+	align?: FlexAlign;
+	direction?: FlexDirection;
+	gap?: FlexSpaceVariants;
+	spaceTop?: FlexSpaceVariants;
+	spaceBottom?: FlexSpaceVariants;
+	spaceRight?: FlexSpaceVariants;
+	spaceLeft?: FlexSpaceVariants;
+	wrap?: FlexWrap;
+	fullHeight?: boolean;
+	fullWidth?: boolean;
+};
 
 const justifyClasses = {
 	start: styles.justifyStart,
 	end: styles.justifyEnd,
 	between: styles.justifyBetween,
 	center: styles.justifyCenter
-}
+};
 
 const alignClasses = {
 	start: styles.alignStart,
 	end: styles.alignEnd,
 	center: styles.alignCenter
-}
+};
 
 const directionClasses = {
 	row: styles.directionRow,
 	column: styles.directionColumn
-}
+};
 
 const wrapClasses = {
 	wrap: styles.wrap,
 	nowrap: styles.nowrap
-}
+};
 
 const gapClasses = {
 	2: styles.gap2,
@@ -74,7 +63,7 @@ const gapClasses = {
 	40: styles.gap40,
 	50: styles.gap50,
 	80: styles.gap80
-}
+};
 
 const spaceTopClasses = {
 	2: styles.spaceTop2,
@@ -90,7 +79,7 @@ const spaceTopClasses = {
 	40: styles.spaceTop40,
 	50: styles.spaceTop50,
 	80: styles.spaceTop80
-}
+};
 
 const spaceBottomClasses = {
 	2: styles.spaceBottom2,
@@ -106,7 +95,7 @@ const spaceBottomClasses = {
 	40: styles.spaceBottom40,
 	50: styles.spaceBottom50,
 	80: styles.spaceBottom80
-}
+};
 
 const spaceRightClasses = {
 	2: styles.spaceRight2,
@@ -122,7 +111,7 @@ const spaceRightClasses = {
 	40: styles.spaceRight40,
 	50: styles.spaceRight50,
 	80: styles.spaceRight80
-}
+};
 
 const spaceLeftClasses = {
 	2: styles.spaceLeft2,
@@ -138,7 +127,7 @@ const spaceLeftClasses = {
 	40: styles.spaceLeft40,
 	50: styles.spaceLeft50,
 	80: styles.spaceLeft80
-}
+};
 
 export const Spacer = (props: Props) => {
 	const {
@@ -156,7 +145,7 @@ export const Spacer = (props: Props) => {
 		fullHeight,
 		fullWidth,
 		...otherProps
-	} = props
+	} = props;
 
 	const classes = [
 		className,
@@ -171,16 +160,16 @@ export const Spacer = (props: Props) => {
 		spaceLeft && spaceLeftClasses[spaceLeft],
 		spaceRight && spaceRightClasses[spaceRight],
 		wrapClasses[wrap]
-	]
+	];
 
 	const mods = {
 		[styles.fullHeight]: fullHeight,
 		[styles.fullWidth]: fullWidth
-	}
+	};
 
 	return (
 		<div className={classnames(styles.flex, mods, classes)} {...otherProps}>
 			{children}
 		</div>
-	)
-}
+	);
+};
