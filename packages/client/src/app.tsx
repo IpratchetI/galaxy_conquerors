@@ -22,7 +22,7 @@ function App() {
 			onError={(error, info) => {
 				console.error({ error, info });
 			}}>
-			<div className="App">Здесь будет приложение</div>
+			<div className="App">Вот тут будет жить ваше приложение :)</div>
 		</ErrorBoundary>
 	);
 }
