@@ -18,7 +18,7 @@
   }
 
   .button {
-    background-color: $sky;
+    background-color: var(--sky);
     border: none;
     border-radius: 10px;
     color: var(--white);
@@ -34,13 +34,13 @@
     cursor: pointer;
 
     &:hover {
-      background-color: $white;
-      color: $sky;
+      background-color: var(--white);
+      color: var(--sky);
     }
 
     &:active {
-      background-color: $white;
-      color: $sky;
+      background-color: var(--white);
+      color: var(--sky);
     }
   }
 }
