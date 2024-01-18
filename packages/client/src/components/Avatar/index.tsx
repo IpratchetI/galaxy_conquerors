@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@components/Button';
 import axios from 'axios';
 
+import { Spacer } from '@/components';
+
 import styles from './index.module.scss';
 
 interface AvatarProps {
@@ -78,23 +80,25 @@ const Avatar: React.FC<AvatarProps> = ({ avatarUrl }) => {
 	}, []);
 
 	return (
-		<div className={styles.avatarContainer} ref={avatarRef} onClick={handleAvatarClick}>
-			<div className={styles.avatarMock} style={{ backgroundImage: `url(${avatarUrl})` }}></div>
-			{isOverlayVisible && <div className={styles.overlay}></div>}
-			{isPopupOpen && (
-				<div className={styles.avatarPopup} onClick={e => e.stopPropagation()}>
-					<Button onClick={handleImageClick} title={'Image'} />
-					<Button onClick={handleBackClick} title={'Back'} />
-					<input
-						type="file"
-						ref={fileInputRef}
-						style={{ display: 'none' }}
-						onChange={handleFileChange}
-						accept=".jpeg, .jpg, .png, .gif, .webp"
-					/>
-				</div>
-			)}
-		</div>
+		<Spacer direction="column" fullHeight gap="20">
+			<div className={styles.avatarContainer} ref={avatarRef} onClick={handleAvatarClick}>
+				<div className={styles.avatarMock} style={{ backgroundImage: `url(${avatarUrl})` }}></div>
+				{isOverlayVisible && <div className={styles.overlay}></div>}
+				{isPopupOpen && (
+					<div className={styles.avatarPopup} onClick={e => e.stopPropagation()}>
+						<Button onClick={handleImageClick} title={'Image'} />
+						<Button onClick={handleBackClick} title={'Back'} />
+						<input
+							type="file"
+							ref={fileInputRef}
+							style={{ display: 'none' }}
+							onChange={handleFileChange}
+							accept=".jpeg, .jpg, .png, .gif, .webp"
+						/>
+					</div>
+				)}
+			</div>
+		</Spacer>
 	);
 };
 

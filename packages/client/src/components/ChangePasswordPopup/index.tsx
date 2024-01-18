@@ -51,7 +51,7 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({ onClose }) =>
 	};
 
 	return (
-		<Spacer direction="column" fullHeight gap="80">
+		<Spacer direction="column" fullHeight gap="20">
 			<div className={styles.changePasswordPopup} onClick={handlePopupClick}>
 				<Input type="password" label="Old Password" name="oldPassword" onChange={handleInputChange} />
 				<Input type="password" label="New Password" name="newPassword" onChange={handleInputChange} />

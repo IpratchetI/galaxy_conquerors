@@ -6,6 +6,7 @@ import { Input } from '@components/Input';
 import ChangePasswordPopup from '@components/ChangePasswordPopup';
 
 import Avatar from '@/components/Avatar';
+import { Spacer } from '@/components';
 
 import styles from './index.module.scss';
 
@@ -94,64 +95,66 @@ const Profile = () => {
 
 	return (
 		<main className={styles.background}>
-			<div className={styles.profileContainer}>
-				<Avatar avatarUrl={avatarUrl} />
-				<div className={styles.profileForm}>
-					<Text tag="h1" size="m" align="center" className={styles.title}>
-						{'Profile'}
-					</Text>
-					<Input
-						type="text"
-						label="First Name"
-						name="firstName"
-						value={profileData.firstName}
-						onChange={e => handleInputChange('firstName', e.target.value)}
-					/>
-					<Input
-						type="text"
-						label="Second Name"
-						name="secondName"
-						value={profileData.secondName}
-						onChange={e => handleInputChange('secondName', e.target.value)}
-					/>
-					<Input
-						type="email"
-						label="Email"
-						name="email"
-						value={profileData.email}
-						onChange={e => handleInputChange('email', e.target.value)}
-					/>
-					<Input
-						type="tel"
-						label="Phone"
-						name="phone"
-						value={profileData.phone}
-						onChange={e => handleInputChange('phone', e.target.value)}
-					/>
-					<Input
-						type="text"
-						label="Login"
-						name="login"
-						value={profileData.login}
-						onChange={e => handleInputChange('login', e.target.value)}
-					/>
-					<div className={styles.buttonsContainer}>
-						<Button
-							type="button"
-							className={styles.buttonWide}
-							onClick={handleOpenPasswordPopup}
-							title="Change Password"
+			<Spacer direction="column" fullHeight gap="20">
+				<div className={styles.profileContainer}>
+					<Avatar avatarUrl={avatarUrl} />
+					<div className={styles.profileForm}>
+						<Text tag="h1" size="m" align="center" className={styles.title}>
+							{'Profile'}
+						</Text>
+						<Input
+							type="text"
+							label="First Name"
+							name="firstName"
+							value={profileData.firstName}
+							onChange={e => handleInputChange('firstName', e.target.value)}
 						/>
-						<Button type="submit" className={styles.button} onClick={handleSaveProfile} title="Save" />
-						<Button type="button" className={styles.button} onClick={handleBack} title="Back" />
+						<Input
+							type="text"
+							label="Second Name"
+							name="secondName"
+							value={profileData.secondName}
+							onChange={e => handleInputChange('secondName', e.target.value)}
+						/>
+						<Input
+							type="email"
+							label="Email"
+							name="email"
+							value={profileData.email}
+							onChange={e => handleInputChange('email', e.target.value)}
+						/>
+						<Input
+							type="tel"
+							label="Phone"
+							name="phone"
+							value={profileData.phone}
+							onChange={e => handleInputChange('phone', e.target.value)}
+						/>
+						<Input
+							type="text"
+							label="Login"
+							name="login"
+							value={profileData.login}
+							onChange={e => handleInputChange('login', e.target.value)}
+						/>
+						<div className={styles.buttonsContainer}>
+							<Button
+								type="button"
+								className={styles.buttonWide}
+								onClick={handleOpenPasswordPopup}
+								title="Change Password"
+							/>
+							<Button type="submit" className={styles.button} onClick={handleSaveProfile} title="Save" />
+							<Button type="button" className={styles.button} onClick={handleBack} title="Back" />
+						</div>
 					</div>
 				</div>
-			</div>
-			{isChangePasswordPopupOpen && (
-				<div className={styles.overlay} onClick={handleClosePasswordPopup}>
-					<ChangePasswordPopup onClose={handleClosePasswordPopup} />
-				</div>
-			)}
+				{isChangePasswordPopupOpen && (
+					<div className={styles.overlay} onClick={handleClosePasswordPopup}>
+						<ChangePasswordPopup onClose={handleClosePasswordPopup} />
+					</div>
+				)}
+			</Spacer>
 		</main>
 	);
 };
