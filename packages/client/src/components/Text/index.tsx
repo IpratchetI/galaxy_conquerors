@@ -25,7 +25,12 @@ export const Text = memo((props: TextProps) => {
 	return createElement(
 		tag as string,
 		{
-			className: classnames(styles.text, {}, [className, styles[variant], styles[align], styles[size]])
+			className: classnames(styles.text, {}, [
+				className,
+				styles[variant],
+				styles[align],
+				styles[size]
+			])
 		},
 		children
 	);

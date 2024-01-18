@@ -1,18 +1,26 @@
-import React, { ForwardedRef, forwardRef, HTMLAttributes, Ref } from 'react';
+// todo: заменить на router Link
+import { AnchorHTMLAttributes } from 'react';
+import classNames from 'classnames';
 
-import styles from './index.module.scss';
+import s from './index.module.scss';
 
-type Props = {
-	path?: string;
-} & HTMLAttributes<HTMLDivElement>;
+export type LinkProps = {
+	onClick?: () => void;
+	params?: Record<string, string>;
+} & AnchorHTMLAttributes<HTMLAnchorElement>;
 
-export const Link = forwardRef((props: Props, ref: ForwardedRef<HTMLDivElement | null>) => {
-	const { children } = props;
+export const Link = (props: LinkProps) => {
+	const { children, href, onClick, className, params, ...otherProps } = props;
 
-	// TODO: заменить div на компонент Link из react-router-dom после подключения роутера, пока кидает ошибку
+	const createPath = () => {
+		const queryParams = new URLSearchParams(params);
+		onClick?.();
+		return window.location.origin + href + queryParams;
+	};
+
 	return (
-		<div {...props} ref={ref as Ref<HTMLDivElement>} className={styles.link}>
+		<a {...otherProps} className={classNames(s.link, className)} href={createPath()}>
 			{children}
-		</div>
+		</a>
 	);
-});
+};

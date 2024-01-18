@@ -5,6 +5,8 @@ import { UserModel } from '@models/UserModel';
 import { regInputsConfig, regInputsDefaults } from '@pages/Registration/constants';
 
 import '@styles/main.scss';
+import { Spacer } from '@/components';
+
 import styles from './Registration.module.scss';
 
 /**Страница регистрации нового пользователя */
@@ -26,14 +28,16 @@ export const Registration = () => {
 				<div className={styles.content}>
 					<form>
 						{regInputsConfig.map(({ fieldName, label }) => (
-							<Input {...register(fieldName)} label={label} />
+							<Input {...register(fieldName)}>{label}</Input>
 						))}
 					</form>
 				</div>
-				<div className={styles.footer}>
-					<Button title={'Register'} onClick={() => submitHandler(getValues())} />
-					<Button title={'Back'} />
-				</div>
+				<Spacer justify="between" className={styles.footer}>
+					<Button className={styles.registrationButton} onClick={() => submitHandler(getValues())}>
+						Register
+					</Button>
+					<Button className={styles.registrationButton}>Back</Button>
+				</Spacer>
 			</section>
 		</main>
 	);
