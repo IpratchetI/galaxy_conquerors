@@ -1,0 +1,51 @@
+.changePasswordPopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--white);
+  border: 1px solid var(--black);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px var(--black-50);
+  z-index: 1000;
+  width: 700px;
+  height: 400px;
+  text-align: center;
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 45px;
+}
+
+.button {
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--black);
+  background: var(--sky);
+  box-shadow: 0px 4px 4px 0px var(--black-50);
+  font-weight: 700;
+  font-size: 30px;
+  min-width: 275px;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: var(--white);
+  color: var(--sky);
+}
+
+.button:active {
+  box-shadow: 0 0 10px (--black-50);
+  text-shadow: 2px 2px 4px var(--black-50);
+  font-weight: bold;
+}
+
+.input {
+  margin-top: 40px;
+}
+
+.input label {
+  font-size: var(--font-size-20);
+}
