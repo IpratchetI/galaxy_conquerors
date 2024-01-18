@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 
+import { Spacer } from '@/components';
+
 import styles from './index.module.scss';
 
 interface ChangePasswordPopupProps {
@@ -14,27 +16,26 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({ onClose }) =>
 	const [newPassword, setNewPassword] = useState('');
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.target.name === 'oldPassword') {
-			setOldPassword(e.target.value);
-		} else if (e.target.name === 'newPassword') {
-			setNewPassword(e.target.value);
+		const { name, value } = e.target;
+		if (name === 'oldPassword') {
+			setOldPassword(value);
+		} else if (name === 'newPassword') {
+			setNewPassword(value);
 		}
 	};
 
 	const handleSaveClick = async () => {
 		try {
-			const response = await axios.put(
-				'https://ya-praktikum.tech/api/v2/swagger/#/Users/put_user_password',
-				{
-					oldPassword,
-					newPassword
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${ACCESS_TOKEN}` // todo: добавить токен
-					}
+			const formData = new FormData();
+			formData.append('oldPassword', oldPassword);
+			formData.append('newPassword', newPassword);
+
+			const response = await axios.put('https://ya-praktikum.tech/api/v2/swagger/#/Users/put_user_password', formData, {
+				headers: {
+					Authorization: `Bearer ${ACCESS_TOKEN}`, // todo: добавить токен
+					'Content-Type': 'multipart/form-data'
 				}
-			);
+			});
 			console.log(response.data);
 		} catch (error) {
 			console.error('Error saving password:', error);
@@ -50,26 +51,16 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({ onClose }) =>
 	};
 
 	return (
-		<div className={styles.changePasswordPopup} onClick={handlePopupClick}>
-			<Input
-				type="password"
-				label="Old Password"
-				name="oldPassword"
-				className={styles.input}
-				onChange={handleInputChange}
-			/>
-			<Input
-				type="password"
-				label="New Password"
-				name="newPassword"
-				className={styles.input}
-				onChange={handleInputChange}
-			/>
-			<div className={styles.buttonsContainer}>
-				<Button type="button" className={styles.button} onClick={handleSaveClick} title="Save" />
-				<Button type="button" className={styles.button} onClick={handleBackClick} title="Back" />
+		<Spacer direction="column" fullHeight gap="80">
+			<div className={styles.changePasswordPopup} onClick={handlePopupClick}>
+				<Input type="password" label="Old Password" name="oldPassword" onChange={handleInputChange} />
+				<Input type="password" label="New Password" name="newPassword" onChange={handleInputChange} />
+				<div className={styles.buttonsContainer}>
+					<Button type="button" onClick={handleSaveClick} title="Save" />
+					<Button type="button" onClick={handleBackClick} title="Back" />
+				</div>
 			</div>
-		</div>
+		</Spacer>
 	);
 };
 
