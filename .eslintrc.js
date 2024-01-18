@@ -29,7 +29,7 @@ module.exports = {
     'semi-style': ['warn', 'last'],
     '@typescript-eslint/no-extra-semi': ['warn'],
     'quotes': ['error', 'single'],
-    '@typescript-eslint/member-delimiter-style': ['warn' , {
+		'@typescript-eslint/member-delimiter-style': ['warn' , {
       'multiline': {
         'delimiter': 'semi',
         'requireLast': true

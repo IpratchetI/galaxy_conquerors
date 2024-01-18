@@ -20,21 +20,14 @@
   background-color: var(--white);
   border-radius: 10px;
 
-  .header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .title {
-      color: var(--white);
-      text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      font-family: 'Press Start 2P';
-      font-size: 2rem;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-      cursor: default;
-    }
+  .title {
+    color: var(--white);
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    cursor: default;
   }
 
   .content form {
@@ -47,5 +40,18 @@
     display: flex;
     justify-content: space-evenly;
     column-gap: 5rem;
+  }
+
+  .inputContainer {
+    position: relative;
+  }
+
+  .errorText {
+    position: absolute;
+    bottom: -18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
   }
 }

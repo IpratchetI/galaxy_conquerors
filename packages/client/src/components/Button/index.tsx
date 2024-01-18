@@ -1,5 +1,7 @@
 import { ButtonHTMLAttributes } from 'react';
 
+import { classnames } from '@/utils/classnames';
+
 import styles from './Button.module.scss';
 
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -7,9 +9,10 @@ interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button = (props: IButtonProps) => {
-	const { title, ...restProps } = props;
+	const { title, className, ...restProps } = props;
+
 	return (
-		<button className={styles.button} {...restProps}>
+		<button className={classnames(styles.button, {}, [className])} {...restProps}>
 			{title}
 		</button>
 	);
