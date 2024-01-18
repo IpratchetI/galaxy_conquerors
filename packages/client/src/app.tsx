@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorPage } from '@pages/Error';
-import Profile from '@pages/Profile';
 
 import './app.css';
 
@@ -23,9 +22,7 @@ function App() {
 			onError={(error, info) => {
 				console.error({ error, info });
 			}}>
-			<div className="App">
-				<Profile />
-			</div>
+			<div className="App">Здесь будет приложение</div>
 		</ErrorBoundary>
 	);
 }
