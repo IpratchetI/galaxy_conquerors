@@ -32,7 +32,7 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({ onClose }) =>
 
 			const response = await axios.put('https://ya-praktikum.tech/api/v2/swagger/#/Users/put_user_password', formData, {
 				headers: {
-					Authorization: `Bearer ${ACCESS_TOKEN}`, // todo: добавить токен
+					// Authorization: `Bearer ${ACCESS_TOKEN}`, // todo: добавить токен
 					'Content-Type': 'multipart/form-data'
 				}
 			});
