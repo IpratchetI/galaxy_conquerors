@@ -12,7 +12,7 @@ export const AppRouter = () => {
 		<Routes>
 			{/* Общие */}
 			<Route>
-				<Route path={routerPaths.login} element={<div>login</div>} key="" />
+				<Route path={routerPaths.login} element={<div>login</div>} />
 				<Route path={routerPaths.registration} element={<Registration />} />
 			</Route>
 			{/* Приватные */}
@@ -21,8 +21,8 @@ export const AppRouter = () => {
 				<Route path={routerPaths.main} element={<Main />} />
 				<Route path={routerPaths.leaderboard} element={<LeaderBoard />} />
 				<Route path={routerPaths.highScore} element={<div>highScore</div>} />
-				<Route path={routerPaths.forum} element={<div>forum</div>} key={routerPaths.forum} />
-				<Route path={routerPaths.forumTheme} element={<div>forumTheme</div>} key={routerPaths.forumTheme} />
+				<Route path={routerPaths.forum} element={<div>forum</div>} />
+				<Route path={routerPaths.forumTheme} element={<div>forumTheme</div>} />
 				<Route path={routerPaths.story} element={<div>story</div>} />
 				<Route path={routerPaths.authors} element={<div>authors</div>} />
 				<Route path={routerPaths.gamePlay} element={<div>gamePlay</div>} />
