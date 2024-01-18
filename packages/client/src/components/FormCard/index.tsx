@@ -1,18 +1,20 @@
 import { PropsWithChildren, ReactElement } from 'react';
+import { Spacer } from '@components/Spacer';
+import { Text } from '@components/Text';
 
 import styles from './FormCard.module.scss';
 
 interface IFormCardProps extends PropsWithChildren {
-	header: ReactElement;
+	text: string;
 	footer: ReactElement;
 }
 
 export const FormCard = (props: IFormCardProps) => {
 	return (
 		<section className={styles.formCard}>
-			<div className={styles.header}>{props.header}</div>
+			<Text className={styles.text}>{props.text}</Text>
 			<div className={styles.content}>{props.children}</div>
-			<div className={styles.footer}>{props.footer}</div>
+			<Spacer>{props.footer}</Spacer>
 		</section>
 	);
 };

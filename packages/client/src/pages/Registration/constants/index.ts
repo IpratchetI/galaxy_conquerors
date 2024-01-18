@@ -1,4 +1,4 @@
-import { UserModel } from '@models/UserModel';
+import { UserModel } from '@models/User';
 
 export const regInputsConfig: Array<{ fieldName: keyof UserModel; label: string }> = [
 	{ fieldName: 'first_name', label: 'first name' },

@@ -1,14 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
-import { UserModel } from '@models/UserModel';
+import { UserModel } from '@models/User';
 import { regInputsConfig, regInputsDefaults } from '@pages/Registration/constants';
 import { FormCard } from '@components/FormCard';
 
 import '@styles/main.scss';
-import { Spacer } from '@/components';
-
-import styles from './Registration.module.scss';
+import styles from './index.module.scss';
 
 /**Страница регистрации нового пользователя */
 export const Registration = () => {
@@ -23,16 +21,20 @@ export const Registration = () => {
 	return (
 		<main className={styles.registration}>
 			<FormCard
-				header={<p className={styles.title}>Registration</p>}
+				text={'Registration'}
 				footer={
 					<>
-						<Button title={'Register'} onClick={() => submitHandler(getValues())} />
-						<Button title={'Back'} />
+						<Button title={'Register'} onClick={() => submitHandler(getValues())}>
+							{'Register'}
+						</Button>
+						<Button title={'Back'}>{'Back'}</Button>
 					</>
 				}>
 				<form>
 					{regInputsConfig.map(({ fieldName, label }) => (
-						<Input key={fieldName} label={label} {...register(fieldName)} />
+						<Input key={fieldName} {...register(fieldName)}>
+							{label}
+						</Input>
 					))}
 				</form>
 			</FormCard>

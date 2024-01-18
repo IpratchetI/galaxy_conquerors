@@ -5,7 +5,6 @@ import react from '@vitejs/plugin-react';
 import dotenv from 'dotenv';
 import svgr from 'vite-plugin-svgr';
 
-// @ts-ignore
 import tsconfig from './tsconfig.paths.json';
 
 dotenv.config();

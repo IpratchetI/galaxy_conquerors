@@ -4,7 +4,7 @@ import { classnames } from '@/utils/classnames';
 
 import styles from './index.module.scss';
 
-export type FlexJustify = 'center' | 'start' | 'end' | 'between';
+export type FlexJustify = 'center' | 'start' | 'end' | 'between' | 'evenly';
 export type FlexAlign = 'center' | 'start' | 'end';
 export type FlexDirection = 'row' | 'column';
 export type FlexWrap = 'wrap' | 'nowrap';
@@ -44,7 +44,8 @@ const justifyClasses = {
 	start: styles.justifyStart,
 	end: styles.justifyEnd,
 	between: styles.justifyBetween,
-	center: styles.justifyCenter
+	center: styles.justifyCenter,
+	evenly: styles.justifyEvenly
 };
 
 const alignClasses = {
