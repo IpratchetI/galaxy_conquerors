@@ -1,8 +1,11 @@
-import SmileMenuIcon from '../SmileMenu/SmileMenu.svg';
-import s from './index.module.scss';
 import { useState } from 'react';
-import { SMILES } from '../../lib/constants';
+
 import { Button, Spacer } from '@/components';
+
+import s from './index.module.scss';
+
+import SmileMenuIcon from '../SmileMenu/SmileMenu.svg';
+import { SMILES } from '../../lib/constants';
 
 export const SmileMenu = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -24,8 +27,7 @@ export const SmileMenu = () => {
 						<Button
 							key={`smile-${i}`}
 							className={s.smile}
-							onClick={() => handlerSelectSmile(smile)}
-						>
+							onClick={() => handlerSelectSmile(smile)}>
 							{smile}
 						</Button>
 					))}

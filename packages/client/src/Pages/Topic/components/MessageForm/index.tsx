@@ -1,7 +1,8 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import s from './index.module.scss';
 import { useImperativeHandle, KeyboardEvent, useRef } from 'react';
 import { Input } from '@components/Input';
+
+import s from './index.module.scss';
 
 type FormValues = {
 	message: string;

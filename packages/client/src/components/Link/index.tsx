@@ -1,7 +1,8 @@
 // todo: заменить на router Link
-import s from './index.module.scss';
 import { AnchorHTMLAttributes } from 'react';
 import classNames from 'classnames';
+
+import s from './index.module.scss';
 
 export type LinkProps = {
 	onClick?: () => void;

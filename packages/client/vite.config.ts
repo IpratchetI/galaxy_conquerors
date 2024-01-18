@@ -1,20 +1,26 @@
+import { resolve } from 'path';
+
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import dotenv from 'dotenv';
-import path from 'path';
 import svgr from 'vite-plugin-svgr';
+
+// @ts-ignore
+import tsconfig from './tsconfig.paths.json';
+
 dotenv.config();
 
 // https://vitejs.dev/config/
 export default defineConfig({
 	resolve: {
 		alias: {
-			'@': path.resolve(__dirname, './src'),
-			'@styles': path.resolve(__dirname, './src/styles'),
-			'@pages': path.resolve(__dirname, './src/pages'),
-			'@models': path.resolve(__dirname, './src/models'),
-			'@components': path.resolve(__dirname, './src/components'),
-			'@assets': path.resolve(__dirname, './src/assets')
+			...Object.fromEntries(
+				// Отсекаем "/*" с конца путей из tsconfig'а
+				Object.entries(tsconfig.compilerOptions.paths || []).map(([alias, [folder]]) => [
+					alias.replace(/(.*)(\/\*)$/, '$1').toString(),
+					resolve(__dirname, folder.replace(/(.*)(\/\*)$/, '$1'))
+				])
+			)
 		}
 	},
 	server: {

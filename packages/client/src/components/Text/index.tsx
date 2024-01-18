@@ -1,5 +1,7 @@
 import { memo, createElement } from 'react';
+
 import { classnames } from '@/utils/classnames';
+
 import styles from './index.module.scss';
 
 type TextVariant = 'normal' | 'selected' | 'focus';

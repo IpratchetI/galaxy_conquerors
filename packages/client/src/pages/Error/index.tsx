@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Link, Spacer, Text } from '@/components';
+
 import { ErrorType } from './types';
 import { errorContent } from './constants';
 import styles from './index.module.scss';

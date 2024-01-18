@@ -1,10 +1,13 @@
 import { useCallback } from 'react';
 import { Topics } from '@models/types/topics';
-import s from './index.module.scss';
 import { Link } from '@components/Link';
-import { TopicsHeader } from '../TopicsHeader';
-import { abbreviateNumber } from '@/utils/abbreviateNumber';
 import { TOPICS_PATH } from '@pages/Forum/lib/constants';
+
+import { abbreviateNumber } from '@/utils/abbreviateNumber';
+
+import s from './index.module.scss';
+
+import { TopicsHeader } from '../TopicsHeader';
 
 type TopicsListProps = {
 	topics?: Topics;
@@ -27,8 +30,7 @@ export const TopicsList = ({ topics }: TopicsListProps) => {
 								topicName: topic.name
 							}}
 							className={s.topic}
-							onClick={handleClick}
-						>
+							onClick={handleClick}>
 							<span className={s.topicName}>{topic.name}</span>
 							<span>{abbreviateNumber(topic.comments, 0)}</span>
 						</Link>

@@ -1,8 +1,10 @@
-import s from './index.module.scss';
 import { Button, ButtonVariant } from '@components/Button';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Input } from '@components/Input';
+
 import { Spacer } from '@/components';
+
+import s from './index.module.scss';
 
 type NewTopicFormProps = {
 	onClick(): void;
@@ -32,8 +34,7 @@ export const NewTopicForm = ({ onClick }: NewTopicFormProps) => {
 				error={errors?.topicName}
 				{...register('topicName', {
 					required: true
-				})}
-			>
+				})}>
 				Theme name
 			</Input>
 			<Spacer align="center" direction="column" gap="35">

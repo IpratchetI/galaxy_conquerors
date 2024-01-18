@@ -13,7 +13,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 11
   },
-  plugins: [ '@typescript-eslint' ],
+  plugins: [ '@typescript-eslint', 'import' ],
   rules: {
     '@typescript-eslint/ban-ts-comment': 'warn',
     '@typescript-eslint/no-unused-vars': 0,
@@ -25,8 +25,31 @@ module.exports = {
     'no-shadow': 'off',
     'comma-dangle': [ 'error', 'never' ],
     'object-curly-spacing': [ 'error', 'always' ],
-    'no-constant-condition': 'warn',
 		'max-len': ['warn', { 'code': 100, 'ignoreComments': true }],
-		'semi': ['warn', 'always']
-	}
+		'@typescript-eslint/no-var-requires': 0,
+    'no-constant-condition': 'warn',
+    'semi': ['warn', 'always', { 'omitLastInOneLineBlock': true }],
+    'semi-style': ['warn', 'last'],
+    '@typescript-eslint/no-extra-semi': ['warn'],
+    '@typescript-eslint/member-delimiter-style': ['warn' , {
+      'multiline': {
+        'delimiter': 'semi',
+        'requireLast': true
+      },
+      'singleline': {
+        'delimiter': 'semi',
+        'requireLast': false
+      },
+      'multilineDetection': 'brackets'
+    }],
+    'import/order': ['warn', {
+      'groups': ['builtin', 'external', 'internal', 'sibling', 'index', 'type'],
+      'pathGroups': [{
+        'pattern': '@/**',
+        'group': 'internal',
+        'position': 'after'
+      }],
+      'newlines-between': 'always'
+    }]
+  }
 };

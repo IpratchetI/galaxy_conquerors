@@ -1,5 +1,6 @@
-import s from './index.module.scss';
 import { Button } from '@components/Button';
+
+import s from './index.module.scss';
 import { MessageForm } from './components/MessageForm';
 import { COMMENTS_LIST } from './lib/mocks';
 import { Comment } from './components/Comment';

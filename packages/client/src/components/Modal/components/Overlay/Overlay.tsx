@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import classnames from 'classnames';
+
 import s from './Overlay.module.scss';
 
 interface OverlayProps {

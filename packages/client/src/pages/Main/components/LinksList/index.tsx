@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import classNames from 'classnames';
+
 import { Link, Text } from '@/components';
+
 import { navLinks } from './constants/mocks';
 import styles from './index.module.scss';
-import classNames from 'classnames';
 
 export const LinksList = () => {
 	const [activeLinkId, setActiveLinkId] = useState<number>(0);
@@ -58,8 +60,7 @@ export const LinksList = () => {
 						href={path}
 						className={classNames({ [styles.isActive]: id === activeLinkId })}
 						onMouseEnter={() => setActiveLinkId(id)}
-						onClick={action ? onExit : undefined}
-					>
+						onClick={action ? onExit : undefined}>
 						<Text size="l" variant={id === activeLinkId ? 'selected' : 'normal'}>
 							{text}
 						</Text>

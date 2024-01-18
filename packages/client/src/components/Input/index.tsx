@@ -1,4 +1,3 @@
-import s from './index.module.scss';
 import {
 	ChangeEvent,
 	InputHTMLAttributes,
@@ -10,6 +9,8 @@ import {
 import classNames from 'classnames';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { GlobalError } from 'react-hook-form/dist/types/errors';
+
+import s from './index.module.scss';
 import { useTextarea } from './lib/useTextarea';
 
 type InputAttrVariable = InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>;

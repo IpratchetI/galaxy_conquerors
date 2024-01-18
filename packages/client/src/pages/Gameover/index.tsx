@@ -1,9 +1,11 @@
 import { useCallback } from 'react';
-import { Link, Spacer, Text } from '@/components';
-import styles from './index.module.scss';
 import ship from '@assets/img/ship.png';
 import explosion from '@assets/img/explosion.png';
 import shot from '@assets/img/shot.png';
+
+import { Link, Spacer, Text } from '@/components';
+
+import styles from './index.module.scss';
 
 const FIRST_ROW_SHIP_COUNT = 9;
 const SECOND_ROW_SHIP_COUNT = 8;

@@ -1,6 +1,7 @@
 import classNames from 'classnames';
-import s from './index.module.scss';
 import { ReactNode } from 'react';
+
+import s from './index.module.scss';
 import { Portal } from './components/Portal/Portal';
 import { Overlay } from './components/Overlay/Overlay';
 

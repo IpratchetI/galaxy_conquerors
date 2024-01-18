@@ -1,9 +1,10 @@
-import s from './index.module.scss';
-import { TOPICS_LIST } from './lib/mocks';
-import { TopicsList } from './components/TopicsList';
 import { Button } from '@components/Button';
 import { Modal } from '@components/Modal';
 import { useState } from 'react';
+
+import s from './index.module.scss';
+import { TOPICS_LIST } from './lib/mocks';
+import { TopicsList } from './components/TopicsList';
 import { NewTopicForm } from './components/NewTopicForm';
 
 export const ForumPage = () => {
