@@ -1,0 +1,34 @@
+.topics {
+  grid-area: main;
+}
+
+.topicsList {
+  font-size: var(--font-size-30);
+  margin: 70px 0;
+}
+
+.topicItem {
+  & + & {
+    margin-top: 55px;
+  }
+
+  &:hover span,
+  &:focus span {
+    color: var(--sky);
+  }
+}
+
+.topic {
+  font-size: var(--font-size-45);
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  column-gap: 45px;
+}
+
+.topicName {
+  width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

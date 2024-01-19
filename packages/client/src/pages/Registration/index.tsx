@@ -1,11 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
-import { UserModel } from '@models/UserModel';
+import { UserModel } from '@models/User';
 import { regInputsConfig, regInputsDefaults } from '@pages/Registration/constants';
+import { FormCard } from '@components/FormCard';
 
 import '@styles/main.scss';
-import styles from './Registration.module.scss';
+import styles from './index.module.scss';
 
 /**Страница регистрации нового пользователя */
 export const Registration = () => {
@@ -19,22 +20,24 @@ export const Registration = () => {
 
 	return (
 		<main className={styles.registration}>
-			<section className={styles.formCard}>
-				<div className={styles.header}>
-					<p className={styles.title}>Registration</p>
-				</div>
-				<div className={styles.content}>
-					<form>
-						{regInputsConfig.map(({ fieldName, label }) => (
-							<Input {...register(fieldName)} label={label} />
-						))}
-					</form>
-				</div>
-				<div className={styles.footer}>
-					<Button title={'Register'} onClick={() => submitHandler(getValues())} />
-					<Button title={'Back'} />
-				</div>
-			</section>
+			<FormCard
+				text={'Registration'}
+				footer={
+					<>
+						<Button title={'Register'} onClick={() => submitHandler(getValues())}>
+							{'Register'}
+						</Button>
+						<Button title={'Back'}>{'Back'}</Button>
+					</>
+				}>
+				<form>
+					{regInputsConfig.map(({ fieldName, label }) => (
+						<Input key={fieldName} {...register(fieldName)}>
+							{label}
+						</Input>
+					))}
+				</form>
+			</FormCard>
 		</main>
 	);
 };
