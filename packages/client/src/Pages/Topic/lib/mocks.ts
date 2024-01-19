@@ -33,7 +33,9 @@ export const COMMENTS_LIST: IComment[] = [
 		messages: [
 			{
 				id: 0,
-				text: 'loooooong very veeeery looooooooooooooon super long text with numbers and some words'
+				text:
+					'loooooong very veeeery looooooooooooooon super long text' +
+					' with numbers and some words'
 			},
 			{
 				id: 1,

@@ -1,4 +1,3 @@
-/**Модель сущности Пользователь */
 export interface UserModel {
 	first_name: string;
 	second_name: string;
@@ -7,3 +6,5 @@ export interface UserModel {
 	password: string;
 	phone: string;
 }
+
+export type UserLoginModel = Pick<UserModel, 'login' | 'password'>;
