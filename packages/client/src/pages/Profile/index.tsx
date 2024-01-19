@@ -74,7 +74,7 @@ const Profile = () => {
 					<Text tag="h1" size="m" align="center" className={styles.title}>
 						{'Profile'}
 					</Text>
-					<form>
+					<form onSubmit={handleSaveProfile}>
 						{profileInputsConfig.map(({ fieldName, label }) => (
 							<Input
 								key={fieldName}
@@ -82,10 +82,13 @@ const Profile = () => {
 								label={label}
 								name={fieldName}
 								value={profileData[fieldName]}
-								onChange={e => handleInputChange(fieldName, e.target.value)}
+								onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+									handleInputChange(fieldName, e.target.value)
+								}
 							/>
 						))}
 					</form>
+
 					<div className={styles.buttonsContainer}>
 						<Button
 							type="button"
@@ -93,7 +96,12 @@ const Profile = () => {
 							onClick={handleOpenPasswordPopup}
 							title="Change Password"
 						/>
-						<Button type="submit" className={styles.button} onClick={handleSaveProfile} title="Save" />
+						<Button
+							type="submit"
+							className={styles.button}
+							onClick={handleSaveProfile}
+							title="Save"
+						/>
 						<Button type="button" className={styles.button} onClick={handleBack} title="Back" />
 					</div>
 				</div>
