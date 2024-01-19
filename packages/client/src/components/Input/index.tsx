@@ -9,6 +9,7 @@ import { useTextarea } from './lib/useTextarea';
 type InputAttrVariable = InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>;
 
 export type InputProps = {
+	/* eslint-disable */
 	textareaRef?: MutableRefObject<HTMLTextAreaElement | any>;
 	isTextarea?: boolean;
 	error?: GlobalError;
