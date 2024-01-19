@@ -1,16 +1,36 @@
 import { ButtonHTMLAttributes } from 'react';
+import classNames from 'classnames';
 
-import styles from './Button.module.scss';
+import s from './index.module.scss';
+import SelectIcon from './SelectIcon.svg';
 
-interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-	title: string;
+export enum ButtonVariant {
+	DEFAULT = 'Default',
+	TEXT = 'Text'
 }
 
-export const Button = (props: IButtonProps) => {
-	const { title, ...restProps } = props;
+type ButtonProps = {
+	variant?: ButtonVariant;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
+
+export const Button = (props: ButtonProps) => {
+	const {
+		variant = ButtonVariant.DEFAULT,
+		className,
+		type = 'button',
+		children,
+		...otherProps
+	} = props;
+
+	const mods = {
+		[s.text]: variant === ButtonVariant.TEXT,
+		[s.default]: variant === ButtonVariant.DEFAULT
+	};
+
 	return (
-		<button className={styles.button} {...restProps}>
-			{title}
+		<button {...otherProps} className={classNames(s.button, mods, className)} type={type}>
+			<span className={s.selectIcon}>{variant === ButtonVariant.TEXT && <SelectIcon />}</span>
+			{children}
 		</button>
 	);
 };

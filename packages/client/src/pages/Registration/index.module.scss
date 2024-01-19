@@ -10,12 +10,17 @@
   align-items: center;
 }
 
+.registrationButton {
+  max-width: 260px;
+  padding: 20px 0;
+}
+
 .formCard {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  row-gap: 2rem;
+  row-gap: 2.5rem;
   padding: 2rem;
   background-color: var(--white);
   border-radius: 10px;
@@ -38,14 +43,13 @@
   }
 
   .content form {
+    width: 100%;
     display: flex;
     flex-direction: column;
     row-gap: 2rem;
   }
 
   .footer {
-    display: flex;
-    justify-content: space-evenly;
-    column-gap: 5rem;
+    width: 100%;
   }
 }

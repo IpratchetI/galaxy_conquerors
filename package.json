@@ -9,8 +9,8 @@
     "dev": "lerna run dev",
     "test": "lerna run test",
     "lint": "lerna run lint",
-    "lint:fix": "lerna run lint -- --fix",
     "format": "lerna run format",
+    "lint:fix": "lerna run lint -- --fix && yarn run format",
     "preview": "lerna run preview"
   },
   "license": "MIT",
@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "docker": "^1.0.0",
+    "eslint-plugin-react": "^7.33.2",
     "node": "^21.2.0",
     "yarn": "^1.22.21"
   }
