@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import { Button } from '@components/Button';
 import { Text } from '@components/Text';
 import { Input } from '@components/Input';
@@ -26,7 +26,7 @@ const Profile = () => {
 				setAvatarUrl(avatar);
 				setProfileData(profile);
 			} catch (error) {
-				console.error('Error fetching data:', error);
+				console.error('Ошибка при получении данных:', error);
 			}
 		};
 
@@ -49,21 +49,22 @@ const Profile = () => {
 		try {
 			await userProfileService.saveProfileData(profileData);
 
-			console.log('Profile saved successfully');
+			console.log('Профиль успешно сохранен');
 		} catch (error) {
-			console.error('Error saving profile:', error);
+			console.error('Ошибка при сохранении профиля:', error);
 		}
 	};
 
-	const handleBack = () => {
-		// todo: Логика возврата
-	};
-
-	const handleInputChange = (name: string, value: string) => {
+	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = e.target as HTMLInputElement;
 		setProfileData(prevData => ({
 			...prevData,
 			[name]: value
 		}));
+	};
+
+	const handleBack = () => {
+		// todo: Логика возврата
 	};
 
 	return (
@@ -72,7 +73,7 @@ const Profile = () => {
 				<Avatar avatarUrl={avatarUrl} />
 				<div className={styles.profileForm}>
 					<Text tag="h1" size="m" align="center" className={styles.title}>
-						{'Profile'}
+						{'Профиль'}
 					</Text>
 					<form onSubmit={handleSaveProfile}>
 						{profileInputsConfig.map(({ fieldName, label }) => (
@@ -82,28 +83,20 @@ const Profile = () => {
 								label={label}
 								name={fieldName}
 								value={profileData[fieldName]}
-								onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-									handleInputChange(fieldName, e.target.value)
-								}
+								onChange={handleInputChange}
 							/>
 						))}
+						<div className={styles.buttonsContainer}>
+							<Button
+								type="button"
+								className={styles.buttonWide}
+								onClick={handleOpenPasswordPopup}
+								title="Изменить пароль"
+							/>
+							<Button type="submit" className={styles.button} title="Сохранить" />
+							<Button type="button" className={styles.button} onClick={handleBack} title="Назад" />
+						</div>
 					</form>
-
-					<div className={styles.buttonsContainer}>
-						<Button
-							type="button"
-							className={styles.buttonWide}
-							onClick={handleOpenPasswordPopup}
-							title="Change Password"
-						/>
-						<Button
-							type="submit"
-							className={styles.button}
-							onClick={handleSaveProfile}
-							title="Save"
-						/>
-						<Button type="button" className={styles.button} onClick={handleBack} title="Back" />
-					</div>
 				</div>
 			</div>
 			{isChangePasswordPopupOpen && (
