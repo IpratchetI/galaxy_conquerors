@@ -12,23 +12,25 @@ export const AppRouter = () => {
 		<Routes>
 			{/* Общие */}
 			<Route>
-				<Route path={routerPaths.login} element={<div>login</div>} />
-				<Route path={routerPaths.registration} element={<Registration />} />
+				<Route path={routerPaths.login} element={<div>login</div>} key={routerPaths.login} />
+				<Route path={routerPaths.registration} element={<Registration />} key={routerPaths.registration} />
 			</Route>
 			{/* Приватные */}
-			<Route>
-				<Route path={routerPaths.profile} element={<div>profile</div>} />
-				<Route path={routerPaths.main} element={<Main />} />
-				<Route path={routerPaths.leaderboard} element={<LeaderBoard />} />
-				<Route path={routerPaths.highScore} element={<div>highScore</div>} />
-				<Route path={routerPaths.forum} element={<div>forum</div>} />
-				<Route path={routerPaths.forumTheme} element={<div>forumTheme</div>} />
-				<Route path={routerPaths.story} element={<div>story</div>} />
-				<Route path={routerPaths.authors} element={<div>authors</div>} />
-				<Route path={routerPaths.gamePlay} element={<div>gamePlay</div>} />
-				<Route path={routerPaths.gameOver} element={<Gameover />} />
+			<Route path={routerPaths.main}>
+				<Route index element={<Main />} key={routerPaths.main} />
+				<Route path={routerPaths.profile} element={<div>profile</div>} key={routerPaths.profile} />
+				<Route path={routerPaths.leaderboard} element={<LeaderBoard />} key={routerPaths.leaderboard} />
+				<Route path={routerPaths.highScore} element={<div>highScore</div>} key={routerPaths.highScore} />
+				<Route path={routerPaths.forum} key={routerPaths.forum}>
+					<Route index element={<div>forum</div>} key="index" />
+					<Route path={routerPaths.forumTheme} element={<div>forumTheme</div>} key={routerPaths.forumTheme} />
+				</Route>
+				<Route path={routerPaths.story} element={<div>story</div>} key={routerPaths.story} />
+				<Route path={routerPaths.authors} element={<div>authors</div>} key={routerPaths.authors} />
+				<Route path={routerPaths.gamePlay} element={<div>gamePlay</div>} key={routerPaths.gamePlay} />
+				<Route path={routerPaths.gameOver} element={<Gameover />} key={routerPaths.gameOver} />
 			</Route>
-			<Route path="*" element={<ErrorPage type="404" />} />
+			<Route path="*" element={<ErrorPage type="404" />} key="*" />
 		</Routes>
 	);
 };
