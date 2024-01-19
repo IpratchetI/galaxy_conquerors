@@ -1,7 +1,7 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { Button } from '@components/Button';
 import { Text } from '@components/Text';
-import { Input } from '@components/Input';
+import { Input, InputProps } from '@components/Input';
 import ChangePasswordPopup from '@components/ChangePasswordPopup';
 
 import Avatar from '@/components/Avatar';
@@ -55,16 +55,15 @@ const Profile = () => {
 		}
 	};
 
-	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target as HTMLInputElement;
+	const handleBack = () => {
+		// todo: Логика возврата
+	};
+
+	const handleInputChange = (name: string, value: string) => {
 		setProfileData(prevData => ({
 			...prevData,
 			[name]: value
 		}));
-	};
-
-	const handleBack = () => {
-		// todo: Логика возврата
 	};
 
 	return (
@@ -83,7 +82,6 @@ const Profile = () => {
 								label={label}
 								name={fieldName}
 								value={profileData[fieldName]}
-								onChange={handleInputChange}
 							/>
 						))}
 						<div className={styles.buttonsContainer}>
