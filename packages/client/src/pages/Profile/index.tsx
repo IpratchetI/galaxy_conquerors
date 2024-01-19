@@ -3,7 +3,6 @@ import { Button } from '@components/Button';
 import { Text } from '@components/Text';
 import { Input } from '@components/Input';
 import ChangePasswordPopup from '@components/ChangePasswordPopup';
-import { ProfileData } from '@models/ProfileData';
 
 import Avatar from '@/components/Avatar';
 import UserProfileService from '@/services/userProfileService';
@@ -14,7 +13,7 @@ import styles from './index.module.scss';
 const Profile = () => {
 	const [isChangePasswordPopupOpen, setChangePasswordPopupOpen] = useState(false);
 	const [avatarUrl, setAvatarUrl] = useState('');
-	const [profileData, setProfileData] = useState<ProfileData>(profileInputsDefaults);
+	const [profileData, setProfileData] = useState(profileInputsDefaults);
 
 	useEffect(() => {
 		const userProfileService = new UserProfileService(profileApiEndpoints);
@@ -34,6 +33,14 @@ const Profile = () => {
 		fetchData();
 	}, []);
 
+	const handleClosePasswordPopup = () => {
+		setChangePasswordPopupOpen(false);
+	};
+
+	const handleOpenPasswordPopup = () => {
+		setChangePasswordPopupOpen(true);
+	};
+
 	const handleSaveProfile = async (e: React.FormEvent) => {
 		e.preventDefault();
 
@@ -46,16 +53,6 @@ const Profile = () => {
 		} catch (error) {
 			console.error('Error saving profile:', error);
 		}
-	};
-
-	const handleOpenPasswordPopup = () => {
-		setChangePasswordPopupOpen(true);
-		document.body.style.overflow = 'hidden';
-	};
-
-	const handleClosePasswordPopup = () => {
-		setChangePasswordPopupOpen(false);
-		document.body.style.overflow = '';
 	};
 
 	const handleBack = () => {
