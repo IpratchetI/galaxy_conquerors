@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@components/Button';
-import axios from 'axios';
 
+import AvatarService from '@/services/avatarService';
 import { Spacer } from '@/components';
 
 import styles from './index.module.scss';
@@ -15,6 +15,7 @@ const Avatar: React.FC<AvatarProps> = ({ avatarUrl }) => {
 	const [isOverlayVisible, setOverlayVisible] = useState(false);
 	const avatarRef = useRef<HTMLDivElement>(null);
 	const fileInputRef = useRef<HTMLInputElement>(null);
+	const avatarService = new AvatarService();
 
 	const handleAvatarClick = () => {
 		setPopupOpen(true);
@@ -32,22 +33,9 @@ const Avatar: React.FC<AvatarProps> = ({ avatarUrl }) => {
 
 		if (file) {
 			try {
-				const formData = new FormData();
-				formData.append('avatar', file);
+				await avatarService.uploadAvatar(file);
 
-				const response = await axios.put('https://ya-praktikum.tech/api/v2/user/profile/avatar', formData, {
-					headers: {
-						// todo: добавить токен
-						'Content-Type': 'multipart/form-data'
-					}
-				});
-
-				if (response.status === 200) {
-					console.log('File uploaded successfully');
-					// обновить URL аватара
-				} else {
-					console.error('File upload failed');
-				}
+				console.log('File uploaded successfully');
 			} catch (error) {
 				console.error('Error during file upload:', error);
 			}
@@ -80,12 +68,12 @@ const Avatar: React.FC<AvatarProps> = ({ avatarUrl }) => {
 	}, []);
 
 	return (
-		<Spacer direction="column" fullHeight gap="20">
-			<div className={styles.avatarContainer} ref={avatarRef} onClick={handleAvatarClick}>
-				<div className={styles.avatarMock} style={{ backgroundImage: `url(${avatarUrl})` }}></div>
-				{isOverlayVisible && <div className={styles.overlay}></div>}
-				{isPopupOpen && (
-					<div className={styles.avatarPopup} onClick={e => e.stopPropagation()}>
+		<div className={styles.avatarContainer} ref={avatarRef} onClick={handleAvatarClick}>
+			<div className={styles.avatarMock} style={{ backgroundImage: `url(${avatarUrl})` }}></div>
+			{isOverlayVisible && <div className={styles.overlay}></div>}
+			{isPopupOpen && (
+				<div className={styles.avatarPopup} onClick={e => e.stopPropagation()}>
+					<Spacer direction="column" fullHeight gap="50">
 						<Button onClick={handleImageClick} title={'Image'} />
 						<Button onClick={handleBackClick} title={'Back'} />
 						<input
@@ -95,10 +83,10 @@ const Avatar: React.FC<AvatarProps> = ({ avatarUrl }) => {
 							onChange={handleFileChange}
 							accept=".jpeg, .jpg, .png, .gif, .webp"
 						/>
-					</div>
-				)}
-			</div>
-		</Spacer>
+					</Spacer>
+				</div>
+			)}
+		</div>
 	);
 };
 

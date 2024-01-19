@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 
 import { Spacer } from '@/components';
+import ChangePasswordService from '@/services/changePasswordService';
 
 import styles from './index.module.scss';
 
@@ -25,20 +25,13 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({ onClose }) =>
 	};
 
 	const handleSaveClick = async () => {
-		try {
-			const formData = new FormData();
-			formData.append('oldPassword', oldPassword);
-			formData.append('newPassword', newPassword);
+		const changePasswordService = new ChangePasswordService();
 
-			const response = await axios.put('https://ya-praktikum.tech/api/v2/swagger/#/Users/put_user_password', formData, {
-				headers: {
-					// Authorization: `Bearer ${ACCESS_TOKEN}`, // todo: добавить токен
-					'Content-Type': 'multipart/form-data'
-				}
-			});
-			console.log(response.data);
+		try {
+			await changePasswordService.changePassword(oldPassword, newPassword);
+			console.log('Password changed successfully');
 		} catch (error) {
-			console.error('Error saving password:', error);
+			console.error('Error changing password:', error);
 		}
 	};
 
@@ -51,16 +44,14 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({ onClose }) =>
 	};
 
 	return (
-		<Spacer direction="column" fullHeight gap="20">
-			<div className={styles.changePasswordPopup} onClick={handlePopupClick}>
-				<Input type="password" label="Old Password" name="oldPassword" onChange={handleInputChange} />
-				<Input type="password" label="New Password" name="newPassword" onChange={handleInputChange} />
-				<div className={styles.buttonsContainer}>
-					<Button type="button" onClick={handleSaveClick} title="Save" />
-					<Button type="button" onClick={handleBackClick} title="Back" />
-				</div>
-			</div>
-		</Spacer>
+		<div className={styles.changePasswordPopup} onClick={handlePopupClick}>
+			<Input type="password" label="Old Password" name="oldPassword" onChange={handleInputChange} />
+			<Input type="password" label="New Password" name="newPassword" onChange={handleInputChange} />
+			<Spacer justify-content="space-between" margin-top="65px" spaceTop="50" gap="80">
+				<Button type="button" onClick={handleSaveClick} title="Save" />
+				<Button type="button" onClick={handleBackClick} title="Back" />
+			</Spacer>
+		</div>
 	);
 };
 
