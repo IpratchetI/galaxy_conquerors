@@ -15,7 +15,7 @@ export const LeaderBoard: React.FC = () => {
 			<div className={s.highscoreList}>
 				<HighscoreList />
 			</div>
-			<Button className={s.button} title="Back" onClick={handleHistoryBack}></Button>
+			<Button title="Back" className={s.button} onClick={handleHistoryBack} />
 		</div>
 	);
 };
