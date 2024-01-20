@@ -6,7 +6,7 @@ export const routerPaths = {
 	leaderboard: 'leaderboard',
 	highScore: 'highscore',
 	forum: 'forum',
-	forumTheme: 'topic/:topicId ',
+	forumTheme: 'topic/:topicId',
 	story: 'story',
 	authors: 'authors',
 	gamePlay: 'gameplay',
