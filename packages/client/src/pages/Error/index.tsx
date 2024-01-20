@@ -18,7 +18,7 @@ export const ErrorPage = ({ type = '404' }: { type?: ErrorType }) => {
 						{description}
 					</Text>
 				</Spacer>
-				<Link path="/">
+				<Link href="/">
 					<Text className={styles.backLink} align="center">
 						go to main
 					</Text>

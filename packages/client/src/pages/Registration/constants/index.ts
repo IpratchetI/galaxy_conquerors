@@ -1,4 +1,4 @@
-import { UserModel } from '@models/UserModel';
+import { UserModel } from '@models/User';
 import { FormField } from '@pages/Registration/types';
 
 const NAME_PATTERN = /^[А-ЯЁA-Z][а-яёa-z-]{1,}$/;

@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import classNames from 'classnames';
 
 import { Link, Text } from '@/components';
 
-import { navLinks } from './constants';
+import { navLinks } from './constants/mocks';
 import styles from './index.module.scss';
 
 export const LinksList = () => {
@@ -53,23 +54,19 @@ export const LinksList = () => {
 
 	return (
 		<ul className={styles.list}>
-			{navLinks.map(({ id, path, text, action }) => {
-				const isActive = id === activeLinkId;
-
-				return (
-					<li key={id}>
-						<Link
-							ref={isActive ? activeLinkRef : null}
-							path={path}
-							onMouseEnter={() => setActiveLinkId(id)}
-							onClick={action ? onExit : undefined}>
-							<Text size="l" variant={id === activeLinkId ? 'selected' : 'normal'}>
-								{text}
-							</Text>
-						</Link>
-					</li>
-				);
-			})}
+			{navLinks.map(({ id, path, text, action }) => (
+				<li key={id}>
+					<Link
+						href={path}
+						className={classNames({ [styles.isActive]: id === activeLinkId })}
+						onMouseEnter={() => setActiveLinkId(id)}
+						onClick={action ? onExit : undefined}>
+						<Text size="l" variant={id === activeLinkId ? 'selected' : 'normal'}>
+							{text}
+						</Text>
+					</Link>
+				</li>
+			))}
 		</ul>
 	);
 };

@@ -2,6 +2,8 @@
   // Цвета
 
   --black: rgba(0, 0, 0, 1);
+  --black-50: rgba(0, 0, 0, 0.5);
+  --error: rgb(194, 56, 56);
   --white: rgba(255, 255, 255, 1);
   --sky: rgba(59, 243, 255, 1);
   --grey-80: rgba(139, 139, 139, 0.8);
@@ -9,10 +11,15 @@
 
   // Размеры текста
 
+  --font-size-10: 10px;
   --font-size-12: 12px;
   --font-size-20: 20px;
   --font-size-30: 30px;
   --font-size-45: 45px;
   --font-size-60: 60px;
   --font-size-80: 80px;
+
+  // z-index
+
+  --z-index-1000: 1000;
 }

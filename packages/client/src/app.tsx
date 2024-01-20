@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorPage } from '@pages/Error';
-import { Registration } from '@pages/Registration';
+
 import './app.css';
 
 function App() {
@@ -22,8 +22,7 @@ function App() {
 			onError={(error, info) => {
 				console.error({ error, info });
 			}}>
-			<Registration />
-			{/*<div className="App">Вот тут будет жить ваше приложение :)</div>*/}
+			<div className="App">Application</div>
 		</ErrorBoundary>
 	);
 }
