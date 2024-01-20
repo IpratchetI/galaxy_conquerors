@@ -1,4 +1,4 @@
-import { Topics } from '@models/types/topics';
+import { Topics } from '../../../models/types/topics';
 
 export const TOPICS_LIST: Topics = [
 	{

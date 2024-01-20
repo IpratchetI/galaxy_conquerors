@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { Button, Spacer } from '@/components';
 
 import s from './index.module.scss';
+import SmileMenuIcon from './SmileMenu.svg';
 
-import SmileMenuIcon from '../SmileMenu/SmileMenu.svg';
 import { SMILES } from '../../lib/constants';
 
 export const SmileMenu = () => {
