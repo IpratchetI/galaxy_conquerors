@@ -25,7 +25,7 @@ export const AppRouter = () => {
 				<Route path={routerPaths.profile} element={<div>profile</div>} />
 				<Route path={routerPaths.leaderboard} element={<LeaderBoard />} />
 				<Route path={routerPaths.highScore} element={<div>highScore</div>} />
-				<Route path={routerPaths.forum} key={routerPaths.forum}>
+				<Route path={routerPaths.forum}>
 					<Route index element={<ForumPage />} />
 					<Route path={routerPaths.forumTheme} element={<TopicPage />} />
 				</Route>
