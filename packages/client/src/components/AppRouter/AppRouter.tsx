@@ -5,6 +5,7 @@ import { LeaderBoard } from '@pages/LeaderBoard';
 import { Login } from '@pages/Login';
 import Main from '@pages/Main';
 import { Registration } from '@pages/Registration';
+import StartGame from '@pages/StartGame';
 import { TopicPage } from '@pages/Topic';
 import { Route, Routes } from 'react-router-dom';
 
@@ -28,7 +29,7 @@ export const AppRouter = () => {
 					<Route index element={<ForumPage />} />
 					<Route path={routerPaths.forumTheme} element={<TopicPage />} />
 				</Route>
-				<Route path={routerPaths.story} element={<div>story</div>} />
+				<Route path={routerPaths.story} element={<StartGame />} />
 				<Route path={routerPaths.authors} element={<div>authors</div>} />
 				<Route path={routerPaths.gamePlay} element={<div>gamePlay</div>} />
 				<Route path={routerPaths.gameOver} element={<Gameover />} />
