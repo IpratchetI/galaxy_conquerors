@@ -14,6 +14,7 @@ export type InputProps = {
 	isTextarea?: boolean;
 	error?: GlobalError;
 	initialValue?: string;
+	label?: string;
 } & InputAttrVariable &
 	Partial<UseFormRegisterReturn<string>>;
 
