@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link, Spacer, Text } from '@/components';
+import { Link, Spacer, Text } from '../../components';
 
 import { ErrorType } from './types';
 import { errorContent } from './constants';
@@ -18,7 +18,7 @@ export const ErrorPage = ({ type = '404' }: { type?: ErrorType }) => {
 						{description}
 					</Text>
 				</Spacer>
-				<Link href="/">
+				<Link href="/packages/client/public">
 					<Text className={styles.backLink} align="center">
 						go to main
 					</Text>
