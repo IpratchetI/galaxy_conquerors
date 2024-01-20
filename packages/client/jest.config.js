@@ -15,5 +15,8 @@ export default {
 	},
 	globals: {
 		__SERVER_PORT__: process.env.SERVER_PORT || 3001
+	},
+	transform: {
+		'^.+\\.svg$': '<rootDir>/svgTransform.js'
 	}
 };

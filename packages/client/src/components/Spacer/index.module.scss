@@ -20,6 +20,10 @@
   justify-content: center;
 }
 
+.justifyEvenly {
+  justify-content: space-evenly;
+}
+
 // align
 
 .alignStart {
@@ -94,6 +98,10 @@
 
 .gap30 {
   gap: 30px;
+}
+
+.gap35 {
+  gap: 35px;
 }
 
 .gap40 {

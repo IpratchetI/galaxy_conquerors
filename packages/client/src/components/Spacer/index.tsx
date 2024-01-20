@@ -4,11 +4,25 @@ import { classnames } from '@/utils/classnames';
 
 import styles from './index.module.scss';
 
-export type FlexJustify = 'center' | 'start' | 'end' | 'between';
+export type FlexJustify = 'center' | 'start' | 'end' | 'between' | 'evenly';
 export type FlexAlign = 'center' | 'start' | 'end';
 export type FlexDirection = 'row' | 'column';
 export type FlexWrap = 'wrap' | 'nowrap';
-export type FlexSpaceVariants = '2' | '4' | '6' | '8' | '12' | '16' | '20' | '26' | '28' | '30' | '40' | '50' | '80';
+export type FlexSpaceVariants =
+	| '2'
+	| '4'
+	| '6'
+	| '8'
+	| '12'
+	| '16'
+	| '20'
+	| '26'
+	| '28'
+	| '30'
+	| '35'
+	| '40'
+	| '50'
+	| '80';
 
 type Props = {
 	className?: string;
@@ -30,7 +44,8 @@ const justifyClasses = {
 	start: styles.justifyStart,
 	end: styles.justifyEnd,
 	between: styles.justifyBetween,
-	center: styles.justifyCenter
+	center: styles.justifyCenter,
+	evenly: styles.justifyEvenly
 };
 
 const alignClasses = {
@@ -60,6 +75,7 @@ const gapClasses = {
 	26: styles.gap26,
 	28: styles.gap28,
 	30: styles.gap30,
+	35: styles.gap35,
 	40: styles.gap40,
 	50: styles.gap50,
 	80: styles.gap80
@@ -76,6 +92,7 @@ const spaceTopClasses = {
 	26: styles.spaceTop26,
 	28: styles.spaceTop28,
 	30: styles.spaceTop30,
+	35: styles.spaceTop35,
 	40: styles.spaceTop40,
 	50: styles.spaceTop50,
 	80: styles.spaceTop80
@@ -92,6 +109,7 @@ const spaceBottomClasses = {
 	26: styles.spaceBottom26,
 	28: styles.spaceBottom28,
 	30: styles.spaceBottom30,
+	35: styles.spaceBottom35,
 	40: styles.spaceBottom40,
 	50: styles.spaceBottom50,
 	80: styles.spaceBottom80
@@ -108,6 +126,7 @@ const spaceRightClasses = {
 	26: styles.spaceRight26,
 	28: styles.spaceRight28,
 	30: styles.spaceRight30,
+	35: styles.spaceRight35,
 	40: styles.spaceRight40,
 	50: styles.spaceRight50,
 	80: styles.spaceRight80
@@ -124,6 +143,7 @@ const spaceLeftClasses = {
 	26: styles.spaceLeftLeft26,
 	28: styles.spaceLeft28,
 	30: styles.spaceLeft30,
+	35: styles.spaceLeft35,
 	40: styles.spaceLeft40,
 	50: styles.spaceLeft50,
 	80: styles.spaceLeft80

@@ -1,0 +1,47 @@
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  opacity: 0;
+  overflow: scroll;
+
+  pointer-events: none;
+  z-index: 1000;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.content {
+  position: relative;
+  padding: 50px 45px;
+  border-radius: 28px;
+  background: var(--white);
+  transition: 0.2s transform;
+  transform: scale(0.5);
+  margin: auto;
+  width: fit-content;
+  z-index: 1001;
+}
+
+.opened {
+  pointer-events: auto;
+  opacity: 1;
+  z-index: 1001;
+
+  .content {
+    transform: scale(1);
+  }
+}
