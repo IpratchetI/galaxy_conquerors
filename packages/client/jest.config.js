@@ -14,7 +14,7 @@ export default {
 		'\\.(css|scss)$': 'identity-obj-proxy'
 	},
 	transform: {
-		'^.+\\.svg$': '<rootDir>/svgTransform.js'
+		'^.+\\.(png|jpg|svg)$': '<rootDir>/svgTransform.js'
 	},
 	globals: {
 		__SERVER_PORT__: process.env.SERVER_PORT || 3001
