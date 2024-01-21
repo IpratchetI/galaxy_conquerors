@@ -7,12 +7,16 @@ class ChangePasswordService {
 			formData.append('oldPassword', oldPassword);
 			formData.append('newPassword', newPassword);
 
-			await axios.put('https://ya-praktikum.tech/api/v2/swagger/#/Users/put_user_password', formData, {
-				headers: {
-					// Authorization: `Bearer ${ACCESS_TOKEN}`, // todo: добавить токен
-					'Content-Type': 'multipart/form-data'
+			await axios.put(
+				'https://ya-praktikum.tech/api/v2/swagger/#/Users/put_user_password',
+				formData,
+				{
+					headers: {
+						// Authorization: `Bearer ${ACCESS_TOKEN}`, // todo: добавить токен
+						'Content-Type': 'multipart/form-data'
+					}
 				}
-			});
+			);
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
 				const axiosError = error as AxiosError;
