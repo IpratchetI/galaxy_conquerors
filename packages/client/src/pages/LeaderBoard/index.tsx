@@ -4,7 +4,7 @@ import { Button } from '@components/Button';
 import s from './index.module.scss';
 import { HighscoreList } from './components/HighscoreList/highscoreList';
 
-export const LeaderBoard: React.FC = () => {
+export const LeaderBoard = () => {
 	const handleHistoryBack = () => {
 		// todo: add back
 	};

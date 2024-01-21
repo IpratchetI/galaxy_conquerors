@@ -14,19 +14,25 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 11
   },
-  plugins: ['@typescript-eslint', 'import'],
+  plugins: ['@typescript-eslint', 'import', 'unused-imports'],
   settings: {
     react: { version: 'detect' }
   },
   rules: {
     '@typescript-eslint/ban-ts-comment': 'warn',
     'no-unused-vars': 'off',
+		'unused-imports/no-unused-imports': 'error',
+		'unused-imports/no-unused-vars': [
+			'warn',
+			{ 'vars': 'all', 'varsIgnorePattern': '^_', 'args': 'after-used', 'argsIgnorePattern': '^_' }
+		],
     '@typescript-eslint/no-unused-vars': 'warn',
     '@typescript-eslint/no-unnecessary-condition': 'off',
     '@typescript-eslint/quotes': ['error', 'single'],
     '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/no-explicit-any': 'warn',
     'no-shadow': 'off',
+		'react/display-name': 'off',
     'comma-dangle': [ 'error', 'never' ],
     'object-curly-spacing': [ 'error', 'always' ],
 		'max-len': ['warn', { 'code': 120, 'ignoreComments': true }],

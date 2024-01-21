@@ -1,11 +1,9 @@
 @import 'src/style/main';
 
 .newTopicForm {
-  padding-top: 20px;
   width: 600px;
-  height: 100%;
-  align-items: center;
-  justify-content: space-between;
+}
 
-  @include flex-column;
+.buttonContainer {
+  margin-top: 144px;
 }

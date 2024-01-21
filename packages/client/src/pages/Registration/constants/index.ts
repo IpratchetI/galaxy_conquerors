@@ -1,13 +1,15 @@
 import { UserModel } from '@models/User';
-import { FormField } from '@pages/Registration/types';
 
-const NAME_PATTERN = /^[А-ЯЁA-Z][а-яёa-z-]{1,}$/;
-const LOGIN_PATTERN = /^[A-Za-z0-9_-]{3,20}$/;
-const EMAIL_PATTERN = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-const PASSWORD_PATTERN = /^(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9]{8,40}$/;
-const PHONE_PATTERN = /^\+?\d{10,15}$/;
+import { FormField } from '@/types/forms';
+import {
+	EMAIL_PATTERN,
+	LOGIN_PATTERN,
+	NAME_PATTERN,
+	PASSWORD_PATTERN,
+	PHONE_PATTERN
+} from '@/constants/forms';
 
-export const regInputsConfig: FormField[] = [
+export const regInputsConfig: FormField<UserModel>[] = [
 	{
 		data: {
 			fieldName: 'first_name',

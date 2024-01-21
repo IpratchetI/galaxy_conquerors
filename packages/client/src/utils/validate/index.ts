@@ -1,4 +1,12 @@
-import { EMAIL, LATIN_LETTERS, NUMBERS, ONLY_NUMBERS, PHONE, SPECIAL_SYMBOLS, UPPERCASE_LETTERS } from './constants';
+import {
+	EMAIL,
+	LATIN_LETTERS,
+	NUMBERS,
+	ONLY_NUMBERS,
+	PHONE,
+	SPECIAL_SYMBOLS,
+	UPPERCASE_LETTERS
+} from './constants';
 
 const validateNotNumbers = (value?: string) => {
 	if (!value) return '';
@@ -16,7 +24,8 @@ const validateEmail = (value?: string) => {
 const validatePassword = (value?: string) => {
 	if (!value) return '';
 	const trimmed = value.trim();
-	if (trimmed.length > 40 || trimmed.length < 8) return 'Длина пароля должна быть от 8 до 40 символов';
+	if (trimmed.length > 40 || trimmed.length < 8)
+		return 'Длина пароля должна быть от 8 до 40 символов';
 	if (!NUMBERS.test(trimmed)) return 'В пароле должно быть хотя бы одно число';
 	if (!UPPERCASE_LETTERS.test(trimmed)) return 'В пароле должна быть хотя бы одна заглавная буква';
 	return '';
@@ -83,8 +92,8 @@ export const validate = (name: string, value: string, required?: boolean) => {
 		case 'phone':
 			return validatePhone(value);
 		case 'password':
-		case 'newPassword':
-		case 'oldPassword':
+		case 'new_password':
+		case 'old_password':
 			return validatePassword(value);
 		case 'display_name':
 			return validateNickname(value);

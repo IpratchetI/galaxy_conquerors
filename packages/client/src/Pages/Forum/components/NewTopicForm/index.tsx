@@ -30,20 +30,22 @@ export const NewTopicForm = ({ onClick }: NewTopicFormProps) => {
 	// todo: change to form component
 	return (
 		<form className={s.newTopicForm} onSubmit={handleSubmit(onSubmit)}>
-			<Input
-				error={errors?.topicName}
-				{...register('topicName', {
-					required: true
-				})}>
-				Theme name
-			</Input>
-			<Spacer align="center" direction="column" gap="35">
-				<Button type="submit" variant={ButtonVariant.TEXT}>
-					Confirm
-				</Button>
-				<Button variant={ButtonVariant.TEXT} onClick={onClick}>
-					Cancel
-				</Button>
+			<Spacer direction="column" justify="between" fullHeight spaceTop="20">
+				<Input
+					error={errors?.topicName}
+					{...register('topicName', {
+						required: true
+					})}>
+					Input theme title
+				</Input>
+				<Spacer direction="column" gap="35" className={s.buttonContainer}>
+					<Button type="submit" variant={ButtonVariant.TEXT}>
+						Confirm
+					</Button>
+					<Button variant={ButtonVariant.TEXT} onClick={onClick}>
+						Cancel
+					</Button>
+				</Spacer>
 			</Spacer>
 		</form>
 	);

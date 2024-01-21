@@ -2,12 +2,12 @@ import { useForm } from 'react-hook-form';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 import { Spacer } from '@components/Spacer';
-import { Text } from '@components/Text';
 import { UserModel } from '@models/User';
 import { regInputsConfig, regInputsDefaults } from '@pages/Registration/constants';
 import { FormCard } from '@components/FormCard';
 
 import { validate } from '@/utils/validate';
+
 import '@styles/main.scss';
 import styles from './index.module.scss';
 
@@ -23,63 +23,51 @@ export const Registration = () => {
 		defaultValues: regInputsDefaults
 	});
 
-	const submitHandler = (data: UserModel) => {
-		console.log(data);
-		console.log(validateErrors.first_name);
-	};
+	const submitHandler = () => {
+		getValues();
 
-	// return (
-	// 	<main className={styles.registration}>
-	// 		<section className={styles.formCard}>
-	// 			<p className={styles.title}>Registration</p>
-	// 			<div className={styles.content}>
-	// 				<form onSubmit={handleSubmit(submitHandler)}>
-	// 					{regInputsConfig.map(({ data: { fieldName, label, type }, validateOptions }) => (
-	// 						<Spacer key={fieldName} className={styles.inputContainer} direction="column" fullWidth align="start">
-	// 							<Input
-	// 								type={type}
-	// 								{...register(fieldName, validateOptions)}
-	// 								invalid={Boolean(validateErrors[fieldName])}
-	// 								label={label}
-	// 								fullWidth
-	// 							/>
-	// 							{validateErrors[fieldName] && (
-	// 								<Text className={styles.errorText} tag="p" size="xs" variant="error">
-	// 									{validate(fieldName, getValues()[fieldName], true)}
-	// 								</Text>
-	// 							)}
-	// 						</Spacer>
-	// 					))}
-	// 					<Spacer justify="evenly" fullWidth>
-	// 						<Button title="Register" onClick={() => submitHandler(getValues())} type="submit" />
-	// 						<Button title="Back" />
-	// 					</Spacer>
-	// 				</form>
-	// 			</div>
-	// 		</section>
-	// 	</main>
-	// );
+		console.log(getValues());
+	};
 
 	return (
 		<main className={styles.registration}>
-			<FormCard
-				text={'Registration'}
-				footer={
-					<>
-						<Button title={'Register'} onClick={() => submitHandler(getValues())}>
-							{'Register'}
-						</Button>
-						<Button title={'Back'}>{'Back'}</Button>
-					</>
-				}>
-				<form>
-					{regInputsConfig.map(({ fieldName, label }) => (
-						<Input key={fieldName} {...register(fieldName)}>
-							{label}
-						</Input>
-					))}
-				</form>
-			</FormCard>
+			<Spacer fullHeight>
+				<FormCard
+					text="Registration"
+					fullWidthContent
+					footer={
+						<Spacer gap="20">
+							<Button type="submit" onClick={handleSubmit(submitHandler)}>
+								Register
+							</Button>
+							<Button>Back</Button>
+						</Spacer>
+					}>
+					<form>
+						{regInputsConfig.map(({ data: { fieldName, label, type }, validateOptions }, index) => {
+							const error = validateErrors[fieldName];
+							const value = getValues()[fieldName];
+							const isFieldRequired = Boolean(validateOptions.required);
+
+							return (
+								<Spacer key={`${fieldName}-${index}`} fullWidth>
+									<Input
+										key={fieldName}
+										type={type}
+										error={
+											error && {
+												message: validate(fieldName, value, isFieldRequired)
+											}
+										}
+										{...register(fieldName, validateOptions)}>
+										{label}
+									</Input>
+								</Spacer>
+							);
+						})}
+					</form>
+				</FormCard>
+			</Spacer>
 		</main>
 	);
 };

@@ -2,22 +2,28 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 @mixin leederBoard-background {
-  background: url('@assets/img/leaderBoard.png');
+  background: url('@assets/backgrounds/leaderBoard.png');
   @include background;
 }
 
 @mixin main-background {
-  background: url('@assets/img/main.png');
+  background: url('@assets/backgrounds/main.png');
+  @include background;
 }
 
 @mixin error-background {
-  background: url('@assets/img/error.jpeg');
-}
-@mixin gameplay-background {
-  background: url('@assets/img/gameplay.png');
+  background: url('@assets/backgrounds/error.jpeg');
+  @include background;
 }
 
 @mixin startgame-background {
-  background: url('@assets/img/startgame.png');
+  background: url('@assets/backgrounds/startgame.png');
+  @include background;
+}
+
+@mixin login-background {
+  background: url('@assets/backgrounds/login-background.png');
+  @include background;
 }

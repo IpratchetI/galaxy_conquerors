@@ -1,7 +1,5 @@
 import { render, screen } from '@testing-library/react';
 
-import App from './app';
-
 const appContent = 'Вот тут будет жить ваше приложение :)';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

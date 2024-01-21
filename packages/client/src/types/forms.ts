@@ -1,10 +1,9 @@
 import { RegisterOptions } from 'react-hook-form';
-import { UserModel } from '@models/UserModel';
 import { HTMLInputTypeAttribute } from 'react';
 
-export type FormField = {
+export type FormField<T> = {
 	data: {
-		fieldName: keyof UserModel;
+		fieldName: keyof T;
 		label: string;
 		type: HTMLInputTypeAttribute;
 	};

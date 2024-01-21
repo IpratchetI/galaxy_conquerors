@@ -6,7 +6,6 @@
   font-family: 'Press Start 2P', system-ui;
   color: var(--white);
   -webkit-text-stroke: 1px var(--black);
-  text-stroke: 1px var(--black);
   box-sizing: border-box;
 }
 
@@ -21,12 +20,6 @@ main {
 @mixin page-container {
   padding: 85px 104px 65px;
   min-height: 100vh;
-  min-width: 100vw;
-}
-
-@mixin main-background {
-  background: url('@assets/img/background.png') no-repeat;
-  background-size: cover;
 }
 
 @mixin grid-template {
@@ -36,9 +29,4 @@ main {
     'title'
     'main'
     'actions';
-}
-
-@mixin flex-column {
-  display: flex;
-  flex-direction: column;
 }

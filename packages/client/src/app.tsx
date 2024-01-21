@@ -2,8 +2,6 @@ import { useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorPage } from '@pages/Error';
 
-import './app.css';
-
 function App() {
 	useEffect(() => {
 		const fetchServerData = async () => {
@@ -22,7 +20,7 @@ function App() {
 			onError={(error, info) => {
 				console.error({ error, info });
 			}}>
-			<div className="App">Application</div>
+			Тут будет ваше приложение
 		</ErrorBoundary>
 	);
 }
