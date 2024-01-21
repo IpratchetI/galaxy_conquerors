@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-
-import { ErrorPage } from '@/pages/Error';
+import { ErrorPage } from '@pages/Error';
+import { AppRouter } from '@components/AppRouter/AppRouter';
 
 function App() {
 	useEffect(() => {
@@ -21,7 +21,7 @@ function App() {
 			onError={(error, info) => {
 				console.error({ error, info });
 			}}>
-			Ваше приложение будет тут
+			<AppRouter />
 		</ErrorBoundary>
 	);
 }
