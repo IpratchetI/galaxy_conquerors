@@ -3,9 +3,9 @@ import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 import { Spacer } from '@components/Spacer';
 import { UserModel } from '@models/User';
-import { regInputsConfig, regInputsDefaults } from '@pages/Registration/constants';
 import { FormCard } from '@components/FormCard';
 
+import { regInputsConfig, regInputsDefaults } from '@/pages/Registration/constants';
 import { validate } from '@/utils/validate';
 
 import '@styles/main.scss';
