@@ -1,7 +1,7 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@components/Button';
 import { Text } from '@components/Text';
-import { Input, InputProps } from '@components/Input';
+import { Input } from '@components/Input';
 import ChangePasswordPopup from '@components/ChangePasswordPopup';
 
 import Avatar from '@/components/Avatar';
