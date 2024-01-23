@@ -28,3 +28,11 @@
   line-height: normal;
   cursor: default;
 }
+
+.register {
+  font-weight: bold;
+
+  &:hover {
+    color: var(--sky);
+  }
+}
