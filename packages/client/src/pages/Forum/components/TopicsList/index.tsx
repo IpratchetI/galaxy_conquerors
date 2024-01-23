@@ -26,7 +26,7 @@ export const TopicsList = ({ topics }: TopicsListProps) => {
 					<li key={topic.id} className={s.topicItem} title={topic.name}>
 						<Link
 							href={TOPICS_PATH(topic.id)}
-							params={{
+							state={{
 								topicName: topic.name
 							}}
 							className={s.topic}

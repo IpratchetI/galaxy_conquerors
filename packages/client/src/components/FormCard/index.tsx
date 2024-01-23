@@ -14,7 +14,9 @@ export const FormCard = (props: IFormCardProps) => {
 		<section className={styles.formCard}>
 			<Text className={styles.text}>{props.text}</Text>
 			<div className={styles.content}>{props.children}</div>
-			<Spacer>{props.footer}</Spacer>
+			<Spacer justify="between" gap="20">
+				{props.footer}
+			</Spacer>
 		</section>
 	);
 };
