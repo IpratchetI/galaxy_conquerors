@@ -4,12 +4,10 @@ import Gameover from '@pages/Gameover';
 import { LeaderBoard } from '@pages/LeaderBoard';
 import { Login } from '@pages/Login';
 import Main from '@pages/Main';
-
 import Profile from '@pages/Profile';
 import { Registration } from '@pages/Registration';
 import StartGame from '@pages/StartGame';
 import { TopicPage } from '@pages/Topic';
-
 import { Route, Routes } from 'react-router-dom';
 
 import { routerPaths } from './constants';
