@@ -1,5 +1,6 @@
 // src/pages/Game/index.tsx
 import React, { useEffect, useRef } from 'react';
+
 import GameEngine from '../../gameEngine/GameEngine';
 import '../../gameEngine/GameEngine.scss';
 
