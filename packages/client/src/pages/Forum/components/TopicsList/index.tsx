@@ -25,7 +25,7 @@ export const TopicsList = ({ topics }: TopicsListProps) => {
 				{topics?.map(topic => (
 					<li key={topic.id} className={s.topicItem} title={topic.name}>
 						<Link
-							href={TOPICS_PATH(topic.id)}
+							to={TOPICS_PATH(topic.id)}
 							state={{
 								topicName: topic.name
 							}}

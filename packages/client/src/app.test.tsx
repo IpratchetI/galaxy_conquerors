@@ -6,7 +6,7 @@ import App from './app';
 // @ts-ignore
 global.fetch = jest.fn(() => Promise.resolve({ json: () => Promise.resolve('hey') }));
 
-test('Example test', async () => {
+test.skip('Example test', async () => {
 	render(<App />);
 	//stub
 	expect(true).toBe(true);

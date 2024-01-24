@@ -35,7 +35,6 @@ export const Registration = () => {
 				footer={
 					<>
 						<Button
-							type="submit"
 							title={'Register'}
 							className={styles.registrationButton}
 							onClick={() => submitHandler(getValues())}>
