@@ -5,6 +5,7 @@ import { LeaderBoard } from '@pages/LeaderBoard';
 import { Login } from '@pages/Login';
 import Main from '@pages/Main';
 import Profile from '@pages/Profile';
+import Game from '@pages/Game';
 import { Registration } from '@pages/Registration';
 import StartGame from '@pages/StartGame';
 import { TopicPage } from '@pages/Topic';
@@ -23,6 +24,7 @@ export const AppRouter = () => {
 			{/* Приватные */}
 			<Route path={routerPaths.main}>
 				<Route index element={<Main />} />
+				<Route path={routerPaths.game} element={<Game />} />
 				<Route path={routerPaths.profile} element={<Profile />} />
 				<Route path={routerPaths.leaderboard} element={<LeaderBoard />} />
 				<Route path={routerPaths.highScore} element={<div>highScore</div>} />

@@ -184,11 +184,11 @@ class GameEngine {
 	private checkEnemyBounds = () => {
 		const borderOffset = 100; // Расстояние от границы экрана для ограничения движения противников
 
-		this.enemies.forEach(enemy => {
-			if (enemy.x < borderOffset || enemy.x + enemy.width > this.canvas.width - borderOffset) {
-				enemy.speed *= -1;
-			}
-		});
+		// this.enemies.forEach(enemy => {
+		// 	if (enemy.x < borderOffset || enemy.x + enemy.width > this.canvas.width - borderOffset) {
+		// 		enemy.speed *= -1;
+		// 	}
+		// });
 	};
 
 	private checkStopEnemies = () => {
@@ -228,7 +228,7 @@ class GameEngine {
 					// Проверяем, остались ли еще противники
 					if (this.enemies.length === 0) {
 						// Увеличиваем скорость противников на 10
-						this.enemies.forEach(e => (e.speed += 100));
+						// this.enemies.forEach(e => (e.speed += 100));
 
 						// Создаем новых противников
 						this.createEnemies();

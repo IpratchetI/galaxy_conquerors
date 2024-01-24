@@ -27,10 +27,7 @@ class Enemy {
 		const reachedRightEdge = allEnemies.some(enemy => enemy.x + enemy.width >= canvasWidth - 100);
 
 		allEnemies.forEach(enemy => {
-			if (reachedLeftEdge && enemy.speed <= 0) {
-				enemy.y += Enemy.moveDownDistance;
-				enemy.speed *= -1;
-			} else if (reachedRightEdge && enemy.speed >= 0) {
+			if ((reachedLeftEdge && enemy.speed < 0) || (reachedRightEdge && enemy.speed > 0)) {
 				enemy.y += Enemy.moveDownDistance;
 				enemy.speed *= -1;
 			}
