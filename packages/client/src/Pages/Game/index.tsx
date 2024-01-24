@@ -10,7 +10,7 @@ const Game: React.FC = () => {
 		const canvas = canvasRef.current!;
 		const gameEngine = new GameEngine(canvas);
 
-		//размеры холста
+		// размеры холста
 		canvas.width = window.innerWidth;
 		canvas.height = window.innerHeight;
 
@@ -23,11 +23,11 @@ const Game: React.FC = () => {
 			canvas.height = window.innerHeight;
 		};
 
-		//обработчик изменения размера окна
+		// обработчик изменения размера окна
 		window.addEventListener('resize', handleResize);
 
 		return () => {
-			// Очиститка обработчика изменения размера окна при размонтировании компонента
+			// Очистка обработчика изменения размера окна при размонтировании компонента
 			window.removeEventListener('resize', handleResize);
 			gameEngine.stop();
 		};
