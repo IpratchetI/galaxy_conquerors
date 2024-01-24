@@ -1,6 +1,9 @@
 // src/gameEngine/GameEngine.tsx
-import { useEffect, useRef, KeyboardEvent } from 'react';
-import gamePlayBackground from '../assets/img/gamePlayBackground.png';
+import { KeyboardEvent } from 'react';
+
+import Ship from './Ship/Ship';
+import Bullet from './Bullet/Bullet';
+import Enemy from './Enemy/Enemy';
 
 class GameEngine {
 	private canvas: HTMLCanvasElement;
@@ -9,42 +12,78 @@ class GameEngine {
 	private bullets: Bullet[];
 	private enemies: Enemy[];
 	private lastShotTime: number;
+	private destroyedEnemiesCount = 0;
+	private isCountReported = false;
 
 	constructor(canvas: HTMLCanvasElement) {
 		this.canvas = canvas;
 		this.ctx = canvas.getContext('2d')!;
-		this.ship = new Ship(400, 500, 50, 50);
+		this.ship = new Ship(400, 500, 50, 50); //отрисовка корабля
 		this.bullets = [];
 		this.enemies = [];
 		this.lastShotTime = 0;
-
+		this.createEnemies();
 		window.addEventListener('keydown', this.handleKeyDown);
 		window.addEventListener('keyup', this.handleKeyUp);
-
-		this.createEnemies();
 	}
 
 	public start = () => {
 		this.gameLoop();
 	};
 
-	public stop = () => {
-		window.removeEventListener('keydown', this.handleKeyDown);
-		window.removeEventListener('keyup', this.handleKeyUp);
+	public getDestroyedEnemiesCount = (): number => {
+		return this.destroyedEnemiesCount;
 	};
 
-	private createEnemies = () => {
-		for (let i = 0; i < 9; i++) {
-			const enemy = new Enemy(100 + i * 120, 50, 100, 100, 10);
-			this.enemies.push(enemy);
-		}
-		for (let i = 0; i < 8; i++) {
-			const enemy = new Enemy(90 + i * 120, 150, 100, 100, 10);
-			this.enemies.push(enemy);
-		}
+	public stop = () => {
+		this.isCountReported = false;
+	};
+
+	private updateGame = () => {
+		this.updateShip();
+		this.updateBullets();
+		this.moveEnemies();
+		this.checkShipBounds();
+		this.checkBulletEnemyCollisions();
+		this.checkEnemyBounds();
+		this.checkStopEnemies();
+	};
+
+	private drawGame = () => {
+		this.clearCanvas();
+
+		// Счетчик уничтоженных противников
+		const counterText = `${this.destroyedEnemiesCount}`;
+
+		// Шрифт и размер
+		this.ctx.font = '35px "Press Start 2P", cursive';
+
+		// Цвет обводки и толщина линий
+		this.ctx.strokeStyle = 'black';
+		this.ctx.lineWidth = 2;
+
+		// Обводка текста
+		this.ctx.strokeText(counterText, 10, 50);
+
+		// Текст
+		this.ctx.fillStyle = 'white';
+		this.ctx.fillText(counterText, 10, 50);
+
+		this.drawShip();
+		this.drawBullets();
+		this.drawEnemies();
 	};
 
 	private handleKeyDown = (event: KeyboardEvent) => {
+		if (
+			event.code === 'ArrowLeft' ||
+			event.code === 'ArrowRight' ||
+			event.code === 'ArrowUp' ||
+			event.code === 'ArrowDown'
+		) {
+			event.preventDefault(); // Предотвращаем выполнение действий по умолчанию
+		}
+
 		if (event.code === 'ArrowLeft') {
 			this.ship.moveLeft();
 		} else if (event.code === 'ArrowRight') {
@@ -56,183 +95,147 @@ class GameEngine {
 	};
 
 	private handleKeyUp = (event: KeyboardEvent) => {
+		if (
+			event.code === 'ArrowLeft' ||
+			event.code === 'ArrowRight' ||
+			event.code === 'ArrowUp' ||
+			event.code === 'ArrowDown'
+		) {
+			event.preventDefault(); // Предотвращаем выполнение действий по умолчанию
+		}
+
 		if (event.code === 'ArrowLeft' || event.code === 'ArrowRight') {
 			this.ship.stopMoving();
 		}
 	};
 
-	private moveEnemies = () => {
-		this.enemies.forEach(enemy => enemy.move(this.canvas.width, this.enemies));
+	// Отвечает за отрисовку противников на старте
+	private createEnemies = () => {
+		for (let i = 0; i < 9; i++) {
+			const enemy = new Enemy(100 + i * 100, 100, 50, 50, 50);
+			this.enemies.push(enemy);
+		}
+		const verticalSpacing = 25;
+		const horizontalOffset = 60;
+		for (let i = 0; i < 8; i++) {
+			const enemy = new Enemy(90 + i * 100 + horizontalOffset, 150 + verticalSpacing, 50, 50, 50); //последнее значение скорость движения
+			this.enemies.push(enemy);
+		}
 	};
 
-	private update = () => {
+	private moveEnemies = () => {
+		Enemy.moveAllEnemies(this.enemies, this.canvas.width);
+	};
+
+	private updateShip = () => {
 		this.ship.update(this.canvas.width);
+	};
+
+	private updateBullets = () => {
 		this.bullets.forEach(bullet => bullet.update());
 		this.bullets = this.bullets.filter(bullet => !bullet.isOutOfBounds());
-		this.moveEnemies();
 	};
 
-	private drawBackground = async () => {
-		const img = new Image();
-		img.src = gamePlayBackground;
-
-		// Используем Promise, чтобы дождаться загрузки изображения
-		await new Promise(resolve => {
-			img.onload = resolve;
-		});
-
-		// console.log('Image loaded:', img.width, img.height); // Добавьте этот лог
-
-		// Очистите холст, сделав его прозрачным
-		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-		// Отрисовка фонового изображения
-		this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height);
-
-		// Отрисовка корабля, пуль, врагов и т.д.
-		this.draw();
-	};
-
-	private draw = () => {
-		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-		// Отрисовка фонового изображения
-		this.drawBackground();
-
-		// Отрисовка корабля, пуль, врагов и т.д.
+	private drawShip = () => {
 		this.ship.draw(this.ctx, this.canvas.height);
+	};
+
+	private drawBullets = () => {
 		this.bullets.forEach(bullet => bullet.draw(this.ctx));
+	};
+
+	private drawEnemies = () => {
 		this.enemies.forEach(enemy => enemy.draw(this.ctx));
 	};
 
+	private clearCanvas = () => {
+		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+	};
+
 	private shoot = () => {
-		const bullet = new Bullet(this.ship.x + this.ship.width / 2 - 10, this.ship.y, 20, 100);
+		const bullet = new Bullet(
+			this.ship.x + this.ship.width / 2 - 10,
+			this.canvas.height - 200,
+			20,
+			100
+		);
 		this.bullets.push(bullet);
 	};
 
 	private gameLoop = () => {
-		this.update();
-		this.draw();
+		this.updateGame();
+		this.drawGame();
 		requestAnimationFrame(this.gameLoop);
 	};
-}
 
-//todo: навесить изображение
-class Ship {
-	x: number;
-	y: number;
-	width: number;
-	height: number;
-	speed: number;
-	isMovingLeft: boolean;
-	isMovingRight: boolean;
+	private checkShipBounds = () => {
+		const borderOffset = 100; // Расстояние от границы экрана
 
-	constructor(x: number, y: number, width: number, height: number) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.speed = 5;
-		this.isMovingLeft = false;
-		this.isMovingRight = false;
-	}
+		if (this.ship.x < borderOffset) {
+			this.ship.x = borderOffset;
+		}
 
-	moveLeft = () => {
-		this.isMovingLeft = true;
-		this.isMovingRight = false;
-	};
-
-	moveRight = () => {
-		this.isMovingLeft = false;
-		this.isMovingRight = true;
-	};
-
-	stopMoving = () => {
-		this.isMovingLeft = false;
-		this.isMovingRight = false;
-	};
-
-	update = (canvasWidth: number) => {
-		if (this.isMovingLeft && this.x > 0) {
-			this.x -= this.speed;
-		} else if (this.isMovingRight && this.x < canvasWidth - this.width) {
-			this.x += this.speed;
+		const rightBorder = this.canvas.width - this.ship.width - borderOffset;
+		if (this.ship.x > rightBorder) {
+			this.ship.x = rightBorder;
 		}
 	};
 
-	// Обновите метод draw, чтобы корабль оставался в нижней части экрана
-	draw = (ctx: CanvasRenderingContext2D, canvasHeight: number) => {
-		ctx.fillStyle = 'blue';
-		ctx.fillRect(this.x, canvasHeight - this.height - 50, this.width, this.height);
-	};
-}
+	private checkEnemyBounds = () => {
+		const borderOffset = 100; // Расстояние от границы экрана для ограничения движения противников
 
-//todo: навесить изображение
-class Bullet {
-	x: number;
-	y: number;
-	width: number;
-	height: number;
-	speed: number;
-
-	constructor(x: number, y: number, width: number, height: number) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.speed = 8;
-	}
-
-	update = () => {
-		this.y -= this.speed;
-	};
-
-	draw = (ctx: CanvasRenderingContext2D) => {
-		ctx.fillStyle = 'red';
-		ctx.fillRect(this.x, this.y, this.width, this.height);
-	};
-
-	isOutOfBounds = () => {
-		return this.y + this.height < 0;
-	};
-}
-
-// todo: доработать противников
-class Enemy {
-	x: number;
-	y: number;
-	width: number;
-	height: number;
-	speed: number;
-
-	constructor(x: number, y: number, width: number, height: number, speed: number) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.speed = speed;
-	}
-
-	private static moveDownDistance = 50;
-
-	move = (canvasWidth: number, allEnemies: Enemy[]) => {
-		this.x += this.speed / 60;
-
-		const reachedLeftEdge = allEnemies.some(enemy => enemy.x <= 0);
-		const reachedRightEdge = allEnemies.some(enemy => enemy.x + enemy.width >= canvasWidth);
-
-		if (reachedLeftEdge || reachedRightEdge) {
-			allEnemies.forEach(enemy => {
-				enemy.y += Enemy.moveDownDistance;
+		this.enemies.forEach(enemy => {
+			if (enemy.x < borderOffset || enemy.x + enemy.width > this.canvas.width - borderOffset) {
 				enemy.speed *= -1;
-				enemy.x += enemy.speed / 60;
-			});
+			}
+		});
+	};
+
+	private checkStopEnemies = () => {
+		const bottomBorder = this.canvas.height - 150; // Граница от нижнего края экрана
+
+		if (this.enemies.some(enemy => enemy.y >= bottomBorder)) {
+			// Останавливаем противников
+			this.enemies.forEach(enemy => (enemy.speed = 0));
+
+			// Передаем значение счетчика наружу
+			if (!this.isCountReported) {
+				const destroyedEnemiesCount = this.getDestroyedEnemiesCount();
+				console.log(`Destroyed Enemies Count: ${destroyedEnemiesCount}`);
+
+				this.isCountReported = true;
+			}
 		}
 	};
 
-	draw = (ctx: CanvasRenderingContext2D) => {
-		ctx.fillStyle = 'black';
-		ctx.fillRect(this.x, this.y, this.width, this.height);
+	private checkBulletEnemyCollisions = () => {
+		// Проверка столкновения пуль с противниками
+		this.bullets.forEach(bullet => {
+			this.enemies.forEach((enemy, enemyIndex) => {
+				if (
+					bullet.x < enemy.x + enemy.width &&
+					bullet.x + bullet.width > enemy.x &&
+					bullet.y < enemy.y + enemy.height &&
+					bullet.y + bullet.height > enemy.y
+				) {
+					// Удаляем пулю и противника из массивов
+					this.bullets = this.bullets.filter(b => b !== bullet);
+					this.enemies = this.enemies.filter((e, index) => index !== enemyIndex);
+
+					// Увеличиваем счетчик уничтоженных противников
+					this.destroyedEnemiesCount++;
+
+					// Проверяем, остались ли еще противники
+					if (this.enemies.length === 0) {
+						// Увеличиваем скорость противников на 10
+						this.enemies.forEach(e => (e.speed += 100));
+
+						// Создаем новых противников
+						this.createEnemies();
+					}
+				}
+			});
+		});
 	};
 }
 
