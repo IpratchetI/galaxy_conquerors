@@ -1,5 +1,7 @@
 import classNames from 'classnames';
-import { ReactNode } from 'react';
+import { MouseEvent, ReactNode } from 'react';
+
+import { Spacer } from '@/components';
 
 import s from './index.module.scss';
 import { Portal } from './components/Portal/Portal';
@@ -8,7 +10,7 @@ import { Overlay } from './components/Overlay/Overlay';
 type ModalProps = {
 	className?: string;
 	isOpen?: boolean;
-	onClose?: () => void;
+	onClose?: (e?: MouseEvent) => void;
 	onOpen?: () => void;
 	children?: ReactNode;
 };
@@ -22,10 +24,10 @@ export const Modal = (props: ModalProps) => {
 
 	return (
 		<Portal>
-			<div className={classNames(s.modal, mods)}>
+			<Spacer className={classNames(s.modal, mods)} fullWidth fullHeight>
 				<Overlay onClick={onClose} isOpen={isOpen} />
-				<div className={classNames(s.content, [className])}>{children}</div>
-			</div>
+				<Spacer className={classNames(s.content, [className])}>{children}</Spacer>
+			</Spacer>
 		</Portal>
 	);
 };

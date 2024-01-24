@@ -12,6 +12,7 @@ export enum ButtonVariant {
 type ButtonProps = {
 	variant?: ButtonVariant;
 	text?: string;
+	fullWidth?: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = (props: ButtonProps) => {
@@ -19,6 +20,7 @@ export const Button = (props: ButtonProps) => {
 		variant = ButtonVariant.DEFAULT,
 		className,
 		type = 'button',
+		fullWidth = false,
 		children,
 		text,
 		...otherProps
@@ -26,7 +28,8 @@ export const Button = (props: ButtonProps) => {
 
 	const mods = {
 		[s.text]: variant === ButtonVariant.TEXT,
-		[s.default]: variant === ButtonVariant.DEFAULT
+		[s.default]: variant === ButtonVariant.DEFAULT,
+		[s.fullWidth]: fullWidth
 	};
 
 	return (

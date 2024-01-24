@@ -7,10 +7,12 @@
   --white: rgba(255, 255, 255, 1);
   --sky: rgba(59, 243, 255, 1);
   --grey-80: rgba(139, 139, 139, 0.8);
+  --error: rgba(252, 60, 60, 0.8);
 
   // Размеры текста
 
   --font-size-10: 10px;
+  --font-size-12: 12px;
   --font-size-20: 20px;
   --font-size-30: 30px;
   --font-size-45: 45px;
@@ -20,4 +22,5 @@
   // z-index
 
   --z-index-1000: 1000;
+  --z-index-1001: 1001;
 }

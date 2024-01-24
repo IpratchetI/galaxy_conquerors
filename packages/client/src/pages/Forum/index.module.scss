@@ -1,26 +1,19 @@
 @import 'src/style/main';
+@import 'src/style/backgrounds';
 
 .forumPage {
   font-size: var(--font-size-20);
 
   @include page-container;
-  @include main-background;
+  @include leaderBoard-background;
   @include grid-template;
 }
 
 .title {
-  font-size: 60px;
   margin-bottom: 85px;
   grid-area: title;
 }
 
 .buttons {
-  display: flex;
-  justify-content: space-between;
   grid-area: actions;
-}
-
-.forumModal {
-  width: 830px;
-  height: 463px;
 }

@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
-import { ProfileUpdateData } from '@models/ProfileData';
+import { ProfileData } from '@models/ProfileData';
 
-import { ProfileApiEndpoints } from '@/pages/Profile/constants';
+import { ProfileApiEndpoints } from '@/pages/Profile/types';
 
 class UserProfileService {
 	private baseUrl: ProfileApiEndpoints;
@@ -19,12 +19,12 @@ class UserProfileService {
 		}
 	}
 
-	async getProfileData(): Promise<ProfileUpdateData> {
+	async getProfileData(): Promise<ProfileData> {
 		try {
 			const response = await axios.get(this.baseUrl.profileData);
 			return {
-				firstName: response.data.first_name,
-				secondName: response.data.second_name,
+				first_name: response.data.first_name,
+				second_name: response.data.second_name,
 				email: response.data.email,
 				phone: response.data.phone,
 				login: response.data.login
@@ -34,11 +34,11 @@ class UserProfileService {
 		}
 	}
 
-	async saveProfileData(data: ProfileUpdateData): Promise<void> {
+	async saveProfileData(data: ProfileData): Promise<void> {
 		try {
 			await axios.put(this.baseUrl.saveProfile, {
-				first_name: data.firstName,
-				second_name: data.secondName,
+				first_name: data.first_name,
+				second_name: data.second_name,
 				email: data.email,
 				phone: data.phone,
 				login: data.login

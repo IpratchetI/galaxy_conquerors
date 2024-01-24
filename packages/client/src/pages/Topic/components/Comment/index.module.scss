@@ -1,9 +1,3 @@
-@import 'src/style/main';
-
-.commentsWrapper {
-  @include flex-column;
-}
-
 .commentsWrapper {
   gap: 25px;
   font-size: var(--font-size-20);

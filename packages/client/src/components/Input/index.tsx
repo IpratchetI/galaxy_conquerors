@@ -1,21 +1,30 @@
-import { InputHTMLAttributes, MutableRefObject, forwardRef } from 'react';
+import {
+	ChangeEvent,
+	ForwardedRef,
+	forwardRef,
+	InputHTMLAttributes,
+	MutableRefObject,
+	useCallback,
+	useState
+} from 'react';
 import classNames from 'classnames';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { GlobalError } from 'react-hook-form/dist/types/errors';
 import { useCombinedRef } from '@hooks/useCombinedRef';
 
-import s from './index.module.scss';
+import { Spacer, Text } from '@/components';
+
 import { useTextarea } from './lib/useTextarea';
+import s from './index.module.scss';
 
 type InputAttrVariable = InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>;
 
 export type InputProps = {
-	/* eslint-disable */
-	textareaRef?: MutableRefObject<HTMLTextAreaElement | any>;
 	isTextarea?: boolean;
 	error?: GlobalError;
 	initialValue?: string;
 	label?: string;
+	textareaRef?: MutableRefObject<HTMLTextAreaElement | any>;
 } & InputAttrVariable &
 	Partial<UseFormRegisterReturn<string>>;
 
@@ -39,21 +48,33 @@ export const Input = forwardRef((props: InputProps, ref) => {
 	const inputRef = useCombinedRef(ref, textareaRef);
 
 	const mods = {
-		[s.textarea]: isTextarea
+		[s.textarea]: isTextarea,
+		[s.invalid]: error?.message
 	};
 
+	let errorContent = null;
+
+	if (error) {
+		errorContent = (
+			<Text className={s.validationError} tag="p" size="xs" variant="error">
+				{error.message ? error.message : 'Value is not valid'}
+			</Text>
+		);
+	}
+
 	return (
-		<div className={s.inputWrapper}>
+		<Spacer direction="column" align="start" className={s.inputWrapper}>
 			<label className={s.label} htmlFor={name}>
 				{children}
 			</label>
 			<InputTag
-				ref={inputRef}
 				{...otherProps}
+				ref={inputRef}
 				className={classNames(s.input, mods, className)}
 				name={name}
+				value={value}
 			/>
-			{error && <span className={s.validationError}>Value is not valid</span>}
-		</div>
+			{errorContent}
+		</Spacer>
 	);
 });

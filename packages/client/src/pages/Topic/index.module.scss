@@ -1,10 +1,11 @@
 @import 'src/style/main';
+@import 'src/style/backgrounds';
 
 .topicPage {
   font-size: var(--font-size-45);
 
   @include page-container;
-  @include main-background;
+  @include leaderBoard-background;
   @include grid-template;
 }
 

@@ -4,11 +4,11 @@ import { classnames } from '@/utils/classnames';
 
 import styles from './index.module.scss';
 
-type TextVariant = 'normal' | 'selected' | 'focus' | 'fillBlack';
+type TextVariant = 'normal' | 'selected' | 'focus' | 'fillBlack' | 'error';
 
 type TextAlign = 'left' | 'center' | 'right';
 
-type TextSize = 's' | 'm' | 'l' | 'xl' | 'xxl';
+type TextSize = 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
 
 interface TextProps {
 	className?: string;

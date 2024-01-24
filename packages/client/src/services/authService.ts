@@ -1,4 +1,4 @@
-import { UserLoginModel, UserModel } from '@models/User';
+import { UserLoginModel } from '@models/User';
 import { BaseApiService } from '@services/BaseApiService';
 import axios from 'axios';
 
@@ -11,7 +11,7 @@ class AuthService extends BaseApiService {
 		});
 	}
 
-	signUp(user: UserModel) {
+	signUp(user: UserLoginModel) {
 		return axios.post(this.restUrl('signup', this._controllerName), user, {
 			withCredentials: true
 		});

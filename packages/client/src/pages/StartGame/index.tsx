@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-import astronaut from '@assets/img/astronaut.png';
+import astronaut from '@assets/gameplay/astronaut.png';
 
 import { Spacer, Text } from '@/components';
 
 import styles from './index.module.scss';
 
-const StartGame = () => {
+export const StartGame = () => {
 	useEffect(() => {
 		//TODO добавить роут
 		//setTimeout(() => {}, 5000)
@@ -13,7 +13,11 @@ const StartGame = () => {
 
 	return (
 		<main className={styles.background}>
-			<img src={astronaut} className={styles.astronaut} />
+			<img
+				src={astronaut}
+				className={styles.astronaut}
+				alt="Изображение: Астронавт смотрит в даль"
+			/>
 			<Spacer direction="column" align="start" className={styles.cloudContainer}>
 				<div className={styles.cloudMin}></div>
 				<div className={styles.cloudMax}></div>
@@ -26,5 +30,3 @@ const StartGame = () => {
 		</main>
 	);
 };
-
-export default StartGame;
