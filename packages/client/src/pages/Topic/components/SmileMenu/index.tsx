@@ -27,9 +27,9 @@ export const SmileMenu = () => {
 						<Button
 							key={`smile-${i}`}
 							className={s.smile}
-							onClick={() => handlerSelectSmile(smile)}>
-							{smile}
-						</Button>
+							onClick={() => handlerSelectSmile(smile)}
+							text={smile}
+						/>
 					))}
 				</div>
 			)}

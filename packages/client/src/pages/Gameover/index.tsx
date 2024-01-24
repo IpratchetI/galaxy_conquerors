@@ -4,6 +4,7 @@ import explosion from '@assets/img/explosion.png';
 import shot from '@assets/img/shot.png';
 
 import { Link, Spacer, Text } from '@/components';
+import { routerPaths } from '@/constants/routerPaths';
 
 import styles from './index.module.scss';
 
@@ -11,10 +12,6 @@ const FIRST_ROW_SHIP_COUNT = 9;
 const SECOND_ROW_SHIP_COUNT = 8;
 
 const Gameover = () => {
-	const onExit = useCallback(() => {
-		// TODO
-		console.log('exit');
-	}, []);
 	return (
 		<main className={styles.background}>
 			<Spacer direction="column" fullHeight gap="80" className={styles.container}>
@@ -22,7 +19,7 @@ const Gameover = () => {
 					{'GAME OVER'}
 				</Text>
 				<div className={styles.linkText}>
-					<Link onClick={onExit}>
+					<Link to={routerPaths.main}>
 						<Text size="l">{'Exit'}</Text>
 					</Link>
 				</div>

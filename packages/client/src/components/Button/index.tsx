@@ -11,6 +11,7 @@ export enum ButtonVariant {
 
 type ButtonProps = {
 	variant?: ButtonVariant;
+	text?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = (props: ButtonProps) => {
@@ -19,6 +20,7 @@ export const Button = (props: ButtonProps) => {
 		className,
 		type = 'button',
 		children,
+		text,
 		...otherProps
 	} = props;
 
@@ -28,9 +30,13 @@ export const Button = (props: ButtonProps) => {
 	};
 
 	return (
-		<button {...otherProps} className={classNames(s.button, mods, className)} type={type}>
+		<button
+			{...otherProps}
+			className={classNames(s.button, mods, className)}
+			type={type}
+			title={text}>
 			<span className={s.selectIcon}>{variant === ButtonVariant.TEXT && <SelectIcon />}</span>
-			{children}
+			{children || text}
 		</button>
 	);
 };

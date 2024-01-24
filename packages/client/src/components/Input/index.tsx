@@ -1,7 +1,8 @@
-import { ChangeEvent, InputHTMLAttributes, MutableRefObject, useCallback, useState } from 'react';
+import { InputHTMLAttributes, MutableRefObject, forwardRef } from 'react';
 import classNames from 'classnames';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { GlobalError } from 'react-hook-form/dist/types/errors';
+import { useCombinedRef } from '@hooks/useCombinedRef';
 
 import s from './index.module.scss';
 import { useTextarea } from './lib/useTextarea';
@@ -18,37 +19,28 @@ export type InputProps = {
 } & InputAttrVariable &
 	Partial<UseFormRegisterReturn<string>>;
 
-export const Input = (props: InputProps) => {
+export const Input = forwardRef((props: InputProps, ref) => {
 	const {
 		children,
-		textareaRef,
+		textareaRef = { current: null },
 		error,
 		className,
 		name,
+		value,
 		initialValue,
 		isTextarea = false,
 		...otherProps
 	} = props;
 
-	// todo: change to state from store and use dispatcher mb
-	const [value, setValue] = useState(initialValue ?? '');
 	const InputTag = isTextarea ? 'textarea' : 'input';
 
-	useTextarea({
-		textareaRef,
-		value
-	});
+	useTextarea({ textareaRef, value });
+
+	const inputRef = useCombinedRef(ref, textareaRef);
 
 	const mods = {
 		[s.textarea]: isTextarea
 	};
-
-	// todo: update
-	const handleChange = useCallback((event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-		event.preventDefault();
-		otherProps?.onChange?.(event);
-		setValue(event.target?.value);
-	}, []);
 
 	return (
 		<div className={s.inputWrapper}>
@@ -56,13 +48,12 @@ export const Input = (props: InputProps) => {
 				{children}
 			</label>
 			<InputTag
-				ref={textareaRef}
+				ref={inputRef}
 				{...otherProps}
 				className={classNames(s.input, mods, className)}
-				onChange={handleChange}
-				value={value}
+				name={name}
 			/>
 			{error && <span className={s.validationError}>Value is not valid</span>}
 		</div>
 	);
-};
+});
