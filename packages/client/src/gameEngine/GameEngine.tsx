@@ -113,7 +113,7 @@ class GameEngine {
 			const enemy = new Enemy(100 + i * 100, 100, 50, 50, 50);
 			this.enemies.push(enemy);
 		}
-		const verticalSpacing = 25;
+		const verticalSpacing = 25; //отступы
 		const horizontalOffset = 60;
 		for (let i = 0; i < 8; i++) {
 			const enemy = new Enemy(90 + i * 100 + horizontalOffset, 150 + verticalSpacing, 50, 50, 50); //последнее значение скорость движения
