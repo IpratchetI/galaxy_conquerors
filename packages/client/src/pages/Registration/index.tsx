@@ -2,9 +2,13 @@ import { useForm } from 'react-hook-form';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 import { Spacer } from '@components/Spacer';
-import { UserRegistrationModel } from '@models/User';
+import { UserLoginModel, UserRegistrationModel } from '@models/User';
 import { FormCard } from '@components/FormCard';
+import { AuthService } from '@services/authService';
+import { useAuthorize } from '@hooks/useAuthorize';
+import { useNavigate } from 'react-router-dom';
 
+import { routerPaths } from '@/constants/routerPaths';
 import { regInputsConfig, regInputsDefaults } from '@/pages/Registration/constants';
 import { validate } from '@/utils/validate';
 
@@ -12,6 +16,8 @@ import '@styles/main.scss';
 import styles from './index.module.scss';
 
 export const Registration = () => {
+	const [, setAuthorized] = useAuthorize();
+
 	const {
 		register,
 		getValues,
@@ -23,11 +29,16 @@ export const Registration = () => {
 		defaultValues: regInputsDefaults
 	});
 
-	const submitHandler = () => {
-		getValues();
+	const navigate = useNavigate();
 
-		console.log(getValues());
+	const submitHandler = (data: UserLoginModel) => {
+		AuthService.signUp(data).then(() => {
+			setAuthorized(true);
+			navigate(routerPaths.main);
+		});
 	};
+
+	const registerHandler = () => submitHandler(getValues());
 
 	return (
 		<main className={styles.registration}>
@@ -37,10 +48,10 @@ export const Registration = () => {
 					fullWidthContent
 					footer={
 						<Spacer gap="20">
-							<Button type="submit" onClick={handleSubmit(submitHandler)}>
+							<Button type="submit" onClick={handleSubmit(registerHandler)}>
 								Register
 							</Button>
-							<Button>Back</Button>
+							<Button onClick={() => navigate(-1)}>Back</Button>
 						</Spacer>
 					}>
 					<form>

@@ -10,6 +10,7 @@ import {
 import classNames from 'classnames';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { GlobalError } from 'react-hook-form/dist/types/errors';
+import { useCombinedRef } from '@hooks/useCombinedRef';
 
 import { Spacer, Text } from '@/components';
 
@@ -23,87 +24,57 @@ export type InputProps = {
 	error?: GlobalError;
 	initialValue?: string;
 	label?: string;
+	textareaRef?: MutableRefObject<HTMLTextAreaElement | any>;
 } & InputAttrVariable &
 	Partial<UseFormRegisterReturn<string>>;
 
-export const Input = forwardRef(
-	(props: InputProps, ref: ForwardedRef<HTMLInputElement | HTMLTextAreaElement>) => {
-		const {
-			children,
-			error,
-			className,
-			name,
-			initialValue,
-			isTextarea = false,
-			onChange,
-			...otherProps
-		} = props;
+export const Input = forwardRef((props: InputProps, ref) => {
+	const {
+		children,
+		textareaRef = { current: null },
+		error,
+		className,
+		name,
+		value,
+		initialValue,
+		isTextarea = false,
+		...otherProps
+	} = props;
 
-		// todo: change to state from store and use dispatcher mb
-		const [value, setValue] = useState(initialValue ?? '');
+	const InputTag = isTextarea ? 'textarea' : 'input';
 
-		useTextarea({
-			textareaRef: ref as MutableRefObject<HTMLTextAreaElement>,
-			value
-		});
+	useTextarea({ textareaRef, value });
 
-		const mods = {
-			[s.textarea]: isTextarea,
-			[s.invalid]: error?.message
-		};
+	const inputRef = useCombinedRef(ref, textareaRef);
 
-		// todo: update
-		const handleChange = useCallback(
-			(event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-				event.preventDefault();
-				onChange?.(event);
-				setValue(event.target?.value);
-			},
-			[]
-		);
+	const mods = {
+		[s.textarea]: isTextarea,
+		[s.invalid]: error?.message
+	};
 
-		let errorContent = null;
+	let errorContent = null;
 
-		if (error && error.message) {
-			errorContent = (
-				<Text className={s.validationError} tag="p" size="xs" variant="error">
-					{error.message}
-				</Text>
-			);
-		} else if (error && !error.message) {
-			errorContent = (
-				<Text className={s.validationError} tag="p" size="xs" variant="error">
-					Value is not valid
-				</Text>
-			);
-		}
-
-		return (
-			<Spacer direction="column" align="start" className={s.inputWrapper}>
-				<label className={s.label} htmlFor={name}>
-					{children}
-				</label>
-				{isTextarea ? (
-					<textarea
-						{...otherProps}
-						ref={ref as MutableRefObject<HTMLTextAreaElement>}
-						className={classNames(s.input, mods, className)}
-						name={name}
-						onChange={handleChange}
-						value={value}
-					/>
-				) : (
-					<input
-						{...otherProps}
-						ref={ref as MutableRefObject<HTMLInputElement>}
-						className={classNames(s.input, mods, className)}
-						name={name}
-						onChange={handleChange}
-						value={value}
-					/>
-				)}
-				{errorContent}
-			</Spacer>
+	if (error) {
+		errorContent = (
+			<Text className={s.validationError} tag="p" size="xs" variant="error">
+				{error.message ? error.message : 'Value is not valid'}
+			</Text>
 		);
 	}
-);
+
+	return (
+		<Spacer direction="column" align="start" className={s.inputWrapper}>
+			<label className={s.label} htmlFor={name}>
+				{children}
+			</label>
+			<InputTag
+				{...otherProps}
+				ref={inputRef}
+				className={classNames(s.input, mods, className)}
+				name={name}
+				value={value}
+			/>
+			{errorContent}
+		</Spacer>
+	);
+});

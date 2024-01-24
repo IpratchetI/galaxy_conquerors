@@ -1,13 +1,12 @@
 import React from 'react';
 import { Button } from '@components/Button';
+import { useNavigate } from 'react-router-dom';
 
 import s from './index.module.scss';
 import { HighscoreList } from './components/HighscoreList/highscoreList';
 
 export const LeaderBoard = () => {
-	const handleHistoryBack = () => {
-		// todo: add back
-	};
+	const navigate = useNavigate();
 
 	return (
 		<div className={s.leaderboardPage}>
@@ -15,7 +14,7 @@ export const LeaderBoard = () => {
 			<div className={s.highscoreList}>
 				<HighscoreList />
 			</div>
-			<Button title="Back" className={s.button} onClick={handleHistoryBack} />
+			<Button text="Back" className={s.button} onClick={() => navigate(-1)} />
 		</div>
 	);
 };

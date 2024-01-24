@@ -5,6 +5,7 @@ import { Input } from '@components/Input';
 import { useForm } from 'react-hook-form';
 import { UserProfileModel } from '@models/User';
 import { FormCard } from '@components/FormCard';
+import { useNavigate } from 'react-router-dom';
 
 import UserProfileService from '@/services/userProfileService';
 import { Spacer } from '@/components';
@@ -19,6 +20,7 @@ export const Profile = () => {
 	const [isChangePasswordPopupOpen, setChangePasswordPopupOpen] = useState(false);
 	const [avatarUrl, setAvatarUrl] = useState('');
 	const [profileData, setProfileData] = useState(profileInputsDefaults);
+	const navigate = useNavigate();
 
 	const {
 		register,
@@ -70,11 +72,6 @@ export const Profile = () => {
 		}
 	};
 
-	const handleBack = () => {
-		// todo: Логика возврата
-		console.log('back');
-	};
-
 	return (
 		<main className={styles.background}>
 			<Spacer>
@@ -103,7 +100,7 @@ export const Profile = () => {
 									className={styles.button}
 									type="button"
 									variant={ButtonVariant.DEFAULT}
-									onClick={handleBack}>
+									onClick={() => navigate(-1)}>
 									<Text align="center" size="s">
 										Back
 									</Text>

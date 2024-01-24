@@ -1,48 +1,66 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
+import { useNavigate } from 'react-router-dom';
+import { MouseEvent } from 'react';
+import { AuthService } from '@services/authService';
+import { useAuthorize } from '@hooks/useAuthorize';
 
 import { Link, Text } from '@/components';
+import { routerPaths } from '@/constants/routerPaths';
 
-import { navLinks } from './constants/mocks';
+import { navLinks } from './constants/navLinks';
 import styles from './index.module.scss';
 
 export const LinksList = () => {
 	const [activeLinkId, setActiveLinkId] = useState<number>(0);
-	const activeLinkRef = useRef(null);
+	const navigate = useNavigate();
+	const [, setAuthorized] = useAuthorize();
 
-	const onExit = useCallback(() => {
-		// TODO: обработка выхода, когда будет готова ручка
-		console.log('exit');
-	}, []);
+	const exitHandler = useCallback(
+		(e: MouseEvent<HTMLAnchorElement>) => {
+			e.stopPropagation();
+			e.preventDefault();
+			AuthService.logout().then(() => {
+				setAuthorized(false);
+				navigate(routerPaths.login);
+			});
+		},
+		[navigate, setAuthorized]
+	);
 
-	const handleKeyDown = (event: KeyboardEvent) => {
-		event.preventDefault();
+	const handleKeyDown = useCallback(
+		(event: KeyboardEvent) => {
+			event.preventDefault();
 
-		switch (event.key) {
-			case 'ArrowUp':
-				setActiveLinkId(previousId => {
-					if (previousId === null || previousId === 0) return navLinks.length - 1;
-					return previousId - 1;
-				});
-				break;
+			switch (event.key) {
+				case 'ArrowUp':
+					setActiveLinkId(previousId => {
+						if (previousId === null || previousId === 0) return navLinks.length - 1;
+						return previousId - 1;
+					});
+					break;
 
-			case 'ArrowDown':
-				setActiveLinkId(previousId => {
-					if (previousId === null || previousId === navLinks.length - 1) return 0;
-					return previousId + 1;
-				});
-				break;
+				case 'ArrowDown':
+					setActiveLinkId(previousId => {
+						if (previousId === null || previousId === navLinks.length - 1) return 0;
+						return previousId + 1;
+					});
+					break;
 
-			case 'Enter':
-				if (activeLinkRef.current) {
-					(activeLinkRef.current as HTMLButtonElement).click();
+				case 'Enter': {
+					const to = navLinks.find(link => link.id === activeLinkId)?.path;
+					if (to) {
+						navigate(to);
+					}
+					break;
 				}
-				break;
 
-			default:
-				return;
-		}
-	};
+				default:
+					return;
+			}
+		},
+		[activeLinkId, navigate]
+	);
 
 	useEffect(() => {
 		document.addEventListener('keydown', handleKeyDown);
@@ -54,13 +72,13 @@ export const LinksList = () => {
 
 	return (
 		<ul className={styles.list}>
-			{navLinks.map(({ id, path, text, action }) => (
+			{navLinks.map(({ id, path, text }) => (
 				<li key={id}>
 					<Link
-						href={path}
+						to={path}
 						className={classNames({ [styles.isActive]: id === activeLinkId })}
 						onMouseEnter={() => setActiveLinkId(id)}
-						onClick={action ? onExit : undefined}>
+						onClick={text === 'Exit' ? exitHandler : undefined}>
 						<Text size="l" variant={id === activeLinkId ? 'selected' : 'normal'}>
 							{text}
 						</Text>

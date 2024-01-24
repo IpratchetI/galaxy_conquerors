@@ -1,7 +1,7 @@
 import { MutableRefObject, useCallback, useEffect } from 'react';
 
 type UseTextareaProps = {
-	value: string;
+	value: string | number | readonly string[] | undefined;
 	textareaRef?: MutableRefObject<HTMLTextAreaElement | null>;
 };
 

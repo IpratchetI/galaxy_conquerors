@@ -13,3 +13,11 @@
 .signUpText:hover {
   color: var(--sky);
 }
+
+.register {
+  font-weight: bold;
+
+  &:hover {
+    color: var(--sky);
+  }
+}

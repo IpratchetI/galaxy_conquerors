@@ -5,6 +5,3 @@ export interface ProfileData {
 	phone: string;
 	login: string;
 }
-
-export type ProfileResponse = ProfileData;
-export type ProfileUpdateData = ProfileData;

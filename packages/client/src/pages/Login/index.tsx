@@ -5,7 +5,11 @@ import { UserLoginModel } from '@models/User';
 import { Link } from '@components/Link';
 import { Text } from '@components/Text';
 import { FormCard } from '@components/FormCard';
+import { AuthService } from '@services/authService';
+import { useNavigate } from 'react-router-dom';
+import { useAuthorize } from '@hooks/useAuthorize';
 
+import { routerPaths } from '@/constants/routerPaths';
 import { Spacer } from '@/components';
 import { validate } from '@/utils/validate';
 
@@ -14,6 +18,8 @@ import '@styles/main.scss';
 import styles from './index.module.scss';
 
 export const Login = () => {
+	const [, setAuthorized] = useAuthorize();
+
 	const {
 		register,
 		getValues,
@@ -25,8 +31,18 @@ export const Login = () => {
 		defaultValues: loginInputsDefaults
 	});
 
-	const submitHandler = () => {
-		getValues();
+	const navigate = useNavigate();
+
+	const submitHandler = (data: UserLoginModel) => {
+		AuthService.signIn(data).then(() => {
+			setAuthorized(true);
+			navigate(routerPaths.main);
+		});
+	};
+
+	const signInHandler = () => {
+		const values = getValues();
+		submitHandler(values);
 	};
 
 	return (
@@ -39,7 +55,7 @@ export const Login = () => {
 					<FormCard
 						text="Authorization"
 						footer={
-							<Button type="submit" onClick={handleSubmit(submitHandler)}>
+							<Button type="submit" onClick={handleSubmit(signInHandler)}>
 								Sign In
 							</Button>
 						}>
@@ -66,8 +82,7 @@ export const Login = () => {
 						</form>
 					</FormCard>
 				</Spacer>
-				{/* TODO: добавить путь к странице авторизации после мерджа с роутером */}
-				<Link>
+				<Link to={`/${routerPaths.registration}`}>
 					<Spacer direction="column" gap="12">
 						<Text align="center" size="s">
 							x

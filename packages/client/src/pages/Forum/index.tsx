@@ -1,6 +1,7 @@
 import { Button } from '@components/Button';
 import { Modal } from '@components/Modal';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Spacer, Text } from '@/components';
 
@@ -11,13 +12,10 @@ import { NewTopicForm } from './components/NewTopicForm';
 
 export const ForumPage = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const navigate = useNavigate();
 
 	const handleOpenTopicCreator = () => {
 		setIsModalOpen(prevState => !prevState);
-	};
-
-	const handleHistoryBack = () => {
-		// todo: add back
 	};
 
 	return (
@@ -27,7 +25,7 @@ export const ForumPage = () => {
 			</Text>
 			<TopicsList topics={TOPICS_LIST} />
 			<Spacer className={s.buttons} justify="between">
-				<Button onClick={handleHistoryBack}>Back</Button>
+				<Button onClick={() => navigate(-1)}>Back</Button>
 				<Button onClick={handleOpenTopicCreator}>Add new theme</Button>
 			</Spacer>
 

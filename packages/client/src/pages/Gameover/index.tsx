@@ -1,9 +1,9 @@
-import { useCallback } from 'react';
 import ship from '@assets/gameplay/ship.png';
 import explosion from '@assets/gameplay/explosion.png';
 import shot from '@assets/gameplay/shot.png';
 
 import { Link, Spacer, Text } from '@/components';
+import { routerPaths } from '@/constants/routerPaths';
 
 import styles from './index.module.scss';
 
@@ -11,10 +11,6 @@ const FIRST_ROW_SHIP_COUNT = 9;
 const SECOND_ROW_SHIP_COUNT = 8;
 
 export const GameOver = () => {
-	const onExit = useCallback(() => {
-		// TODO
-		console.log('exit');
-	}, []);
 	return (
 		<main className={styles.background}>
 			<Spacer direction="column" fullHeight gap="80" className={styles.container}>
@@ -22,7 +18,7 @@ export const GameOver = () => {
 					{'GAME OVER'}
 				</Text>
 				<div className={styles.linkText}>
-					<Link onClick={onExit}>
+					<Link to={routerPaths.main}>
 						<Text size="l">{'Exit'}</Text>
 					</Link>
 				</div>

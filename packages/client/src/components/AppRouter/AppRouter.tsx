@@ -9,8 +9,9 @@ import { StartGame } from '@pages/StartGame';
 import { TopicPage } from '@pages/Topic';
 import { Route, Routes } from 'react-router-dom';
 import { GameOver } from '@pages/Gameover';
+import { AuthProtection } from '@components/AuthProtection';
 
-import { routerPaths } from './constants';
+import { routerPaths } from '@/constants/routerPaths';
 
 export const AppRouter = () => {
 	return (
@@ -20,20 +21,21 @@ export const AppRouter = () => {
 				<Route path={routerPaths.login} element={<Login />} />
 				<Route path={routerPaths.registration} element={<Registration />} />
 			</Route>
-			{/* Приватные */}
-			<Route path={routerPaths.main}>
-				<Route index element={<Main />} />
-				<Route path={routerPaths.profile} element={<Profile />} />
-				<Route path={routerPaths.leaderboard} element={<LeaderBoard />} />
-				<Route path={routerPaths.highScore} element={<div>highScore</div>} />
-				<Route path={routerPaths.forum}>
-					<Route index element={<ForumPage />} />
-					<Route path={routerPaths.forumTheme} element={<TopicPage />} />
+			<Route element={<AuthProtection />}>
+				{/* Приватные */}
+				<Route path={routerPaths.main}>
+					<Route index element={<Main />} />
+					<Route path={routerPaths.profile} element={<Profile />} />
+					<Route path={routerPaths.leaderBoard} element={<LeaderBoard />} />
+					<Route path={routerPaths.forum}>
+						<Route index element={<ForumPage />} />
+						<Route path={routerPaths.forumTheme} element={<TopicPage />} />
+					</Route>
+					<Route path={routerPaths.story} element={<StartGame />} />
+					<Route path={routerPaths.authors} element={<div>authors</div>} />
+					<Route path={routerPaths.gamePlay} element={<div>gamePlay</div>} />
+					<Route path={routerPaths.gameOver} element={<GameOver />} />
 				</Route>
-				<Route path={routerPaths.story} element={<StartGame />} />
-				<Route path={routerPaths.authors} element={<div>authors</div>} />
-				<Route path={routerPaths.gamePlay} element={<div>gamePlay</div>} />
-				<Route path={routerPaths.gameOver} element={<GameOver />} />
 			</Route>
 			<Route path="*" element={<ErrorPage type="404" />} />
 		</Routes>
