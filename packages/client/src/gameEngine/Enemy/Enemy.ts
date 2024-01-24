@@ -16,6 +16,7 @@ class Enemy {
 
 	private static moveDownDistance = 50;
 
+	//пока не удалять
 	// move = () => {
 	//   this.x += this.speed / 60;
 	// };
