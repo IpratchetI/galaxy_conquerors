@@ -3,7 +3,7 @@ import { Button, ButtonVariant } from '@components/Button';
 import { Text } from '@components/Text';
 import { Input } from '@components/Input';
 import { useForm } from 'react-hook-form';
-import { UserModel } from '@models/User';
+import { UserProfileModel } from '@models/User';
 import { FormCard } from '@components/FormCard';
 
 import UserProfileService from '@/services/userProfileService';
@@ -25,7 +25,7 @@ export const Profile = () => {
 		getValues,
 		handleSubmit,
 		formState: { errors: validateErrors }
-	} = useForm<UserModel>({
+	} = useForm<UserProfileModel>({
 		mode: 'onBlur',
 		reValidateMode: 'onChange',
 		defaultValues: profileInputsDefaults

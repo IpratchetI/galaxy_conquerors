@@ -1,14 +1,14 @@
 import { ErrorPage } from '@pages/Error';
 import { ForumPage } from '@pages/Forum';
-import Gameover from '@pages/Gameover';
 import { LeaderBoard } from '@pages/LeaderBoard';
 import { Login } from '@pages/Login';
-import Main from '@pages/Main';
-import Profile from '@pages/Profile';
+import { Main } from '@pages/Main';
+import { Profile } from '@pages/Profile';
 import { Registration } from '@pages/Registration';
-import StartGame from '@pages/StartGame';
+import { StartGame } from '@pages/StartGame';
 import { TopicPage } from '@pages/Topic';
 import { Route, Routes } from 'react-router-dom';
+import { GameOver } from '@pages/Gameover';
 
 import { routerPaths } from './constants';
 
@@ -33,7 +33,7 @@ export const AppRouter = () => {
 				<Route path={routerPaths.story} element={<StartGame />} />
 				<Route path={routerPaths.authors} element={<div>authors</div>} />
 				<Route path={routerPaths.gamePlay} element={<div>gamePlay</div>} />
-				<Route path={routerPaths.gameOver} element={<Gameover />} />
+				<Route path={routerPaths.gameOver} element={<GameOver />} />
 			</Route>
 			<Route path="*" element={<ErrorPage type="404" />} />
 		</Routes>

@@ -1,7 +1,7 @@
 @import '@/style/backgrounds';
 
 .login {
-  @include login-background;
+  @include system-background;
 
   row-gap: 1.5rem;
 }

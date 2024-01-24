@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 import { Spacer } from '@components/Spacer';
-import { UserModel } from '@models/User';
+import { UserRegistrationModel } from '@models/User';
 import { FormCard } from '@components/FormCard';
 
 import { regInputsConfig, regInputsDefaults } from '@/pages/Registration/constants';
@@ -17,7 +17,7 @@ export const Registration = () => {
 		getValues,
 		handleSubmit,
 		formState: { errors: validateErrors }
-	} = useForm<UserModel>({
+	} = useForm<UserRegistrationModel>({
 		mode: 'onBlur',
 		reValidateMode: 'onChange',
 		defaultValues: regInputsDefaults

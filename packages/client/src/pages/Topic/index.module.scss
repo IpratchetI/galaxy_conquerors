@@ -5,7 +5,7 @@
   font-size: var(--font-size-45);
 
   @include page-container;
-  @include leederBoard-background;
+  @include leaderBoard-background;
   @include grid-template;
 }
 

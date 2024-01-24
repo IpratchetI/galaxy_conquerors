@@ -1,4 +1,4 @@
-import { UserModel } from '@models/User';
+import { UserRegistrationModel } from '@models/User';
 
 import { FormField } from '@/types/forms';
 import {
@@ -9,7 +9,7 @@ import {
 	PHONE_PATTERN
 } from '@/constants/forms';
 
-export const regInputsConfig: FormField<UserModel>[] = [
+export const regInputsConfig: FormField<UserRegistrationModel>[] = [
 	{
 		data: {
 			fieldName: 'first_name',
@@ -60,7 +60,7 @@ export const regInputsConfig: FormField<UserModel>[] = [
 	}
 ];
 
-export const regInputsDefaults: UserModel = {
+export const regInputsDefaults: UserRegistrationModel = {
 	first_name: '',
 	second_name: '',
 	login: '',

@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
-import { UserModel } from '@models/User';
+import { UserLoginModel } from '@models/User';
 import { Link } from '@components/Link';
 import { Text } from '@components/Text';
 import { FormCard } from '@components/FormCard';
@@ -19,7 +19,7 @@ export const Login = () => {
 		getValues,
 		handleSubmit,
 		formState: { errors: validateErrors }
-	} = useForm<UserModel>({
+	} = useForm<UserLoginModel>({
 		mode: 'onBlur',
 		reValidateMode: 'onChange',
 		defaultValues: loginInputsDefaults

@@ -3,7 +3,7 @@
   background-size: cover;
 }
 
-@mixin leederBoard-background {
+@mixin leaderBoard-background {
   background: url('@assets/backgrounds/leaderBoard.png');
   @include background;
 }
@@ -23,7 +23,7 @@
   @include background;
 }
 
-@mixin login-background {
+@mixin system-background {
   background: url('@assets/backgrounds/login-background.png');
   @include background;
 }
