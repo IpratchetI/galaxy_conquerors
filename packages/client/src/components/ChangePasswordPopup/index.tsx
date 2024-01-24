@@ -50,8 +50,8 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({ onClose }) =>
 			{/* @ts-ignore */}
 			<Input type="password" label="New Password" name="newPassword" onChange={handleInputChange} />
 			<Spacer justify-content="space-between" margin-top="65px" spaceTop="50" gap="80">
-				<Button type="button" onClick={handleSaveClick} title="Save" />
-				<Button type="button" onClick={handleBackClick} title="Back" />
+				<Button type="button" onClick={handleSaveClick} text="Save" />
+				<Button type="button" onClick={handleBackClick} text="Back" />
 			</Spacer>
 		</div>
 	);

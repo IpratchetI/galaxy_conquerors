@@ -28,6 +28,8 @@ export const Registration = () => {
 		});
 	};
 
+	const registerHandler = () => submitHandler(getValues());
+
 	return (
 		<main className={styles.registration}>
 			<FormCard
@@ -35,14 +37,11 @@ export const Registration = () => {
 				footer={
 					<>
 						<Button
-							title={'Register'}
+							text="Register"
 							className={styles.registrationButton}
-							onClick={() => submitHandler(getValues())}>
-							{'Register'}
-						</Button>
-						<Button title={'Back'} onClick={() => navigate(-1)}>
-							{'Back'}
-						</Button>
+							onClick={registerHandler}
+						/>
+						<Button text="Back" onClick={() => navigate(-1)} />
 					</>
 				}>
 				<form>

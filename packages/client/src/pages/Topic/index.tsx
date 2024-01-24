@@ -19,9 +19,7 @@ export const TopicPage = () => {
 				))}
 			</div>
 			<div className={s.actions}>
-				<Button className={s.backButton} onClick={handleHistoryBack}>
-					Back
-				</Button>
+				<Button className={s.backButton} onClick={handleHistoryBack} text="Back" />
 				<MessageForm />
 			</div>
 		</div>

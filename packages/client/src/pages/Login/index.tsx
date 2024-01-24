@@ -30,25 +30,17 @@ export const Login = () => {
 		});
 	};
 
+	const signInHandler = () => {
+		const values = getValues();
+		submitHandler(values);
+	};
+
 	return (
 		<main className={styles.login}>
-			<p className={styles.mainName}>
-				Galaxy
-				<br />
-				Conquerors
-			</p>
-			<FormCard
-				text={'Authorization'}
-				footer={
-					<Button
-						title={'Sign In'}
-						onClick={() => {
-							const values = getValues();
-							submitHandler(values);
-						}}>
-						{'Sign In'}
-					</Button>
-				}>
+			<Text tag="h1" size="xxl" align="center">
+				{'Galaxy \n Conquerors'}
+			</Text>
+			<FormCard text={'Authorization'} footer={<Button text="Sign In" onClick={signInHandler} />}>
 				<form>
 					{loginInputsConfig.map(({ fieldName, label }) => (
 						<Input key={fieldName} {...register(fieldName)}>
@@ -57,7 +49,7 @@ export const Login = () => {
 					))}
 				</form>
 			</FormCard>
-			<Link to={'../' + routerPaths.registration}>
+			<Link to={`/${routerPaths.registration}`}>
 				<Text size="l" className={styles.register}>
 					{'Register'}
 				</Text>

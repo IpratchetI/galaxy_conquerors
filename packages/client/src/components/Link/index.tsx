@@ -1,14 +1,10 @@
 import classNames from 'classnames';
-import { Link as RouterLink } from 'react-router-dom';
+import { LinkProps, Link as RouterLink } from 'react-router-dom';
 import { MouseEvent, PropsWithChildren } from 'react';
 
 import s from './index.module.scss';
 
-interface ILinkProps extends PropsWithChildren {
-	to?: string;
-	className?: string;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	state?: Record<string, any>;
+interface ILinkProps extends PropsWithChildren<LinkProps> {
 	onMouseEnter?: () => void;
 	onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
 }

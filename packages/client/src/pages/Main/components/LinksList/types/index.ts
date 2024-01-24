@@ -6,5 +6,4 @@ export type NavLink = {
 	id: number;
 	text: string;
 	path: ValueOf<typeof routerPaths>;
-	action?: boolean;
 };

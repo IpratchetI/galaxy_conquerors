@@ -59,12 +59,12 @@ const Profile = () => {
 		// todo: Логика возврата
 	};
 
-	const handleInputChange = (name: string, value: string) => {
-		setProfileData(prevData => ({
-			...prevData,
-			[name]: value
-		}));
-	};
+	// const handleInputChange = (name: string, value: string) => {
+	// 	setProfileData(prevData => ({
+	// 		...prevData,
+	// 		[name]: value
+	// 	}));
+	// };
 
 	return (
 		<main className={styles.background}>
@@ -89,10 +89,10 @@ const Profile = () => {
 								type="button"
 								className={styles.buttonWide}
 								onClick={handleOpenPasswordPopup}
-								title="Изменить пароль"
+								text="Изменить пароль"
 							/>
-							<Button type="submit" className={styles.button} title="Сохранить" />
-							<Button type="button" className={styles.button} onClick={handleBack} title="Назад" />
+							<Button type="submit" className={styles.button} text="Сохранить" />
+							<Button type="button" className={styles.button} onClick={handleBack} text="Назад" />
 						</div>
 					</form>
 				</div>
