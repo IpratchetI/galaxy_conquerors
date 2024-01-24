@@ -5,6 +5,7 @@ import { LeaderBoard } from '@pages/LeaderBoard';
 import { Login } from '@pages/Login';
 import Main from '@pages/Main';
 import Game from '../../pages/Game';
+
 import Profile from '@pages/Profile';
 import { Registration } from '@pages/Registration';
 import StartGame from '@pages/StartGame';
