@@ -10,10 +10,11 @@ import { Registration } from '@pages/Registration';
 import StartGame from '@pages/StartGame';
 import { TopicPage } from '@pages/Topic';
 
-import Game from '../../pages/Game';
 import { Route, Routes } from 'react-router-dom';
 
 import { routerPaths } from './constants';
+
+import Game from '../../pages/Game';
 
 export const AppRouter = () => {
 	return (
