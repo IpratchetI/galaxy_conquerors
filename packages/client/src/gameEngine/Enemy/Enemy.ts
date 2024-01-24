@@ -20,6 +20,7 @@ class Enemy {
 	//   this.x += this.speed / 60;
 	// };
 
+	//todo: пофиксить логику движения. противник коснувшийся границы не смещается вниз
 	static moveAllEnemies = (allEnemies: Enemy[], canvasWidth: number) => {
 		const reachedLeftEdge = allEnemies.some(enemy => enemy.x <= 100);
 		const reachedRightEdge = allEnemies.some(enemy => enemy.x + enemy.width >= canvasWidth - 100);
