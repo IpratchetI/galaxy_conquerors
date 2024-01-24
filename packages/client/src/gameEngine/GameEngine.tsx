@@ -1,6 +1,4 @@
 // src/gameEngine/GameEngine.tsx
-import { KeyboardEvent } from 'react';
-
 import Ship from './Ship/Ship';
 import Bullet from './Bullet/Bullet';
 import Enemy from './Enemy/Enemy';
