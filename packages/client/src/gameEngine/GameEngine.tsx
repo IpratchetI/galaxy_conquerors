@@ -15,7 +15,12 @@ class GameEngine {
 
 	constructor(canvas: HTMLCanvasElement) {
 		this.canvas = canvas;
-		this.ctx = canvas.getContext('2d')!;
+		this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
+
+		if (!this.ctx) {
+			throw new Error('Unable to get 2D rendering context');
+		}
+
 		this.ship = new Ship({ x: 400, y: 500, width: 50, height: 50 }); //отрисовка корабля
 		this.bullets = [];
 		this.enemies = [];
@@ -187,8 +192,6 @@ class GameEngine {
 	};
 
 	private checkEnemyBounds = () => {
-		const borderOffset = 100; // Расстояние от границы экрана для ограничения движения противников
-
 		// this.enemies.forEach(enemy => {
 		// 	if (enemy.x < borderOffset || enemy.x + enemy.width > this.canvas.width - borderOffset) {
 		// 		enemy.speed *= -1;
