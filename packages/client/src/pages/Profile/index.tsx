@@ -1,19 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from '@components/Button';
+import { Button, ButtonVariant } from '@components/Button';
 import { Text } from '@components/Text';
 import { Input } from '@components/Input';
-import ChangePasswordPopup from '@components/ChangePasswordPopup';
+import { useForm } from 'react-hook-form';
+import { UserProfileModel } from '@models/User';
+import { FormCard } from '@components/FormCard';
+import { useNavigate } from 'react-router-dom';
 
-import Avatar from '@/components/Avatar';
 import UserProfileService from '@/services/userProfileService';
+import { Spacer } from '@/components';
+import { validate } from '@/utils/validate';
 
+import { ChangePasswordPopup } from './components/ChangePasswordPopup';
+import { Avatar } from './components/Avatar';
 import { profileInputsConfig, profileInputsDefaults, profileApiEndpoints } from './constants';
 import styles from './index.module.scss';
 
-const Profile = () => {
+export const Profile = () => {
 	const [isChangePasswordPopupOpen, setChangePasswordPopupOpen] = useState(false);
 	const [avatarUrl, setAvatarUrl] = useState('');
 	const [profileData, setProfileData] = useState(profileInputsDefaults);
+	const navigate = useNavigate();
+
+	const {
+		register,
+		getValues,
+		handleSubmit,
+		formState: { errors: validateErrors }
+	} = useForm<UserProfileModel>({
+		mode: 'onBlur',
+		reValidateMode: 'onChange',
+		defaultValues: profileInputsDefaults
+	});
 
 	useEffect(() => {
 		const userProfileService = new UserProfileService(profileApiEndpoints);
@@ -41,10 +59,9 @@ const Profile = () => {
 		setChangePasswordPopupOpen(true);
 	};
 
-	const handleSaveProfile = async (e: React.FormEvent) => {
-		e.preventDefault();
-
+	const handleSaveProfile = async () => {
 		const userProfileService = new UserProfileService(profileApiEndpoints);
+		const profileData = getValues();
 
 		try {
 			await userProfileService.saveProfileData(profileData);
@@ -55,55 +72,75 @@ const Profile = () => {
 		}
 	};
 
-	const handleBack = () => {
-		// todo: Логика возврата
-	};
-
-	// const handleInputChange = (name: string, value: string) => {
-	// 	setProfileData(prevData => ({
-	// 		...prevData,
-	// 		[name]: value
-	// 	}));
-	// };
-
 	return (
 		<main className={styles.background}>
-			<div className={styles.profileContainer}>
-				<Avatar avatarUrl={avatarUrl} />
-				<div className={styles.profileForm}>
-					<Text tag="h1" size="m" align="center" className={styles.title}>
-						{'Профиль'}
-					</Text>
-					<form onSubmit={handleSaveProfile}>
-						{profileInputsConfig.map(({ fieldName, label }) => (
-							<Input
-								key={fieldName}
-								type="text"
-								label={label}
-								name={fieldName}
-								value={profileData[fieldName]}
-							/>
-						))}
-						<div className={styles.buttonsContainer}>
-							<Button
-								type="button"
-								className={styles.buttonWide}
-								onClick={handleOpenPasswordPopup}
-								text="Изменить пароль"
-							/>
-							<Button type="submit" className={styles.button} text="Сохранить" />
-							<Button type="button" className={styles.button} onClick={handleBack} text="Назад" />
-						</div>
-					</form>
-				</div>
-			</div>
-			{isChangePasswordPopupOpen && (
-				<div className={styles.overlay} onClick={handleClosePasswordPopup}>
-					<ChangePasswordPopup onClose={handleClosePasswordPopup} />
-				</div>
-			)}
+			<Spacer>
+				<FormCard
+					className={styles.container}
+					fullWidthContent
+					fullWidthFooter
+					footer={
+						<Spacer direction="column" gap="16" spaceTop="30" fullWidth>
+							<Button type="button" fullWidth onClick={handleOpenPasswordPopup}>
+								<Text align="center" size="s">
+									Change password
+								</Text>
+							</Button>
+							<Spacer justify="between" fullWidth>
+								<Button
+									className={styles.button}
+									type="submit"
+									variant={ButtonVariant.DEFAULT}
+									onClick={handleSubmit(handleSaveProfile)}>
+									<Text align="center" size="s">
+										Save
+									</Text>
+								</Button>
+								<Button
+									className={styles.button}
+									type="button"
+									variant={ButtonVariant.DEFAULT}
+									onClick={() => navigate(-1)}>
+									<Text align="center" size="s">
+										Back
+									</Text>
+								</Button>
+							</Spacer>
+						</Spacer>
+					}>
+					<Spacer direction="column" gap="40">
+						<Avatar avatarUrl={avatarUrl} />
+						<Text tag="h1" align="center">
+							Profile
+						</Text>
+						<form className={styles.form}>
+							{profileInputsConfig.map(({ data: { fieldName, label, type }, validateOptions }) => {
+								const error = validateErrors[fieldName];
+								const value = getValues()[fieldName];
+								const isFieldRequired = Boolean(validateOptions.required);
+
+								return (
+									<Input
+										key={fieldName}
+										type={type}
+										error={
+											error && {
+												message: validate(fieldName, value, isFieldRequired)
+											}
+										}
+										{...register(fieldName, validateOptions)}>
+										{label}
+									</Input>
+								);
+							})}
+						</form>
+					</Spacer>
+				</FormCard>
+				<ChangePasswordPopup
+					onClose={handleClosePasswordPopup}
+					isOpen={isChangePasswordPopupOpen}
+				/>
+			</Spacer>
 		</main>
 	);
 };
-
-export default Profile;

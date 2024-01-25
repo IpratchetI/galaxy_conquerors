@@ -3,8 +3,6 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorPage } from '@pages/Error';
 import { AppRouter } from '@components/AppRouter/AppRouter';
 
-import './app.css';
-
 function App() {
 	useEffect(() => {
 		const fetchServerData = async () => {

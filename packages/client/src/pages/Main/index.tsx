@@ -1,11 +1,11 @@
-import React, { memo } from 'react';
+import React from 'react';
 
 import { Spacer, Text } from '@/components';
 
 import { LinksList } from './components/LinksList';
 import styles from './index.module.scss';
 
-const Main = memo(function Main() {
+export const Main = () => {
 	return (
 		<main className={styles.background}>
 			<Spacer direction="column" fullHeight gap="80">
@@ -18,6 +18,4 @@ const Main = memo(function Main() {
 			</Spacer>
 		</main>
 	);
-});
-
-export default Main;
+};

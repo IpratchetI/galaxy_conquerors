@@ -8,3 +8,7 @@ export interface UserModel {
 }
 
 export type UserLoginModel = Pick<UserModel, 'login' | 'password'>;
+
+export type UserRegistrationModel = UserModel;
+
+export type UserProfileModel = UserModel;

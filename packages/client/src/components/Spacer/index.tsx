@@ -1,70 +1,34 @@
-import { ReactNode } from 'react';
-
 import { classnames } from '@/utils/classnames';
 
+import { SpacerProps } from './types';
 import styles from './index.module.scss';
 
-export type FlexJustify = 'center' | 'start' | 'end' | 'between' | 'evenly';
-export type FlexAlign = 'center' | 'start' | 'end';
-export type FlexDirection = 'row' | 'column';
-export type FlexWrap = 'wrap' | 'nowrap';
-export type FlexSpaceVariants =
-	| '2'
-	| '4'
-	| '6'
-	| '8'
-	| '12'
-	| '16'
-	| '20'
-	| '26'
-	| '28'
-	| '30'
-	| '35'
-	| '40'
-	| '50'
-	| '80';
-
-type Props = {
-	className?: string;
-	children: ReactNode;
-	justify?: FlexJustify;
-	align?: FlexAlign;
-	direction?: FlexDirection;
-	gap?: FlexSpaceVariants;
-	spaceTop?: FlexSpaceVariants;
-	spaceBottom?: FlexSpaceVariants;
-	spaceRight?: FlexSpaceVariants;
-	spaceLeft?: FlexSpaceVariants;
-	wrap?: FlexWrap;
-	fullHeight?: boolean;
-	fullWidth?: boolean;
-};
-
-const justifyClasses = {
+export const justifyClasses = {
 	start: styles.justifyStart,
 	end: styles.justifyEnd,
 	between: styles.justifyBetween,
 	center: styles.justifyCenter,
-	evenly: styles.justifyEvenly
+	evenly: styles.justifyEvenly,
+	around: styles.justifyAround
 };
 
-const alignClasses = {
+export const alignClasses = {
 	start: styles.alignStart,
 	end: styles.alignEnd,
 	center: styles.alignCenter
 };
 
-const directionClasses = {
+export const directionClasses = {
 	row: styles.directionRow,
 	column: styles.directionColumn
 };
 
-const wrapClasses = {
+export const wrapClasses = {
 	wrap: styles.wrap,
 	nowrap: styles.nowrap
 };
 
-const gapClasses = {
+export const gapClasses = {
 	2: styles.gap2,
 	4: styles.gap4,
 	6: styles.gap6,
@@ -81,7 +45,7 @@ const gapClasses = {
 	80: styles.gap80
 };
 
-const spaceTopClasses = {
+export const spaceTopClasses = {
 	2: styles.spaceTop2,
 	4: styles.spaceTop4,
 	6: styles.spaceTop6,
@@ -98,7 +62,7 @@ const spaceTopClasses = {
 	80: styles.spaceTop80
 };
 
-const spaceBottomClasses = {
+export const spaceBottomClasses = {
 	2: styles.spaceBottom2,
 	4: styles.spaceBottom4,
 	6: styles.spaceBottom6,
@@ -115,7 +79,7 @@ const spaceBottomClasses = {
 	80: styles.spaceBottom80
 };
 
-const spaceRightClasses = {
+export const spaceRightClasses = {
 	2: styles.spaceRight2,
 	4: styles.spaceRight4,
 	6: styles.spaceRight6,
@@ -132,7 +96,7 @@ const spaceRightClasses = {
 	80: styles.spaceRight80
 };
 
-const spaceLeftClasses = {
+export const spaceLeftClasses = {
 	2: styles.spaceLeft2,
 	4: styles.spaceLeftLeft4,
 	6: styles.spaceLeft6,
@@ -149,7 +113,7 @@ const spaceLeftClasses = {
 	80: styles.spaceLeft80
 };
 
-export const Spacer = (props: Props) => {
+export const Spacer = (props: SpacerProps) => {
 	const {
 		className,
 		children,

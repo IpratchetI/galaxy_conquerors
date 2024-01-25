@@ -10,6 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthorize } from '@hooks/useAuthorize';
 
 import { routerPaths } from '@/constants/routerPaths';
+import { Spacer } from '@/components';
+import { validate } from '@/utils/validate';
 
 import { loginInputsConfig, loginInputsDefaults } from './constants';
 import '@styles/main.scss';
@@ -17,7 +19,15 @@ import styles from './index.module.scss';
 
 export const Login = () => {
 	const [, setAuthorized] = useAuthorize();
-	const { register, getValues } = useForm<UserLoginModel>({
+
+	const {
+		register,
+		getValues,
+		handleSubmit,
+		formState: { errors: validateErrors }
+	} = useForm<UserLoginModel>({
+		mode: 'onBlur',
+		reValidateMode: 'onChange',
 		defaultValues: loginInputsDefaults
 	});
 
@@ -37,23 +47,52 @@ export const Login = () => {
 
 	return (
 		<main className={styles.login}>
-			<Text tag="h1" size="xxl" align="center">
-				{'Galaxy \n Conquerors'}
-			</Text>
-			<FormCard text={'Authorization'} footer={<Button text="Sign In" onClick={signInHandler} />}>
-				<form>
-					{loginInputsConfig.map(({ fieldName, label }) => (
-						<Input key={fieldName} {...register(fieldName)}>
-							{label}
-						</Input>
-					))}
-				</form>
-			</FormCard>
-			<Link to={`/${routerPaths.registration}`}>
-				<Text size="l" className={styles.register}>
-					{'Register'}
-				</Text>
-			</Link>
+			<Spacer direction="column" gap="12" fullHeight>
+				<Spacer direction="column" gap="40">
+					<Text tag="p" size="xxl" align="center" className={styles.title}>
+						{'Galaxy \n Conquerors'}
+					</Text>
+					<FormCard
+						text="Authorization"
+						footer={
+							<Button type="submit" onClick={handleSubmit(signInHandler)}>
+								Sign In
+							</Button>
+						}>
+						<form>
+							{loginInputsConfig.map(({ data: { fieldName, label, type }, validateOptions }) => {
+								const error = validateErrors[fieldName];
+								const value = getValues()[fieldName];
+								const isFieldRequired = Boolean(validateOptions.required);
+
+								return (
+									<Input
+										key={fieldName}
+										type={type}
+										error={
+											error && {
+												message: validate(fieldName, value, isFieldRequired)
+											}
+										}
+										{...register(fieldName, validateOptions)}>
+										{label}
+									</Input>
+								);
+							})}
+						</form>
+					</FormCard>
+				</Spacer>
+				<Link to={`/${routerPaths.registration}`}>
+					<Spacer direction="column" gap="12">
+						<Text align="center" size="s">
+							x
+						</Text>
+						<Text className={styles.signUpText} size="s">
+							Don not have an account yet?
+						</Text>
+					</Spacer>
+				</Link>
+			</Spacer>
 		</main>
 	);
 };
