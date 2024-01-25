@@ -169,7 +169,7 @@ class GameEngine {
 	private shoot = () => {
 		const bullet = new Bullet({
 			x: this.ship.x + this.ship.width / 2 - 10,
-			y: this.canvas.height - 200,
+			y: this.canvas.height - 150,
 			width: 20,
 			height: 50,
 			speed: 10
