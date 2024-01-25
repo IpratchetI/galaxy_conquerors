@@ -28,11 +28,6 @@ class Enemy {
 
 	private static moveDownDistance = 50;
 
-	//пока не удалять
-	// move = () => {
-	//   this.x += this.speed / 60;
-	// };
-
 	//todo: пофиксить логику движения. противник коснувшийся границы не смещается вниз
 	static moveAllEnemies = (allEnemies: Enemy[], canvasWidth: number) => {
 		const reachedLeftEdge = allEnemies.some(enemy => enemy.x <= 100);

@@ -12,6 +12,7 @@ class GameEngine {
 	private lastShotTime: number;
 	private destroyedEnemiesCount = 0;
 	private isCountReported = false;
+	private initialEnemySpeed = 50;
 
 	constructor(canvas: HTMLCanvasElement) {
 		this.canvas = canvas;
@@ -48,7 +49,6 @@ class GameEngine {
 		this.moveEnemies();
 		this.checkShipBounds();
 		this.checkBulletEnemyCollisions();
-		this.checkEnemyBounds();
 		this.checkStopEnemies();
 	};
 
@@ -112,10 +112,15 @@ class GameEngine {
 		}
 	};
 
-	// Отвечает за отрисовку противников на старте
 	private createEnemies = () => {
 		for (let i = 0; i < 9; i++) {
-			const enemy = new Enemy({ x: 100 + i * 100, y: 100, width: 50, height: 50, speed: 50 });
+			const enemy = new Enemy({
+				x: 100 + i * 100,
+				y: 100,
+				width: 50,
+				height: 50,
+				speed: this.initialEnemySpeed
+			});
 			this.enemies.push(enemy);
 		}
 		const verticalSpacing = 25;
@@ -126,7 +131,7 @@ class GameEngine {
 				y: 150 + verticalSpacing,
 				width: 50,
 				height: 50,
-				speed: 50
+				speed: this.initialEnemySpeed
 			});
 			this.enemies.push(enemy);
 		}
@@ -191,14 +196,6 @@ class GameEngine {
 		}
 	};
 
-	private checkEnemyBounds = () => {
-		// this.enemies.forEach(enemy => {
-		// 	if (enemy.x < borderOffset || enemy.x + enemy.width > this.canvas.width - borderOffset) {
-		// 		enemy.speed *= -1;
-		// 	}
-		// });
-	};
-
 	private checkStopEnemies = () => {
 		const bottomBorder = this.canvas.height - 150; // Граница от нижнего края экрана
 
@@ -235,8 +232,8 @@ class GameEngine {
 
 					// Проверяем, остались ли еще противники
 					if (this.enemies.length === 0) {
-						// Увеличиваем скорость противников на 10
-						// this.enemies.forEach(e => (e.speed += 100));
+						// Увеличиваем скорость противников
+						this.initialEnemySpeed += 20;
 
 						// Создаем новых противников
 						this.createEnemies();
