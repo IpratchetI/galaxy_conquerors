@@ -11,6 +11,8 @@ export default {
 		'^@assets/(.*)$': '<rootDir>/src/assets/$1',
 		'^@components/(.*)$': '<rootDir>/src/components/$1',
 		'^@models/(.*)$': '<rootDir>/src/models/$1',
+		'^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
+		'^@services/(.*)$': '<rootDir>/src/services/$1',
 		'\\.(css|scss)$': 'identity-obj-proxy'
 	},
 	transform: {

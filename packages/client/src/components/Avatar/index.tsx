@@ -74,8 +74,8 @@ const Avatar: React.FC<AvatarProps> = ({ avatarUrl }) => {
 			{isPopupOpen && (
 				<div className={styles.avatarPopup} onClick={e => e.stopPropagation()}>
 					<Spacer direction="column" fullHeight gap="50">
-						<Button onClick={handleImageClick} title={'Image'} />
-						<Button onClick={handleBackClick} title={'Back'} />
+						<Button onClick={handleImageClick} text="Image" />
+						<Button onClick={handleBackClick} text="Back" />
 						<input
 							type="file"
 							ref={fileInputRef}

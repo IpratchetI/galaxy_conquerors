@@ -5,34 +5,42 @@ import { UserLoginModel } from '@models/User';
 import { Link } from '@components/Link';
 import { Text } from '@components/Text';
 import { FormCard } from '@components/FormCard';
+import { AuthService } from '@services/authService';
+import { useNavigate } from 'react-router-dom';
+import { useAuthorize } from '@hooks/useAuthorize';
+
+import { routerPaths } from '@/constants/routerPaths';
 
 import { loginInputsConfig, loginInputsDefaults } from './constants';
 import '@styles/main.scss';
 import styles from './index.module.scss';
 
 export const Login = () => {
+	const [, setAuthorized] = useAuthorize();
 	const { register, getValues } = useForm<UserLoginModel>({
 		defaultValues: loginInputsDefaults
 	});
 
+	const navigate = useNavigate();
+
 	const submitHandler = (data: UserLoginModel) => {
-		console.log(data);
+		AuthService.signIn(data).then(() => {
+			setAuthorized(true);
+			navigate(routerPaths.main);
+		});
+	};
+
+	const signInHandler = () => {
+		const values = getValues();
+		submitHandler(values);
 	};
 
 	return (
 		<main className={styles.login}>
-			<p className={styles.mainName}>
-				Galaxy
-				<br />
-				Conquerors
-			</p>
-			<FormCard
-				text={'Authorization'}
-				footer={
-					<Button title={'Sign In'} onClick={() => submitHandler(getValues())}>
-						{'Sign In'}
-					</Button>
-				}>
+			<Text tag="h1" size="xxl" align="center">
+				{'Galaxy \n Conquerors'}
+			</Text>
+			<FormCard text={'Authorization'} footer={<Button text="Sign In" onClick={signInHandler} />}>
 				<form>
 					{loginInputsConfig.map(({ fieldName, label }) => (
 						<Input key={fieldName} {...register(fieldName)}>
@@ -41,8 +49,10 @@ export const Login = () => {
 					))}
 				</form>
 			</FormCard>
-			<Link>
-				<Text size="l">{'Register'}</Text>
+			<Link to={`/${routerPaths.registration}`}>
+				<Text size="l" className={styles.register}>
+					{'Register'}
+				</Text>
 			</Link>
 		</main>
 	);

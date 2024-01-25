@@ -23,8 +23,8 @@ export const ForumPage = () => {
 			<h2 className={s.title}>Forum</h2>
 			<TopicsList topics={TOPICS_LIST} />
 			<div className={s.buttons}>
-				<Button onClick={handleHistoryBack}>Back</Button>
-				<Button onClick={handleOpenTopicCreator}>Add new theme</Button>
+				<Button onClick={handleHistoryBack} text="Back" />
+				<Button onClick={handleOpenTopicCreator} text="Add new theme" />
 			</div>
 
 			<Modal className={s.forumModal} isOpen={isModalOpen} onClose={handleOpenTopicCreator}>

@@ -38,12 +38,8 @@ export const NewTopicForm = ({ onClick }: NewTopicFormProps) => {
 				Theme name
 			</Input>
 			<Spacer align="center" direction="column" gap="35">
-				<Button type="submit" variant={ButtonVariant.TEXT}>
-					Confirm
-				</Button>
-				<Button variant={ButtonVariant.TEXT} onClick={onClick}>
-					Cancel
-				</Button>
+				<Button type="submit" variant={ButtonVariant.TEXT} text="Confirm" />
+				<Button variant={ButtonVariant.TEXT} onClick={onClick} text="Cancel" />
 			</Spacer>
 		</form>
 	);
