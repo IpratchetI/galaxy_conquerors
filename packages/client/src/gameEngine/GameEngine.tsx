@@ -16,7 +16,7 @@ class GameEngine {
 	constructor(canvas: HTMLCanvasElement) {
 		this.canvas = canvas;
 		this.ctx = canvas.getContext('2d')!;
-		this.ship = new Ship(400, 500, 50, 50); //отрисовка корабля
+		this.ship = new Ship({ x: 400, y: 500, width: 50, height: 50 }); //отрисовка корабля
 		this.bullets = [];
 		this.enemies = [];
 		this.lastShotTime = 0;
@@ -38,7 +38,7 @@ class GameEngine {
 	};
 
 	private updateGame = () => {
-		this.updateShip();
+		this.moveShip();
 		this.updateBullets();
 		this.moveEnemies();
 		this.checkShipBounds();
@@ -99,7 +99,7 @@ class GameEngine {
 			event.code === 'ArrowUp' ||
 			event.code === 'ArrowDown'
 		) {
-			event.preventDefault(); // Предотвращаем выполнение действий по умолчанию
+			event.preventDefault();
 		}
 
 		if (event.code === 'ArrowLeft' || event.code === 'ArrowRight') {
@@ -110,13 +110,19 @@ class GameEngine {
 	// Отвечает за отрисовку противников на старте
 	private createEnemies = () => {
 		for (let i = 0; i < 9; i++) {
-			const enemy = new Enemy(100 + i * 100, 100, 50, 50, 50);
+			const enemy = new Enemy({ x: 100 + i * 100, y: 100, width: 50, height: 50, speed: 50 });
 			this.enemies.push(enemy);
 		}
-		const verticalSpacing = 25; //отступы
+		const verticalSpacing = 25;
 		const horizontalOffset = 60;
 		for (let i = 0; i < 8; i++) {
-			const enemy = new Enemy(90 + i * 100 + horizontalOffset, 150 + verticalSpacing, 50, 50, 50); //последнее значение скорость движения
+			const enemy = new Enemy({
+				x: 90 + i * 100 + horizontalOffset,
+				y: 150 + verticalSpacing,
+				width: 50,
+				height: 50,
+				speed: 50
+			});
 			this.enemies.push(enemy);
 		}
 	};
@@ -125,7 +131,7 @@ class GameEngine {
 		Enemy.moveAllEnemies(this.enemies, this.canvas.width);
 	};
 
-	private updateShip = () => {
+	private moveShip = () => {
 		this.ship.update(this.canvas.width);
 	};
 
@@ -151,12 +157,13 @@ class GameEngine {
 	};
 
 	private shoot = () => {
-		const bullet = new Bullet(
-			this.ship.x + this.ship.width / 2 - 10,
-			this.canvas.height - 200,
-			20,
-			100
-		);
+		const bullet = new Bullet({
+			x: this.ship.x + this.ship.width / 2 - 10,
+			y: this.canvas.height - 200,
+			width: 20,
+			height: 50,
+			speed: 10
+		});
 		this.bullets.push(bullet);
 	};
 

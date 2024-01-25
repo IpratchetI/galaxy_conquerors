@@ -2,6 +2,6 @@
 @import '../style/backgrounds.scss';
 
 canvas {
-  @include gameplay-background;
+  @include main-background;
   border: 1px solid var(--black);
 }

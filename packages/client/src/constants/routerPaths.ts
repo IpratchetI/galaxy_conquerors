@@ -9,7 +9,6 @@ export const routerPaths = {
 	forumTheme: 'topic/:topicId',
 	story: 'story',
 	authors: 'authors',
-	gamePlay: 'gameplay',
 	gameOver: 'gameover',
 	notFound: 'notFound'
 };

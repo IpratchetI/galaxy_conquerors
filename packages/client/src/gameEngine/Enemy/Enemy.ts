@@ -6,7 +6,19 @@ class Enemy {
 	height: number;
 	speed: number;
 
-	constructor(x: number, y: number, width: number, height: number, speed: number) {
+	constructor({
+		x,
+		y,
+		width,
+		height,
+		speed
+	}: {
+		x: number;
+		y: number;
+		width: number;
+		height: number;
+		speed: number;
+	}) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
