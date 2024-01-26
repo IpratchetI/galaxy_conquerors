@@ -1,4 +1,6 @@
 //src/gameEngine/Enemy/Enemy.ts
+import * as constants from '../constants';
+
 class Enemy {
 	x: number;
 	y: number;
@@ -30,8 +32,10 @@ class Enemy {
 
 	//todo: пофиксить логику движения. противник коснувшийся границы не смещается вниз
 	static moveAllEnemies = (allEnemies: Enemy[], canvasWidth: number) => {
-		const reachedLeftEdge = allEnemies.some(enemy => enemy.x <= 100);
-		const reachedRightEdge = allEnemies.some(enemy => enemy.x + enemy.width >= canvasWidth - 100);
+		const reachedLeftEdge = allEnemies.some(enemy => enemy.x <= constants.enemyBorder);
+		const reachedRightEdge = allEnemies.some(
+			enemy => enemy.x + enemy.width >= canvasWidth - constants.enemyBorder
+		);
 
 		allEnemies.forEach(enemy => {
 			if ((reachedLeftEdge && enemy.speed < 0) || (reachedRightEdge && enemy.speed > 0)) {

@@ -1,49 +1,47 @@
 // src/gameEngine/Ship/Ship.ts
+const shipSpeed = 5;
+const shipVerticalOffset = 50;
+
 class Ship {
 	x: number;
 	y: number;
 	width: number;
 	height: number;
 	speed: number;
-	isMovingLeft: boolean;
-	isMovingRight: boolean;
+	moveShipDirection: number;
 
 	constructor({ x, y, width, height }: { x: number; y: number; width: number; height: number }) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		this.speed = 5; //значение скорости движения корабля
-		this.isMovingLeft = false;
-		this.isMovingRight = false;
+		this.speed = shipSpeed;
+		this.moveShipDirection = 0;
 	}
 
 	moveLeft = () => {
-		this.isMovingLeft = true;
-		this.isMovingRight = false;
+		this.moveShipDirection = -1;
 	};
 
 	moveRight = () => {
-		this.isMovingLeft = false;
-		this.isMovingRight = true;
+		this.moveShipDirection = 1;
 	};
 
 	stopMoving = () => {
-		this.isMovingLeft = false;
-		this.isMovingRight = false;
+		this.moveShipDirection = 0;
 	};
 
 	update = (canvasWidth: number) => {
-		if (this.isMovingLeft && this.x > 0) {
+		if (this.moveShipDirection === -1 && this.x > 0) {
 			this.x -= this.speed;
-		} else if (this.isMovingRight && this.x < canvasWidth - this.width) {
+		} else if (this.moveShipDirection === 1 && this.x < canvasWidth - this.width) {
 			this.x += this.speed;
 		}
 	};
 
 	draw = (ctx: CanvasRenderingContext2D, canvasHeight: number) => {
 		ctx.fillStyle = 'black';
-		ctx.fillRect(this.x, canvasHeight - this.height - 50, this.width, this.height);
+		ctx.fillRect(this.x, canvasHeight - this.height - shipVerticalOffset, this.width, this.height);
 	};
 }
 

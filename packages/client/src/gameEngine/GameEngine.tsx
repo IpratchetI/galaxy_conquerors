@@ -2,6 +2,7 @@
 import Ship from './Ship/Ship';
 import Bullet from './Bullet/Bullet';
 import Enemy from './Enemy/Enemy';
+import * as constants from './constants';
 
 class GameEngine {
 	private canvas: HTMLCanvasElement;
@@ -13,6 +14,8 @@ class GameEngine {
 	private destroyedEnemiesCount = 0;
 	private isCountReported = false;
 	private initialEnemySpeed = 50;
+	private shootInterval = 1000;
+	private stopEnemyBorder = 150;
 
 	constructor(canvas: HTMLCanvasElement) {
 		this.canvas = canvas;
@@ -22,7 +25,9 @@ class GameEngine {
 			throw new Error('Unable to get 2D rendering context');
 		}
 
-		this.ship = new Ship({ x: 400, y: 500, width: 50, height: 50 }); //отрисовка корабля
+		const initialShipX = this.canvas.width / 2 - 25; // горизонтальное центрирование корабля
+		const initialShipY = this.canvas.height - 100; // позиция корабля по вертикали
+		this.ship = new Ship({ x: initialShipX, y: initialShipY, width: 50, height: 50 }); //отрисовка корабля
 		this.bullets = [];
 		this.enemies = [];
 		this.lastShotTime = 0;
@@ -91,9 +96,8 @@ class GameEngine {
 			this.ship.moveLeft();
 		} else if (event.code === 'ArrowRight') {
 			this.ship.moveRight();
-		} else if (event.code === 'Space' && Date.now() - this.lastShotTime > 1000) {
+		} else if (event.code === 'Space') {
 			this.shoot();
-			this.lastShotTime = Date.now();
 		}
 	};
 
@@ -167,14 +171,17 @@ class GameEngine {
 	};
 
 	private shoot = () => {
-		const bullet = new Bullet({
-			x: this.ship.x + this.ship.width / 2 - 10,
-			y: this.canvas.height - 150,
-			width: 20,
-			height: 50,
-			speed: 10
-		});
-		this.bullets.push(bullet);
+		if (Date.now() - this.lastShotTime > this.shootInterval) {
+			const bullet = new Bullet({
+				x: this.ship.x + this.ship.width / 2 - 10,
+				y: this.canvas.height - this.stopEnemyBorder,
+				width: 20,
+				height: 50,
+				speed: 10
+			});
+			this.bullets.push(bullet);
+			this.lastShotTime = Date.now();
+		}
 	};
 
 	private gameLoop = () => {
@@ -184,13 +191,11 @@ class GameEngine {
 	};
 
 	private checkShipBounds = () => {
-		const borderOffset = 100; // Расстояние от границы экрана
-
-		if (this.ship.x < borderOffset) {
-			this.ship.x = borderOffset;
+		if (this.ship.x < constants.enemyBorder) {
+			this.ship.x = constants.enemyBorder;
 		}
 
-		const rightBorder = this.canvas.width - this.ship.width - borderOffset;
+		const rightBorder = this.canvas.width - this.ship.width - constants.enemyBorder;
 		if (this.ship.x > rightBorder) {
 			this.ship.x = rightBorder;
 		}
