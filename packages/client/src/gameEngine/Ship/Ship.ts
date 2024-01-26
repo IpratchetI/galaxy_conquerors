@@ -1,5 +1,5 @@
 // src/gameEngine/Ship/Ship.ts
-const shipSpeed = 5;
+const shipSpeed = 10;
 const shipVerticalOffset = 50;
 
 class Ship {
@@ -32,11 +32,8 @@ class Ship {
 	};
 
 	update = (canvasWidth: number) => {
-		if (this.moveShipDirection === -1 && this.x > 0) {
-			this.x -= this.speed;
-		} else if (this.moveShipDirection === 1 && this.x < canvasWidth - this.width) {
-			this.x += this.speed;
-		}
+		this.x += this.moveShipDirection * this.speed;
+		this.x = Math.max(0, Math.min(this.x, canvasWidth - this.width));
 	};
 
 	draw = (ctx: CanvasRenderingContext2D, canvasHeight: number) => {

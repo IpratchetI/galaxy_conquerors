@@ -25,8 +25,8 @@ class GameEngine {
 			throw new Error('Unable to get 2D rendering context');
 		}
 
-		const initialShipX = this.canvas.width / 2 - 25; // горизонтальное центрирование корабля
-		const initialShipY = this.canvas.height - 100; // позиция корабля по вертикали
+		const initialShipX = this.canvas.width / 2 - constants.initialShipOffsetX; // горизонтальное центрирование корабля
+		const initialShipY = this.canvas.height - constants.initialShipOffsetY; // позиция корабля по вертикали
 		this.ship = new Ship({ x: initialShipX, y: initialShipY, width: 50, height: 50 }); //отрисовка корабля
 		this.bullets = [];
 		this.enemies = [];
@@ -202,7 +202,7 @@ class GameEngine {
 	};
 
 	private checkStopEnemies = () => {
-		const bottomBorder = this.canvas.height - 150; // Граница от нижнего края экрана
+		const bottomBorder = this.canvas.height - this.stopEnemyBorder; // Граница от нижнего края экрана
 
 		if (this.enemies.some(enemy => enemy.y >= bottomBorder)) {
 			// Останавливаем противников
