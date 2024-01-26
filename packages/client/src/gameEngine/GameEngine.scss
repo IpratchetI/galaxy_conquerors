@@ -1,0 +1,7 @@
+/* src/gameEngine/GameEngine.css */
+@import '../style/backgrounds.scss';
+
+canvas {
+  @include main-background;
+  border: 1px solid var(--black);
+}

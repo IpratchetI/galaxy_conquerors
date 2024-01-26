@@ -3,6 +3,7 @@ import { ForumPage } from '@pages/Forum';
 import { LeaderBoard } from '@pages/LeaderBoard';
 import { Login } from '@pages/Login';
 import { Main } from '@pages/Main';
+import { Game } from '@pages/Game';
 import { Profile } from '@pages/Profile';
 import { Registration } from '@pages/Registration';
 import { StartGame } from '@pages/StartGame';
@@ -33,7 +34,7 @@ export const AppRouter = () => {
 					</Route>
 					<Route path={routerPaths.story} element={<StartGame />} />
 					<Route path={routerPaths.authors} element={<div>authors</div>} />
-					<Route path={routerPaths.gamePlay} element={<div>gamePlay</div>} />
+					<Route path={routerPaths.game} element={<Game />} />
 					<Route path={routerPaths.gameOver} element={<GameOver />} />
 				</Route>
 			</Route>

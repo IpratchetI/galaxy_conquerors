@@ -14,31 +14,4 @@
     margin-bottom: 85px;
     grid-area: title;
   }
-
-  .button {
-    background-color: var(--sky);
-    border: none;
-    border-radius: 10px;
-    color: var(--white);
-    font-size: var(--font-size-30);
-    width: 260px;
-    height: 70px;
-    position: absolute;
-    bottom: 65px;
-    left: 104px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-
-    &:hover {
-      background-color: var(--white);
-      color: var(--sky);
-    }
-
-    &:active {
-      background-color: var(--white);
-      color: var(--sky);
-    }
-  }
 }
