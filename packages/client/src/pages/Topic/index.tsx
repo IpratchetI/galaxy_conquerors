@@ -1,18 +1,32 @@
 import { Button } from '@components/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { LoadingMeta } from '@models/common';
 
-import { useAppSelector } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { Text } from '@/components';
 
 import s from './index.module.scss';
 import { MessageForm } from './components/MessageForm';
 import { Comment } from './components/Comment';
+import { useEffect } from 'react';
+import { getTopic } from '@/store/reducers/forum/forumReducer';
+import { TOPICS_LIST } from '@pages/Forum/lib/mocks';
 
-// todo: получать/пополнять список сообщений
 export const TopicPage = () => {
 	const { currentTopic, isLoading, topicError } = useAppSelector(state => state.forumState);
+	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+	const { topicId } = useParams();
+
+	useEffect(() => {
+		if (!topicId) return;
+
+		const selectedTopic = TOPICS_LIST?.find(topic => topic.id === +topicId);
+
+		if (selectedTopic) {
+			dispatch(getTopic(selectedTopic));
+		}
+	}, [topicId]);
 
 	const handleHistoryBack = () => {
 		navigate(-1);
