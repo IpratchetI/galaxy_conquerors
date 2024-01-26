@@ -1,25 +1,32 @@
-import { UserLoginModel } from '@models/User';
-import { BaseApiService } from '@services/BaseApiService';
-import axios from 'axios';
+import { UserLoginModel, UserModel } from '@models/models/user';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
-class AuthService extends BaseApiService {
+import { baseApi } from './baseApi';
+
+class AuthService {
 	private _controllerName = 'auth/';
 
 	signIn(data: UserLoginModel) {
-		return axios.post(this.restUrl('signin', this._controllerName), data, {
+		return baseApi.post(this._controllerName + 'signin', data, {
 			withCredentials: true
 		});
 	}
 
 	signUp(user: UserLoginModel) {
-		return axios.post(this.restUrl('signup', this._controllerName), user, {
+		return baseApi.post(this._controllerName + 'signup', user, {
+			withCredentials: true
+		});
+	}
+
+	getUser() {
+		return baseApi.get<UserModel>(this._controllerName + 'user', {
 			withCredentials: true
 		});
 	}
 
 	logout() {
-		return axios.post(
-			this.restUrl('logout', this._controllerName),
+		return baseApi.post(
+			this._controllerName + 'logout',
 			{},
 			{
 				withCredentials: true

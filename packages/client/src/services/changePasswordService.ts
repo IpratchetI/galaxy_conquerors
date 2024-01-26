@@ -1,5 +1,7 @@
 import axios, { AxiosError } from 'axios';
 
+import { baseApi } from './baseApi';
+
 class ChangePasswordService {
 	async changePassword(oldPassword: string, newPassword: string): Promise<void> {
 		try {
@@ -7,16 +9,13 @@ class ChangePasswordService {
 			formData.append('oldPassword', oldPassword);
 			formData.append('newPassword', newPassword);
 
-			await axios.put(
-				'https://ya-praktikum.tech/api/v2/swagger/#/Users/put_user_password',
-				formData,
-				{
-					headers: {
-						// Authorization: `Bearer ${ACCESS_TOKEN}`, // todo: добавить токен
-						'Content-Type': 'multipart/form-data'
-					}
+			await baseApi.put('user/password', formData, {
+				withCredentials: true,
+				headers: {
+					// Authorization: `Bearer ${ACCESS_TOKEN}`, // todo: добавить токен
+					'Content-Type': 'multipart/form-data'
 				}
-			);
+			});
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
 				const axiosError = error as AxiosError;
