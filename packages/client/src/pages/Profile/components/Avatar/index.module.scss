@@ -11,6 +11,8 @@
   border-radius: 50%;
   border: 4px dashed var(--grey-80);
   cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .avatarMock:hover {

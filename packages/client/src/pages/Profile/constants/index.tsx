@@ -1,13 +1,7 @@
-import { ProfileData } from '@models/ProfileData';
+import { ProfileData } from '@models/models/user';
 
 import { FormField } from '@/types/forms';
 import { LOGIN_PATTERN, EMAIL_PATTERN, NAME_PATTERN, PHONE_PATTERN } from '@/constants/forms';
-
-export const profileApiEndpoints = {
-	avatar: 'https://ya-praktikum.tech/api/v2/user/profile/avatar',
-	profileData: 'https://ya-praktikum.tech/api/v2/user/profile',
-	saveProfile: 'https://ya-praktikum.tech/api/v2/user/profile'
-} as const;
 
 export const profileInputsConfig: FormField<ProfileData>[] = [
 	{

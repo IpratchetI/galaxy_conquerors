@@ -1,22 +1,47 @@
-import { useCallback } from 'react';
-import { Topics } from '@models/types/topics';
+import React, { useCallback } from 'react';
 import { Link } from '@components/Link';
+import { LoadingMeta } from '@models/common';
+import { TopicModel } from '@models/models/topics';
 
-import { TOPICS_PATH } from '@/pages/Forum/lib/constants';
 import { abbreviateNumber } from '@/utils/abbreviateNumber';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { Text } from '@/components';
+import { selectTopic } from '@/store/reducers/forum/forumReducer';
 
 import s from './index.module.scss';
 
 import { TopicsHeader } from '../TopicsHeader';
 
-type TopicsListProps = {
-	topics?: Topics;
-};
+export const TopicsList = () => {
+	const dispatch = useAppDispatch();
+	const { topics, error: forumError, isLoading } = useAppSelector(state => state.forumState);
 
-export const TopicsList = ({ topics }: TopicsListProps) => {
-	const handleClick = useCallback(() => {
-		// todo: add handler
-	}, []);
+	const handleClick = useCallback(
+		(topicId: TopicModel['id']) => {
+			const selectedTopic = topics?.find(topic => topic.id === topicId);
+
+			if (selectedTopic) {
+				dispatch(selectTopic(selectedTopic));
+			}
+		},
+		[topics]
+	);
+
+	if (isLoading === LoadingMeta.Loading) {
+		return (
+			<Text align="center" size="m">
+				Loading...
+			</Text>
+		);
+	}
+
+	if (forumError?.reason) {
+		return (
+			<Text size="s" variant="error">
+				{forumError?.reason}
+			</Text>
+		);
+	}
 
 	return (
 		<div className={s.topics}>
@@ -25,12 +50,12 @@ export const TopicsList = ({ topics }: TopicsListProps) => {
 				{topics?.map(topic => (
 					<li key={topic.id} className={s.topicItem} title={topic.name}>
 						<Link
-							to={TOPICS_PATH(topic.id)}
+							to={`topic/${topic.id}`}
 							state={{
 								topicName: topic.name
 							}}
 							className={s.topic}
-							onClick={handleClick}>
+							onClick={() => handleClick(topic.id)}>
 							<span className={s.topicName}>{topic.name}</span>
 							<span>{abbreviateNumber(topic.comments, 0)}</span>
 						</Link>

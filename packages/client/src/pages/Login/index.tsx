@@ -1,13 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
-import { UserLoginModel } from '@models/User';
+import { UserLoginModel } from '@models/models/user';
 import { Link } from '@components/Link';
 import { Text } from '@components/Text';
 import { FormCard } from '@components/FormCard';
-import { AuthService } from '@services/authService';
 import { useNavigate } from 'react-router-dom';
-import { useAuthorize } from '@hooks/useAuthorize';
+import React, { useCallback, useEffect } from 'react';
+import { LoadingMeta } from '@models/common';
 
 import { routerPaths } from '@/constants/routerPaths';
 import { Spacer } from '@/components';
@@ -17,8 +17,17 @@ import { loginInputsConfig, loginInputsDefaults } from './constants';
 import '@styles/main.scss';
 import styles from './index.module.scss';
 
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { authUser } from '@/store/reducers/user/userActionCreator';
+
+import { useAuth } from '@components/AuthProtection/AuthProvider/AuthProvider';
+
 export const Login = () => {
-	const [, setAuthorized] = useAuthorize();
+	const dispatch = useAppDispatch();
+	const { user, isLoading, error: userError } = useAppSelector(state => state.userState);
+	const {
+		authState: [, setAuthorized]
+	} = useAuth();
 
 	const {
 		register,
@@ -33,12 +42,26 @@ export const Login = () => {
 
 	const navigate = useNavigate();
 
-	const submitHandler = (data: UserLoginModel) => {
-		AuthService.signIn(data).then(() => {
-			setAuthorized(true);
+	const submitHandler = useCallback(
+		async (data: UserLoginModel) => {
+			try {
+				await dispatch(authUser(data));
+
+				if (isLoading === LoadingMeta.Loaded) {
+					setAuthorized(true);
+				}
+			} catch (e) {
+				console.error(e);
+			}
+		},
+		[isLoading]
+	);
+
+	useEffect(() => {
+		if (user) {
 			navigate(routerPaths.main);
-		});
-	};
+		}
+	}, [user]);
 
 	const signInHandler = () => {
 		const values = getValues();
@@ -55,9 +78,19 @@ export const Login = () => {
 					<FormCard
 						text="Authorization"
 						footer={
-							<Button type="submit" onClick={handleSubmit(signInHandler)}>
-								Sign In
-							</Button>
+							<Spacer gap="20" align="center" direction="column">
+								{userError?.reason && (
+									<Text size="s" variant="error">
+										{userError?.reason}
+									</Text>
+								)}
+								<Button
+									type="submit"
+									disabled={isLoading === LoadingMeta.Loading}
+									onClick={handleSubmit(signInHandler)}>
+									Sign In
+								</Button>
+							</Spacer>
 						}>
 						<form>
 							{loginInputsConfig.map(({ data: { fieldName, label, type }, validateOptions }) => {

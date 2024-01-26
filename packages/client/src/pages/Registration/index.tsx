@@ -2,21 +2,30 @@ import { useForm } from 'react-hook-form';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 import { Spacer } from '@components/Spacer';
-import { UserLoginModel, UserRegistrationModel } from '@models/User';
+import { UserLoginModel, UserRegistrationModel } from '@models/models/user';
 import { FormCard } from '@components/FormCard';
 import { AuthService } from '@services/authService';
-import { useAuthorize } from '@hooks/useAuthorize';
 import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { LoadingMeta } from '@models/common';
 
 import { routerPaths } from '@/constants/routerPaths';
 import { regInputsConfig, regInputsDefaults } from '@/pages/Registration/constants';
 import { validate } from '@/utils/validate';
 
 import '@styles/main.scss';
+import { useAppSelector } from '@/store/hooks';
+import { Text } from '@/components';
+
 import styles from './index.module.scss';
 
+import { useAuth } from '@components/AuthProtection/AuthProvider/AuthProvider';
+
 export const Registration = () => {
-	const [, setAuthorized] = useAuthorize();
+	const {
+		authState: [_, setAuthorized]
+	} = useAuth();
+	const { user, isLoading, error: userError } = useAppSelector(state => state.userState);
 
 	const {
 		register,
@@ -34,9 +43,14 @@ export const Registration = () => {
 	const submitHandler = (data: UserLoginModel) => {
 		AuthService.signUp(data).then(() => {
 			setAuthorized(true);
-			navigate(routerPaths.main);
 		});
 	};
+
+	useEffect(() => {
+		if (user) {
+			navigate(routerPaths.main);
+		}
+	}, [user]);
 
 	const registerHandler = () => submitHandler(getValues());
 
@@ -47,8 +61,16 @@ export const Registration = () => {
 					text="Registration"
 					fullWidthContent
 					footer={
-						<Spacer gap="20">
-							<Button type="submit" onClick={handleSubmit(registerHandler)}>
+						<Spacer gap="20" direction="column">
+							{userError?.reason && (
+								<Text size="s" variant="error">
+									{userError?.reason}
+								</Text>
+							)}
+							<Button
+								type="submit"
+								disabled={isLoading === LoadingMeta.Loading}
+								onClick={handleSubmit(registerHandler)}>
 								Register
 							</Button>
 							<Button onClick={() => navigate(-1)}>Back</Button>
