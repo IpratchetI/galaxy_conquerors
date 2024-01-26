@@ -1,16 +1,16 @@
 import { Button } from '@components/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { LoadingMeta } from '@models/common';
+import { useEffect } from 'react';
+import { TOPICS_LIST } from '@pages/Forum/lib/mocks';
 
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { Text } from '@/components';
+import { getTopic } from '@/store/reducers/forum/forumReducer';
 
 import s from './index.module.scss';
 import { MessageForm } from './components/MessageForm';
 import { Comment } from './components/Comment';
-import { useEffect } from 'react';
-import { getTopic } from '@/store/reducers/forum/forumReducer';
-import { TOPICS_LIST } from '@pages/Forum/lib/mocks';
 
 export const TopicPage = () => {
 	const { currentTopic, isLoading, topicError } = useAppSelector(state => state.forumState);

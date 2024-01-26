@@ -6,10 +6,10 @@ import { ActionErrorResponse } from '@models/api/errorResponse';
 
 import { UserState } from '@/store/reducers/user/userReducer';
 
-export function userReducersFactory<T extends UserModel | undefined = undefined, K = UserModel>(
-	builder: ActionReducerMapBuilder<UserState>,
-	methods: AsyncThunk<T, K, AsyncThunkConfig>[]
-) {
+export function userReducersFactory<
+	T extends UserState['user'] | undefined = undefined,
+	K = UserModel
+>(builder: ActionReducerMapBuilder<UserState>, methods: AsyncThunk<T, K, AsyncThunkConfig>[]) {
 	methods.forEach(method => {
 		builder.addCase(method.pending, (state: UserState) => {
 			state.isLoading = LoadingMeta.Loading;
@@ -18,7 +18,7 @@ export function userReducersFactory<T extends UserModel | undefined = undefined,
 			state.isLoading = LoadingMeta.Loaded;
 			state.error = undefined;
 
-			if (action?.payload) {
+			if (action?.payload !== undefined) {
 				state.user = action.payload;
 			}
 		});

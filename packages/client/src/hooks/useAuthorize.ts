@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { useAppDispatch } from '@/store/hooks';
 import { getUser } from '@/store/reducers/user/userActionCreator';
 
 type useAuthorize = () => [isAuthorized: boolean, setAuthorize: (isAuthorized: boolean) => void];
@@ -11,13 +11,12 @@ export const useAuthorize: useAuthorize = () => {
 		JSON.parse(localStorage.getItem('isAuthorized') || 'false')
 	);
 	const dispatch = useAppDispatch();
-	const { user } = useAppSelector(state => state.userState);
 
 	useEffect(() => {
-		if (!user && isAuthorized) {
+		if (isAuthorized) {
 			dispatch(getUser());
 		}
-	}, [isAuthorized, user]);
+	}, [isAuthorized]);
 
 	const setAuthorized = useCallback((auth: boolean) => {
 		localStorage.setItem('isAuthorized', auth.toString());

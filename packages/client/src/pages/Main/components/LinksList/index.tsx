@@ -2,13 +2,12 @@ import { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import { MouseEvent } from 'react';
-import { AuthService } from '@services/authService';
 import { useAuth } from '@components/AuthProtection/AuthProvider/AuthProvider';
 
 import { Link, Text } from '@/components';
 import { routerPaths } from '@/constants/routerPaths';
 import { useAppDispatch } from '@/store/hooks';
-import { deleteUser } from '@/store/reducers/user/userReducer';
+import { logOutUser } from '@/store/reducers/user/userActionCreator';
 
 import { navLinks } from './constants/navLinks';
 import styles from './index.module.scss';
@@ -18,24 +17,16 @@ export const LinksList = () => {
 	const [activeLinkId, setActiveLinkId] = useState<number>(0);
 	const navigate = useNavigate();
 	const {
-		authState: [isAuthorized, setAuthorized]
+		authState: [_, setAuthorized]
 	} = useAuth();
 
-	const exitHandler = useCallback((e: MouseEvent<HTMLAnchorElement>) => {
+	const exitHandler = async (e: MouseEvent<HTMLAnchorElement>) => {
 		e.stopPropagation();
 		e.preventDefault();
-		AuthService.logout().then(() => {
-			setAuthorized(false);
-			dispatch(deleteUser());
-			localStorage.setItem('isAuthorized', 'false');
-		});
-	}, []);
-
-	useEffect(() => {
-		if (!isAuthorized) {
-			navigate(routerPaths.login);
-		}
-	}, [isAuthorized]);
+		dispatch(logOutUser());
+		navigate(routerPaths.login);
+		setAuthorized(false);
+	};
 
 	const handleKeyDown = useCallback(
 		(event: KeyboardEvent) => {

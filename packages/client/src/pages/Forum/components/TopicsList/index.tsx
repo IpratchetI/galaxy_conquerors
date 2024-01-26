@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import { Link } from '@components/Link';
 import { LoadingMeta } from '@models/common';
 import { TopicModel } from '@models/models/topics';
+import { TOPICS_LIST } from '@pages/Forum/lib/mocks';
 
 import { abbreviateNumber } from '@/utils/abbreviateNumber';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -11,7 +12,6 @@ import { getTopicsList, getTopic } from '@/store/reducers/forum/forumReducer';
 import s from './index.module.scss';
 
 import { TopicsHeader } from '../TopicsHeader';
-import { TOPICS_LIST } from '@pages/Forum/lib/mocks';
 
 export const TopicsList = () => {
 	const { topics, error: forumError, isLoading } = useAppSelector(state => state.forumState);

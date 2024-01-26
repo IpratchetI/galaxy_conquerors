@@ -6,7 +6,7 @@ import { Link } from '@components/Link';
 import { Text } from '@components/Text';
 import { FormCard } from '@components/FormCard';
 import { useNavigate } from 'react-router-dom';
-import React, { useCallback, useEffect } from 'react';
+import React from 'react';
 import { LoadingMeta } from '@models/common';
 
 import { routerPaths } from '@/constants/routerPaths';
@@ -18,13 +18,18 @@ import '@styles/main.scss';
 import styles from './index.module.scss';
 
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { authUser } from '@/store/reducers/user/userActionCreator';
 
 import { useAuth } from '@components/AuthProtection/AuthProvider/AuthProvider';
+import { AuthService } from '@services/authService';
+
+import { DEFAULT_ERROR } from '@/store/constants/error';
+import { catchError } from '@/store/reducers/user/userReducer';
+
+import { AxiosError } from 'axios';
 
 export const Login = () => {
 	const dispatch = useAppDispatch();
-	const { user, isLoading, error: userError } = useAppSelector(state => state.userState);
+	const { error: userError } = useAppSelector(state => state.userState);
 	const {
 		authState: [, setAuthorized]
 	} = useAuth();
@@ -33,7 +38,7 @@ export const Login = () => {
 		register,
 		getValues,
 		handleSubmit,
-		formState: { errors: validateErrors }
+		formState: { errors: validateErrors, isSubmitting }
 	} = useForm<UserLoginModel>({
 		mode: 'onBlur',
 		reValidateMode: 'onChange',
@@ -42,26 +47,19 @@ export const Login = () => {
 
 	const navigate = useNavigate();
 
-	const submitHandler = useCallback(
-		async (data: UserLoginModel) => {
-			try {
-				await dispatch(authUser(data));
-
-				if (isLoading === LoadingMeta.Loaded) {
-					setAuthorized(true);
-				}
-			} catch (e) {
-				console.error(e);
+	const submitHandler = async (data: UserLoginModel) => {
+		try {
+			const { status } = await AuthService.signIn(data);
+			if (status === 200) {
+				setAuthorized(true);
+				navigate(routerPaths.main);
+				dispatch(catchError());
 			}
-		},
-		[isLoading]
-	);
-
-	useEffect(() => {
-		if (user) {
-			navigate(routerPaths.main);
+		} catch (e) {
+			const error = e as AxiosError;
+			dispatch(catchError(error.response?.data ?? DEFAULT_ERROR));
 		}
-	}, [user]);
+	};
 
 	const signInHandler = () => {
 		const values = getValues();
@@ -84,10 +82,7 @@ export const Login = () => {
 										{userError?.reason}
 									</Text>
 								)}
-								<Button
-									type="submit"
-									disabled={isLoading === LoadingMeta.Loading}
-									onClick={handleSubmit(signInHandler)}>
+								<Button type="submit" disabled={isSubmitting} onClick={handleSubmit(signInHandler)}>
 									Sign In
 								</Button>
 							</Spacer>

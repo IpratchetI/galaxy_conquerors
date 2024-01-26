@@ -1,5 +1,4 @@
-import { UserLoginModel, UserModel } from '@models/models/user';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { UserLoginModel, UserModel, UserRegistrationModel } from '@models/models/user';
 
 import { baseApi } from './baseApi';
 
@@ -12,7 +11,7 @@ class AuthService {
 		});
 	}
 
-	signUp(user: UserLoginModel) {
+	signUp(user: UserRegistrationModel) {
 		return baseApi.post(this._controllerName + 'signup', user, {
 			withCredentials: true
 		});

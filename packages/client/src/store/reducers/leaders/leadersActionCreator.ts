@@ -3,6 +3,8 @@ import { AxiosError } from 'axios';
 import { LeadersService } from '@services/leadersService';
 import { LeaderboardRequest } from '@models/api/leaders';
 
+import { DEFAULT_ERROR } from '@/store/constants/error';
+
 export const getLeaders = createAsyncThunk(
 	'leaders/getLeadersList',
 	async (data: LeaderboardRequest, thunkAPI) => {
@@ -10,9 +12,7 @@ export const getLeaders = createAsyncThunk(
 			const { data: leaders } = await LeadersService.getLeaders(data);
 			return leaders;
 		} catch (e) {
-			return thunkAPI.rejectWithValue(
-				(e as AxiosError).response?.data ?? 'Что-то пошло не так, попробуйте еще раз!'
-			);
+			return thunkAPI.rejectWithValue((e as AxiosError).response?.data ?? DEFAULT_ERROR);
 		}
 	}
 );
