@@ -30,7 +30,6 @@ class Enemy {
 
 	private static moveDownDistance = 50;
 
-	//todo: пофиксить логику движения. противник коснувшийся границы не смещается вниз
 	static moveAllEnemies = (allEnemies: Enemy[], canvasWidth: number) => {
 		const reachedLeftEdge = allEnemies.some(enemy => enemy.x <= constants.enemyBorder);
 		const reachedRightEdge = allEnemies.some(
