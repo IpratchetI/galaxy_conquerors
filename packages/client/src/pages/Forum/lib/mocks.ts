@@ -1,4 +1,4 @@
-import { Topics } from '@models/models/topics';
+import { Topics } from '@models/topics';
 import { COMMENTS_LIST } from '@pages/Topic/lib/mocks';
 
 export const TOPICS_LIST: Topics = [

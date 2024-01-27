@@ -1,4 +1,4 @@
-import { CommentModel } from '@models/models/topics';
+import { CommentModel } from '@models/topics';
 
 export const USERS: Array<{ id: number; name: string }> = [
 	{

@@ -1,4 +1,4 @@
-import { UserModel } from '@models/models/user';
+import { UserModel } from '@models/user';
 import { ActionReducerMapBuilder, AsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { AsyncThunkConfig } from '@reduxjs/toolkit/dist/createAsyncThunk';
 import { ActionErrorResponse } from '@models/api/errorResponse';

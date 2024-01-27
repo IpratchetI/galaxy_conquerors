@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import classNames from 'classnames';
-import { CommentModel } from '@models/models/topics';
+import { CommentModel } from '@models/topics';
 
 import { Spacer } from '@/components';
 

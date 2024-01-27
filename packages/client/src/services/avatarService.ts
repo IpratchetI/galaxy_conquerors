@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { UserModel } from '@models/models/user';
+import { UserModel } from '@models/user';
 
 import { baseApi } from './baseApi';
 

@@ -1,5 +1,5 @@
 import { LeaderboardRequest } from '@models/api/leaders';
-import { LeaderboardData } from '@models/models/leaders';
+import { LeaderboardData } from '@models/leaders';
 
 import { baseApi } from './baseApi';
 

@@ -1,4 +1,4 @@
-import { UserLoginModel, UserModel, UserRegistrationModel } from '@models/models/user';
+import { UserLoginModel, UserModel, UserRegistrationModel } from '@models/user';
 
 import { baseApi } from './baseApi';
 

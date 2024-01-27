@@ -1,5 +1,5 @@
-import axios, { Axios, AxiosError, AxiosInstance } from 'axios';
-import { ProfileData, UserModel } from '@models/models/user';
+import { AxiosError } from 'axios';
+import { ProfileData, UserModel } from '@models/user';
 import { baseApi } from '@services/baseApi';
 
 class UserProfileService {

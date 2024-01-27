@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthService } from '@services/authService';
 import { AxiosError } from 'axios';
-import { ProfileData, UserLoginModel, UserRegistrationModel } from '@models/models/user';
+import { ProfileData, UserLoginModel, UserRegistrationModel } from '@models/user';
 import UserProfileService from '@services/userProfileService';
 import AvatarService from '@services/avatarService';
 

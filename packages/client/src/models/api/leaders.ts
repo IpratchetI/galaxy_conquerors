@@ -1,4 +1,4 @@
-import { LeadersModel } from '@models/models/leaders';
+import { LeadersModel } from '../leaders';
 
 export type LeaderboardRequest = {
 	ratingFieldName: keyof LeadersModel; // Which field is used to sort

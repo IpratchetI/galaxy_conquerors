@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { Link } from '@components/Link';
-import { TopicModel } from '@models/models/topics';
+import { TopicModel } from '@models/topics';
 import { TOPICS_LIST } from '@pages/Forum/lib/mocks';
 
 import { abbreviateNumber } from '@/utils/abbreviateNumber';

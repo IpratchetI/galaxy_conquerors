@@ -11,9 +11,9 @@ import { TopicPage } from '@pages/Topic';
 import { Route, Routes } from 'react-router-dom';
 import { GameOver } from '@pages/Gameover';
 import { AuthProtection } from '@components/AuthProtection';
+import { useAuthorize } from '@hooks/useAuthorize';
 
 import { routerPaths } from '@/constants/routerPaths';
-import { useAuthorize } from '@hooks/useAuthorize';
 
 export const AppRouter = () => {
 	useAuthorize();

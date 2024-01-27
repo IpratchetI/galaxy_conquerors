@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 import { Spacer } from '@components/Spacer';
-import { UserRegistrationModel } from '@models/models/user';
+import { UserRegistrationModel } from '@models/user';
 import { FormCard } from '@components/FormCard';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react';

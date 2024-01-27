@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ErrorResponse } from '@models/api/errorResponse';
-import { TopicModel, Topics } from '@models/models/topics';
+import { TopicModel, Topics } from '@models/topics';
 
 export type ForumState = {
 	topics: Topics;

@@ -1,13 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
-import { UserLoginModel } from '@models/models/user';
+import { UserLoginModel } from '@models/user';
 import { Link } from '@components/Link';
 import { Text } from '@components/Text';
 import { FormCard } from '@components/FormCard';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react';
-import { AuthService } from '@services/authService';
+import { AxiosError } from 'axios';
 
 import { routerPaths } from '@/constants/routerPaths';
 import { Spacer } from '@/components';
@@ -15,15 +15,13 @@ import { validate } from '@/utils/validate';
 
 import { loginInputsConfig, loginInputsDefaults } from './constants';
 import '@styles/main.scss';
-import styles from './index.module.scss';
 
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { DEFAULT_ERROR } from '@/store/constants/error';
 import { catchError } from '@/store/reducers/user/userReducer';
-
-import { AxiosError } from 'axios';
-
 import { logInUser } from '@/store/reducers/user/userActionCreator';
+
+import styles from './index.module.scss';
 
 export const Login = () => {
 	const dispatch = useAppDispatch();

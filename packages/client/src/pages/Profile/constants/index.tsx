@@ -1,4 +1,4 @@
-import { ProfileData } from '@models/models/user';
+import { ProfileData } from '@models/user';
 
 import { FormField } from '@/types/forms';
 import { LOGIN_PATTERN, EMAIL_PATTERN, NAME_PATTERN, PHONE_PATTERN } from '@/constants/forms';

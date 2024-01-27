@@ -3,7 +3,7 @@ import { Button, ButtonVariant } from '@components/Button';
 import { Text } from '@components/Text';
 import { Input } from '@components/Input';
 import { useForm } from 'react-hook-form';
-import { ProfileData } from '@models/models/user';
+import { ProfileData } from '@models/user';
 import { FormCard } from '@components/FormCard';
 import { useNavigate } from 'react-router-dom';
 

@@ -1,4 +1,4 @@
-import { UserLoginModel, UserModel, UserRegistrationModel } from '@models/models/user';
+import { UserLoginModel, UserModel, UserRegistrationModel } from '@models/user';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ErrorResponse } from '@models/api/errorResponse';
 
