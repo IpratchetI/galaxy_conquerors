@@ -7,6 +7,7 @@ import { Text } from '@components/Text';
 import { FormCard } from '@components/FormCard';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react';
+import { AuthService } from '@services/authService';
 
 import { routerPaths } from '@/constants/routerPaths';
 import { Spacer } from '@/components';
@@ -17,9 +18,6 @@ import '@styles/main.scss';
 import styles from './index.module.scss';
 
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-
-import { AuthService } from '@services/authService';
-
 import { DEFAULT_ERROR } from '@/store/constants/error';
 import { catchError } from '@/store/reducers/user/userReducer';
 
