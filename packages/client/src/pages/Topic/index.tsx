@@ -1,6 +1,5 @@
 import { Button } from '@components/Button';
 import { useNavigate, useParams } from 'react-router-dom';
-import { LoadingMeta } from '@models/common';
 import { useEffect } from 'react';
 import { TOPICS_LIST } from '@pages/Forum/lib/mocks';
 
@@ -32,7 +31,7 @@ export const TopicPage = () => {
 		navigate(-1);
 	};
 
-	if (isLoading === LoadingMeta.Loading) {
+	if (isLoading) {
 		return (
 			<Text align="center" size="m">
 				Loading...

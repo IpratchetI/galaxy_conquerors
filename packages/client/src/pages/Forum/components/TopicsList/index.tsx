@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
 import { Link } from '@components/Link';
-import { LoadingMeta } from '@models/common';
 import { TopicModel } from '@models/models/topics';
 import { TOPICS_LIST } from '@pages/Forum/lib/mocks';
 
@@ -32,7 +31,7 @@ export const TopicsList = () => {
 		[topics]
 	);
 
-	if (isLoading === LoadingMeta.Loading) {
+	if (isLoading) {
 		return (
 			<Text align="center" size="m">
 				Loading...

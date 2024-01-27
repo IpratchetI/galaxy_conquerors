@@ -1,4 +1,3 @@
-import { LoadingMeta } from '@models/common';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ErrorResponse } from '@models/api/errorResponse';
 import { TopicModel, Topics } from '@models/models/topics';
@@ -8,12 +7,12 @@ export type ForumState = {
 	currentTopic?: TopicModel;
 	error?: ErrorResponse;
 	topicError?: ErrorResponse;
-	isLoading: LoadingMeta;
+	isLoading: boolean;
 };
 
 const initialState: ForumState = {
 	topics: [],
-	isLoading: LoadingMeta.Idle
+	isLoading: false
 };
 
 const forumSlice = createSlice({

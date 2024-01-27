@@ -7,14 +7,15 @@ import { getUser, logOutUser, updateUser, updateUserAvatar } from './userActionC
 import { userReducersFactory } from './userReducersFactory';
 
 export type UserState = {
-	isAuth?: boolean;
+	isAuth: boolean;
 	user?: UserModel | null;
 	error?: ErrorResponse;
-	isLoading: LoadingMeta;
+	isLoading: boolean;
 };
 
 const initialState: UserState = {
-	isLoading: LoadingMeta.Idle
+	isAuth: false,
+	isLoading: false
 };
 
 const userSlice = createSlice({
@@ -22,7 +23,7 @@ const userSlice = createSlice({
 	initialState,
 	reducers: {
 		catchError: (state: UserState, action: PayloadAction<ErrorResponse | undefined>) => {
-			state.isLoading = LoadingMeta.Loaded;
+			state.isLoading = false;
 			state.error = action.payload;
 		}
 	},

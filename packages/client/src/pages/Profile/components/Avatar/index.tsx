@@ -1,7 +1,6 @@
 import React, { useState, useRef, useMemo } from 'react';
 import { Button } from '@components/Button';
 import { createAvatarPath } from '@pages/Profile/components/utils/createAvatarPath';
-import { LoadingMeta } from '@models/common';
 
 import { Input, Modal, Spacer, Text } from '@/components';
 import { updateUserAvatar } from '@/store/reducers/user/userActionCreator';
@@ -113,10 +112,7 @@ export const Avatar: React.FC = () => {
 					<Spacer direction="column" fullHeight fullWidth gap="50" spaceTop="40">
 						{preview ? (
 							<Spacer direction="column" gap="20" fullWidth>
-								<Button
-									disabled={isLoading === LoadingMeta.Loading}
-									fullWidth
-									onClick={handleSaveImage}>
+								<Button disabled={isLoading} fullWidth onClick={handleSaveImage}>
 									<Text align="center" size="s">
 										Confirm
 									</Text>

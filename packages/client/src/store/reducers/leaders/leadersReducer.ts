@@ -1,5 +1,4 @@
-import { LoadingMeta } from '@models/common';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { ErrorResponse } from '@models/api/errorResponse';
 import { LeaderboardData } from '@models/models/leaders';
 
@@ -9,12 +8,12 @@ import { leadersReducersFactory } from './leadersReducersFactory';
 export type LeadersState = {
 	leaders: LeaderboardData;
 	error?: ErrorResponse;
-	isLoading: LoadingMeta;
+	isLoading: boolean;
 };
 
 const initialState: LeadersState = {
 	leaders: [],
-	isLoading: LoadingMeta.Idle
+	isLoading: false
 };
 
 const leadersSlice = createSlice({

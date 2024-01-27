@@ -1,6 +1,5 @@
 import { ActionReducerMapBuilder, AsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { AsyncThunkConfig } from '@reduxjs/toolkit/dist/createAsyncThunk';
-import { LoadingMeta } from '@models/common';
 import { ActionErrorResponse } from '@models/api/errorResponse';
 import { LeaderboardData } from '@models/models/leaders';
 import { LeaderboardRequest } from '@models/api/leaders';
@@ -13,10 +12,10 @@ export function leadersReducersFactory<
 >(builder: ActionReducerMapBuilder<LeadersState>, methods: AsyncThunk<T, K, AsyncThunkConfig>[]) {
 	methods.forEach(method => {
 		builder.addCase(method.pending, (state: LeadersState) => {
-			state.isLoading = LoadingMeta.Loading;
+			state.isLoading = true;
 		});
 		builder.addCase(method.fulfilled, (state: LeadersState, action: PayloadAction<T>) => {
-			state.isLoading = LoadingMeta.Loaded;
+			state.isLoading = false;
 			state.error = undefined;
 
 			if (action?.payload) {
@@ -24,7 +23,7 @@ export function leadersReducersFactory<
 			}
 		});
 		builder.addCase(method.rejected, (state: LeadersState, action: PayloadAction<any>) => {
-			state.isLoading = LoadingMeta.Error;
+			state.isLoading = false;
 			state.error = action.payload as ActionErrorResponse;
 		});
 	});

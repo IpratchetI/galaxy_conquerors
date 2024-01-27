@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form';
 import { ProfileData } from '@models/models/user';
 import { FormCard } from '@components/FormCard';
 import { useNavigate } from 'react-router-dom';
-import { LoadingMeta } from '@models/common';
 
 import { Spacer } from '@/components';
 import { validate } from '@/utils/validate';
@@ -84,7 +83,7 @@ export const Profile = () => {
 								<Button
 									className={styles.button}
 									type="submit"
-									disabled={isLoading === LoadingMeta.Loading}
+									disabled={isLoading}
 									variant={ButtonVariant.DEFAULT}
 									onClick={handleSubmit(handleSaveProfile)}>
 									<Text align="center" size="s">

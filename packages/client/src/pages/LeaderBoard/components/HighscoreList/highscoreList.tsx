@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { LeaderboardRequest } from '@models/api/leaders';
-import { LoadingMeta } from '@models/common';
 import { ButtonVariant } from '@components/Button';
 
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -32,7 +31,7 @@ export const HighscoreList: React.FC = () => {
 		dispatch(getLeaders(filterData.current));
 	}, []);
 
-	if (isLoading === LoadingMeta.Loading) {
+	if (isLoading) {
 		return (
 			<Text align="center" size="m">
 				Loading...
