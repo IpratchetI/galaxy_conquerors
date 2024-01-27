@@ -1,26 +1,14 @@
-import { createContext, ReactNode, useContext } from 'react';
+import { createContext, ReactNode } from 'react';
 import { useAuthorize } from '@hooks/useAuthorize';
 
-type AuthContextValue = {
-	authState: ReturnType<typeof useAuthorize>;
-};
-
-const AuthContext = createContext<AuthContextValue | null>(null);
-
-export const useAuth = () => {
-	const ctx = useContext(AuthContext);
-	if (!ctx) {
-		throw new Error('Authorization not provided');
-	}
-	return ctx;
-};
+const AuthContext = createContext(null);
 
 type Props = {
 	children: ReactNode;
 };
 
 export function AuthProvider({ children }: Props) {
-	const authState = useAuthorize();
+	useAuthorize();
 
-	return <AuthContext.Provider value={{ authState }}>{children}</AuthContext.Provider>;
+	return <AuthContext.Provider value={null}>{children}</AuthContext.Provider>;
 }

@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import { MouseEvent } from 'react';
-import { useAuth } from '@components/AuthProtection/AuthProvider/AuthProvider';
 
 import { Link, Text } from '@/components';
 import { routerPaths } from '@/constants/routerPaths';
@@ -16,16 +15,12 @@ export const LinksList = () => {
 	const dispatch = useAppDispatch();
 	const [activeLinkId, setActiveLinkId] = useState<number>(0);
 	const navigate = useNavigate();
-	const {
-		authState: [_, setAuthorized]
-	} = useAuth();
 
 	const exitHandler = async (e: MouseEvent<HTMLAnchorElement>) => {
 		e.stopPropagation();
 		e.preventDefault();
 		dispatch(logOutUser());
 		navigate(routerPaths.login);
-		setAuthorized(false);
 	};
 
 	const handleKeyDown = useCallback(

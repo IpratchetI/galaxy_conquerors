@@ -4,10 +4,8 @@ import { Button } from '@components/Button';
 import { Spacer } from '@components/Spacer';
 import { UserRegistrationModel } from '@models/models/user';
 import { FormCard } from '@components/FormCard';
-import { AuthService } from '@services/authService';
 import { useNavigate } from 'react-router-dom';
-import React from 'react';
-import { useAuth } from '@components/AuthProtection/AuthProvider/AuthProvider';
+import React, { useEffect } from 'react';
 
 import { routerPaths } from '@/constants/routerPaths';
 import { regInputsConfig, regInputsDefaults } from '@/pages/Registration/constants';
@@ -16,19 +14,13 @@ import { validate } from '@/utils/validate';
 import '@styles/main.scss';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { Text } from '@/components';
-import { catchError } from '@/store/reducers/user/userReducer';
-import { DEFAULT_ERROR } from '@/store/constants/error';
+import { signUpUser } from '@/store/reducers/user/userActionCreator';
 
 import styles from './index.module.scss';
 
-import { AxiosError } from 'axios';
-
 export const Registration = () => {
 	const dispatch = useAppDispatch();
-	const {
-		authState: [_, setAuthorized]
-	} = useAuth();
-	const { error: userError } = useAppSelector(state => state.userState);
+	const { user, error: userError } = useAppSelector(state => state.userState);
 
 	const {
 		register,
@@ -44,19 +36,14 @@ export const Registration = () => {
 	const navigate = useNavigate();
 
 	const submitHandler = async (data: UserRegistrationModel) => {
-		try {
-			const { status } = await AuthService.signUp(data);
-
-			if (status === 200) {
-				setAuthorized(true);
-				navigate(routerPaths.main);
-				dispatch(catchError());
-			}
-		} catch (e) {
-			const error = e as AxiosError;
-			dispatch(catchError(error.response?.data ?? DEFAULT_ERROR));
-		}
+		dispatch(signUpUser(data));
 	};
+
+	useEffect(() => {
+		if (user) {
+			navigate(routerPaths.main);
+		}
+	}, [user]);
 
 	const registerHandler = () => submitHandler(getValues());
 

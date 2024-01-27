@@ -1,9 +1,15 @@
-import { UserModel } from '@models/models/user';
-import { LoadingMeta } from '@models/common';
+import { UserLoginModel, UserModel, UserRegistrationModel } from '@models/models/user';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ErrorResponse } from '@models/api/errorResponse';
 
-import { getUser, logOutUser, updateUser, updateUserAvatar } from './userActionCreator';
+import {
+	getUser,
+	logInUser,
+	logOutUser,
+	signUpUser,
+	updateUser,
+	updateUserAvatar
+} from './userActionCreator';
 import { userReducersFactory } from './userReducersFactory';
 
 export type UserState = {
@@ -14,7 +20,7 @@ export type UserState = {
 };
 
 const initialState: UserState = {
-	isAuth: false,
+	isAuth: JSON.parse(localStorage.getItem('isAuthorized') ?? 'false'),
 	isLoading: false
 };
 
@@ -25,16 +31,21 @@ const userSlice = createSlice({
 		catchError: (state: UserState, action: PayloadAction<ErrorResponse | undefined>) => {
 			state.isLoading = false;
 			state.error = action.payload;
+		},
+		updateAuth: (state: UserState, action: PayloadAction<boolean>) => {
+			state.isAuth = action.payload;
 		}
 	},
 	extraReducers: builder => {
 		userReducersFactory(builder, [updateUser]);
 		userReducersFactory<UserModel, void>(builder, [getUser]);
 		userReducersFactory<null, void>(builder, [logOutUser]);
+		userReducersFactory<undefined, UserLoginModel>(builder, [logInUser]);
+		userReducersFactory<undefined, UserRegistrationModel>(builder, [signUpUser]);
 		userReducersFactory<UserModel, File>(builder, [updateUserAvatar]);
 	}
 });
 
-export const { catchError } = userSlice.actions;
+export const { catchError, updateAuth } = userSlice.actions;
 
 export default userSlice.reducer;

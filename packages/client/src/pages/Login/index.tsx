@@ -6,7 +6,7 @@ import { Link } from '@components/Link';
 import { Text } from '@components/Text';
 import { FormCard } from '@components/FormCard';
 import { useNavigate } from 'react-router-dom';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { routerPaths } from '@/constants/routerPaths';
 import { Spacer } from '@/components';
@@ -18,7 +18,6 @@ import styles from './index.module.scss';
 
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 
-import { useAuth } from '@components/AuthProtection/AuthProvider/AuthProvider';
 import { AuthService } from '@services/authService';
 
 import { DEFAULT_ERROR } from '@/store/constants/error';
@@ -26,12 +25,11 @@ import { catchError } from '@/store/reducers/user/userReducer';
 
 import { AxiosError } from 'axios';
 
+import { logInUser } from '@/store/reducers/user/userActionCreator';
+
 export const Login = () => {
 	const dispatch = useAppDispatch();
-	const { error: userError } = useAppSelector(state => state.userState);
-	const {
-		authState: [, setAuthorized]
-	} = useAuth();
+	const { user, error: userError } = useAppSelector(state => state.userState);
 
 	const {
 		register,
@@ -47,18 +45,14 @@ export const Login = () => {
 	const navigate = useNavigate();
 
 	const submitHandler = async (data: UserLoginModel) => {
-		try {
-			const { status } = await AuthService.signIn(data);
-			if (status === 200) {
-				setAuthorized(true);
-				navigate(routerPaths.main);
-				dispatch(catchError());
-			}
-		} catch (e) {
-			const error = e as AxiosError;
-			dispatch(catchError(error.response?.data ?? DEFAULT_ERROR));
-		}
+		dispatch(logInUser(data));
 	};
+
+	useEffect(() => {
+		if (user) {
+			navigate(routerPaths.main);
+		}
+	}, [user]);
 
 	const signInHandler = () => {
 		const values = getValues();
