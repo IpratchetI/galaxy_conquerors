@@ -3,7 +3,6 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorPage } from '@pages/Error';
 import { AppRouter } from '@components/AppRouter/AppRouter';
 import { Provider } from 'react-redux';
-import { AuthProvider } from '@components/AuthProtection/AuthProvider/AuthProvider';
 
 import store from '@/store';
 
@@ -26,9 +25,7 @@ function App() {
 				console.error({ error, info });
 			}}>
 			<Provider store={store}>
-				<AuthProvider>
-					<AppRouter />
-				</AuthProvider>
+				<AppRouter />
 			</Provider>
 		</ErrorBoundary>
 	);

@@ -13,8 +13,11 @@ import { GameOver } from '@pages/Gameover';
 import { AuthProtection } from '@components/AuthProtection';
 
 import { routerPaths } from '@/constants/routerPaths';
+import { useAuthorize } from '@hooks/useAuthorize';
 
 export const AppRouter = () => {
+	useAuthorize();
+
 	return (
 		<Routes>
 			{/* Общие */}
