@@ -16,6 +16,4 @@ export type UserRegistrationModel = {
 	password: string;
 } & Omit<UserModel, 'avatar' | 'id'>;
 
-export type UserProfileModel = UserModel;
-
 export type ProfileData = Omit<UserModel, 'id' | 'avatar'>;

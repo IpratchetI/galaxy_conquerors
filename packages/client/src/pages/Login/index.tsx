@@ -7,7 +7,6 @@ import { Text } from '@components/Text';
 import { FormCard } from '@components/FormCard';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
-import { LoadingMeta } from '@models/common';
 
 import { routerPaths } from '@/constants/routerPaths';
 import { Spacer } from '@/components';
@@ -89,20 +88,21 @@ export const Login = () => {
 						}>
 						<form>
 							{loginInputsConfig.map(({ data: { fieldName, label, type }, validateOptions }) => {
-								const error = validateErrors[fieldName];
-								const value = getValues()[fieldName];
+								const key = fieldName as keyof UserLoginModel;
+								const error = validateErrors[key];
+								const value = getValues()[key];
 								const isFieldRequired = Boolean(validateOptions.required);
 
 								return (
 									<Input
-										key={fieldName}
+										key={key}
 										type={type}
 										error={
 											error && {
-												message: validate(fieldName, value, isFieldRequired)
+												message: validate(key, value, isFieldRequired)
 											}
 										}
-										{...register(fieldName, validateOptions)}>
+										{...register(key, validateOptions)}>
 										{label}
 									</Input>
 								);

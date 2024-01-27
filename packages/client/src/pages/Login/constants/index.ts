@@ -1,4 +1,4 @@
-import { UserLoginModel } from '@models/User';
+import { UserLoginModel } from '@models/models/user';
 
 import { FormField } from '@/types/forms';
 import { LOGIN_PATTERN, PASSWORD_PATTERN } from '@/constants/forms';

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthService } from '@services/authService';
 import { AxiosError } from 'axios';
-import { UserProfileModel } from '@models/models/user';
+import { ProfileData } from '@models/models/user';
 import UserProfileService from '@services/userProfileService';
 import AvatarService from '@services/avatarService';
 
@@ -25,17 +25,14 @@ export const logOutUser = createAsyncThunk('user/logOutUser', async (_, thunkAPI
 	}
 });
 
-export const updateUser = createAsyncThunk(
-	'user/putUser',
-	async (data: UserProfileModel, thunkAPI) => {
-		try {
-			const { data: updatedUserData } = await UserProfileService.saveProfileData(data);
-			return updatedUserData;
-		} catch (e) {
-			return thunkAPI.rejectWithValue((e as AxiosError).response?.data ?? DEFAULT_ERROR);
-		}
+export const updateUser = createAsyncThunk('user/putUser', async (data: ProfileData, thunkAPI) => {
+	try {
+		const { data: updatedUserData } = await UserProfileService.saveProfileData(data);
+		return updatedUserData;
+	} catch (e) {
+		return thunkAPI.rejectWithValue((e as AxiosError).response?.data ?? DEFAULT_ERROR);
 	}
-);
+});
 
 export const updateUserAvatar = createAsyncThunk(
 	'user/putUserAvatar',

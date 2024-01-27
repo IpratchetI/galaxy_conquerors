@@ -3,10 +3,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch } from '@/store/hooks';
 import { getUser } from '@/store/reducers/user/userActionCreator';
 
-type useAuthorize = () => [isAuthorized: boolean, setAuthorize: (isAuthorized: boolean) => void];
-
 /**Временная реализация хука проверки и установки флага авторизации пользователя в localStorage*/
-export const useAuthorize: useAuthorize = () => {
+export const useAuthorize = () => {
 	const [isAuthorized, setIsAuthorized] = useState(
 		JSON.parse(localStorage.getItem('isAuthorized') || 'false')
 	);

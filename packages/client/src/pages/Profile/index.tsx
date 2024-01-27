@@ -3,7 +3,7 @@ import { Button, ButtonVariant } from '@components/Button';
 import { Text } from '@components/Text';
 import { Input } from '@components/Input';
 import { useForm } from 'react-hook-form';
-import { UserProfileModel } from '@models/models/user';
+import { ProfileData } from '@models/models/user';
 import { FormCard } from '@components/FormCard';
 import { useNavigate } from 'react-router-dom';
 import { LoadingMeta } from '@models/common';
@@ -15,13 +15,13 @@ import { updateUser } from '@/store/reducers/user/userActionCreator';
 
 import { ChangePasswordPopup } from './components/ChangePasswordPopup';
 import { Avatar } from './components/Avatar';
-import { profileInputsConfig } from './constants';
+import { profileInputsConfig, profileInputsDefaults } from './constants';
 import styles from './index.module.scss';
 
 export const Profile = () => {
 	const dispatch = useAppDispatch();
 	const { user, isLoading, error: userError } = useAppSelector(state => state.userState);
-	const [profileData, setProfileData] = useState(user);
+	const [profileData, setProfileData] = useState<ProfileData>(user ?? profileInputsDefaults);
 	const [isChangePasswordPopupOpen, setChangePasswordPopupOpen] = useState(false);
 	const navigate = useNavigate();
 
@@ -30,14 +30,16 @@ export const Profile = () => {
 		getValues,
 		handleSubmit,
 		formState: { errors: validateErrors }
-	} = useForm<UserProfileModel>({
+	} = useForm<ProfileData>({
 		mode: 'onBlur',
 		reValidateMode: 'onChange',
 		values: profileData
 	});
 
 	useEffect(() => {
-		setProfileData(user);
+		if (user) {
+			setProfileData(user);
+		}
 	}, [user]);
 
 	const handleClosePasswordPopup = () => {
