@@ -2,20 +2,22 @@
 import Ship from './Ship/Ship';
 import Bullet from './Bullet/Bullet';
 import Enemy from './Enemy/Enemy';
+import Explosion from './Explosion/Explosion';
 import * as constants from './constants';
 
 class GameEngine {
 	private canvas: HTMLCanvasElement;
 	private ctx: CanvasRenderingContext2D;
-	private ship: Ship;
+	private ship: Ship | null; // Теперь корабль может быть null
 	private bullets: Bullet[];
 	private enemies: Enemy[];
 	private lastShotTime: number;
 	private destroyedEnemiesCount = 0;
 	private isCountReported = false;
-	private initialEnemySpeed = 50;
+	private initialEnemySpeed = 1000;
 	private shootInterval = 1000;
-	private stopEnemyBorder = 150;
+	private stopEnemyBorder = 200;
+	private shipExplosion: Explosion | null;
 
 	constructor(canvas: HTMLCanvasElement) {
 		this.canvas = canvas;
@@ -27,11 +29,12 @@ class GameEngine {
 
 		const initialShipX = this.canvas.width / 2 - constants.initialShipOffsetX; // горизонтальное центрирование корабля
 		const initialShipY = this.canvas.height - constants.initialShipOffsetY; // позиция корабля по вертикали
-		this.ship = new Ship({ x: initialShipX, y: initialShipY, width: 50, height: 50 }); //отрисовка корабля
+		this.ship = new Ship({ x: initialShipX, y: initialShipY }); //отрисовка корабля
 		this.bullets = [];
 		this.enemies = [];
 		this.lastShotTime = 0;
 		this.createEnemies();
+		this.shipExplosion = null;
 		window.addEventListener('keydown', this.handleKeyDown);
 		window.addEventListener('keyup', this.handleKeyUp);
 	}
@@ -60,24 +63,20 @@ class GameEngine {
 	private drawGame = () => {
 		this.clearCanvas();
 
-		// Счетчик уничтоженных противников
 		const counterText = `${this.destroyedEnemiesCount}`;
-
-		// Шрифт и размер
 		this.ctx.font = '35px "Press Start 2P", cursive';
-
-		// Цвет обводки и толщина линий
 		this.ctx.strokeStyle = 'black';
 		this.ctx.lineWidth = 2;
-
-		// Обводка текста
 		this.ctx.strokeText(counterText, 10, 50);
-
-		// Текст
 		this.ctx.fillStyle = 'white';
 		this.ctx.fillText(counterText, 10, 50);
 
-		this.drawShip();
+		if (this.ship) {
+			this.drawShip();
+		} else if (this.shipExplosion && !this.shipExplosion.played) {
+			this.shipExplosion.draw(this.ctx, this.canvas.height);
+		}
+
 		this.drawBullets();
 		this.drawEnemies();
 	};
@@ -93,9 +92,15 @@ class GameEngine {
 		}
 
 		if (event.code === 'ArrowLeft') {
-			this.ship.moveLeft();
+			if (this.ship) {
+				// Проверяем, что корабль существует
+				this.ship.moveLeft();
+			}
 		} else if (event.code === 'ArrowRight') {
-			this.ship.moveRight();
+			if (this.ship) {
+				// Проверяем, что корабль существует
+				this.ship.moveRight();
+			}
 		} else if (event.code === 'Space') {
 			this.shoot();
 		}
@@ -112,7 +117,10 @@ class GameEngine {
 		}
 
 		if (event.code === 'ArrowLeft' || event.code === 'ArrowRight') {
-			this.ship.stopMoving();
+			if (this.ship) {
+				// Проверяем, что корабль существует
+				this.ship.stopMoving();
+			}
 		}
 	};
 
@@ -146,7 +154,10 @@ class GameEngine {
 	};
 
 	private moveShip = () => {
-		this.ship.update(this.canvas.width);
+		if (this.ship) {
+			// Проверяем, что корабль существует
+			this.ship.update(this.canvas.width);
+		}
 	};
 
 	private updateBullets = () => {
@@ -155,7 +166,10 @@ class GameEngine {
 	};
 
 	private drawShip = () => {
-		this.ship.draw(this.ctx, this.canvas.height);
+		if (this.ship) {
+			// Проверяем, что корабль существует
+			this.ship.draw(this.ctx, this.canvas.height);
+		}
 	};
 
 	private drawBullets = () => {
@@ -172,15 +186,18 @@ class GameEngine {
 
 	private shoot = () => {
 		if (Date.now() - this.lastShotTime > this.shootInterval) {
-			const bullet = new Bullet({
-				x: this.ship.x + this.ship.width / 2 - 10,
-				y: this.canvas.height - this.stopEnemyBorder,
-				width: 20,
-				height: 50,
-				speed: 10
-			});
-			this.bullets.push(bullet);
-			this.lastShotTime = Date.now();
+			if (this.ship) {
+				// Проверяем, что корабль существует
+				const bullet = new Bullet({
+					x: this.ship.x + this.ship.width / 2 - 10,
+					y: this.canvas.height - this.stopEnemyBorder,
+					width: 20,
+					height: 50,
+					speed: 10
+				});
+				this.bullets.push(bullet);
+				this.lastShotTime = Date.now();
+			}
 		}
 	};
 
@@ -191,24 +208,37 @@ class GameEngine {
 	};
 
 	private checkShipBounds = () => {
-		if (this.ship.x < constants.enemyBorder) {
-			this.ship.x = constants.enemyBorder;
-		}
+		if (this.ship) {
+			// Проверяем, что корабль существует
+			if (this.ship.x < constants.enemyBorder) {
+				this.ship.x = constants.enemyBorder;
+			}
 
-		const rightBorder = this.canvas.width - this.ship.width - constants.enemyBorder;
-		if (this.ship.x > rightBorder) {
-			this.ship.x = rightBorder;
+			const rightBorder = this.canvas.width - this.ship.width - constants.enemyBorder;
+			if (this.ship.x > rightBorder) {
+				this.ship.x = rightBorder;
+			}
 		}
 	};
 
 	private checkStopEnemies = () => {
-		const bottomBorder = this.canvas.height - this.stopEnemyBorder; // Граница от нижнего края экрана
+		const bottomBorder = this.canvas.height - this.stopEnemyBorder;
 
 		if (this.enemies.some(enemy => enemy.y >= bottomBorder)) {
-			// Останавливаем противников
+			// Stop enemies
 			this.enemies.forEach(enemy => (enemy.speed = 0));
 
-			// Передаем значение счетчика наружу
+			// Check if ship explosion already played
+			if (!this.shipExplosion) {
+				// Create ship explosion
+				this.shipExplosion = new Explosion({ x: this.ship?.x ?? 0, y: this.ship?.y ?? 0 });
+				this.shipExplosion.startAnimation(); // Start explosion animation
+			}
+
+			// Remove ship from the game
+			this.ship = null;
+
+			// Report destroyed enemies count
 			if (!this.isCountReported) {
 				const destroyedEnemiesCount = this.getDestroyedEnemiesCount();
 				console.log(`Destroyed Enemies Count: ${destroyedEnemiesCount}`);
