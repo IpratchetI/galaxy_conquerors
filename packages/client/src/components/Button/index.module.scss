@@ -18,6 +18,11 @@
     background-color: var(--white);
     color: var(--sky);
   }
+
+  &:disabled {
+    pointer-events: none;
+    background-color: var(--grey-40);
+  }
 }
 
 .text {
@@ -37,6 +42,11 @@
     .selectIcon {
       display: block;
     }
+  }
+
+  &:disabled {
+    pointer-events: none;
+    color: var(--grey-40);
   }
 }
 

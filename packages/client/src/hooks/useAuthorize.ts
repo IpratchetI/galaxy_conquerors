@@ -1,10 +1,23 @@
-type useAuthorize = () => [isAuthorized: boolean, setAuthorize: (isAuthorized: boolean) => void];
+import { useEffect } from 'react';
 
-export const useAuthorize: useAuthorize = () => {
-	/**Временная реализация хука проверки и установки флага авторизации пользователя в localStorage*/
-	const setAuthorized = (isAuthorized: boolean) => {
-		localStorage.setItem('isAuthorized', isAuthorized.toString());
-	};
+import { getUser } from '@/store/reducers/user/userActionCreator';
+import { useAppSelector, userState } from '@/store/selectors';
+import { useAppDispatch } from '@/store';
 
-	return [JSON.parse(localStorage.getItem('isAuthorized') || 'false'), setAuthorized];
+/**Временная реализация хука проверки и установки флага авторизации пользователя в localStorage*/
+export const useAuthorize = () => {
+	const { isAuth } = useAppSelector(userState);
+	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		if (isAuth) {
+			dispatch(getUser());
+		}
+	}, []);
+
+	useEffect(() => {
+		localStorage.setItem('isAuthorized', isAuth.toString());
+	}, [isAuth]);
+
+	return;
 };

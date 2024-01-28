@@ -23,7 +23,7 @@ export const ForumPage = () => {
 			<Text tag="h2" size="l" className={s.title}>
 				Forum
 			</Text>
-			<TopicsList topics={TOPICS_LIST} />
+			<TopicsList />
 			<Spacer className={s.buttons} justify="between">
 				<Button onClick={() => navigate(-1)}>Back</Button>
 				<Button onClick={handleOpenTopicCreator}>Add new theme</Button>

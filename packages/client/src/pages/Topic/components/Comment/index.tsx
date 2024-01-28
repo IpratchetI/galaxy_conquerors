@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import classNames from 'classnames';
-import { IComment } from '@models/types/topics';
+import { CommentModel } from '@models/topics';
 
 import { Spacer } from '@/components';
 
@@ -10,7 +10,7 @@ import { CURRENT_USER_ID } from '../../lib/constants';
 import { USERS } from '../../lib/mocks';
 import { SmileMenu } from '../SmileMenu';
 
-type CommentProps = IComment;
+type CommentProps = CommentModel;
 
 export const Comment = (props: CommentProps) => {
 	const { userId, messages } = props;
