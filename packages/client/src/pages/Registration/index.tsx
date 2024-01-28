@@ -12,15 +12,16 @@ import { regInputsConfig, regInputsDefaults } from '@/pages/Registration/constan
 import { validate } from '@/utils/validate';
 
 import '@styles/main.scss';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { Text } from '@/components';
 import { signUpUser } from '@/store/reducers/user/userActionCreator';
+import { useAppSelector, userState } from '@/store/selectors';
+import { useAppDispatch } from '@/store';
 
 import styles from './index.module.scss';
 
 export const Registration = () => {
 	const dispatch = useAppDispatch();
-	const { user, error: userError } = useAppSelector(state => state.userState);
+	const { user, error: userError } = useAppSelector(userState);
 
 	const {
 		register,

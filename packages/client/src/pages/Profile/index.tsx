@@ -9,8 +9,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { Spacer } from '@/components';
 import { validate } from '@/utils/validate';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { updateUser } from '@/store/reducers/user/userActionCreator';
+import { useAppSelector, userState } from '@/store/selectors';
+import { useAppDispatch } from '@/store';
 
 import { ChangePasswordPopup } from './components/ChangePasswordPopup';
 import { Avatar } from './components/Avatar';
@@ -19,7 +20,7 @@ import styles from './index.module.scss';
 
 export const Profile = () => {
 	const dispatch = useAppDispatch();
-	const { user, isLoading, error: userError } = useAppSelector(state => state.userState);
+	const { user, isLoading, error: userError } = useAppSelector(userState);
 	const [profileData, setProfileData] = useState<ProfileData>(user ?? profileInputsDefaults);
 	const [isChangePasswordPopupOpen, setChangePasswordPopupOpen] = useState(false);
 	const navigate = useNavigate();

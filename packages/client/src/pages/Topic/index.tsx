@@ -3,16 +3,17 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { TOPICS_LIST } from '@pages/Forum/lib/mocks';
 
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { Text } from '@/components';
 import { getTopic } from '@/store/reducers/forum/forumReducer';
+import { forumState, useAppSelector } from '@/store/selectors';
+import { useAppDispatch } from '@/store';
 
 import s from './index.module.scss';
 import { MessageForm } from './components/MessageForm';
 import { Comment } from './components/Comment';
 
 export const TopicPage = () => {
-	const { currentTopic, isLoading, topicError } = useAppSelector(state => state.forumState);
+	const { currentTopic, isLoading, topicError } = useAppSelector(forumState);
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	const { topicId } = useParams();

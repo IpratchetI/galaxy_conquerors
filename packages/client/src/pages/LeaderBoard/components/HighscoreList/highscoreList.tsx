@@ -2,15 +2,15 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { LeaderboardRequest } from '@models/api/leaders';
 import { ButtonVariant } from '@components/Button';
 
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { getLeaders } from '@/store/reducers/leaders/leadersActionCreator';
 import { Button, Spacer, Text } from '@/components';
+import { leadersState, useAppSelector } from '@/store/selectors';
+import { useAppDispatch } from '@/store';
 
 import s from './highscoreList.module.scss';
 
-// todo: добавить нормальную развернутую пагинацию/фильтрацию
 export const HighscoreList: React.FC = () => {
-	const { leaders, error: leadersError, isLoading } = useAppSelector(state => state.leadersState);
+	const { leaders, error: leadersError, isLoading } = useAppSelector(leadersState);
 	const dispatch = useAppDispatch();
 	const filterData = useRef<LeaderboardRequest>({
 		limit: 10,

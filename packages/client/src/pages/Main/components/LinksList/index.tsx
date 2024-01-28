@@ -5,8 +5,8 @@ import { MouseEvent } from 'react';
 
 import { Link, Text } from '@/components';
 import { routerPaths } from '@/constants/routerPaths';
-import { useAppDispatch } from '@/store/hooks';
 import { logOutUser } from '@/store/reducers/user/userActionCreator';
+import { useAppDispatch } from '@/store';
 
 import { navLinks } from './constants/navLinks';
 import styles from './index.module.scss';

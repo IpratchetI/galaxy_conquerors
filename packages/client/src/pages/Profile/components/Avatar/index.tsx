@@ -4,13 +4,14 @@ import { createAvatarPath } from '@pages/Profile/components/utils/createAvatarPa
 
 import { Input, Modal, Spacer, Text } from '@/components';
 import { updateUserAvatar } from '@/store/reducers/user/userActionCreator';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { useAppSelector, userState } from '@/store/selectors';
+import { useAppDispatch } from '@/store';
 
 import styles from './index.module.scss';
 
 export const Avatar: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const { user, isLoading, error: userError } = useAppSelector(state => state.userState);
+	const { user, isLoading, error: userError } = useAppSelector(userState);
 
 	const [isPopupOpen, setPopupOpen] = useState(false);
 	const [preview, setPreview] = useState<string | null>(null);
@@ -19,13 +20,13 @@ export const Avatar: React.FC = () => {
 	const avatarRef = useRef<HTMLDivElement>(null);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
-	const avatarUrl = useMemo(() => {
+	const avatarUrl = () => {
 		if (user?.avatar) {
 			return createAvatarPath(user?.avatar);
 		}
 
 		return '';
-	}, [user]);
+	};
 
 	const handleAvatarClick = () => {
 		setPopupOpen(true);
@@ -73,7 +74,7 @@ export const Avatar: React.FC = () => {
 
 	return (
 		<div ref={avatarRef} onClick={handleAvatarClick}>
-			<div className={styles.avatarMock} style={{ backgroundImage: `url(${avatarUrl})` }} />
+			<div className={styles.avatarMock} style={{ backgroundImage: `url(${avatarUrl()})` }} />
 			<Modal isOpen={isPopupOpen} className={styles.modal} onClose={handleClosePopup}>
 				<Spacer direction="column" fullWidth>
 					<Spacer className={styles.imagePlaceholder} fullWidth>

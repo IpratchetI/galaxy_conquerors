@@ -1,11 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { getUser } from '@/store/reducers/user/userActionCreator';
+import { useAppSelector, userState } from '@/store/selectors';
+import { useAppDispatch } from '@/store';
 
 /**Временная реализация хука проверки и установки флага авторизации пользователя в localStorage*/
 export const useAuthorize = () => {
-	const { isAuth } = useAppSelector(state => state.userState);
+	const { isAuth } = useAppSelector(userState);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {

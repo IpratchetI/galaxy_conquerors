@@ -4,16 +4,17 @@ import { TopicModel } from '@models/topics';
 import { TOPICS_LIST } from '@pages/Forum/lib/mocks';
 
 import { abbreviateNumber } from '@/utils/abbreviateNumber';
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { Text } from '@/components';
 import { getTopicsList, getTopic } from '@/store/reducers/forum/forumReducer';
+import { forumState, useAppSelector } from '@/store/selectors';
+import { useAppDispatch } from '@/store';
 
 import s from './index.module.scss';
 
 import { TopicsHeader } from '../TopicsHeader';
 
 export const TopicsList = () => {
-	const { topics, error: forumError, isLoading } = useAppSelector(state => state.forumState);
+	const { topics, error: forumError, isLoading } = useAppSelector(forumState);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {

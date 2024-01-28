@@ -14,18 +14,17 @@ import { Spacer } from '@/components';
 import { validate } from '@/utils/validate';
 
 import { loginInputsConfig, loginInputsDefaults } from './constants';
-import '@styles/main.scss';
 
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { DEFAULT_ERROR } from '@/store/constants/error';
-import { catchError } from '@/store/reducers/user/userReducer';
+import '@styles/main.scss';
 import { logInUser } from '@/store/reducers/user/userActionCreator';
+import { useAppSelector, userState } from '@/store/selectors';
+import { useAppDispatch } from '@/store';
 
 import styles from './index.module.scss';
 
 export const Login = () => {
 	const dispatch = useAppDispatch();
-	const { user, error: userError } = useAppSelector(state => state.userState);
+	const { user, error: userError } = useAppSelector(userState);
 
 	const {
 		register,
