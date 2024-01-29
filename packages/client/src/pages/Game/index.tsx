@@ -11,7 +11,7 @@ import '../../gameEngine/GameEngine.scss';
 const Game: React.FC = () => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-	const toggleFullscreen = useFullScreen(canvasRef.current, ['Alt', 'Enter']);
+	const toggleFullscreen = useFullScreen(canvasRef, ['Alt', 'Enter']);
 
 	useEffect(() => {
 		if (canvasRef?.current) {

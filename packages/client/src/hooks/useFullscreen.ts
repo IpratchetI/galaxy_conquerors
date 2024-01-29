@@ -6,12 +6,15 @@ import { useCallback, useEffect, useRef } from 'react';
  * @param keys Коды кнопок.
  * @returns Функция, разворачивающая переданный DOM-элемент во весь экран.
  */
-export const useFullScreen = (element: HTMLElement | HTMLCanvasElement | null, keys: string[]) => {
+export const useFullScreen = (
+	element: React.MutableRefObject<HTMLElement | HTMLCanvasElement | null>,
+	keys: string[]
+) => {
 	const combination = useRef(new Set());
 
 	const toggleFullScreen = useCallback(() => {
 		if (!document.fullscreenElement) {
-			element?.requestFullscreen();
+			element.current?.requestFullscreen();
 		} else if (document.exitFullscreen) {
 			document.exitFullscreen();
 		}
