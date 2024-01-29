@@ -1,29 +1,23 @@
-// src/gameEngine/Bullet/Bullet.ts
+import bulletImage from '../../assets/gameplay/shoot/shootFrame1.png';
+
+import * as constants from '../constants';
+
 class Bullet {
 	x: number;
 	y: number;
 	width: number;
 	height: number;
 	speed: number;
+	bulletImage: HTMLImageElement;
 
-	constructor({
-		x,
-		y,
-		width,
-		height,
-		speed
-	}: {
-		x: number;
-		y: number;
-		width: number;
-		height: number;
-		speed: number;
-	}) {
+	constructor({ x, y }: { x: number; y: number; width: number; height: number; speed: number }) {
 		this.x = x;
 		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.speed = speed;
+		this.width = constants.bulletWidth;
+		this.height = constants.bulletHeight;
+		this.speed = constants.bulletSpeed;
+		this.bulletImage = new Image();
+		this.bulletImage.src = bulletImage;
 	}
 
 	update = () => {
@@ -31,8 +25,7 @@ class Bullet {
 	};
 
 	draw = (ctx: CanvasRenderingContext2D) => {
-		ctx.fillStyle = 'red';
-		ctx.fillRect(this.x, this.y, this.width, this.height);
+		ctx.drawImage(this.bulletImage, this.x, this.y, this.width, this.height);
 	};
 
 	isOutOfBounds = () => {

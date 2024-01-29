@@ -1,6 +1,3 @@
-import * as constants from '../constants';
-
-// Импорт кадров анимации
 import explosionFrame1 from '../../assets/gameplay/explosion/explosionFrame1.png';
 import explosionFrame2 from '../../assets/gameplay/explosion/explosionFrame2.png';
 import explosionFrame3 from '../../assets/gameplay/explosion/explosionFrame3.png';
@@ -8,6 +5,8 @@ import explosionFrame4 from '../../assets/gameplay/explosion/explosionFrame4.png
 import explosionFrame5 from '../../assets/gameplay/explosion/explosionFrame5.png';
 import explosionFrame6 from '../../assets/gameplay/explosion/explosionFrame6.png';
 import explosionFrame7 from '../../assets/gameplay/explosion/explosionFrame7.png';
+
+import * as constants from '../constants';
 
 class Explosion {
 	x: number;
@@ -25,7 +24,6 @@ class Explosion {
 		this.y = y;
 		this.width = constants.shipSize;
 		this.height = constants.shipSize;
-		// Используйте импортированные кадры анимации
 		this.frames = [
 			explosionFrame1,
 			explosionFrame2,
@@ -39,8 +37,8 @@ class Explosion {
 		this.explosionImage = new Image();
 		this.explosionImage.src = this.frames[this.currentAnimationFrame];
 		this.animationTimer = null;
-		this.startAnimation();
 		this.played = false;
+		this.startAnimation();
 	}
 
 	startAnimation = () => {
@@ -56,11 +54,11 @@ class Explosion {
 		}
 	};
 
-	draw = (ctx: CanvasRenderingContext2D, canvasHeight: number) => {
+	draw = (ctx: CanvasRenderingContext2D) => {
 		ctx.drawImage(
 			this.explosionImage,
-			this.x,
-			canvasHeight - this.height - constants.shipVerticalOffset,
+			this.x - this.width / 2,
+			this.y - this.height / 2,
 			this.width,
 			this.height
 		);
@@ -70,7 +68,6 @@ class Explosion {
 		this.currentAnimationFrame = (this.currentAnimationFrame + 1) % this.frames.length;
 		this.explosionImage.src = this.frames[this.currentAnimationFrame];
 
-		// Проверка на завершение анимации
 		if (this.currentAnimationFrame === this.frames.length - 1) {
 			this.played = true;
 			this.stopAnimation();

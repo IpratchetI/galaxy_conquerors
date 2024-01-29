@@ -1,7 +1,7 @@
-// src/gameEngine/Ship/Ship.ts
-import shipFrame1 from '../../assets/gameplay/playerShip/frame1.png';
-import shipFrame2 from '../../assets/gameplay/playerShip/frame2.png';
-import shipFrame3 from '../../assets/gameplay/playerShip/frame3.png';
+import shipFrame1 from '../../assets/gameplay/playerShip/shipFrame1.png';
+import shipFrame2 from '../../assets/gameplay/playerShip/shipFrame2.png';
+import shipFrame3 from '../../assets/gameplay/playerShip/shipFrame3.png';
+
 import * as constants from '../constants';
 
 class Ship {

@@ -1,4 +1,7 @@
-//src/gameEngine/Enemy/Enemy.ts
+import enemyFrame1 from '../../assets/gameplay/enemy/enemyFrame1.png';
+import enemyFrame2 from '../../assets/gameplay/enemy/enemyFrame2.png';
+import enemyFrame3 from '../../assets/gameplay/enemy/enemyFrame3.png';
+
 import * as constants from '../constants';
 
 class Enemy {
@@ -7,12 +10,13 @@ class Enemy {
 	width: number;
 	height: number;
 	speed: number;
+	enemyImages: HTMLImageElement[];
+	currentAnimationFrame: number;
+	isAnimationStopped: boolean;
 
 	constructor({
 		x,
 		y,
-		width,
-		height,
 		speed
 	}: {
 		x: number;
@@ -23,9 +27,15 @@ class Enemy {
 	}) {
 		this.x = x;
 		this.y = y;
-		this.width = width;
-		this.height = height;
+		this.width = constants.enemyWidth;
+		this.height = constants.enemyHeight;
 		this.speed = speed;
+		this.enemyImages = [new Image(), new Image(), new Image()];
+		this.enemyImages[0].src = enemyFrame1;
+		this.enemyImages[1].src = enemyFrame2;
+		this.enemyImages[2].src = enemyFrame3;
+		this.currentAnimationFrame = 0;
+		this.isAnimationStopped = false;
 	}
 
 	private static moveDownDistance = 50;
@@ -47,8 +57,19 @@ class Enemy {
 	};
 
 	draw = (ctx: CanvasRenderingContext2D) => {
-		ctx.fillStyle = 'black';
-		ctx.fillRect(this.x, this.y, this.width, this.height);
+		if (this.speed !== 0) {
+			ctx.drawImage(
+				this.enemyImages[this.currentAnimationFrame],
+				this.x,
+				this.y,
+				this.width,
+				this.height
+			);
+
+			this.currentAnimationFrame = (this.currentAnimationFrame + 1) % this.enemyImages.length;
+		} else {
+			ctx.drawImage(this.enemyImages[0], this.x, this.y, this.width, this.height);
+		}
 	};
 }
 
