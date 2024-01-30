@@ -7,15 +7,16 @@ import * as constants from './constants';
 class GameEngine {
 	private canvas: HTMLCanvasElement;
 	private ctx: CanvasRenderingContext2D;
-	private ship: Ship;
+	protected ship: Ship;
 	private bullets: Bullet[];
-	private enemies: Enemy[];
+	protected enemies: Enemy[];
 	private lastShotTime: number;
 	private destroyedEnemiesCount = 0;
 	private isCountReported = false;
 	private initialEnemySpeed = 50;
 	private shootInterval = 1000;
 	private stopEnemyBorder = 150;
+	isGameOver = false;
 
 	constructor(canvas: HTMLCanvasElement) {
 		this.canvas = canvas;
@@ -46,9 +47,10 @@ class GameEngine {
 
 	public stop = () => {
 		this.isCountReported = false;
+		this.isGameOver = true;
 	};
 
-	private updateGame = () => {
+	protected updateGame = () => {
 		this.moveShip();
 		this.updateBullets();
 		this.moveEnemies();
@@ -57,7 +59,7 @@ class GameEngine {
 		this.checkStopEnemies();
 	};
 
-	private drawGame = () => {
+	protected drawGame = () => {
 		this.clearCanvas();
 
 		// Счетчик уничтоженных противников
@@ -82,7 +84,7 @@ class GameEngine {
 		this.drawEnemies();
 	};
 
-	private handleKeyDown = (event: KeyboardEvent) => {
+	protected handleKeyDown = (event: KeyboardEvent) => {
 		if (
 			event.code === 'ArrowLeft' ||
 			event.code === 'ArrowRight' ||
@@ -101,7 +103,7 @@ class GameEngine {
 		}
 	};
 
-	private handleKeyUp = (event: KeyboardEvent) => {
+	protected handleKeyUp = (event: KeyboardEvent) => {
 		if (
 			event.code === 'ArrowLeft' ||
 			event.code === 'ArrowRight' ||
@@ -116,7 +118,7 @@ class GameEngine {
 		}
 	};
 
-	private createEnemies = () => {
+	protected createEnemies = () => {
 		for (let i = 0; i < 9; i++) {
 			const enemy = new Enemy({
 				x: 100 + i * 100,
@@ -185,9 +187,11 @@ class GameEngine {
 	};
 
 	private gameLoop = () => {
-		this.updateGame();
-		this.drawGame();
-		requestAnimationFrame(this.gameLoop);
+		if (!this.isGameOver) {
+			this.updateGame();
+			this.drawGame();
+			requestAnimationFrame(this.gameLoop);
+		}
 	};
 
 	private checkShipBounds = () => {
