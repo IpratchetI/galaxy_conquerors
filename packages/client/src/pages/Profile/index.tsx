@@ -3,23 +3,26 @@ import { Button, ButtonVariant } from '@components/Button';
 import { Text } from '@components/Text';
 import { Input } from '@components/Input';
 import { useForm } from 'react-hook-form';
-import { UserProfileModel } from '@models/User';
+import { ProfileData } from '@models/user';
 import { FormCard } from '@components/FormCard';
 import { useNavigate } from 'react-router-dom';
 
-import UserProfileService from '@/services/userProfileService';
 import { Spacer } from '@/components';
 import { validate } from '@/utils/validate';
+import { updateUser } from '@/store/reducers/user/userActionCreator';
+import { useAppSelector, userState } from '@/store/selectors';
+import { useAppDispatch } from '@/store';
 
 import { ChangePasswordPopup } from './components/ChangePasswordPopup';
 import { Avatar } from './components/Avatar';
-import { profileInputsConfig, profileInputsDefaults, profileApiEndpoints } from './constants';
+import { profileInputsConfig, profileInputsDefaults } from './constants';
 import styles from './index.module.scss';
 
 export const Profile = () => {
+	const dispatch = useAppDispatch();
+	const { user, isLoading, error: userError } = useAppSelector(userState);
+	const [profileData, setProfileData] = useState<ProfileData>(user ?? profileInputsDefaults);
 	const [isChangePasswordPopupOpen, setChangePasswordPopupOpen] = useState(false);
-	const [avatarUrl, setAvatarUrl] = useState('');
-	const [profileData, setProfileData] = useState(profileInputsDefaults);
 	const navigate = useNavigate();
 
 	const {
@@ -27,29 +30,17 @@ export const Profile = () => {
 		getValues,
 		handleSubmit,
 		formState: { errors: validateErrors }
-	} = useForm<UserProfileModel>({
+	} = useForm<ProfileData>({
 		mode: 'onBlur',
 		reValidateMode: 'onChange',
-		defaultValues: profileInputsDefaults
+		values: profileData
 	});
 
 	useEffect(() => {
-		const userProfileService = new UserProfileService(profileApiEndpoints);
-
-		const fetchData = async () => {
-			try {
-				const avatar = await userProfileService.getAvatar();
-				const profile = await userProfileService.getProfileData();
-
-				setAvatarUrl(avatar);
-				setProfileData(profile);
-			} catch (error) {
-				console.error('Ошибка при получении данных:', error);
-			}
-		};
-
-		fetchData();
-	}, []);
+		if (user) {
+			setProfileData(user);
+		}
+	}, [user]);
 
 	const handleClosePasswordPopup = () => {
 		setChangePasswordPopupOpen(false);
@@ -60,11 +51,9 @@ export const Profile = () => {
 	};
 
 	const handleSaveProfile = async () => {
-		const userProfileService = new UserProfileService(profileApiEndpoints);
-		const profileData = getValues();
-
 		try {
-			await userProfileService.saveProfileData(profileData);
+			const profileData = getValues();
+			dispatch(updateUser(profileData));
 
 			console.log('Профиль успешно сохранен');
 		} catch (error) {
@@ -81,6 +70,11 @@ export const Profile = () => {
 					fullWidthFooter
 					footer={
 						<Spacer direction="column" gap="16" spaceTop="30" fullWidth>
+							{userError?.reason && (
+								<Text size="s" variant="error">
+									{userError?.reason}
+								</Text>
+							)}
 							<Button type="button" fullWidth onClick={handleOpenPasswordPopup}>
 								<Text align="center" size="s">
 									Change password
@@ -90,6 +84,7 @@ export const Profile = () => {
 								<Button
 									className={styles.button}
 									type="submit"
+									disabled={isLoading}
 									variant={ButtonVariant.DEFAULT}
 									onClick={handleSubmit(handleSaveProfile)}>
 									<Text align="center" size="s">
@@ -109,7 +104,7 @@ export const Profile = () => {
 						</Spacer>
 					}>
 					<Spacer direction="column" gap="40">
-						<Avatar avatarUrl={avatarUrl} />
+						<Avatar />
 						<Text tag="h1" align="center">
 							Profile
 						</Text>

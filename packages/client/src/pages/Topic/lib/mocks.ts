@@ -1,7 +1,6 @@
-import { IUser } from '@models/types/user';
-import { IComment } from '@models/types/topics';
+import { CommentModel } from '@models/topics';
 
-export const USERS: IUser[] = [
+export const USERS: Array<{ id: number; name: string }> = [
 	{
 		id: 0,
 		name: 'user1'
@@ -16,7 +15,7 @@ export const USERS: IUser[] = [
 	}
 ];
 
-export const COMMENTS_LIST: IComment[] = [
+export const COMMENTS_LIST: CommentModel[] = [
 	{
 		id: 0,
 		userId: 0,

@@ -1,18 +1,19 @@
-export interface ITopic {
+export type TopicModel = {
 	id: number;
 	name: string;
-	comments: number;
-}
+	comments: CommentModel[];
+	length: number;
+};
 
-export interface IComment {
+export type CommentModel = {
 	id: number;
 	userId: number; // for current step is simple
 	messages: IMessage[];
-}
+};
 
 export interface IMessage {
 	id: number;
 	text: string;
 }
 
-export type Topics = ITopic[];
+export type Topics = TopicModel[];

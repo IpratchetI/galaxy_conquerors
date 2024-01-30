@@ -1,30 +1,36 @@
 import { useForm } from 'react-hook-form';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
-import { UserLoginModel } from '@models/User';
+import { UserLoginModel } from '@models/user';
 import { Link } from '@components/Link';
 import { Text } from '@components/Text';
 import { FormCard } from '@components/FormCard';
-import { AuthService } from '@services/authService';
 import { useNavigate } from 'react-router-dom';
-import { useAuthorize } from '@hooks/useAuthorize';
+import React, { useEffect } from 'react';
+import { AxiosError } from 'axios';
 
 import { routerPaths } from '@/constants/routerPaths';
 import { Spacer } from '@/components';
 import { validate } from '@/utils/validate';
 
 import { loginInputsConfig, loginInputsDefaults } from './constants';
+
 import '@styles/main.scss';
+import { logInUser } from '@/store/reducers/user/userActionCreator';
+import { useAppSelector, userState } from '@/store/selectors';
+import { useAppDispatch } from '@/store';
+
 import styles from './index.module.scss';
 
 export const Login = () => {
-	const [, setAuthorized] = useAuthorize();
+	const dispatch = useAppDispatch();
+	const { user, error: userError } = useAppSelector(userState);
 
 	const {
 		register,
 		getValues,
 		handleSubmit,
-		formState: { errors: validateErrors }
+		formState: { errors: validateErrors, isSubmitting }
 	} = useForm<UserLoginModel>({
 		mode: 'onBlur',
 		reValidateMode: 'onChange',
@@ -33,12 +39,15 @@ export const Login = () => {
 
 	const navigate = useNavigate();
 
-	const submitHandler = (data: UserLoginModel) => {
-		AuthService.signIn(data).then(() => {
-			setAuthorized(true);
-			navigate(routerPaths.main);
-		});
+	const submitHandler = async (data: UserLoginModel) => {
+		dispatch(logInUser(data));
 	};
+
+	useEffect(() => {
+		if (user) {
+			navigate(routerPaths.main);
+		}
+	}, [user]);
 
 	const signInHandler = () => {
 		const values = getValues();
@@ -55,26 +64,34 @@ export const Login = () => {
 					<FormCard
 						text="Authorization"
 						footer={
-							<Button type="submit" onClick={handleSubmit(signInHandler)}>
-								Sign In
-							</Button>
+							<Spacer gap="20" align="center" direction="column">
+								{userError?.reason && (
+									<Text size="s" variant="error">
+										{userError?.reason}
+									</Text>
+								)}
+								<Button type="submit" disabled={isSubmitting} onClick={handleSubmit(signInHandler)}>
+									Sign In
+								</Button>
+							</Spacer>
 						}>
 						<form>
 							{loginInputsConfig.map(({ data: { fieldName, label, type }, validateOptions }) => {
-								const error = validateErrors[fieldName];
-								const value = getValues()[fieldName];
+								const key = fieldName as keyof UserLoginModel;
+								const error = validateErrors[key];
+								const value = getValues()[key];
 								const isFieldRequired = Boolean(validateOptions.required);
 
 								return (
 									<Input
-										key={fieldName}
+										key={key}
 										type={type}
 										error={
 											error && {
-												message: validate(fieldName, value, isFieldRequired)
+												message: validate(key, value, isFieldRequired)
 											}
 										}
-										{...register(fieldName, validateOptions)}>
+										{...register(key, validateOptions)}>
 										{label}
 									</Input>
 								);

@@ -1,4 +1,4 @@
-import ship from '@assets/gameplay/ship.png';
+import ship from '@assets/gameplay/enemyShip.png';
 import explosion from '@assets/gameplay/explosion.png';
 import shot from '@assets/gameplay/shot.png';
 

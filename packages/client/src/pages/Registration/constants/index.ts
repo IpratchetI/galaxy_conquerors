@@ -1,4 +1,4 @@
-import { UserRegistrationModel } from '@models/User';
+import { UserRegistrationModel } from '@models/user';
 
 import { FormField } from '@/types/forms';
 import {
