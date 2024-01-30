@@ -4,8 +4,17 @@ import Bullet from './Bullet/Bullet';
 import Enemy from './Enemy/Enemy';
 import * as constants from './constants';
 
+interface canvasProps {
+	canvasRef: React.MutableRefObject<HTMLCanvasElement | null>;
+	endGameRef: React.MutableRefObject<() => void>;
+}
+
 class GameEngine {
 	private canvas: HTMLCanvasElement;
+	private endGame: () => void;
+	private isBreak = false;
+	private breakStartTime = 0;
+	private breakEndTime = 0;
 	private ctx: CanvasRenderingContext2D;
 	private ship: Ship;
 	private bullets: Bullet[];
@@ -13,12 +22,14 @@ class GameEngine {
 	private lastShotTime: number;
 	private destroyedEnemiesCount = 0;
 	private isCountReported = false;
-	private initialEnemySpeed = 50;
-	private shootInterval = 1000;
+	private initialEnemySpeed = 500;
+	private shootInterval = 100;
 	private stopEnemyBorder = 150;
+	private gameLoopAnimationId: null | number = null;
 
-	constructor(canvas: HTMLCanvasElement) {
-		this.canvas = canvas;
+	constructor(canvasProps: canvasProps) {
+		this.canvas = canvasProps.canvasRef.current!;
+		this.endGame = canvasProps.endGameRef.current;
 		this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
 
 		if (!this.ctx) {
@@ -46,6 +57,21 @@ class GameEngine {
 
 	public stop = () => {
 		this.isCountReported = false;
+	};
+
+	public break = () => {
+		this.isBreak = !this.isBreak;
+		console.log(this.isBreak, 'break');
+		if (this.isBreak) {
+			this.breakStartTime = Date.now();
+		} else {
+			this.breakEndTime = Date.now();
+		}
+	};
+
+	public stopAnimationHandler = () => {
+		console.log(this.gameLoopAnimationId);
+		this.gameLoopAnimationId !== null && cancelAnimationFrame(this.gameLoopAnimationId);
 	};
 
 	private updateGame = () => {
@@ -91,13 +117,14 @@ class GameEngine {
 		) {
 			event.preventDefault(); // Предотвращаем выполнение действий по умолчанию
 		}
-
-		if (event.code === 'ArrowLeft') {
-			this.ship.moveLeft();
-		} else if (event.code === 'ArrowRight') {
-			this.ship.moveRight();
-		} else if (event.code === 'Space') {
-			this.shoot();
+		if (!this.isBreak) {
+			if (event.code === 'ArrowLeft') {
+				this.ship.moveLeft();
+			} else if (event.code === 'ArrowRight') {
+				this.ship.moveRight();
+			} else if (event.code === 'Space') {
+				this.shoot();
+			}
 		}
 	};
 
@@ -171,7 +198,10 @@ class GameEngine {
 	};
 
 	private shoot = () => {
-		if (Date.now() - this.lastShotTime > this.shootInterval) {
+		if (
+			Date.now() - (this.breakEndTime - this.breakStartTime) - this.lastShotTime >
+			this.shootInterval
+		) {
 			const bullet = new Bullet({
 				x: this.ship.x + this.ship.width / 2 - 10,
 				y: this.canvas.height - this.stopEnemyBorder,
@@ -185,7 +215,12 @@ class GameEngine {
 	};
 
 	private gameLoop = () => {
-		this.updateGame();
+		//TODO this.isBreak не изменяется внутри
+		if (!this.isBreak) {
+			this.updateGame();
+			console.log('test');
+		}
+
 		this.drawGame();
 		requestAnimationFrame(this.gameLoop);
 	};
@@ -212,8 +247,8 @@ class GameEngine {
 			if (!this.isCountReported) {
 				const destroyedEnemiesCount = this.getDestroyedEnemiesCount();
 				console.log(`Destroyed Enemies Count: ${destroyedEnemiesCount}`);
-
 				this.isCountReported = true;
+				this.endGame();
 			}
 		}
 	};

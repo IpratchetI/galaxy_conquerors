@@ -1,14 +1,20 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import astronaut from '@assets/gameplay/astronaut.png';
 
 import { Spacer, Text } from '@/components';
+import { routerPaths } from '@/constants/routerPaths';
 
 import styles from './index.module.scss';
 
 export const StartGame = () => {
+	const navigate = useNavigate();
+
 	useEffect(() => {
-		//TODO добавить роут
-		//setTimeout(() => {}, 5000)
+		setTimeout(() => {
+			navigate(routerPaths.game);
+			//TODO change => 4000
+		}, 2000);
 	}, []);
 
 	return (
