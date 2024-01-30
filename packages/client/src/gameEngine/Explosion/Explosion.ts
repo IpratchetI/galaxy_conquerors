@@ -1,10 +1,10 @@
-import explosionFrame1 from '../../assets/gameplay/explosion/explosionFrame1.png';
-import explosionFrame2 from '../../assets/gameplay/explosion/explosionFrame2.png';
-import explosionFrame3 from '../../assets/gameplay/explosion/explosionFrame3.png';
-import explosionFrame4 from '../../assets/gameplay/explosion/explosionFrame4.png';
-import explosionFrame5 from '../../assets/gameplay/explosion/explosionFrame5.png';
-import explosionFrame6 from '../../assets/gameplay/explosion/explosionFrame6.png';
-import explosionFrame7 from '../../assets/gameplay/explosion/explosionFrame7.png';
+import explosionFrame1 from '@assets/gameplay/explosion/explosionFrame1.png';
+import explosionFrame2 from '@assets/gameplay/explosion/explosionFrame2.png';
+import explosionFrame3 from '@assets/gameplay/explosion/explosionFrame3.png';
+import explosionFrame4 from '@assets/gameplay/explosion/explosionFrame4.png';
+import explosionFrame5 from '@assets/gameplay/explosion/explosionFrame5.png';
+import explosionFrame6 from '@assets/gameplay/explosion/explosionFrame6.png';
+import explosionFrame7 from '@assets/gameplay/explosion/explosionFrame7.png';
 
 import * as constants from '../constants';
 

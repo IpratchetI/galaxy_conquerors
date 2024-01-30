@@ -1,4 +1,4 @@
-import bulletImage from '../../assets/gameplay/shoot/shootFrame1.png';
+import bulletImage from '@assets/gameplay/shoot/shootFrame1.png';
 
 import * as constants from '../constants';
 

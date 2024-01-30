@@ -1,6 +1,6 @@
-import enemyFrame1 from '../../assets/gameplay/enemy/enemyFrame1.png';
-import enemyFrame2 from '../../assets/gameplay/enemy/enemyFrame2.png';
-import enemyFrame3 from '../../assets/gameplay/enemy/enemyFrame3.png';
+import enemyFrame1 from '@assets/gameplay/enemy/enemyFrame1.png';
+import enemyFrame2 from '@assets/gameplay/enemy/enemyFrame2.png';
+import enemyFrame3 from '@assets/gameplay/enemy/enemyFrame3.png';
 
 import * as constants from '../constants';
 
