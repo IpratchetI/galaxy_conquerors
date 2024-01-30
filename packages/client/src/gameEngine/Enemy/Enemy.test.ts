@@ -1,71 +1,56 @@
 import Enemy from './Enemy';
 import 'jest-canvas-mock';
 
-const BLACK_COLOR_HASH = '#000000';
-const MOVE_DOWN_DISTANCE = 50;
+import * as constants from '../constants';
 
 describe('Game Engine: Enemy', () => {
-	const enemiesAmount = 2;
-	let allEnemies: Enemy[] = [];
-	let canvasWidth: number;
+	test('initializes with correct default values', () => {
+		const enemy = new Enemy({ x: 0, y: 0, width: 70, height: 70, speed: 5 });
 
-	beforeEach(() => {
-		for (let i = 0; i < enemiesAmount; i++) {
-			allEnemies.push(
-				new Enemy({
-					x: 100 + i * 100,
-					y: 100,
-					width: 50,
-					height: 50,
-					speed: 60
-				})
+		expect(enemy.x).toBe(0);
+		expect(enemy.y).toBe(0);
+		expect(enemy.width).toBe(70);
+		expect(enemy.height).toBe(70);
+		expect(enemy.speed).toBe(5);
+		expect(enemy.enemyImages).toHaveLength(3);
+		expect(enemy.currentAnimationFrame).toBe(0);
+		expect(enemy.isAnimationStopped).toBe(false);
+	});
+
+	describe('enemies moves', () => {
+		let allEnemies: Enemy[];
+		const canvasWidth = 800;
+
+		beforeEach(() => {
+			allEnemies = [new Enemy({ x: 50, y: 0, width: 70, height: 70, speed: 5 })];
+		});
+
+		test('enemies move correctly', () => {
+			Enemy.moveAllEnemies(allEnemies, canvasWidth);
+
+			expect(allEnemies[0].x).toBe(50 + 5 / 60);
+			expect(allEnemies[0].y).toBe(0);
+		});
+
+		test('enemies reaching right edge and go down', () => {
+			allEnemies[0].x = canvasWidth - constants.enemyBorder - allEnemies[0].width;
+			allEnemies[0].speed = 5;
+
+			Enemy.moveAllEnemies(allEnemies, canvasWidth);
+
+			expect(allEnemies[0].x).toBeCloseTo(
+				canvasWidth - constants.enemyBorder - allEnemies[0].width + 5 / 60,
+				0
 			);
-		}
+			expect(allEnemies[0].y).toBe(50);
+		});
 
-		canvasWidth = 800;
-	});
-
-	afterEach(() => {
-		allEnemies = [];
-		canvasWidth = 800;
-	});
-
-	test('should move all enemies to the right by 10 pixels', () => {
-		for (let i = 0; i < 10; i++) {
+		test('enemies reaching left edge go down', () => {
+			allEnemies[0].x = constants.enemyBorder;
+			allEnemies[0].speed = -5;
 			Enemy.moveAllEnemies(allEnemies, canvasWidth);
-		}
-
-		// Формула расчета: enemy.x += (enemy.speed / 60) * 10.
-		// Где 60 - кол-во фпс, а 10 - число итераций
-		expect(allEnemies[0].x).toBe(110);
-		expect(allEnemies[1].x).toBe(210);
-	});
-
-	test('should move all enemies down', () => {
-		const targetEnemy = allEnemies[0];
-		const startEnemyYPosition = targetEnemy.y;
-
-		allEnemies.map(enemy => (enemy.speed = 600));
-		canvasWidth = 400;
-
-		for (let i = 0; i < 10; i++) {
-			Enemy.moveAllEnemies(allEnemies, canvasWidth);
-		}
-
-		expect(targetEnemy.y).toBe(startEnemyYPosition + MOVE_DOWN_DISTANCE);
-	});
-
-	test('should draw an enemy rectangle on the canvas', () => {
-		const context = document.createElement('canvas')?.getContext('2d');
-
-		if (context) {
-			const fillRectMock = jest.fn();
-			context.fillRect = fillRectMock;
-
-			allEnemies[0].draw(context);
-
-			expect(fillRectMock).toBeCalledWith(100, 100, 50, 50);
-			expect(context.fillStyle).toBe(BLACK_COLOR_HASH);
-		}
+			expect(allEnemies[0].x).toBeCloseTo(constants.enemyBorder - 5 / 60, 0);
+			expect(allEnemies[0].y).toBe(50);
+		});
 	});
 });

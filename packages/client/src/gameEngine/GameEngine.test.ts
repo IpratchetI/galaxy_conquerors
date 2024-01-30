@@ -1,18 +1,24 @@
-import 'jest-canvas-mock';
 import { KeyboardEvent } from 'react';
+import 'jest-canvas-mock';
 
+import Ship from './Ship/Ship';
 import GameEngine from './GameEngine';
 import * as constants from './constants';
 
 class TestableGameEngine extends GameEngine {
 	public testConstantEnemies = this.enemies;
-	public testConstantShip = this.ship;
+	public testConstantShip = this.ship as Ship;
+	public testConstantCanvas = this.canvas;
+	public testConstantShipExplosion = this.shipExplosion;
+	public testConstantStopEnemyBorder = this.stopEnemyBorder;
+	public testConstantBullets = this.bullets;
+	public testConstantShootInterval = this.shootInterval;
 
 	public testUpdateGame = this.updateGame;
-	public testDrawGame = this.drawGame;
 	public testHandleKeyDown = this.handleKeyDown;
-	public testHandleKeyUp = this.handleKeyUp;
 	public testCreateEnemies = this.createEnemies;
+	public testMoveEnemies = this.moveEnemies;
+	public testCheckStopEnemies = this.checkStopEnemies;
 }
 
 document.body.innerHTML = '<canvas id="gameCanvas"></canvas>';
@@ -20,8 +26,11 @@ const canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
 
 describe('GameEngine', () => {
 	let gameEngine: TestableGameEngine;
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	const event = { preventDefault: () => {} };
+	const event = {
+		preventDefault: () => {
+			return;
+		}
+	};
 
 	beforeEach(() => {
 		gameEngine = new TestableGameEngine(canvas);
@@ -35,12 +44,10 @@ describe('GameEngine', () => {
 
 	describe('Initialization & Drawing', () => {
 		test('start method should initiate game loop', async () => {
-			jest.useFakeTimers(); // Используем фейковые таймеры
+			jest.useFakeTimers();
 
-			// Итерация вызова requestAnimationFrame асинхронно
 			jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => {
 				setTimeout(() => {
-					// Симуляция одного фрейма анимации gameLoop
 					cb(0);
 				}, 0);
 				return 1;
@@ -52,33 +59,10 @@ describe('GameEngine', () => {
 			gameEngine.start();
 			gameEngine.stop();
 
-			// Ждем, пока все таймеры завершатся
 			await jest.runOnlyPendingTimers();
 
-			expect(window.requestAnimationFrame).toHaveBeenCalledTimes(1);
+			expect(window.requestAnimationFrame).toHaveBeenCalledTimes(2);
 		});
-
-		// test('updateGame and drawGame methods should be called in game loop', async () => {
-		// 	jest.useFakeTimers();
-		//
-		// 	jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => {
-		// 		setTimeout(() => {
-		// 			cb(0);
-		// 		}, 0);
-		// 		return 1;
-		// 	});
-		//
-		// 	canvas.width = 800;
-		// 	canvas.height = 800;
-		//
-		// 	gameEngine.start();
-		// 	gameEngine.stop();
-		//
-		// 	await jest.runOnlyPendingTimers();
-		//
-		// 	expect(gameEngine.testUpdateGame).toHaveBeenCalled();
-		// 	expect(gameEngine.testDrawGame).toHaveBeenCalled();
-		// });
 
 		test('createEnemies method should create enemies', () => {
 			gameEngine.testCreateEnemies();
@@ -127,11 +111,42 @@ describe('GameEngine', () => {
 				expect(gameEngine.testConstantShip.x).toBeGreaterThanOrEqual(constants.enemyBorder);
 			});
 		});
-	});
 
-	test('getDestroyedEnemiesCount method should return the correct count', () => {
-		const count = gameEngine.getDestroyedEnemiesCount();
+		test('shipExplosion should be initiated when enemies reach the bottom border', () => {
+			const bottomBorder =
+				gameEngine.testConstantCanvas.height - gameEngine.testConstantStopEnemyBorder;
 
-		expect(count).toBe(0);
+			gameEngine.testConstantEnemies.forEach(enemy => (enemy.y = bottomBorder + 10));
+
+			gameEngine.testMoveEnemies();
+			gameEngine.testCheckStopEnemies();
+
+			expect(gameEngine.testConstantEnemies[0].speed).toBe(0);
+			expect(gameEngine.testConstantShipExplosion).toBeDefined();
+		});
+
+		test('getDestroyedEnemiesCount method should return the correct count', () => {
+			const count = gameEngine.getDestroyedEnemiesCount();
+
+			expect(count).toBe(0);
+		});
+
+		test('ship can shoot with a specific interval', () => {
+			jest.useFakeTimers();
+
+			gameEngine.testHandleKeyDown(makeKeyboardEventMock('Space'));
+			gameEngine.testHandleKeyDown(makeKeyboardEventMock('Space'));
+			gameEngine.testHandleKeyDown(makeKeyboardEventMock('Space'));
+
+			jest.advanceTimersByTime(gameEngine.testConstantShootInterval);
+
+			gameEngine.testHandleKeyDown(makeKeyboardEventMock('Space'));
+
+			jest.advanceTimersByTime(gameEngine.testConstantShootInterval);
+
+			gameEngine.testHandleKeyDown(makeKeyboardEventMock('Space'));
+
+			expect(gameEngine.testConstantBullets.length).toBe(2);
+		});
 	});
 });

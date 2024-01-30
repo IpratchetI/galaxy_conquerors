@@ -8,7 +8,8 @@ export const loginInputsConfig: FormField<UserLoginModel>[] = [
 		data: {
 			fieldName: 'login',
 			label: 'login',
-			type: 'text'
+			type: 'text',
+			testId: 'login_input_first-name'
 		},
 		validateOptions: { required: true, pattern: LOGIN_PATTERN }
 	},
@@ -16,7 +17,8 @@ export const loginInputsConfig: FormField<UserLoginModel>[] = [
 		data: {
 			fieldName: 'password',
 			label: 'password',
-			type: 'password'
+			type: 'password',
+			testId: 'login_input_password'
 		},
 		validateOptions: { required: true, pattern: PASSWORD_PATTERN }
 	}

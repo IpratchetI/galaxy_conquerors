@@ -1,48 +1,58 @@
+import bulletImage from '@assets/gameplay/shoot/shootFrame1.png';
+
 import Bullet from './Bullet';
+
+import * as constants from '../constants';
+
 import 'jest-canvas-mock';
 
-const RED_COLOR_HASH = '#ff0000';
-
 describe('Game Engine: Bullet', () => {
-	let bullet: Bullet;
+	test('initializes with correct default values', () => {
+		const bullet = new Bullet({ x: 0, y: 0 });
 
-	beforeEach(() => {
-		bullet = new Bullet({
-			x: 100,
-			y: 200,
-			width: 20,
-			height: 50,
-			speed: 5
-		});
+		expect(bullet.x).toBe(0);
+		expect(bullet.y).toBe(0);
+		expect(bullet.width).toBe(constants.bulletWidth);
+		expect(bullet.height).toBe(constants.bulletHeight);
+		expect(bullet.speed).toBe(constants.bulletSpeed);
+		bullet.bulletImage.onload = () => {
+			expect(bullet.bulletImage.src).toBe(bulletImage);
+		};
 	});
 
-	test('should update the y position correctly', () => {
+	test('update bullet position correctly', () => {
+		const bullet = new Bullet({ x: 10, y: 20 });
+
 		bullet.update();
 
-		expect(bullet.y).toBe(195);
+		expect(bullet.y).toBe(20 - constants.bulletSpeed);
 	});
 
-	test('should draw a bullet rectangle on the canvas', () => {
+	test('draw the bullet on the canvas at the correct position', () => {
 		const context = document.createElement('canvas')?.getContext('2d');
 
-		if (context) {
-			const fillRectMock = jest.fn();
-			context.fillRect = fillRectMock;
-
-			bullet.draw(context);
-
-			expect(fillRectMock).toBeCalledWith(100, 200, 20, 50);
-			expect(context.fillStyle).toBe(RED_COLOR_HASH);
+		if (!context) {
+			return;
 		}
+
+		const bullet = new Bullet({ x: 30, y: 40 });
+
+		bullet.draw(context);
+
+		expect(context.drawImage).toHaveBeenCalledWith(
+			bullet.bulletImage,
+			30,
+			40,
+			constants.bulletWidth,
+			constants.bulletHeight
+		);
 	});
 
-	test('should return true if the bullet is out of bounds', () => {
-		bullet.y = -(bullet.height + 1);
+	test('check if the bullet is out of bounds', () => {
+		const bullet = new Bullet({ x: 0, y: -80 });
 
 		expect(bullet.isOutOfBounds()).toBe(true);
-	});
 
-	test('should return false if the bullet is not out of bounds', () => {
 		bullet.y = 0;
 
 		expect(bullet.isOutOfBounds()).toBe(false);

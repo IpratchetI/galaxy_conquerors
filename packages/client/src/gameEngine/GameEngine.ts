@@ -2,22 +2,21 @@ import Ship from './Ship/Ship';
 import Bullet from './Bullet/Bullet';
 import Enemy from './Enemy/Enemy';
 import Explosion from './Explosion/Explosion';
-
 import * as constants from './constants';
 
 class GameEngine {
-	private canvas: HTMLCanvasElement;
+	protected canvas: HTMLCanvasElement;
 	private ctx: CanvasRenderingContext2D;
 	protected ship: Ship | null;
-	private bullets: Bullet[];
+	protected bullets: Bullet[];
 	protected enemies: Enemy[];
 	private lastShotTime: number;
-	private destroyedEnemiesCount = 0;
+	protected destroyedEnemiesCount = 0;
 	private isCountReported = false;
 	private initialEnemySpeed = 100;
-	private shootInterval = 500;
-	private stopEnemyBorder = 200;
-	private shipExplosion: Explosion | null;
+	protected shootInterval = 500;
+	protected stopEnemyBorder = 200;
+	protected shipExplosion: Explosion | null;
 	private enemyExplosion: Explosion | null;
 
 	constructor(canvas: HTMLCanvasElement) {
@@ -51,7 +50,6 @@ class GameEngine {
 
 	public stop = () => {
 		this.isCountReported = false;
-		this.isGameOver = true;
 	};
 
 	protected updateGame = () => {
@@ -153,7 +151,7 @@ class GameEngine {
 		}
 	};
 
-	private moveEnemies = () => {
+	protected moveEnemies = () => {
 		Enemy.moveAllEnemies(this.enemies, this.canvas.width);
 	};
 
@@ -203,11 +201,9 @@ class GameEngine {
 	};
 
 	private gameLoop = () => {
-		if (!this.isGameOver) {
-			this.updateGame();
-			this.drawGame();
-			requestAnimationFrame(this.gameLoop);
-		}
+		this.updateGame();
+		this.drawGame();
+		requestAnimationFrame(this.gameLoop);
 	};
 
 	private checkShipBounds = () => {
@@ -223,7 +219,7 @@ class GameEngine {
 		}
 	};
 
-	private checkStopEnemies = () => {
+	protected checkStopEnemies = () => {
 		const bottomBorder = this.canvas.height - this.stopEnemyBorder;
 
 		if (this.enemies.some(enemy => enemy.y >= bottomBorder)) {
@@ -248,7 +244,7 @@ class GameEngine {
 		}
 	};
 
-	private checkBulletEnemyCollisions = () => {
+	protected checkBulletEnemyCollisions = () => {
 		this.bullets.forEach(bullet => {
 			this.enemies.forEach((enemy, enemyIndex) => {
 				if (
