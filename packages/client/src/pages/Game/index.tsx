@@ -6,7 +6,7 @@ import { BreakGamePopup } from './components/BreakGamePopup';
 
 import GameEngine from '@/gameEngine/GameEngine';
 
-import store, { useAppDispatch } from '@/store';
+import { useAppDispatch } from '@/store';
 import { updateScore } from '@/store/reducers/user/userReducer';
 
 import '../../gameEngine/GameEngine.scss';
@@ -36,7 +36,7 @@ const Game: React.FC = () => {
 		setScore(scoreNow);
 
 		setTimeout(() => {
-			navigate(routerPaths.gameOver);
+			navigate(`${routerPaths.main}${routerPaths.gameOver}`);
 		}, redirectTime);
 	};
 

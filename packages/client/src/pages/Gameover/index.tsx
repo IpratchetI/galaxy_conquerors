@@ -22,7 +22,7 @@ export const GameOver = () => {
 				</Text>
 				<Text size="l">{'Score: ' + lastGameScore ?? '0'}</Text>
 				<Spacer direction="column" gap="40" className={styles.linkText}>
-					<Link to={routerPaths.story}>
+					<Link to={`${routerPaths.main}${routerPaths.story}`}>
 						<Text size="l">{'Play again'}</Text>
 					</Link>
 					<Link to={routerPaths.main}>

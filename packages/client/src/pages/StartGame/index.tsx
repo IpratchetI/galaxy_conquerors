@@ -14,7 +14,7 @@ export const StartGame = () => {
 
 	useEffect(() => {
 		setTimeout(() => {
-			navigate(routerPaths.game);
+			navigate(`${routerPaths.main}${routerPaths.game}`);
 		}, redirectTime);
 	}, []);
 

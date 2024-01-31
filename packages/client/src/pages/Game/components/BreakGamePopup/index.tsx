@@ -6,8 +6,6 @@ import { Modal, Spacer, Text } from '@/components';
 
 import { routerPaths } from '@/constants/routerPaths';
 
-import styles from './index.module.scss';
-
 interface BreakPopupProps {
 	onClose: () => void;
 	setScore: (score: number) => void;
@@ -28,7 +26,7 @@ export const BreakGamePopup: React.FC<BreakPopupProps> = ({
 	};
 	const handleConfirmClick = () => {
 		destroyedEnemiesCount && setScore(destroyedEnemiesCount());
-		navigate(routerPaths.gameOver);
+		navigate(`${routerPaths.main}${routerPaths.gameOver}`);
 	};
 
 	return (
