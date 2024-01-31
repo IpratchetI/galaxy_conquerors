@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Button } from '@components/Button';
 import { useFullScreen } from '@hooks/useFullscreen';
+import FullscreenIcon from '@assets/icons/fullscreenButton.svg?react';
 
 import styles from './index.module.scss';
 
@@ -46,10 +47,11 @@ const Game: React.FC = () => {
 		<>
 			<canvas ref={canvasRef} />
 			<Button
-				text="&#128470;"
-				className={styles.fulscreenButton}
-				onClick={() => toggleFullscreen()}
-			/>
+				text="Fullscreen"
+				className={styles.fullscreenButton}
+				onClick={() => toggleFullscreen()}>
+				<FullscreenIcon />
+			</Button>
 		</>
 	);
 };
