@@ -22,7 +22,7 @@ class GameEngine {
 	private lastShotTime: number;
 	protected destroyedEnemiesCount = 0;
 	private isCountReported = false;
-	private initialEnemySpeed = 100;
+	private initialEnemySpeed = 1000;
 	protected shootInterval = 500;
 	protected stopEnemyBorder = 200;
 	protected shipExplosion: Explosion | null;
@@ -60,6 +60,15 @@ class GameEngine {
 
 	public stop = () => {
 		this.isCountReported = false;
+	};
+
+	public break = () => {
+		this.isBreak = !this.isBreak;
+		if (this.isBreak) {
+			this.breakStartTime = Date.now();
+		} else {
+			this.breakEndTime = Date.now();
+		}
 	};
 
 	protected updateGame = () => {
