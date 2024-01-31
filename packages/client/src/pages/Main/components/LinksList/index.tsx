@@ -2,31 +2,26 @@ import { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import { MouseEvent } from 'react';
-import { AuthService } from '@services/authService';
-import { useAuthorize } from '@hooks/useAuthorize';
 
 import { Link, Text } from '@/components';
 import { routerPaths } from '@/constants/routerPaths';
+import { logOutUser } from '@/store/reducers/user/userActionCreator';
+import { useAppDispatch } from '@/store';
 
 import { navLinks } from './constants/navLinks';
 import styles from './index.module.scss';
 
 export const LinksList = () => {
+	const dispatch = useAppDispatch();
 	const [activeLinkId, setActiveLinkId] = useState<number>(0);
 	const navigate = useNavigate();
-	const [, setAuthorized] = useAuthorize();
 
-	const exitHandler = useCallback(
-		(e: MouseEvent<HTMLAnchorElement>) => {
-			e.stopPropagation();
-			e.preventDefault();
-			AuthService.logout().then(() => {
-				setAuthorized(false);
-				navigate(routerPaths.login);
-			});
-		},
-		[navigate, setAuthorized]
-	);
+	const exitHandler = async (e: MouseEvent<HTMLAnchorElement>) => {
+		e.stopPropagation();
+		e.preventDefault();
+		dispatch(logOutUser());
+		navigate(routerPaths.login);
+	};
 
 	const handleKeyDown = useCallback(
 		(event: KeyboardEvent) => {

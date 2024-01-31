@@ -1,27 +1,13 @@
-import axios, { AxiosError } from 'axios';
-import { ProfileData } from '@models/ProfileData';
-
-import { ProfileApiEndpoints } from '@/pages/Profile/types';
+import { AxiosError } from 'axios';
+import { ProfileData, UserModel } from '@models/user';
+import { baseApi } from '@services/baseApi';
 
 class UserProfileService {
-	private baseUrl: ProfileApiEndpoints;
-
-	constructor(baseUrl: ProfileApiEndpoints) {
-		this.baseUrl = baseUrl;
-	}
-
-	async getAvatar(): Promise<string> {
-		try {
-			const response = await axios.get(this.baseUrl.avatar);
-			return response.data.avatar;
-		} catch (error) {
-			throw new Error(`Error fetching avatar: ${(error as AxiosError).message}`);
-		}
-	}
+	private profilePath = 'user/profile';
 
 	async getProfileData(): Promise<ProfileData> {
 		try {
-			const response = await axios.get(this.baseUrl.profileData);
+			const response = await baseApi.get(this.profilePath);
 			return {
 				first_name: response.data.first_name,
 				second_name: response.data.second_name,
@@ -34,14 +20,10 @@ class UserProfileService {
 		}
 	}
 
-	async saveProfileData(data: ProfileData): Promise<void> {
+	async saveProfileData(data: ProfileData) {
 		try {
-			await axios.put(this.baseUrl.saveProfile, {
-				first_name: data.first_name,
-				second_name: data.second_name,
-				email: data.email,
-				phone: data.phone,
-				login: data.login
+			return baseApi.put<UserModel>(this.profilePath, data, {
+				withCredentials: true
 			});
 		} catch (error) {
 			throw new Error(`Error saving profile data: ${(error as AxiosError).message}`);
@@ -49,4 +31,4 @@ class UserProfileService {
 	}
 }
 
-export default UserProfileService;
+export default new UserProfileService();

@@ -2,6 +2,9 @@ import { useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorPage } from '@pages/Error';
 import { AppRouter } from '@components/AppRouter/AppRouter';
+import { Provider } from 'react-redux';
+
+import store from '@/store';
 
 function App() {
 	useEffect(() => {
@@ -21,7 +24,9 @@ function App() {
 			onError={(error, info) => {
 				console.error({ error, info });
 			}}>
-			<AppRouter />
+			<Provider store={store}>
+				<AppRouter />
+			</Provider>
 		</ErrorBoundary>
 	);
 }

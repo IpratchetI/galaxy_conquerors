@@ -1,11 +1,12 @@
-import { routerPaths } from '@/constants/routerPaths';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { routerPaths } from '@/constants/routerPaths';
 
-import GameEngine from '../../gameEngine/GameEngine';
-
-import '../../gameEngine/GameEngine.scss';
 import { BreakGamePopup } from './components/BreakGamePopup';
+
+import GameEngine from '@/gameEngine/GameEngine';
+
+import '@/gameEngine/GameEngine.scss';
 
 const Game: React.FC = () => {
 	const navigate = useNavigate();
@@ -22,7 +23,6 @@ const Game: React.FC = () => {
 	};
 
 	const endGameRef = useRef<() => void>(endGame);
-	//TODO перенести в аргументы
 	const canvasPropsRef = useRef({ canvasRef, endGameRef });
 
 	const handleOpenBreakPopup = () => {

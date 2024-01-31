@@ -1,23 +1,32 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import { Button } from '@components/Button';
+import { createAvatarPath } from '@pages/Profile/components/utils/createAvatarPath';
 
-import AvatarService from '@/services/avatarService';
 import { Input, Modal, Spacer, Text } from '@/components';
+import { updateUserAvatar } from '@/store/reducers/user/userActionCreator';
+import { useAppSelector, userState } from '@/store/selectors';
+import { useAppDispatch } from '@/store';
 
 import styles from './index.module.scss';
 
-interface AvatarProps {
-	avatarUrl: string;
-}
+export const Avatar: React.FC = () => {
+	const dispatch = useAppDispatch();
+	const { user, isLoading, error: userError } = useAppSelector(userState);
 
-export const Avatar: React.FC<AvatarProps> = ({ avatarUrl }) => {
 	const [isPopupOpen, setPopupOpen] = useState(false);
 	const [preview, setPreview] = useState<string | null>(null);
 	const [imageFile, setImageFile] = useState<File | null>(null);
 	const [saveImageError, setSaveImageError] = useState<boolean | null>(null);
 	const avatarRef = useRef<HTMLDivElement>(null);
 	const fileInputRef = useRef<HTMLInputElement>(null);
-	const avatarService = new AvatarService();
+
+	const avatarUrl = () => {
+		if (user?.avatar) {
+			return createAvatarPath(user?.avatar);
+		}
+
+		return '';
+	};
 
 	const handleAvatarClick = () => {
 		setPopupOpen(true);
@@ -34,7 +43,7 @@ export const Avatar: React.FC<AvatarProps> = ({ avatarUrl }) => {
 	const handleSaveImage = async () => {
 		if (imageFile) {
 			try {
-				await avatarService.uploadAvatar(imageFile);
+				dispatch(updateUserAvatar(imageFile));
 
 				console.log('File uploaded successfully');
 			} catch (error) {
@@ -65,7 +74,7 @@ export const Avatar: React.FC<AvatarProps> = ({ avatarUrl }) => {
 
 	return (
 		<div ref={avatarRef} onClick={handleAvatarClick}>
-			<div className={styles.avatarMock} style={{ backgroundImage: `url(${avatarUrl})` }} />
+			<div className={styles.avatarMock} style={{ backgroundImage: `url(${avatarUrl()})` }} />
 			<Modal isOpen={isPopupOpen} className={styles.modal} onClose={handleClosePopup}>
 				<Spacer direction="column" fullWidth>
 					<Spacer className={styles.imagePlaceholder} fullWidth>
@@ -88,6 +97,11 @@ export const Avatar: React.FC<AvatarProps> = ({ avatarUrl }) => {
 							</Text>
 						</Spacer>
 					)}
+					{userError?.reason && (
+						<Text size="s" variant="error">
+							{userError?.reason}
+						</Text>
+					)}
 					<Input
 						ref={fileInputRef}
 						className={styles.avatarInput}
@@ -99,7 +113,7 @@ export const Avatar: React.FC<AvatarProps> = ({ avatarUrl }) => {
 					<Spacer direction="column" fullHeight fullWidth gap="50" spaceTop="40">
 						{preview ? (
 							<Spacer direction="column" gap="20" fullWidth>
-								<Button fullWidth onClick={handleSaveImage}>
+								<Button disabled={isLoading} fullWidth onClick={handleSaveImage}>
 									<Text align="center" size="s">
 										Confirm
 									</Text>

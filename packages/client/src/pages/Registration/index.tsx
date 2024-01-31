@@ -2,27 +2,32 @@ import { useForm } from 'react-hook-form';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 import { Spacer } from '@components/Spacer';
-import { UserLoginModel, UserRegistrationModel } from '@models/User';
+import { UserRegistrationModel } from '@models/user';
 import { FormCard } from '@components/FormCard';
-import { AuthService } from '@services/authService';
-import { useAuthorize } from '@hooks/useAuthorize';
 import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
 
 import { routerPaths } from '@/constants/routerPaths';
 import { regInputsConfig, regInputsDefaults } from '@/pages/Registration/constants';
 import { validate } from '@/utils/validate';
 
 import '@styles/main.scss';
+import { Text } from '@/components';
+import { signUpUser } from '@/store/reducers/user/userActionCreator';
+import { useAppSelector, userState } from '@/store/selectors';
+import { useAppDispatch } from '@/store';
+
 import styles from './index.module.scss';
 
 export const Registration = () => {
-	const [, setAuthorized] = useAuthorize();
+	const dispatch = useAppDispatch();
+	const { user, error: userError } = useAppSelector(userState);
 
 	const {
 		register,
 		getValues,
 		handleSubmit,
-		formState: { errors: validateErrors }
+		formState: { errors: validateErrors, isSubmitting }
 	} = useForm<UserRegistrationModel>({
 		mode: 'onBlur',
 		reValidateMode: 'onChange',
@@ -31,12 +36,15 @@ export const Registration = () => {
 
 	const navigate = useNavigate();
 
-	const submitHandler = (data: UserLoginModel) => {
-		AuthService.signUp(data).then(() => {
-			setAuthorized(true);
-			navigate(routerPaths.main);
-		});
+	const submitHandler = async (data: UserRegistrationModel) => {
+		dispatch(signUpUser(data));
 	};
+
+	useEffect(() => {
+		if (user) {
+			navigate(routerPaths.main);
+		}
+	}, [user]);
 
 	const registerHandler = () => submitHandler(getValues());
 
@@ -47,8 +55,13 @@ export const Registration = () => {
 					text="Registration"
 					fullWidthContent
 					footer={
-						<Spacer gap="20">
-							<Button type="submit" onClick={handleSubmit(registerHandler)}>
+						<Spacer gap="20" direction="column">
+							{userError?.reason && (
+								<Text size="s" variant="error">
+									{userError?.reason}
+								</Text>
+							)}
+							<Button type="submit" disabled={isSubmitting} onClick={handleSubmit(registerHandler)}>
 								Register
 							</Button>
 							<Button onClick={() => navigate(-1)}>Back</Button>

@@ -1,18 +1,19 @@
 $minGap: 25px;
 
-.highscoreListContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: $minGap;
-}
-
 .highscoreList {
+  width: fit-content;
   list-style: none;
-  padding: 0;
   font-size: var(--font-size-45);
 }
 
 .highscoreList li {
+  align-self: center;
   margin-bottom: $minGap;
+
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+
+  span:last-of-type {
+    justify-self: right;
+  }
 }

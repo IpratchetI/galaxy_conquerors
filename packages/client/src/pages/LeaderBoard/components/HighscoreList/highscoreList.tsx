@@ -1,24 +1,73 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
+import { LeaderboardRequest } from '@models/api/leaders';
+import { ButtonVariant } from '@components/Button';
+
+import { getLeaders } from '@/store/reducers/leaders/leadersActionCreator';
+import { Button, Spacer, Text } from '@/components';
+import { leadersState, useAppSelector } from '@/store/selectors';
+import { useAppDispatch } from '@/store';
 
 import s from './highscoreList.module.scss';
 
-const mockHighscores = [
-	{ username: '#playerName1', score: 19000 },
-	{ username: '#playerName2', score: 1920 },
-	{ username: '#playerName3', score: 1900 },
-	{ username: '#playerName4', score: 800 },
-	{ username: '#playerName5', score: 500 }
-	// todo:заменить моковые данные на данные из бэка
-];
-
 export const HighscoreList: React.FC = () => {
+	const { leaders, error: leadersError, isLoading } = useAppSelector(leadersState);
+	const dispatch = useAppDispatch();
+	const filterData = useRef<LeaderboardRequest>({
+		limit: 10,
+		cursor: 0,
+		ratingFieldName: 'winsAmount'
+	});
+
+	useEffect(() => {
+		dispatch(getLeaders(filterData.current));
+	}, []);
+
+	const handleGetPage = useCallback((pageDirection: number) => {
+		filterData.current = {
+			...filterData.current,
+			cursor: Math.max(0, filterData.current.cursor + pageDirection)
+		};
+
+		dispatch(getLeaders(filterData.current));
+	}, []);
+
+	if (isLoading) {
+		return (
+			<Text align="center" size="m">
+				Loading...
+			</Text>
+		);
+	}
+
+	if (leadersError?.reason) {
+		return (
+			<Text size="s" variant="error">
+				{leadersError?.reason}
+			</Text>
+		);
+	}
+
 	return (
-		<div className={s.highscoreListContainer}>
+		<Spacer justify="center" align="center" gap="26" direction="column">
 			<ul className={s.highscoreList}>
-				{mockHighscores.map((entry, index) => (
-					<li key={index}>{`${entry.username}: ${entry.score}`} pts</li>
+				{leaders.map(({ data }, index) => (
+					<li key={index}>
+						<span>{data.name}:</span>
+						<span>{data[filterData.current.ratingFieldName]}</span>
+					</li>
 				))}
 			</ul>
-		</div>
+			<Spacer justify="between" fullWidth>
+				<Button
+					variant={ButtonVariant.TEXT}
+					disabled={filterData.current.cursor === 0}
+					onClick={() => handleGetPage(-1)}>
+					Prev page
+				</Button>
+				<Button variant={ButtonVariant.TEXT} onClick={() => handleGetPage(1)}>
+					Next page
+				</Button>
+			</Spacer>
+		</Spacer>
 	);
 };

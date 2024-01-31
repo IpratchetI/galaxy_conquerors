@@ -1,12 +1,12 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuthorize } from '@hooks/useAuthorize';
 
 import { routerPaths } from '@/constants/routerPaths';
+import { useAppSelector, userState } from '@/store/selectors';
 
 export const AuthProtection = () => {
-	const [isAuthorized] = useAuthorize();
+	const { isAuth } = useAppSelector(userState);
 
-	if (!isAuthorized) {
+	if (!isAuth) {
 		return <Navigate to={routerPaths.login} replace />;
 	}
 

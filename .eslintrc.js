@@ -19,6 +19,7 @@ module.exports = {
 	settings: {
 		react: { version: 'detect' }
 	},
+	ignorePatterns: ['**/*.d.ts'],
 	rules: {
 		'@typescript-eslint/ban-ts-comment': 'warn',
 		'no-unused-vars': 'off',
