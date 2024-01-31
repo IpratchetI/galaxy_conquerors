@@ -23,6 +23,7 @@ class GameEngine {
 	private lastShotTime: number;
 	private destroyedEnemiesCount = 0;
 	private isCountReported = false;
+	//TODO вернуть обратно
 	// private initialEnemySpeed = 100;
 	private initialEnemySpeed = 700;
 	private shootInterval = 500;
@@ -39,9 +40,9 @@ class GameEngine {
 			throw new Error('Unable to get 2D rendering context');
 		}
 
-		const initialShipX = window.innerWidth / 2 - constants.initialShipOffsetX; // горизонтальное центрирование корабля
-		const initialShipY = window.innerHeight - constants.initialShipOffsetY; // позиция корабля по вертикали
-		this.ship = new Ship({ x: initialShipX, y: initialShipY }); //отрисовка корабля
+		const initialShipX = window.innerWidth / 2 - constants.initialShipOffsetX;
+		const initialShipY = window.innerHeight - constants.initialShipOffsetY;
+		this.ship = new Ship({ x: initialShipX, y: initialShipY });
 		this.bullets = [];
 		this.enemies = [];
 		this.lastShotTime = 0;
@@ -119,14 +120,10 @@ class GameEngine {
 		}
 
 		if (!this.isBreak) {
-			if (event.code === 'ArrowLeft') {
-				if (this.ship) {
-					this.ship.moveLeft();
-				}
-			} else if (event.code === 'ArrowRight') {
-				if (this.ship) {
-					this.ship.moveRight();
-				}
+			if (event.code === 'ArrowLeft' && this.ship) {
+				this.ship.moveLeft();
+			} else if (event.code === 'ArrowRight' && this.ship) {
+				this.ship.moveRight();
 			} else if (event.code === 'Space') {
 				this.shoot();
 			}
@@ -143,10 +140,8 @@ class GameEngine {
 			event.preventDefault();
 		}
 
-		if (event.code === 'ArrowLeft' || event.code === 'ArrowRight') {
-			if (this.ship) {
-				this.ship.stopMoving();
-			}
+		if (this.ship && (event.code === 'ArrowLeft' || event.code === 'ArrowRight')) {
+			this.ship.stopMoving();
 		}
 	};
 
@@ -209,25 +204,20 @@ class GameEngine {
 	};
 
 	private shoot = () => {
-		if (
-			Date.now() -
-				(Date.now() - this.breakEndTime > this.shootInterval
-					? 0
-					: this.breakEndTime - this.breakStartTime) -
-				this.lastShotTime >
-			this.shootInterval
-		) {
-			if (this.ship) {
-				const bullet = new Bullet({
-					x: this.ship.x + this.ship.width / 2 - 10,
-					y: this.canvas.height - this.stopEnemyBorder,
-					width: 20,
-					height: 50,
-					speed: 10
-				});
-				this.bullets.push(bullet);
-				this.lastShotTime = Date.now();
-			}
+		const dateNow = Date.now();
+		const breakTime = this.breakEndTime - this.breakStartTime;
+		const timeAfterShotWithoutBreak =
+			dateNow - this.breakEndTime > this.shootInterval ? 0 : breakTime;
+		if (this.ship && dateNow - timeAfterShotWithoutBreak - this.lastShotTime > this.shootInterval) {
+			const bullet = new Bullet({
+				x: this.ship.x + this.ship.width / 2 - 10,
+				y: this.canvas.height - this.stopEnemyBorder,
+				width: 20,
+				height: 50,
+				speed: 10
+			});
+			this.bullets.push(bullet);
+			this.lastShotTime = Date.now();
 		}
 	};
 

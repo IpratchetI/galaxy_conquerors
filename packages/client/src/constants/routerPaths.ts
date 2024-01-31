@@ -1,14 +1,14 @@
 export const routerPaths = {
-	login: 'login',
-	registration: 'registration',
-	profile: 'profile',
+	login: '/login',
+	registration: '/registration',
+	profile: '/profile',
 	game: '/game',
 	main: '/',
-	leaderBoard: 'leaderboard',
-	forum: 'forum',
+	leaderBoard: '/leaderboard',
+	forum: '/forum',
 	forumTheme: 'topic/:topicId',
 	story: '/story',
-	authors: 'authors',
+	authors: '/authors',
 	gameOver: '/gameover',
-	notFound: 'notFound'
+	notFound: '/notFound'
 };

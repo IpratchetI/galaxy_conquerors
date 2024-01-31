@@ -13,8 +13,7 @@ export const StartGame = () => {
 	useEffect(() => {
 		setTimeout(() => {
 			navigate(routerPaths.game);
-			//TODO change => 4000
-		}, 2000);
+		}, 3000);
 	}, []);
 
 	return (
