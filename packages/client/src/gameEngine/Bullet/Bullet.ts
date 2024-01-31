@@ -10,12 +10,24 @@ class Bullet {
 	speed: number;
 	bulletImage: HTMLImageElement;
 
-	constructor({ x, y }: { x: number; y: number; width: number; height: number; speed: number }) {
+	constructor({
+		x,
+		y,
+		width,
+		height,
+		speed
+	}: {
+		x: number;
+		y: number;
+		width?: number;
+		height?: number;
+		speed?: number;
+	}) {
 		this.x = x;
 		this.y = y;
-		this.width = constants.bulletWidth;
-		this.height = constants.bulletHeight;
-		this.speed = constants.bulletSpeed;
+		this.width = width || constants.bulletWidth;
+		this.height = height || constants.bulletHeight;
+		this.speed = speed || constants.bulletSpeed;
 		this.bulletImage = new Image();
 		this.bulletImage.src = bulletImage;
 	}

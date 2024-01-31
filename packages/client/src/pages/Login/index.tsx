@@ -7,7 +7,6 @@ import { Text } from '@components/Text';
 import { FormCard } from '@components/FormCard';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react';
-import { AxiosError } from 'axios';
 
 import { routerPaths } from '@/constants/routerPaths';
 import { Spacer } from '@/components';
@@ -76,26 +75,29 @@ export const Login = () => {
 							</Spacer>
 						}>
 						<form>
-							{loginInputsConfig.map(({ data: { fieldName, label, type }, validateOptions }) => {
-								const key = fieldName as keyof UserLoginModel;
-								const error = validateErrors[key];
-								const value = getValues()[key];
-								const isFieldRequired = Boolean(validateOptions.required);
+							{loginInputsConfig.map(
+								({ data: { fieldName, label, type, testId }, validateOptions }) => {
+									const key = fieldName as keyof UserLoginModel;
+									const error = validateErrors[key];
+									const value = getValues()[key];
+									const isFieldRequired = Boolean(validateOptions.required);
 
-								return (
-									<Input
-										key={key}
-										type={type}
-										error={
-											error && {
-												message: validate(key, value, isFieldRequired)
+									return (
+										<Input
+											key={key}
+											type={type}
+											error={
+												error && {
+													message: validate(key, value, isFieldRequired)
+												}
 											}
-										}
-										{...register(key, validateOptions)}>
-										{label}
-									</Input>
-								);
-							})}
+											testId={testId}
+											{...register(key, validateOptions)}>
+											{label}
+										</Input>
+									);
+								}
+							)}
 						</form>
 					</FormCard>
 				</Spacer>

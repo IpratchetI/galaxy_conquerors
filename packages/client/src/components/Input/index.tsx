@@ -25,6 +25,7 @@ export type InputProps = {
 	initialValue?: string;
 	label?: string;
 	textareaRef?: MutableRefObject<HTMLTextAreaElement | any>;
+	testId?: string;
 } & InputAttrVariable &
 	Partial<UseFormRegisterReturn<string>>;
 
@@ -38,6 +39,7 @@ export const Input = forwardRef((props: InputProps, ref) => {
 		value,
 		initialValue,
 		isTextarea = false,
+		testId,
 		...otherProps
 	} = props;
 
@@ -73,6 +75,7 @@ export const Input = forwardRef((props: InputProps, ref) => {
 				className={classNames(s.input, mods, className)}
 				name={name}
 				value={value}
+				data-testid={testId}
 			/>
 			{errorContent}
 		</Spacer>
