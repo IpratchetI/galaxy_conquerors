@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Button } from '@components/Button';
 import { useFullScreen } from '@hooks/useFullscreen';
-import FullscreenIcon from '@assets/icons/fullscreenButton.svg?react';
+import FullscreenIcon from '@assets/icons/fullscreenButton.svg';
 
 import styles from './index.module.scss';
 
