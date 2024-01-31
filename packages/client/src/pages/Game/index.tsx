@@ -6,9 +6,10 @@ import { BreakGamePopup } from './components/BreakGamePopup';
 
 import GameEngine from '@/gameEngine/GameEngine';
 
-import '@/gameEngine/GameEngine.scss';
 import store, { useAppDispatch } from '@/store';
 import { updateScore } from '@/store/reducers/user/userReducer';
+
+import '../../gameEngine/GameEngine.scss';
 
 const redirectTime = 3000;
 
