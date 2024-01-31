@@ -23,9 +23,7 @@ class GameEngine {
 	private lastShotTime: number;
 	private destroyedEnemiesCount = 0;
 	private isCountReported = false;
-	//TODO вернуть обратно
-	// private initialEnemySpeed = 100;
-	private initialEnemySpeed = 500;
+	private initialEnemySpeed = 100;
 	private shootInterval = 500;
 	private stopEnemyBorder = 200;
 	private shipExplosion: Explosion | null;
