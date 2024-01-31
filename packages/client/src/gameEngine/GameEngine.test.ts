@@ -1,4 +1,4 @@
-import { KeyboardEvent, useRef } from 'react';
+import { KeyboardEvent } from 'react';
 import 'jest-canvas-mock';
 
 import Ship from './Ship/Ship';
@@ -33,12 +33,7 @@ describe('GameEngine', () => {
 	};
 
 	beforeEach(() => {
-		const canvasRef = useRef<HTMLCanvasElement>(canvas);
-		const endGameRef = useRef<() => void>(() => {
-			//stub
-		});
-		const canvasPropsRef = useRef({ canvasRef, endGameRef });
-		gameEngine = new TestableGameEngine(canvasPropsRef.current);
+		gameEngine = new TestableGameEngine(canvas);
 		jest.spyOn(event, 'preventDefault');
 	});
 

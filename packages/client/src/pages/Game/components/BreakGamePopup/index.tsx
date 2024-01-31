@@ -2,7 +2,8 @@ import React from 'react';
 import { Button, ButtonVariant } from '@components/Button';
 import { useNavigate } from 'react-router-dom';
 
-import { Modal, Spacer } from '@/components';
+import { Modal, Spacer, Text } from '@/components';
+
 import { routerPaths } from '@/constants/routerPaths';
 
 import styles from './index.module.scss';
@@ -33,14 +34,12 @@ export const BreakGamePopup: React.FC<BreakPopupProps> = ({
 	return (
 		<Modal isOpen={isOpen} onClose={handleBackClick}>
 			<Spacer align="center" direction="column" gap="50">
-				<p className={styles.text}>
-					Do you really
-					<br />
-					want
-					<br />
-					to exit?
-				</p>
-				<p className={styles.text}>Progress will be lost</p>
+				<Text tag="h1" align="center">
+					{'Do you really \n want \n to exit?'}
+				</Text>
+				<Text tag="h1" align="center">
+					Progress will be lost
+				</Text>
 				<Spacer align="center" direction="column" gap="20">
 					<Button variant={ButtonVariant.TEXT} onClick={handleConfirmClick}>
 						Confirm
