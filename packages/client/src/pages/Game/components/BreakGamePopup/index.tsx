@@ -9,7 +9,7 @@ import styles from './index.module.scss';
 
 interface BreakPopupProps {
 	onClose: () => void;
-	destroyedEnemiesCount: () => void;
+	destroyedEnemiesCount: () => void | undefined;
 	isOpen?: boolean;
 }
 

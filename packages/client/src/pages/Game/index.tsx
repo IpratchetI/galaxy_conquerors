@@ -16,12 +16,13 @@ const Game: React.FC = () => {
 	const endGame = () => {
 		//TODO изменить после добавления store
 		sessionStorage.setItem('destroyedEnemiesCount', `${breakRef.current?.destroyedEnemiesCount()}`);
-		// setTimeout(() => {
-		// 	navigate(routerPaths.gameOver);
-		// }, 2000);
+		setTimeout(() => {
+			navigate(routerPaths.gameOver);
+		}, 2000);
 	};
 
 	const endGameRef = useRef<() => void>(endGame);
+	//TODO перенести в аргументы
 	const canvasPropsRef = useRef({ canvasRef, endGameRef });
 
 	const handleOpenBreakPopup = () => {
@@ -56,7 +57,6 @@ const Game: React.FC = () => {
 					event.preventDefault();
 					event.stopPropagation();
 					handleOpenBreakPopup();
-					gameEngine.stopAnimationHandler();
 				}
 			};
 
@@ -80,7 +80,6 @@ const Game: React.FC = () => {
 			<BreakGamePopup
 				isOpen={isModalOpen}
 				onClose={handleOpenBreakPopup}
-				/* eslint-disable-next-line */
 				destroyedEnemiesCount={breakRef.current?.destroyedEnemiesCount}
 			/>
 		</>
