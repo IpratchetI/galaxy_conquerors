@@ -2,34 +2,33 @@ import Ship from './Ship/Ship';
 import Bullet from './Bullet/Bullet';
 import Enemy from './Enemy/Enemy';
 import Explosion from './Explosion/Explosion';
-
 import * as constants from './constants';
 
-interface canvasProps {
+interface CanvasProps {
 	canvasRef: React.MutableRefObject<HTMLCanvasElement | null>;
 	endGameRef: React.MutableRefObject<() => void>;
 }
 
 class GameEngine {
-	private canvas: HTMLCanvasElement;
+	protected canvas: HTMLCanvasElement;
 	private closeCanvas: () => void;
 	private isBreak = false;
 	private breakStartTime = 0;
 	private breakEndTime = 0;
 	private ctx: CanvasRenderingContext2D;
-	private ship: Ship | null;
-	private bullets: Bullet[];
-	private enemies: Enemy[];
+	protected ship: Ship | null;
+	protected bullets: Bullet[];
+	protected enemies: Enemy[];
 	private lastShotTime: number;
-	private destroyedEnemiesCount = 0;
+	protected destroyedEnemiesCount = 0;
 	private isCountReported = false;
 	private initialEnemySpeed = 100;
-	private shootInterval = 500;
-	private stopEnemyBorder = 200;
-	private shipExplosion: Explosion | null;
+	protected shootInterval = 500;
+	protected stopEnemyBorder = 200;
+	protected shipExplosion: Explosion | null;
 	private enemyExplosion: Explosion | null;
 
-	constructor(canvasProps: canvasProps) {
+	constructor(canvasProps: CanvasProps) {
 		this.canvas = canvasProps.canvasRef.current!;
 		this.closeCanvas = canvasProps.endGameRef.current;
 		this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
@@ -63,16 +62,7 @@ class GameEngine {
 		this.isCountReported = false;
 	};
 
-	public break = () => {
-		this.isBreak = !this.isBreak;
-		if (this.isBreak) {
-			this.breakStartTime = Date.now();
-		} else {
-			this.breakEndTime = Date.now();
-		}
-	};
-
-	private updateGame = () => {
+	protected updateGame = () => {
 		this.moveShip();
 		this.updateBullets();
 		this.moveEnemies();
@@ -81,7 +71,7 @@ class GameEngine {
 		this.checkStopEnemies();
 	};
 
-	private drawGame = () => {
+	protected drawGame = () => {
 		this.clearCanvas();
 
 		const counterText = `${this.destroyedEnemiesCount}`;
@@ -106,7 +96,7 @@ class GameEngine {
 		}
 	};
 
-	private handleKeyDown = (event: KeyboardEvent) => {
+	protected handleKeyDown = (event: KeyboardEvent) => {
 		if (
 			event.code === 'ArrowLeft' ||
 			event.code === 'ArrowRight' ||
@@ -128,7 +118,7 @@ class GameEngine {
 		}
 	};
 
-	private handleKeyUp = (event: KeyboardEvent) => {
+	protected handleKeyUp = (event: KeyboardEvent) => {
 		if (
 			event.code === 'ArrowLeft' ||
 			event.code === 'ArrowRight' ||
@@ -143,7 +133,7 @@ class GameEngine {
 		}
 	};
 
-	private createEnemies = () => {
+	protected createEnemies = () => {
 		for (let i = 0; i < 9; i++) {
 			const enemy = new Enemy({
 				x: 100 + i * 100,
@@ -168,7 +158,7 @@ class GameEngine {
 		}
 	};
 
-	private moveEnemies = () => {
+	protected moveEnemies = () => {
 		Enemy.moveAllEnemies(this.enemies, this.canvas.width);
 	};
 
@@ -242,7 +232,7 @@ class GameEngine {
 		}
 	};
 
-	private checkStopEnemies = () => {
+	protected checkStopEnemies = () => {
 		const bottomBorder = this.canvas.height - this.stopEnemyBorder;
 
 		if (this.enemies.some(enemy => enemy.y >= bottomBorder)) {
@@ -267,7 +257,7 @@ class GameEngine {
 		}
 	};
 
-	private checkBulletEnemyCollisions = () => {
+	protected checkBulletEnemyCollisions = () => {
 		this.bullets.forEach(bullet => {
 			this.enemies.forEach((enemy, enemyIndex) => {
 				if (

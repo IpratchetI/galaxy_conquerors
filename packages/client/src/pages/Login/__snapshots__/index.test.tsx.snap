@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login Page should render default 1`] = `
+<div>
+  <main>
+    <div
+      class=""
+    >
+      <div
+        class=""
+      >
+        <p
+          class=""
+        >
+          Galaxy 
+ Conquerors
+        </p>
+        <section
+          class=""
+        >
+          <p
+            class=""
+          >
+            Authorization
+          </p>
+          <div
+            class=""
+          >
+            <form>
+              <div
+                class=""
+              >
+                <label
+                  for="login"
+                >
+                  login
+                </label>
+                <input
+                  class=""
+                  data-testid="login_input_first-name"
+                  name="login"
+                  style="height: 0px;"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <div
+                class=""
+              >
+                <label
+                  for="password"
+                >
+                  password
+                </label>
+                <input
+                  class=""
+                  data-testid="login_input_password"
+                  name="password"
+                  style="height: 0px;"
+                  type="password"
+                  value=""
+                />
+              </div>
+            </form>
+          </div>
+          <div
+            class=""
+          >
+            <div
+              class=""
+            >
+              <button
+                class=""
+                type="submit"
+              >
+                <span />
+                Sign In
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+      <a
+        class=""
+        href="/registration"
+      >
+        <div
+          class=""
+        >
+          <p
+            class=""
+          >
+            x
+          </p>
+          <p
+            class=""
+          >
+            Don not have an account yet?
+          </p>
+        </div>
+      </a>
+    </div>
+  </main>
+</div>
+`;

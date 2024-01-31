@@ -21,8 +21,8 @@ class Enemy {
 	}: {
 		x: number;
 		y: number;
-		width: number;
-		height: number;
+		width?: number;
+		height?: number;
 		speed: number;
 	}) {
 		this.x = x;
