@@ -14,7 +14,9 @@ export const LeaderBoard = () => {
 		<Spacer gap="30" direction="column" align="start" className={s.leaderboardPage}>
 			<h2 className={s.leaderboardTitle}>Highscore</h2>
 			<HighscoreList />
-			<Button text="Back" className={s.button} onClick={() => navigate(-1)} />
+			<Button className={s.button} onClick={() => navigate(-1)}>
+				Back
+			</Button>
 		</Spacer>
 	);
 };
