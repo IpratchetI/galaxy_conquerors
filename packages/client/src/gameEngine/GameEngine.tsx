@@ -25,7 +25,7 @@ class GameEngine {
 	private isCountReported = false;
 	//TODO вернуть обратно
 	// private initialEnemySpeed = 100;
-	private initialEnemySpeed = 700;
+	private initialEnemySpeed = 500;
 	private shootInterval = 500;
 	private stopEnemyBorder = 200;
 	private shipExplosion: Explosion | null;

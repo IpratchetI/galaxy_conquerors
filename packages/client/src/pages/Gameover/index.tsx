@@ -6,20 +6,21 @@ import { Link, Spacer, Text } from '@/components';
 import { routerPaths } from '@/constants/routerPaths';
 
 import styles from './index.module.scss';
+import store from '@/store';
 
 const FIRST_ROW_SHIP_COUNT = 9;
 const SECOND_ROW_SHIP_COUNT = 8;
 
 export const GameOver = () => {
-	//TODO изменить после добавления store
-	const destroyedEnemiesCount = sessionStorage.getItem('destroyedEnemiesCount');
+	const lastGameScore = store.getState().userState.score.lastGameScore;
+
 	return (
 		<main className={styles.background}>
 			<Spacer direction="column" fullHeight gap="80" className={styles.container}>
 				<Text tag="h1" size="xxl" align="center">
 					{'GAME OVER'}
 				</Text>
-				<Text size="l">{'Score: ' + destroyedEnemiesCount ?? '0'}</Text>
+				<Text size="l">{'Score: ' + lastGameScore ?? '0'}</Text>
 				<Spacer direction="column" gap="40" className={styles.linkText}>
 					<Link to={routerPaths.story}>
 						<Text size="l">{'Play again'}</Text>

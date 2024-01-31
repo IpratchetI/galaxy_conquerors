@@ -7,19 +7,33 @@ import { BreakGamePopup } from './components/BreakGamePopup';
 import GameEngine from '@/gameEngine/GameEngine';
 
 import '@/gameEngine/GameEngine.scss';
+import store, { useAppDispatch } from '@/store';
+import { updateScore } from '@/store/reducers/user/userReducer';
+
+const redirectTime = 3000;
+
+type BreakGame = { break: () => void; destroyedEnemiesCount: () => number } | null;
 
 const Game: React.FC = () => {
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const breakRef = useRef<{ break: () => void; destroyedEnemiesCount: () => void } | null>(null);
+	const breakRef = useRef<BreakGame>(null);
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
+	const setScore = (scoreNow: number) => {
+		const prevScore = store.getState().userState.score;
+		const newMaxScore = scoreNow > prevScore.maxScore ? scoreNow : prevScore.maxScore;
+		dispatch(updateScore({ maxScore: newMaxScore, lastGameScore: scoreNow }));
+	};
+
 	const endGame = () => {
-		//TODO изменить после добавления store
-		sessionStorage.setItem('destroyedEnemiesCount', `${breakRef.current?.destroyedEnemiesCount()}`);
+		const scoreNow = breakRef.current!.destroyedEnemiesCount()!;
+		setScore(scoreNow);
+
 		setTimeout(() => {
 			navigate(routerPaths.gameOver);
-		}, 2000);
+		}, redirectTime);
 	};
 
 	const endGameRef = useRef<() => void>(endGame);
@@ -80,6 +94,7 @@ const Game: React.FC = () => {
 			<BreakGamePopup
 				isOpen={isModalOpen}
 				onClose={handleOpenBreakPopup}
+				setScore={setScore}
 				destroyedEnemiesCount={breakRef.current?.destroyedEnemiesCount}
 			/>
 		</>

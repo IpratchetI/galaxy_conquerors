@@ -9,12 +9,14 @@ import styles from './index.module.scss';
 
 interface BreakPopupProps {
 	onClose: () => void;
-	destroyedEnemiesCount: (() => void) | undefined;
+	setScore: (score: number) => void;
+	destroyedEnemiesCount: (() => number) | undefined;
 	isOpen?: boolean;
 }
 
 export const BreakGamePopup: React.FC<BreakPopupProps> = ({
 	onClose,
+	setScore,
 	destroyedEnemiesCount,
 	isOpen = false
 }) => {
@@ -24,9 +26,7 @@ export const BreakGamePopup: React.FC<BreakPopupProps> = ({
 		onClose();
 	};
 	const handleConfirmClick = () => {
-		//TODO изменить после добавления store
-		destroyedEnemiesCount &&
-			sessionStorage.setItem('destroyedEnemiesCount', `${destroyedEnemiesCount()}`);
+		destroyedEnemiesCount && setScore(destroyedEnemiesCount());
 		navigate(routerPaths.gameOver);
 	};
 

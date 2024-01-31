@@ -7,13 +7,15 @@ import { routerPaths } from '@/constants/routerPaths';
 
 import styles from './index.module.scss';
 
+const redirectTime = 3000;
+
 export const StartGame = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		setTimeout(() => {
 			navigate(routerPaths.game);
-		}, 3000);
+		}, redirectTime);
 	}, []);
 
 	return (
