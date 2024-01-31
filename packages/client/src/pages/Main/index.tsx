@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNotification } from '@hooks/useNotification';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,15 +11,10 @@ import styles from './index.module.scss';
 export const Main = () => {
 	const navigate = useNavigate();
 
-	const notificationClickHandler = useCallback(() => {
-		navigate(routerPaths.forum);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	const showNotification = useNotification({ onClick: notificationClickHandler });
+	const showNotification = useNotification({ onClick: () => navigate(routerPaths.forum) });
 
 	useEffect(() => {
-		// TODO здесь должно быть получение данных о новых сообщениях/темах в форуме. пока что временная демонстрационная реализация
+		// Здесь должно быть получение данных о новых сообщениях/темах в форуме. пока что временная демонстрационная реализация
 		const promise = new Promise(resolve => {
 			setTimeout(() => {
 				resolve('');
@@ -27,7 +22,6 @@ export const Main = () => {
 		});
 
 		promise.then(() => showNotification('You have new messages in the forum'));
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
