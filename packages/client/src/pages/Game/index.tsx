@@ -1,4 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Button } from '@components/Button';
+import { useFullScreen } from '@hooks/useFullscreen';
+import FullscreenIcon from '@assets/icons/fullscreenButton.svg';
+
+import styles from './index.module.scss';
+
 import { useNavigate } from 'react-router-dom';
 import { routerPaths } from '@/constants/routerPaths';
 
@@ -47,6 +53,8 @@ const Game: React.FC = () => {
 		setIsModalOpen(prevState => !prevState);
 		breakRef.current?.break();
 	};
+
+	const toggleFullscreen = useFullScreen(canvasRef, ['Alt', 'Enter']);
 
 	useEffect(() => {
 		if (canvasPropsRef.current.canvasRef.current) {
@@ -101,6 +109,12 @@ const Game: React.FC = () => {
 				setScore={setScore}
 				destroyedEnemiesCount={breakRef.current?.destroyedEnemiesCount}
 			/>
+			<Button
+				text="Fullscreen"
+				className={styles.fullscreenButton}
+				onClick={() => toggleFullscreen()}>
+				<FullscreenIcon />
+			</Button>
 		</>
 	);
 };
