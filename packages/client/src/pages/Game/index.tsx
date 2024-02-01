@@ -1,10 +1,18 @@
 import React, { useEffect, useRef } from 'react';
+import { Button } from '@components/Button';
+import { useFullScreen } from '@hooks/useFullscreen';
+import FullscreenIcon from '@assets/icons/fullscreenButton.svg';
+
+import styles from './index.module.scss';
 
 import GameEngine from '../../gameEngine/GameEngine';
+
 import '../../gameEngine/GameEngine.scss';
 
 const Game: React.FC = () => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+	const toggleFullscreen = useFullScreen(canvasRef, ['Alt', 'Enter']);
 
 	useEffect(() => {
 		if (canvasRef?.current) {
@@ -35,7 +43,17 @@ const Game: React.FC = () => {
 		}
 	}, []);
 
-	return <canvas ref={canvasRef} />;
+	return (
+		<>
+			<canvas ref={canvasRef} />
+			<Button
+				text="Fullscreen"
+				className={styles.fullscreenButton}
+				onClick={() => toggleFullscreen()}>
+				<FullscreenIcon />
+			</Button>
+		</>
+	);
 };
 
 export { Game };
