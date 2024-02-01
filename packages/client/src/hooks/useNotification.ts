@@ -26,7 +26,9 @@ export const useNotification = (options: useNotificationOptions) => {
 		(text: string) => {
 			if (!('Notification' in window)) {
 				return;
-			} else if (Notification.permission === 'granted') {
+			}
+
+			if (Notification.permission === 'granted') {
 				notification.current = createNotification(text);
 			} else if (Notification.permission !== 'denied') {
 				Notification.requestPermission().then(permission => {
