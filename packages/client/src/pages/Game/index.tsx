@@ -16,8 +16,7 @@ import { useAppDispatch } from '@/store';
 import { updateScore } from '@/store/reducers/user/userReducer';
 
 import '../../gameEngine/GameEngine.scss';
-import { useSelector } from 'react-redux';
-import { userState } from '@/store/selectors';
+import { useAppSelector, userState } from '@/store/selectors';
 
 const redirectTime = 3000;
 
@@ -30,10 +29,10 @@ const Game: React.FC = () => {
 	const breakRef = useRef<BreakGame>(null);
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-	const prevScore = useSelector(userState).score;
+	const { score } = useAppSelector(userState);
 
 	const setScore = (scoreNow: number) => {
-		const newMaxScore = Math.max(scoreNow, prevScore.maxScore);
+		const newMaxScore = Math.max(scoreNow, score.maxScore);
 		dispatch(updateScore({ maxScore: newMaxScore, lastGameScore: scoreNow }));
 	};
 
@@ -67,6 +66,7 @@ const Game: React.FC = () => {
 
 			// старт движка
 			gameEngine.start();
+
 			breakRef.current = {
 				break: gameEngine.break,
 				destroyedEnemiesCount: gameEngine.getDestroyedEnemiesCount
@@ -95,7 +95,7 @@ const Game: React.FC = () => {
 				// Очистка обработчика изменения размера окна при размонтировании компонента
 				window.removeEventListener('resize', handleResize);
 				window.removeEventListener('keydown', handleEscape);
-				gameEngine.stop();
+				gameEngine.stopUpdate();
 			};
 		}
 	}, []);

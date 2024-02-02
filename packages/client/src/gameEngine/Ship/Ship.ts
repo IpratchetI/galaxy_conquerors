@@ -15,7 +15,6 @@ class Ship {
 	animationTimer: NodeJS.Timeout | null;
 	currentAnimationFrame: number;
 	frames: string[];
-	isCrash: boolean;
 
 	constructor({ x, y }: { x: number; y: number }) {
 		this.x = x;
@@ -29,7 +28,6 @@ class Ship {
 		this.shipImage = new Image();
 		this.shipImage.src = this.frames[this.currentAnimationFrame];
 		this.animationTimer = null;
-		this.isCrash = false;
 	}
 
 	moveLeft = () => {
@@ -58,7 +56,6 @@ class Ship {
 		if (this.animationTimer) {
 			clearInterval(this.animationTimer);
 			this.animationTimer = null;
-			this.isCrash = true;
 		}
 	};
 
@@ -80,10 +77,6 @@ class Ship {
 	nextFrame = () => {
 		this.currentAnimationFrame = (this.currentAnimationFrame + 1) % this.frames.length;
 		this.shipImage.src = this.frames[this.currentAnimationFrame];
-	};
-
-	isShipStateCrash = () => {
-		return this.isCrash;
 	};
 }
 

@@ -6,13 +6,14 @@ import { Link, Spacer, Text } from '@/components';
 import { routerPaths } from '@/constants/routerPaths';
 
 import styles from './index.module.scss';
-import store from '@/store';
+import { useAppSelector, userState } from '@/store/selectors';
 
 const FIRST_ROW_SHIP_COUNT = 9;
 const SECOND_ROW_SHIP_COUNT = 8;
 
 export const GameOver = () => {
-	const lastGameScore = store.getState().userState.score.lastGameScore;
+	const { score } = useAppSelector(userState);
+	const lastGameScore = score.lastGameScore;
 
 	return (
 		<main className={styles.background}>

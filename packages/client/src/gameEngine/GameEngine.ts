@@ -12,6 +12,7 @@ interface CanvasProps {
 class GameEngine {
 	protected canvas: HTMLCanvasElement;
 	private closeCanvas: () => void;
+	private stopEngine = false;
 	private isBreak = false;
 	private breakStartTime = 0;
 	private breakEndTime = 0;
@@ -60,6 +61,10 @@ class GameEngine {
 
 	public stop = () => {
 		this.isCountReported = false;
+	};
+
+	public stopUpdate = () => {
+		this.stopEngine = true;
 	};
 
 	public break = () => {
@@ -223,7 +228,7 @@ class GameEngine {
 			this.updateGame();
 		}
 		this.drawGame();
-		if (this.ship?.isShipStateCrash) {
+		if (!this.stopEngine) {
 			requestAnimationFrame(this.gameLoop);
 		}
 	};
