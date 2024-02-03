@@ -1,6 +1,6 @@
 export function registerServiceWorker() {
 	if ('serviceWorker' in navigator) {
-		navigator.serviceWorker.register('../../sw.ts').then(() => {
+		navigator.serviceWorker.register('../../service-worker.ts').then(() => {
 			console.info('ServiceWorker register');
 		});
 	} else {
