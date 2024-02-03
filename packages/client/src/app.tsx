@@ -4,6 +4,7 @@ import { ErrorPage } from '@pages/Error';
 import { AppRouter } from '@components/AppRouter/AppRouter';
 import { Provider } from 'react-redux';
 
+import { registerServiceWorker } from '@/utils/registerWorker';
 import store from '@/store';
 
 function App() {
