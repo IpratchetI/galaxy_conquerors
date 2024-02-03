@@ -10,6 +10,9 @@
 
 .linkText {
   z-index: 20;
+  :hover {
+    color: var(--sky);
+  }
 }
 
 .imgContainer {

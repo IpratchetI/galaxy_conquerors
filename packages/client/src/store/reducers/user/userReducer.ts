@@ -12,16 +12,20 @@ import {
 } from './userActionCreator';
 import { userReducersFactory } from './userReducersFactory';
 
+type UserScore = { maxScore: number; lastGameScore: number };
+
 export type UserState = {
 	isAuth: boolean;
 	user?: UserModel | null;
 	error?: ErrorResponse;
 	isLoading: boolean;
+	score: UserScore;
 };
 
 const initialState: UserState = {
 	isAuth: JSON.parse(localStorage.getItem('isAuthorized') ?? 'false'),
-	isLoading: false
+	isLoading: false,
+	score: { maxScore: 0, lastGameScore: 0 }
 };
 
 const userSlice = createSlice({
@@ -34,6 +38,9 @@ const userSlice = createSlice({
 		},
 		updateAuth: (state: UserState, action: PayloadAction<boolean>) => {
 			state.isAuth = action.payload;
+		},
+		updateScore: (state: UserState, action: PayloadAction<UserScore>) => {
+			state.score = action.payload;
 		}
 	},
 	extraReducers: builder => {
@@ -46,6 +53,6 @@ const userSlice = createSlice({
 	}
 });
 
-export const { catchError, updateAuth } = userSlice.actions;
+export const { catchError, updateAuth, updateScore } = userSlice.actions;
 
 export default userSlice.reducer;

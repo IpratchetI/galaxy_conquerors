@@ -1,9 +1,15 @@
-import { KeyboardEvent } from 'react';
+import { KeyboardEvent, createRef, MutableRefObject } from 'react';
 import 'jest-canvas-mock';
 
 import Ship from './Ship/Ship';
 import GameEngine from './GameEngine';
 import * as constants from './constants';
+
+function createRefWithInitial<T>(initialValue: T): MutableRefObject<T> {
+	const refObject = createRef();
+	(refObject as any).current = initialValue;
+	return refObject as MutableRefObject<T>;
+}
 
 class TestableGameEngine extends GameEngine {
 	public testConstantEnemies = this.enemies;
@@ -23,6 +29,11 @@ class TestableGameEngine extends GameEngine {
 
 document.body.innerHTML = '<canvas id="gameCanvas"></canvas>';
 const canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
+const canvasRef = createRefWithInitial<HTMLCanvasElement>(canvas);
+const endGameRef = createRefWithInitial<() => void>(() => {
+	//stub
+});
+const canvasPropsRef = createRefWithInitial({ canvasRef, endGameRef });
 
 describe('GameEngine', () => {
 	let gameEngine: TestableGameEngine;
@@ -33,7 +44,7 @@ describe('GameEngine', () => {
 	};
 
 	beforeEach(() => {
-		gameEngine = new TestableGameEngine(canvas);
+		gameEngine = new TestableGameEngine(canvasPropsRef.current);
 		jest.spyOn(event, 'preventDefault');
 	});
 

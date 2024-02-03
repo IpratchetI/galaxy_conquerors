@@ -4,8 +4,18 @@ import Enemy from './Enemy/Enemy';
 import Explosion from './Explosion/Explosion';
 import * as constants from './constants';
 
+interface CanvasProps {
+	canvasRef: React.MutableRefObject<HTMLCanvasElement | null>;
+	endGameRef: React.MutableRefObject<() => void>;
+}
+
 class GameEngine {
 	protected canvas: HTMLCanvasElement;
+	private closeCanvas: () => void;
+	private stopEngine = false;
+	private isBreak = false;
+	private breakStartTime = 0;
+	private breakEndTime = 0;
 	private ctx: CanvasRenderingContext2D;
 	protected ship: Ship | null;
 	protected bullets: Bullet[];
@@ -19,16 +29,17 @@ class GameEngine {
 	protected shipExplosion: Explosion | null;
 	private enemyExplosion: Explosion | null;
 
-	constructor(canvas: HTMLCanvasElement) {
-		this.canvas = canvas;
+	constructor(canvasProps: CanvasProps) {
+		this.canvas = canvasProps.canvasRef.current!;
+		this.closeCanvas = canvasProps.endGameRef.current;
 		this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
 
 		if (!this.ctx) {
 			throw new Error('Unable to get 2D rendering context');
 		}
 
-		const initialShipX = this.canvas.width / 2 - constants.initialShipOffsetX;
-		const initialShipY = this.canvas.height - constants.initialShipOffsetY;
+		const initialShipX = window.innerWidth / 2 - constants.initialShipOffsetX;
+		const initialShipY = window.innerHeight - constants.initialShipOffsetY;
 		this.ship = new Ship({ x: initialShipX, y: initialShipY });
 		this.bullets = [];
 		this.enemies = [];
@@ -50,6 +61,19 @@ class GameEngine {
 
 	public stop = () => {
 		this.isCountReported = false;
+	};
+
+	public stopUpdate = () => {
+		this.stopEngine = true;
+	};
+
+	public break = () => {
+		this.isBreak = !this.isBreak;
+		if (this.isBreak) {
+			this.breakStartTime = Date.now();
+		} else {
+			this.breakEndTime = Date.now();
+		}
 	};
 
 	protected updateGame = () => {
@@ -91,21 +115,20 @@ class GameEngine {
 			event.code === 'ArrowLeft' ||
 			event.code === 'ArrowRight' ||
 			event.code === 'ArrowUp' ||
-			event.code === 'ArrowDown'
+			event.code === 'ArrowDown' ||
+			event.code === 'Space'
 		) {
 			event.preventDefault();
 		}
 
-		if (event.code === 'ArrowLeft') {
-			if (this.ship) {
+		if (!this.isBreak) {
+			if (event.code === 'ArrowLeft' && this.ship) {
 				this.ship.moveLeft();
-			}
-		} else if (event.code === 'ArrowRight') {
-			if (this.ship) {
+			} else if (event.code === 'ArrowRight' && this.ship) {
 				this.ship.moveRight();
+			} else if (event.code === 'Space') {
+				this.shoot();
 			}
-		} else if (event.code === 'Space') {
-			this.shoot();
 		}
 	};
 
@@ -119,10 +142,8 @@ class GameEngine {
 			event.preventDefault();
 		}
 
-		if (event.code === 'ArrowLeft' || event.code === 'ArrowRight') {
-			if (this.ship) {
-				this.ship.stopMoving();
-			}
+		if (this.ship && (event.code === 'ArrowLeft' || event.code === 'ArrowRight')) {
+			this.ship.stopMoving();
 		}
 	};
 
@@ -185,25 +206,31 @@ class GameEngine {
 	};
 
 	private shoot = () => {
-		if (Date.now() - this.lastShotTime > this.shootInterval) {
-			if (this.ship) {
-				const bullet = new Bullet({
-					x: this.ship.x + this.ship.width / 2 - 10,
-					y: this.canvas.height - this.stopEnemyBorder,
-					width: 20,
-					height: 50,
-					speed: 10
-				});
-				this.bullets.push(bullet);
-				this.lastShotTime = Date.now();
-			}
+		const dateNow = Date.now();
+		const breakTime = this.breakEndTime - this.breakStartTime;
+		const timeAfterShotWithoutBreak =
+			dateNow - this.breakEndTime > this.shootInterval ? 0 : breakTime;
+		if (this.ship && dateNow - timeAfterShotWithoutBreak - this.lastShotTime > this.shootInterval) {
+			const bullet = new Bullet({
+				x: this.ship.x + this.ship.width / 2 - 10,
+				y: this.canvas.height - this.stopEnemyBorder,
+				width: 20,
+				height: 50,
+				speed: 10
+			});
+			this.bullets.push(bullet);
+			this.lastShotTime = Date.now();
 		}
 	};
 
 	private gameLoop = () => {
-		this.updateGame();
+		if (!this.isBreak) {
+			this.updateGame();
+		}
 		this.drawGame();
-		requestAnimationFrame(this.gameLoop);
+		if (!this.stopEngine) {
+			requestAnimationFrame(this.gameLoop);
+		}
 	};
 
 	private checkShipBounds = () => {
@@ -238,8 +265,8 @@ class GameEngine {
 			if (!this.isCountReported) {
 				const destroyedEnemiesCount = this.getDestroyedEnemiesCount();
 				console.log(`Destroyed Enemies Count: ${destroyedEnemiesCount}`);
-
 				this.isCountReported = true;
+				this.closeCanvas();
 			}
 		}
 	};
