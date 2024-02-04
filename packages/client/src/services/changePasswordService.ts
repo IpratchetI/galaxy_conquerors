@@ -12,8 +12,7 @@ class ChangePasswordService {
 			await baseApi.put('user/password', formData, {
 				withCredentials: true,
 				headers: {
-					// Authorization: `Bearer ${ACCESS_TOKEN}`, // todo: добавить токен
-					'Content-Type': 'multipart/form-data'
+					'Content-Type': 'application/json'
 				}
 			});
 		} catch (error) {
