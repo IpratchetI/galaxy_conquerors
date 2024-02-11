@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { Spacer, Text } from '@/components';
 
 import s from './index.module.scss';
-import { TOPICS_LIST } from './lib/mocks';
 import { TopicsList } from './components/TopicsList';
 import { NewTopicForm } from './components/NewTopicForm';
 
