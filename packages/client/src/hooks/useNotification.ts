@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import shipIcon from '@assets/icons/ship.png';
 
 interface useNotificationOptions {
@@ -22,7 +22,7 @@ const createNotification = (text: string) => {
 export const useNotification = (options: useNotificationOptions) => {
 	const notification = useRef<Notification>();
 
-	const notify = useCallback(
+	return useCallback(
 		(text: string) => {
 			if (!('Notification' in window)) {
 				return;
@@ -46,6 +46,4 @@ export const useNotification = (options: useNotificationOptions) => {
 		},
 		[options]
 	);
-
-	return notify;
 };

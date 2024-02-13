@@ -14,14 +14,18 @@ export const Main = () => {
 	const showNotification = useNotification({ onClick: () => navigate(routerPaths.forum) });
 
 	useEffect(() => {
+		let timeoutId: NodeJS.Timeout;
+
 		// Здесь должно быть получение данных о новых сообщениях/темах в форуме. пока что временная демонстрационная реализация
 		const promise = new Promise(resolve => {
-			setTimeout(() => {
+			timeoutId = setTimeout(() => {
 				resolve('');
 			}, 5000);
 		});
 
 		promise.then(() => showNotification('You have new messages in the forum'));
+
+		return () => clearTimeout(timeoutId);
 	}, []);
 
 	return (

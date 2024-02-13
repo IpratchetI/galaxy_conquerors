@@ -65,6 +65,8 @@ class GameEngine {
 
 	public stopUpdate = () => {
 		this.stopEngine = true;
+		window.removeEventListener('keydown', this.handleKeyDown);
+		window.removeEventListener('keyup', this.handleKeyUp);
 	};
 
 	public break = () => {
