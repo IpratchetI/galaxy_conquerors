@@ -16,7 +16,9 @@ export const useAuthorize = () => {
 	}, []);
 
 	useEffect(() => {
-		localStorage.setItem('isAuthorized', isAuth.toString());
+		if (typeof window !== 'undefined') {
+			localStorage.setItem('isAuthorized', isAuth.toString());
+		}
 	}, [isAuth]);
 
 	return;

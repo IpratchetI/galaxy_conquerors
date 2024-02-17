@@ -45,7 +45,7 @@ export const GameOver = () => {
 							</Spacer>
 						);
 					})}
-					<img src={explosion} />
+					<img src={explosion} alt="Изображение: Взрыв" />
 				</Spacer>
 			</Spacer>
 		</main>
