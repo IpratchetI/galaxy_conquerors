@@ -22,8 +22,16 @@ export type UserState = {
 	score: UserScore;
 };
 
+const authInitialValue = () => {
+	if (typeof window !== 'undefined') {
+		return JSON.parse(localStorage.getItem('isAuthorized') ?? 'false');
+	}
+
+	return false;
+};
+
 const initialState: UserState = {
-	isAuth: JSON.parse(localStorage.getItem('isAuthorized') ?? 'false'),
+	isAuth: authInitialValue(),
 	isLoading: false,
 	score: { maxScore: 0, lastGameScore: 0 }
 };
