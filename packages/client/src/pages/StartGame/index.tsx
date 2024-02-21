@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import astronaut from '@assets/gameplay/astronaut.png';
+import AudioService from '@services/audioService';
 
 import { Spacer, Text } from '@/components';
 import { routerPaths } from '@/constants/routerPaths';
+import { sounds } from '@/constants/sounds';
 
 import styles from './index.module.scss';
 
@@ -17,6 +19,11 @@ export const StartGame = () => {
 			navigate(`${routerPaths.main}${routerPaths.game}`);
 		}, redirectTime);
 	}, []);
+
+	useEffect(() => {
+		AudioService.play(sounds.splash);
+	}, []);
+
 
 	return (
 		<main className={styles.background}>

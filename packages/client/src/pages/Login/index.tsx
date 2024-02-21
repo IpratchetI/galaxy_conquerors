@@ -20,6 +20,8 @@ import { updateAuth } from '@/store/reducers/user/userReducer';
 import { getOauthProviderUri } from '@/utils/oauth';
 
 import { loginInputsConfig, loginInputsDefaults } from './constants';
+
+
 import '@styles/main.scss';
 import styles from './index.module.scss';
 
