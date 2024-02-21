@@ -6,8 +6,9 @@ import { Link } from '@components/Link';
 import { Text } from '@components/Text';
 import { FormCard } from '@components/FormCard';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { oAuthService } from '@services/oAuthService';
+import YandexIcon from '@assets/icons/yandexIcon.svg';
 
 import { routerPaths } from '@/constants/routerPaths';
 import { Spacer } from '@/components';
@@ -15,24 +16,20 @@ import { validate } from '@/utils/validate';
 import { getUser, logInUser } from '@/store/reducers/user/userActionCreator';
 import { useAppSelector, userState } from '@/store/selectors';
 import { useAppDispatch } from '@/store';
+import { updateAuth } from '@/store/reducers/user/userReducer';
+import { getOauthProviderUri } from '@/utils/oauth';
 
 import { loginInputsConfig, loginInputsDefaults } from './constants';
 import '@styles/main.scss';
 import styles from './index.module.scss';
 
-import { updateAuth } from '@/store/reducers/user/userReducer';
-
 const redirectUri = 'http://localhost:3000/login';
-const serviceId = '57333eb44db64f20ab8a6677e8049304';
-// https://oauth.yandex.ru/authorize?response_type=code&client_id=57333eb44db64f20ab8a6677e8049304&redirect_uri=http://localhost:3000/login
 
 export const Login = () => {
 	const dispatch = useAppDispatch();
 	const { user, error: userError } = useAppSelector(userState);
 
 	const [params] = useSearchParams({ code: '' });
-
-	// const [serviceId, setServiceId] = useState('');
 
 	const {
 		register,
@@ -60,23 +57,17 @@ export const Login = () => {
 	useEffect(() => {
 		const code = params.get('code');
 		if (code) {
-			oAuthService.signIn({ code: code, redirect_uri: 'http://localhost:3000/login' }).then(() => {
+			oAuthService.signIn({ code: code, redirect_uri: redirectUri }).then(() => {
 				dispatch(updateAuth(true));
 				dispatch(getUser());
 				navigate(routerPaths.main);
 			});
 		}
-	}, [params]);
-
-	// useEffect(() => {
-	// 	oAuthService.getServiceId(redirectUri)
-	// 	.then(({ service_id }) => setServiceId(service_id));
-	// }, []);
+	}, [dispatch, navigate, params]);
 
 	const handleSignInWithYandex = () => {
 		oAuthService.getServiceId(redirectUri).then(({ service_id }) => {
-			window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${redirectUri}`;
-			// console.log(service_id);
+			window.location.href = getOauthProviderUri(service_id, redirectUri);
 		});
 	};
 
@@ -87,25 +78,37 @@ export const Login = () => {
 
 	return (
 		<main className={styles.login}>
-			<Spacer direction="column" gap="12" fullHeight>
-				<Spacer direction="column" gap="40">
+			<Spacer direction="column" gap="12" fullHeight fullWidth>
+				<Spacer direction="column" gap="40" fullWidth>
 					<Text tag="p" size="xxl" align="center" className={styles.title}>
 						{'Galaxy \n Conquerors'}
 					</Text>
 					<FormCard
 						text="Authorization"
+						fullWidthFooter
 						footer={
-							<Spacer gap="20" align="center" direction="column">
+							<Spacer gap="20" align="center" direction="column" fullWidth>
 								{userError?.reason && (
 									<Text size="s" variant="error">
 										{userError?.reason}
 									</Text>
 								)}
-								<Button type="submit" disabled={isSubmitting} onClick={handleSubmit(signInHandler)}>
+								<Button
+									fullWidth
+									type="submit"
+									disabled={isSubmitting}
+									onClick={handleSubmit(signInHandler)}>
 									Sign In
 								</Button>
-								<Button type="button" onClick={handleSignInWithYandex}>
-									Sign In with Yandex
+								<Button
+									fullWidth
+									type="button"
+									className={styles.signInYandex}
+									onClick={handleSignInWithYandex}>
+									<Spacer gap="20">
+										{'Sign In'}
+										<YandexIcon />
+									</Spacer>
 								</Button>
 							</Spacer>
 						}>
