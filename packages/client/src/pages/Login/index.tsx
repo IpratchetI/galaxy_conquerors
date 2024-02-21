@@ -7,7 +7,7 @@ import { Text } from '@components/Text';
 import { FormCard } from '@components/FormCard';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { oAuthService } from '@services/oAuthService';
+import { OAuthService } from '@services/oAuthService';
 import YandexIcon from '@assets/icons/yandexIcon.svg';
 
 import { routerPaths } from '@/constants/routerPaths';
@@ -57,7 +57,7 @@ export const Login = () => {
 	useEffect(() => {
 		const code = params.get('code');
 		if (code) {
-			oAuthService.signIn({ code: code, redirect_uri: redirectUri }).then(() => {
+			OAuthService.signIn({ code: code, redirect_uri: redirectUri }).then(() => {
 				dispatch(updateAuth(true));
 				dispatch(getUser());
 				navigate(routerPaths.main);
@@ -66,7 +66,7 @@ export const Login = () => {
 	}, [dispatch, navigate, params]);
 
 	const handleSignInWithYandex = () => {
-		oAuthService.getServiceId(redirectUri).then(({ service_id }) => {
+		OAuthService.getServiceId(redirectUri).then(({ service_id }) => {
 			window.location.href = getOauthProviderUri(service_id, redirectUri);
 		});
 	};
@@ -106,7 +106,7 @@ export const Login = () => {
 									className={styles.signInYandex}
 									onClick={handleSignInWithYandex}>
 									<Spacer gap="20">
-										{'Sign In'}
+										Sign In
 										<YandexIcon />
 									</Spacer>
 								</Button>

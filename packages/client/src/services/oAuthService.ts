@@ -1,8 +1,8 @@
-import { oAuthSignInRequest } from '@models/oauth';
+import { OAuthSignInRequest } from '@models/oauth';
 
 import { baseApi } from './baseApi';
 
-class oAuthService {
+class OAuthService {
 	private _controllerName = 'oauth/';
 
 	getServiceId(redirecrUri: string) {
@@ -14,10 +14,10 @@ class oAuthService {
 			.then(({ data }) => data);
 	}
 
-	signIn(data: oAuthSignInRequest) {
+	signIn(data: OAuthSignInRequest) {
 		return baseApi.post(this._controllerName + 'yandex', data, { withCredentials: true });
 	}
 }
 
-const instance = new oAuthService();
-export { instance as oAuthService };
+const instance = new OAuthService();
+export { instance as OAuthService };
