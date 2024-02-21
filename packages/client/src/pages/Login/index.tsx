@@ -6,20 +6,22 @@ import { Link } from '@components/Link';
 import { Text } from '@components/Text';
 import { FormCard } from '@components/FormCard';
 import { useNavigate } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { routerPaths } from '@/constants/routerPaths';
 import { Spacer } from '@/components';
 import { validate } from '@/utils/validate';
-
-import { loginInputsConfig, loginInputsDefaults } from './constants';
-
-import '@styles/main.scss';
 import { logInUser } from '@/store/reducers/user/userActionCreator';
 import { useAppSelector, userState } from '@/store/selectors';
 import { useAppDispatch } from '@/store';
 
+import { loginInputsConfig, loginInputsDefaults } from './constants';
+
+
+import '@styles/main.scss';
 import styles from './index.module.scss';
+
+const redirectUri = 'http://localhost:3000/login';
 
 export const Login = () => {
 	const dispatch = useAppDispatch();

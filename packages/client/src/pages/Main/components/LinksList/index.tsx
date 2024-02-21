@@ -2,8 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import { MouseEvent } from 'react';
+import { ButtonVariant } from '@components/Button';
 
-import { Link, Text } from '@/components';
+import { Button, Link, Text } from '@/components';
 import { routerPaths } from '@/constants/routerPaths';
 import { logOutUser } from '@/store/reducers/user/userActionCreator';
 import { useAppDispatch } from '@/store';
