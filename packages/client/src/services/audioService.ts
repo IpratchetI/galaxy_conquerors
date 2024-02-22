@@ -1,29 +1,63 @@
+import Store from '@/store';
+
+type PlayOptions = { type?: 'sound' | 'music'; loop?: boolean };
+
+const defaultPlayOptions: PlayOptions = {
+	loop: false,
+	type: 'sound'
+};
+
 class AudioService {
-  private _audioContext: AudioContext | undefined;
+	private _audioContext: AudioContext | undefined;
+	private _isSoundsEnabled = true;
+	private _isMusicEnabled = true;
 
-  // constructor() {
-  //   const AudioContext = window.AudioContext;
-  //   this._audioContext = new AudioContext();
-  // }
+	constructor() {
+		Store.subscribe(this._listener);
+	}
 
-  public play(soundFilePath: string) {
+	private _listener = () => {
+		const {
+			uiState: { music, sounds }
+		} = Store.getState();
+		this._isSoundsEnabled = sounds;
+		this._isMusicEnabled = music;
+	};
 
-    if (!this._audioContext) {
-      const AudioContext = window.AudioContext;
-      this._audioContext = new AudioContext();
-    }
-    const audio = new Audio(soundFilePath);
+	public play(soundFilePath: string, options: PlayOptions = defaultPlayOptions) {
+		if (
+			(options.type === 'sound' && !this._isSoundsEnabled) ||
+			(options.type === 'music' && !this._isMusicEnabled)
+		) {
+			return () => null;
+		}
 
-    const source = this._audioContext.createMediaElementSource(audio);
-    source.connect(this._audioContext.destination);
+		if (!this._audioContext) {
+			this._audioContext = new AudioContext();
+		}
 
-    audio.play();
-    audio;
-  }
+		const audio = new Audio(soundFilePath);
+		const source = this._audioContext.createMediaElementSource(audio);
+		source.connect(this._audioContext.destination);
 
-  public stop() {
-    console.log();
-  }
+		if (options?.loop) {
+			audio.loop = true;
+		} else {
+			source.addEventListener('ended', () => {
+				source.disconnect();
+			});
+		}
+
+		audio.play();
+
+		const disposer = () => {
+			audio.pause();
+			audio.currentTime = 0;
+			source.disconnect();
+		};
+
+		return disposer;
+	}
 }
 
 export default new AudioService();

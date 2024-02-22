@@ -8,5 +8,6 @@ export const navLinks: NavLink[] = [
 	{ id: 2, path: routerPaths.leaderBoard, text: 'Highscore' },
 	{ id: 3, path: routerPaths.authors, text: 'Authors' },
 	{ id: 4, path: routerPaths.forum, text: 'Forum' },
-	{ id: 5, path: routerPaths.login, text: 'Exit' }
+	{ id: 5, path: routerPaths.main, text: 'Sound' },
+	{ id: 6, path: routerPaths.login, text: 'Exit' }
 ];

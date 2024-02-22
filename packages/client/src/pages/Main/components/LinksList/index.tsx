@@ -2,9 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import { MouseEvent } from 'react';
-import { ButtonVariant } from '@components/Button';
+import { SoundSettingsPopup } from '@components/SoundSettingsPopup';
 
-import { Button, Link, Text } from '@/components';
+import { Link, Text } from '@/components';
 import { routerPaths } from '@/constants/routerPaths';
 import { logOutUser } from '@/store/reducers/user/userActionCreator';
 import { useAppDispatch } from '@/store';
@@ -14,20 +14,25 @@ import styles from './index.module.scss';
 
 export const LinksList = () => {
 	const dispatch = useAppDispatch();
-	const [activeLinkId, setActiveLinkId] = useState<number>(0);
 	const navigate = useNavigate();
+	const [activeLinkId, setActiveLinkId] = useState<number>(0);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
-	const exitHandler = async (e: MouseEvent<HTMLAnchorElement>) => {
+	const exitHandler = (e: MouseEvent<HTMLAnchorElement>) => {
 		e.stopPropagation();
 		e.preventDefault();
 		dispatch(logOutUser());
 		navigate(routerPaths.login);
 	};
 
+	const soundHandler = async (e: MouseEvent<HTMLAnchorElement>) => {
+		e.stopPropagation();
+		e.preventDefault();
+		setIsModalOpen(true);
+	};
+
 	const handleKeyDown = useCallback(
 		(event: KeyboardEvent) => {
-			event.preventDefault();
-
 			switch (event.key) {
 				case 'ArrowUp':
 					setActiveLinkId(previousId => {
@@ -66,21 +71,35 @@ export const LinksList = () => {
 		};
 	}, [handleKeyDown]);
 
+	const clickHandler = useCallback((text: string) => {
+		switch (text) {
+			case 'Exit':
+				return exitHandler;
+			case 'Sound':
+				return soundHandler;
+			default:
+				return () => null;
+		}
+	}, []);
+
 	return (
-		<ul className={styles.list}>
-			{navLinks.map(({ id, path, text }) => (
-				<li key={id}>
-					<Link
-						to={path}
-						className={classNames({ [styles.isActive]: id === activeLinkId })}
-						onMouseEnter={() => setActiveLinkId(id)}
-						onClick={text === 'Exit' ? exitHandler : undefined}>
-						<Text size="l" variant={id === activeLinkId ? 'selected' : 'normal'}>
-							{text}
-						</Text>
-					</Link>
-				</li>
-			))}
-		</ul>
+		<>
+			<ul className={styles.list}>
+				{navLinks.map(({ id, path, text }) => (
+					<li key={id}>
+						<Link
+							to={path}
+							className={classNames({ [styles.isActive]: id === activeLinkId })}
+							onMouseEnter={() => setActiveLinkId(id)}
+							onClick={clickHandler(text)}>
+							<Text size="l" variant={id === activeLinkId ? 'selected' : 'normal'}>
+								{text}
+							</Text>
+						</Link>
+					</li>
+				))}
+			</ul>
+			<SoundSettingsPopup isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+		</>
 	);
 };
