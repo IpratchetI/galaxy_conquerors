@@ -14,10 +14,19 @@
   color: var(--sky);
 }
 
-.register {
+.signInYandex {
   font-weight: bold;
+
+  svg {
+    height: 35px;
+    width: 35px;
+  }
 
   &:hover {
     color: var(--sky);
+
+    * {
+      color: var(--sky);
+    }
   }
 }
