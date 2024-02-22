@@ -10,12 +10,11 @@ import GameEngine from '@/gameEngine/GameEngine';
 import { useAppDispatch } from '@/store';
 import { updateScore } from '@/store/reducers/user/userReducer';
 import { useAppSelector, userState } from '@/store/selectors';
-import { sounds } from '@/constants/sounds';
+import { soundPaths } from '@/constants/sounds';
 
 import '../../gameEngine/GameEngine.scss';
 import { BreakGamePopup } from './components/BreakGamePopup';
 import styles from './index.module.scss';
-
 
 const redirectTime = 3000;
 
@@ -29,6 +28,7 @@ const Game: React.FC = () => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
 	const { score } = useAppSelector(userState);
+	// const { music, sounds } = useAppSelector(uiState);
 
 	const setScore = (scoreNow: number) => {
 		const newMaxScore = Math.max(scoreNow, score.maxScore);
@@ -52,11 +52,7 @@ const Game: React.FC = () => {
 		breakRef.current?.break();
 	};
 
-	useEffect(() => {
-		AudioService.play(sounds.background);
-
-	}, []);
-
+	useEffect(() => AudioService.play(soundPaths.background, { loop: true, type: 'music' }), []);
 
 	const toggleFullscreen = useFullScreen(canvasRef, ['Alt', 'Enter']);
 

@@ -5,7 +5,7 @@ import AudioService from '@services/audioService';
 
 import { Spacer, Text } from '@/components';
 import { routerPaths } from '@/constants/routerPaths';
-import { sounds } from '@/constants/sounds';
+import { soundPaths } from '@/constants/sounds';
 
 import styles from './index.module.scss';
 
@@ -21,9 +21,8 @@ export const StartGame = () => {
 	}, []);
 
 	useEffect(() => {
-		AudioService.play(sounds.splash);
+		AudioService.play(soundPaths.splash);
 	}, []);
-
 
 	return (
 		<main className={styles.background}>
