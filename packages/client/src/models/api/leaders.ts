@@ -5,3 +5,8 @@ export type LeaderboardRequest = {
 	cursor: number; // Used to paginate between pages. If limit is 10, then for the 1st page - cursor=0, for the 2nd page - cursor=10.
 	limit: number; // Maximum amount of leaders to return
 };
+
+export type AddNewLeaderRequest = {
+	ratingFieldName: string;
+	teamName: string;
+};

@@ -1,6 +1,10 @@
+import { useEffect } from 'react';
 import ship from '@assets/gameplay/enemyShip.png';
 import explosion from '@assets/gameplay/explosion.png';
 import shot from '@assets/gameplay/shot.png';
+import { useDispatch } from 'react-redux';
+import { addNewLeader } from '@/store/reducers/leaders/leadersActionCreator';
+console.log(addNewLeader);
 
 import { Link, Spacer, Text } from '@/components';
 import { routerPaths } from '@/constants/routerPaths';
@@ -12,8 +16,22 @@ const FIRST_ROW_SHIP_COUNT = 9;
 const SECOND_ROW_SHIP_COUNT = 8;
 
 export const GameOver = () => {
+	const dispatch = useDispatch();
 	const { score } = useAppSelector(userState);
 	const lastGameScore = score.lastGameScore;
+
+	const sendGameResults = async () => {
+		try {
+			await dispatch(
+				addNewLeader({ ratingFieldName: lastGameScore.toString(), teamName: 'CamelCase' })
+			);
+			console.log('Результат игры успешно отправлен на сервер лидерборда');
+		} catch (error) {
+			console.error('Ошибка отправки результата игры на сервер лидерборда:', error);
+		}
+	};
+
+	sendGameResults();
 
 	return (
 		<main className={styles.background}>
