@@ -5,12 +5,16 @@ import { BrowserRouter } from 'react-router-dom';
 import './style/main.scss';
 import { registerServiceWorker, unregisterServiceWorker } from '@/utils/registerWorker';
 import App from '@/app';
+import { Provider } from 'react-redux';
+import store from './store';
 
 ReactDOM.hydrateRoot(
 	document.getElementById('root') as HTMLElement,
 	<StrictMode>
 		<BrowserRouter>
-			<App />
+			<Provider store={store}>
+				<App />
+			</Provider>
 		</BrowserRouter>
 	</StrictMode>
 );
