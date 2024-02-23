@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 import { TestWrapper } from '@/test/components/TestWrapper';
@@ -36,7 +35,7 @@ describe('Login Page', () => {
 	});
 
 	test('should render error text for login & password on submit', async () => {
-		const submitButton = screen.getByText('Sign In');
+		const [submitButton] = screen.getAllByText('Sign In');
 
 		// Поле не должно содержать спец символы
 		fireEvent.change(usernameInput, { target: { value: 'dsad@!' } });

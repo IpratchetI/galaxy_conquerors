@@ -6,10 +6,10 @@ exports[`Login Page should render default 1`] = `
     class="login"
   >
     <div
-      class="flex justifyCenter alignCenter directionColumn gap12 nowrap fullHeight"
+      class="flex justifyCenter alignCenter directionColumn gap12 nowrap fullHeight fullWidth"
     >
       <div
-        class="flex justifyCenter alignCenter directionColumn gap40 nowrap"
+        class="flex justifyCenter alignCenter directionColumn gap40 nowrap fullWidth"
       >
         <p
           class="text title normal center xxl"
@@ -68,19 +68,35 @@ exports[`Login Page should render default 1`] = `
             </form>
           </div>
           <div
-            class="flex justifyCenter alignCenter directionRow nowrap"
+            class="flex  fullWidth justifyCenter alignCenter directionRow nowrap"
           >
             <div
-              class="flex justifyCenter alignCenter directionColumn gap20 nowrap"
+              class="flex justifyCenter alignCenter directionColumn gap20 nowrap fullWidth"
             >
               <button
-                class="button default"
+                class="button default fullWidth"
                 type="submit"
               >
                 <span
                   class="selectIcon"
                 />
                 Sign In
+              </button>
+              <button
+                class="button default fullWidth signInYandex"
+                type="button"
+              >
+                <span
+                  class="selectIcon"
+                />
+                <div
+                  class="flex justifyCenter alignCenter directionRow gap20 nowrap"
+                >
+                  Sign In
+                  <svg
+                    data-file-name="SvgYandexIcon"
+                  />
+                </div>
               </button>
             </div>
           </div>
