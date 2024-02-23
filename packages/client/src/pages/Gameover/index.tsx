@@ -1,8 +1,8 @@
 import ship from '@assets/gameplay/enemyShip.png';
 import explosion from '@assets/gameplay/explosion.png';
 import shot from '@assets/gameplay/shot.png';
-
 import { useDispatch } from 'react-redux';
+
 import { addNewLeader } from '@/store/reducers/leaders/leadersActionCreator';
 import { Link, Spacer, Text } from '@/components';
 import { routerPaths } from '@/constants/routerPaths';
