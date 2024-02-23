@@ -1,8 +1,8 @@
+import React, { useEffect } from 'react';
 import ship from '@assets/gameplay/enemyShip.png';
 import explosion from '@assets/gameplay/explosion.png';
 import shot from '@assets/gameplay/shot.png';
 import { useDispatch } from 'react-redux';
-
 import { addNewLeader } from '@/store/reducers/leaders/leadersActionCreator';
 import { Link, Spacer, Text } from '@/components';
 import { routerPaths } from '@/constants/routerPaths';
@@ -20,10 +20,12 @@ export const GameOver = () => {
 	const { score } = useAppSelector(userState);
 	const lastGameScore = score.lastGameScore;
 
+	// Функция для отправки результатов игры на сервер лидерборда
 	const sendGameResults = async () => {
+		console.log('Sending game results...');
 		try {
 			await dispatch(
-				addNewLeader({ ratingFieldName: lastGameScore.toString(), teamName: 'CamelCase' })
+				addNewLeader({ ratingFieldName: lastGameScore.toString(), teamName: 'CamelCase' }) as any
 			);
 			console.log('Результат игры успешно отправлен на сервер лидерборда');
 		} catch (error) {
@@ -31,7 +33,11 @@ export const GameOver = () => {
 		}
 	};
 
-	sendGameResults();
+	// Вызов функции отправки результатов игры на сервер лидерборда при монтировании компонента
+	useEffect(() => {
+		console.log('Component mounted, sending game results...');
+		sendGameResults();
+	}, []);
 
 	return (
 		<main className={styles.background}>

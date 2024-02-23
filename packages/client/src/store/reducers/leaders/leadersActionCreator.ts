@@ -22,6 +22,7 @@ export const getLeaders = createAsyncThunk(
 export const addNewLeader = createAsyncThunk(
 	'leaders/addNewLeader',
 	async (data: AddNewLeaderRequest) => {
+		console.log('Adding new leader...');
 		const requestData = {
 			data: {},
 			ratingFieldName: data.ratingFieldName,
