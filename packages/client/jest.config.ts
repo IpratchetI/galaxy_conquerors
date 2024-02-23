@@ -1,7 +1,10 @@
 import dotenv from 'dotenv';
+
+import type { Config } from 'jest';
+
 dotenv.config();
 
-export default {
+const config: Config = {
 	preset: 'ts-jest',
 	testEnvironment: 'jsdom',
 	testMatch: ['<rootDir>/src/**/*.test.{ts,tsx}'],
@@ -16,10 +19,13 @@ export default {
 		'\\.(css|scss)$': 'identity-obj-proxy'
 	},
 	transform: {
-		'^.+\\.(png|jpg|svg)$': '<rootDir>/svgTransform.js'
+		'^.+\\.(png|jpg)$': '<rootDir>/src/test/transformers/imageTransformer.js',
+		'^.+\\.svg$': 'jest-transformer-svg'
 	},
 	globals: {
 		__SERVER_PORT__: process.env.SERVER_PORT || 3001
 	},
 	testTimeout: 200000
 };
+
+export default config;
