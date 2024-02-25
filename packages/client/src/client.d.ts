@@ -9,6 +9,6 @@ declare module '*.test.[ts|tsx]';
 export {};
 
 declare global {
-	let __PRELOADED_STATE__: TPreloadedState;
+	var __PRELOADED_STATE__: TPreloadedState;
 	const __SERVER_PORT__: number;
 }
