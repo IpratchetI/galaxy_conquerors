@@ -18,6 +18,8 @@ export const GameOver = () => {
 	const dispatch = useDispatch();
 	const { score } = useAppSelector(userState);
 	const lastGameScore = score.lastGameScore;
+	const { user } = useAppSelector(state => state.userState);
+	const userName = user?.first_name;
 
 	const sendGameResults = async () => {
 		try {
@@ -25,7 +27,7 @@ export const GameOver = () => {
 				await dispatch(
 					addNewLeader({
 						data: {
-							name: 'CamelCase', ///todo: добавить имя пользователя displayName или firstName если нет первого
+							name: userName,
 							winsAmount: lastGameScore
 						},
 						ratingFieldName: 'winsAmount',
