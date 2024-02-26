@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ErrorResponse } from '@models/api/errorResponse';
 import { LeaderboardData } from '@models/leaders';
-
 import { getLeaders } from './leadersActionCreator';
 import { leadersReducersFactory } from './leadersReducersFactory';
 
