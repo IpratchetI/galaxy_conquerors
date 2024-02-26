@@ -7,7 +7,7 @@ class LeadersService {
 	private _controllerName = 'leaderboard/';
 
 	getLeaders(data: LeaderboardRequest) {
-		return baseApi.post<LeaderboardData>(this._controllerName + 'all', data, {
+		return baseApi.post<LeaderboardData>(this._controllerName + 'CamelCase', data, {
 			withCredentials: true
 		});
 	}

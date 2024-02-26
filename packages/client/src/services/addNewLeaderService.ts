@@ -11,7 +11,7 @@ export const addNewLeaderService = async (
 	requestData: AddNewLeaderServiceRequest
 ): Promise<AxiosResponse<any>> => {
 	try {
-		const response = await baseApi.post('/leaderboard', requestData);
+		const response = await baseApi.post('/leaderboard', requestData, { withCredentials: true });
 		console.log('Результат игры успешно отправлен на сервер лидерборда', response.data);
 		return response;
 	} catch (error) {

@@ -10,8 +10,6 @@ import { useAppSelector, userState } from '@/store/selectors';
 
 import styles from './index.module.scss';
 
-console.log(addNewLeader);
-
 const FIRST_ROW_SHIP_COUNT = 9;
 const SECOND_ROW_SHIP_COUNT = 8;
 
@@ -20,22 +18,29 @@ export const GameOver = () => {
 	const { score } = useAppSelector(userState);
 	const lastGameScore = score.lastGameScore;
 
-	// Функция для отправки результатов игры на сервер лидерборда
 	const sendGameResults = async () => {
-		console.log('Sending game results...');
 		try {
-			await dispatch(
-				addNewLeader({ ratingFieldName: lastGameScore.toString(), teamName: 'CamelCase' }) as any
-			);
-			console.log('Результат игры успешно отправлен на сервер лидерборда');
+			if (lastGameScore > 0) {
+				await dispatch(
+					addNewLeader({
+						data: {
+							name: 'CamelCase', ///todo: добавить имя пользователя displayName или firstName если нет первого
+							winsAmount: lastGameScore
+						},
+						ratingFieldName: 'winsAmount',
+						teamName: 'CamelCase'
+					}) as any
+				);
+				console.log('Результат игры успешно отправлен на сервер лидерборда');
+			} else {
+				console.log('Результат игры не отправлен, так как lastGameScore меньше или равен 0');
+			}
 		} catch (error) {
 			console.error('Ошибка отправки результата игры на сервер лидерборда:', error);
 		}
 	};
 
-	// Вызов функции отправки результатов игры на сервер лидерборда при монтировании компонента
 	useEffect(() => {
-		console.log('Component mounted, sending game results...');
 		sendGameResults();
 	}, []);
 

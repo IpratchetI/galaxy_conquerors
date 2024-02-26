@@ -15,7 +15,8 @@ export const HighscoreList: React.FC = () => {
 	const filterData = useRef<LeaderboardRequest>({
 		limit: 10,
 		cursor: 0,
-		ratingFieldName: 'winsAmount'
+		ratingFieldName: 'winsAmount',
+		teamName: 'CamelCase'
 	});
 
 	useEffect(() => {
@@ -53,7 +54,7 @@ export const HighscoreList: React.FC = () => {
 				{leaders.map(({ data }, index) => (
 					<li key={index}>
 						<span>{data.name}:</span>
-						<span>{data[filterData.current.ratingFieldName]}</span>
+						<span>pts:{data[filterData.current.ratingFieldName]}</span>
 					</li>
 				))}
 			</ul>

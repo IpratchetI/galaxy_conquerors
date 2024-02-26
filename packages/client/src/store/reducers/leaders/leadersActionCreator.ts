@@ -18,13 +18,11 @@ export const getLeaders = createAsyncThunk(
 		}
 	}
 );
-
 export const addNewLeader = createAsyncThunk(
 	'leaders/addNewLeader',
 	async (data: AddNewLeaderRequest) => {
-		console.log('Adding new leader...');
 		const requestData = {
-			data: {},
+			data: data.data,
 			ratingFieldName: data.ratingFieldName,
 			teamName: data.teamName
 		};
