@@ -2,9 +2,12 @@ import fs from 'node:fs/promises';
 
 import { createServer as createViteServer } from 'vite';
 import express from 'express';
-
 const isProduction = process.env.NODE_ENV === 'production';
 const port = process.env.CLIENT_PORT || 3000;
+
+const initialState = {
+	userState: { isAuth: false, isLoading: false, score: { maxScore: 0, lastGameScore: 0 } }
+};
 
 const templateHtml = isProduction ? await fs.readFile('./dist/client/index.html', 'utf-8') : '';
 const ssrManifest = isProduction
@@ -40,7 +43,13 @@ app.use('*', async (req, res) => {
 		const cookies = req.cookies;
 		const rendered = await render({ path: url }, cookies, ssrManifest);
 
-		const html = template.replace('<!--ssr-app-->', rendered);
+		const stateMarkup = `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(
+			initialState
+		)}</script>`;
+
+		const html = template
+			.replace('<!--ssr-app-->', rendered)
+			.replace('<!--preloadedState-->', stateMarkup);
 
 		console.log(rendered, 'path:', url);
 

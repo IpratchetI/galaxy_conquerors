@@ -5,6 +5,8 @@ import userReducer from '@/store/reducers/user/userReducer';
 import leadersReducer from '@/store/reducers/leaders/leadersReducer';
 import forumReducer from '@/store/reducers/forum/forumReducer';
 
+const preloadedState = globalThis.__PRELOADED_STATE__;
+
 const rootReducer = combineReducers({
 	userState: userReducer,
 	leadersState: leadersReducer,
@@ -12,8 +14,10 @@ const rootReducer = combineReducers({
 });
 
 const store = configureStore({
-	reducer: rootReducer
+	reducer: rootReducer,
+	preloadedState
 });
+delete globalThis.__PRELOADED_STATE__;
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
