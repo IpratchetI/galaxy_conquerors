@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError, AxiosResponse } from 'axios';
 import { LeadersService } from '@services/leadersService';
 import { LeaderboardRequest, AddNewLeaderRequest } from '@models/api/leaders';
-
 import { addNewLeaderService } from '@/services/addNewLeaderService';
 
 import { DEFAULT_ERROR } from '@/store/constants/error';
