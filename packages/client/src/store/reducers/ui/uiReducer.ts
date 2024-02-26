@@ -10,15 +10,30 @@ const initialState: UiState = {
 	music: true
 };
 
+const storageKey = 'ui_settings';
+
+const initStorage = () => {
+	let storedSettings;
+	try {
+		storedSettings = JSON.parse(localStorage.getItem(storageKey) ?? '');
+	} catch (error) {
+		localStorage.setItem(storageKey, JSON.stringify(initialState));
+		storedSettings = initialState;
+	}
+	return storedSettings;
+};
+
 const uiSlice = createSlice({
 	name: 'ui',
-	initialState,
+	initialState: initStorage,
 	reducers: {
 		setSounds: (state: UiState, action: PayloadAction<boolean>) => {
 			state.sounds = action.payload;
+			localStorage.setItem(storageKey, JSON.stringify(state));
 		},
 		setMusic: (state: UiState, action: PayloadAction<boolean>) => {
 			state.music = action.payload;
+			localStorage.setItem(storageKey, JSON.stringify(state));
 		}
 	}
 });

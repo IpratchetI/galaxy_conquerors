@@ -16,12 +16,9 @@ export const StartGame = () => {
 
 	useEffect(() => {
 		setTimeout(() => {
+			AudioService.play(soundPaths.splash);
 			navigate(`${routerPaths.main}${routerPaths.game}`);
 		}, redirectTime);
-	}, []);
-
-	useEffect(() => {
-		AudioService.play(soundPaths.splash);
 	}, []);
 
 	return (

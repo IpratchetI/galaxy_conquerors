@@ -19,7 +19,8 @@ Object.defineProperty(window, 'AudioContext', {
 Object.defineProperty(window, 'Audio', {
 	writable: false,
 	value: jest.fn().mockImplementation(() => ({
-		play: jest.fn()
+		play: jest.fn(),
+		addEventListener: jest.fn()
 	}))
 });
 

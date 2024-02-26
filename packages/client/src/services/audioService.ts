@@ -43,9 +43,7 @@ class AudioService {
 		if (options?.loop) {
 			audio.loop = true;
 		} else {
-			source.addEventListener('ended', () => {
-				source.disconnect();
-			});
+			audio.addEventListener('ended', () => source.disconnect());
 		}
 
 		audio.play();

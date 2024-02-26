@@ -3,5 +3,5 @@
   "compilerOptions": {
     "lib": ["esnext", "webworker"]
   },
-  "include": ["sw.ts"]
+  "include": ["service-worker.ts"]
 }
