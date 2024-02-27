@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { LeaderboardRequest } from '@models/api/leaders';
 import { ButtonVariant } from '@components/Button';
+import { TEAM_NAME } from '@/constants/leaderBoard';
 
 import { getLeaders } from '@/store/reducers/leaders/leadersActionCreator';
 import { Button, Spacer, Text } from '@/components';
@@ -16,7 +17,7 @@ export const HighscoreList: React.FC = () => {
 		limit: 10,
 		cursor: 0,
 		ratingFieldName: 'winsAmount',
-		teamName: 'CamelCase'
+		teamName: TEAM_NAME
 	});
 
 	useEffect(() => {

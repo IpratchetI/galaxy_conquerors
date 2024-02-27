@@ -3,11 +3,12 @@ import ship from '@assets/gameplay/enemyShip.png';
 import explosion from '@assets/gameplay/explosion.png';
 import shot from '@assets/gameplay/shot.png';
 
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '@/store';
 import { addNewLeader } from '@/store/reducers/leaders/leadersActionCreator';
 import { Link, Spacer, Text } from '@/components';
 import { routerPaths } from '@/constants/routerPaths';
 import { useAppSelector, userState } from '@/store/selectors';
+import { TEAM_NAME } from '@/constants/leaderBoard';
 
 import styles from './index.module.scss';
 
@@ -15,7 +16,7 @@ const FIRST_ROW_SHIP_COUNT = 9;
 const SECOND_ROW_SHIP_COUNT = 8;
 
 export const GameOver = () => {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const { score } = useAppSelector(userState);
 	const lastGameScore = score.lastGameScore;
 	const { user } = useAppSelector(state => state.userState);
@@ -31,8 +32,8 @@ export const GameOver = () => {
 							winsAmount: lastGameScore
 						},
 						ratingFieldName: 'winsAmount',
-						teamName: 'CamelCase'
-					}) as any
+						teamName: TEAM_NAME
+					})
 				);
 				console.log('Результат игры успешно отправлен на сервер лидерборда');
 			} else {

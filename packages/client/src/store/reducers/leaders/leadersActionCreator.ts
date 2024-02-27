@@ -17,15 +17,25 @@ export const getLeaders = createAsyncThunk(
 		}
 	}
 );
+
 export const addNewLeader = createAsyncThunk(
 	'leaders/addNewLeader',
-	async (data: AddNewLeaderRequest) => {
-		const requestData = {
-			data: data.data,
-			ratingFieldName: data.ratingFieldName,
-			teamName: data.teamName
-		};
-		const response: AxiosResponse<any> = await addNewLeaderService(requestData);
-		return response.data;
+	async (data: AddNewLeaderRequest, { rejectWithValue }) => {
+		try {
+			const requestData = {
+				data: data.data,
+				ratingFieldName: data.ratingFieldName,
+				teamName: data.teamName
+			};
+			const response: AxiosResponse<any> = await addNewLeaderService(requestData);
+			return response.data;
+		} catch (error) {
+			if (error instanceof Error) {
+				const axiosError = error as AxiosError;
+				return rejectWithValue(axiosError.response?.data ?? DEFAULT_ERROR);
+			} else {
+				return rejectWithValue(DEFAULT_ERROR);
+			}
+		}
 	}
 );
