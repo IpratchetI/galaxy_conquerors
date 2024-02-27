@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { LeaderboardRequest } from '@models/api/leaders';
 import { ButtonVariant } from '@components/Button';
-import { TEAM_NAME } from '@/constants/leaderBoard';
 
+import { TEAM_NAME } from '@/constants/leaderBoard';
 import { getLeaders } from '@/store/reducers/leaders/leadersActionCreator';
 import { Button, Spacer, Text } from '@/components';
 import { leadersState, useAppSelector } from '@/store/selectors';
