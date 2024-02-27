@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 
+import uiReducer from '@/store/reducers/ui/uiReducer';
 import userReducer from '@/store/reducers/user/userReducer';
 import leadersReducer from '@/store/reducers/leaders/leadersReducer';
 import forumReducer from '@/store/reducers/forum/forumReducer';
@@ -10,7 +11,8 @@ const preloadedState = globalThis.__PRELOADED_STATE__;
 const rootReducer = combineReducers({
 	userState: userReducer,
 	leadersState: leadersReducer,
-	forumState: forumReducer
+	forumState: forumReducer,
+	uiState: uiReducer
 });
 
 const store = configureStore({

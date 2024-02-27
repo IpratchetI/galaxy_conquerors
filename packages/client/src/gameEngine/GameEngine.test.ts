@@ -5,6 +5,25 @@ import Ship from './Ship/Ship';
 import GameEngine from './GameEngine';
 import * as constants from './constants';
 
+Object.defineProperty(window, 'AudioContext', {
+	writable: false,
+	value: jest.fn().mockImplementation(() => ({
+		createMediaElementSource: jest.fn().mockImplementation(() => ({
+			connect: jest.fn(),
+			disconnect: jest.fn(),
+			addEventListener: jest.fn()
+		}))
+	}))
+});
+
+Object.defineProperty(window, 'Audio', {
+	writable: false,
+	value: jest.fn().mockImplementation(() => ({
+		play: jest.fn(),
+		addEventListener: jest.fn()
+	}))
+});
+
 function createRefWithInitial<T>(initialValue: T): MutableRefObject<T> {
 	const refObject = createRef();
 	(refObject as any).current = initialValue;

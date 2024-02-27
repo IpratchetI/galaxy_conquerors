@@ -2,21 +2,19 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '@components/Button';
 import { useFullScreen } from '@hooks/useFullscreen';
 import FullscreenIcon from '@assets/icons/fullscreenButton.svg';
-
-import styles from './index.module.scss';
-
 import { useNavigate } from 'react-router-dom';
+import AudioService from '@services/audioService';
+
 import { routerPaths } from '@/constants/routerPaths';
-
-import { BreakGamePopup } from './components/BreakGamePopup';
-
 import GameEngine from '@/gameEngine/GameEngine';
-
 import { useAppDispatch } from '@/store';
 import { updateScore } from '@/store/reducers/user/userReducer';
+import { useAppSelector, userState } from '@/store/selectors';
+import { soundPaths } from '@/constants/sounds';
 
 import '../../gameEngine/GameEngine.scss';
-import { useAppSelector, userState } from '@/store/selectors';
+import { BreakGamePopup } from './components/BreakGamePopup';
+import styles from './index.module.scss';
 
 const redirectTime = 3000;
 
@@ -30,6 +28,7 @@ const Game: React.FC = () => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
 	const { score } = useAppSelector(userState);
+	// const { music, sounds } = useAppSelector(uiState);
 
 	const setScore = (scoreNow: number) => {
 		const newMaxScore = Math.max(scoreNow, score.maxScore);
@@ -52,6 +51,8 @@ const Game: React.FC = () => {
 		setIsModalOpen(prevState => !prevState);
 		breakRef.current?.break();
 	};
+
+	useEffect(() => AudioService.play(soundPaths.background, { loop: true, type: 'music' }), []);
 
 	const toggleFullscreen = useFullScreen(canvasRef, ['Alt', 'Enter']);
 

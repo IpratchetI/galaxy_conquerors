@@ -1,3 +1,7 @@
+import AudioService from '@services/audioService';
+
+import { soundPaths } from '@/constants/sounds';
+
 import Ship from './Ship/Ship';
 import Bullet from './Bullet/Bullet';
 import Enemy from './Enemy/Enemy';
@@ -220,6 +224,7 @@ class GameEngine {
 				height: 50,
 				speed: 10
 			});
+			AudioService.play(soundPaths.shot);
 			this.bullets.push(bullet);
 			this.lastShotTime = Date.now();
 		}
@@ -259,6 +264,7 @@ class GameEngine {
 					x: this.ship.x + this.ship.width / 2,
 					y: this.ship.y + this.ship.height / 2 - constants.shipSize
 				});
+				AudioService.play(soundPaths.explosionShip);
 				this.shipExplosion.startAnimation();
 			}
 
@@ -291,6 +297,7 @@ class GameEngine {
 						x: enemy.x + enemy.width / 2,
 						y: enemy.y + enemy.height / 2
 					});
+					AudioService.play(soundPaths.explosionEnemy);
 					this.enemyExplosion.startAnimation();
 
 					if (this.enemies.length === 0) {
