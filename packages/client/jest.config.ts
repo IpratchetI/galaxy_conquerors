@@ -19,7 +19,7 @@ const config: Config = {
 		'\\.(css|scss)$': 'identity-obj-proxy'
 	},
 	transform: {
-		'^.+\\.(png|jpg)$': '<rootDir>/src/test/transformers/imageTransformer.js',
+		'^.+\\.(png|jpg|mp3|wav)$': '<rootDir>/src/test/transformers/imageTransformer.js',
 		'^.+\\.svg$': 'jest-transformer-svg'
 	},
 	globals: {
