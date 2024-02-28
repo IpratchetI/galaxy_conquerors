@@ -1,0 +1,32 @@
+@import '@/style/backgrounds';
+@import '@/style/main';
+
+.background {
+  @include main-background;
+  @include page-container;
+
+  padding-bottom: 80px;
+  height: 100%;
+}
+
+.container {
+  width: 600px;
+}
+
+.form {
+  width: 100%;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.button {
+  padding: 20px 90px;
+}

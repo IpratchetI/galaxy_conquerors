@@ -1,0 +1,32 @@
+@import '@/style/backgrounds';
+
+.login {
+  @include system-background;
+
+  row-gap: 1.5rem;
+}
+
+.title {
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.signUpText:hover {
+  color: var(--sky);
+}
+
+.signInYandex {
+  font-weight: bold;
+
+  svg {
+    height: 35px;
+    width: 35px;
+  }
+
+  &:hover {
+    color: var(--sky);
+
+    * {
+      color: var(--sky);
+    }
+  }
+}

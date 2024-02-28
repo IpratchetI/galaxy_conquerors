@@ -1,0 +1,32 @@
+.formCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  row-gap: 2rem;
+  padding: 2rem;
+  background-color: var(--white);
+  border-radius: 10px;
+
+  .text {
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  .content form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-evenly;
+    column-gap: 5rem;
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}

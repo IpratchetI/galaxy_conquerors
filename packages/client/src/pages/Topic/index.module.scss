@@ -1,0 +1,35 @@
+@import 'src/style/main';
+@import 'src/style/backgrounds';
+
+.topicPage {
+  font-size: var(--font-size-45);
+
+  @include page-container;
+  @include leaderBoard-background;
+  @include grid-template;
+}
+
+.title {
+  font-size: 60px;
+  margin-bottom: 70px;
+  grid-area: title;
+}
+
+.topicContent {
+  grid-area: main;
+  border-radius: 20px;
+  background-color: var(--white);
+  padding: 30px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  grid-area: actions;
+  gap: 32px;
+  margin-top: 63px;
+
+  .backButton {
+    margin-top: 10px;
+  }
+}

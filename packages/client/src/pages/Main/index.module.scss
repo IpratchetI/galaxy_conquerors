@@ -1,0 +1,5 @@
+@import '../../style/backgrounds';
+
+.background {
+  @include main-background;
+}

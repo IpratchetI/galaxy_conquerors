@@ -1,0 +1,42 @@
+.avatarInput {
+  display: none;
+}
+
+.avatarMock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  border: 4px dashed var(--grey-80);
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.avatarMock:hover {
+  border: 4px dashed var(--sky);
+}
+
+.modal {
+  width: 600px;
+}
+
+.imagePlaceholder {
+  position: relative;
+  border: 2px dashed var(--grey-80);
+  border-radius: 15px;
+  height: 300px;
+  overflow: hidden;
+}
+
+.preview {
+  height: 100%;
+  object-fit: contain;
+}
+
+.error {
+  position: absolute;
+  bottom: -20px;
+}

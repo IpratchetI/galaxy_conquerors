@@ -1,0 +1,34 @@
+@import '../../style/backgrounds';
+
+.background {
+  @include main-background;
+}
+
+.container {
+  position: relative;
+}
+
+.linkText {
+  z-index: 20;
+  :hover {
+    color: var(--sky);
+  }
+}
+
+.imgContainer {
+  position: relative;
+  z-index: 10;
+}
+
+.shotContainer {
+  position: absolute;
+  width: 160px;
+  bottom: 100px;
+
+  :nth-child(2) {
+    padding-left: 35px;
+  }
+  :nth-child(3) {
+    padding-left: 70px;
+  }
+}

@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login Page should render default 1`] = `
+<div>
+  <main
+    class="login"
+  >
+    <div
+      class="flex justifyCenter alignCenter directionColumn gap12 nowrap fullHeight fullWidth"
+    >
+      <div
+        class="flex justifyCenter alignCenter directionColumn gap40 nowrap fullWidth"
+      >
+        <p
+          class="text title normal center xxl"
+        >
+          Galaxy 
+ Conquerors
+        </p>
+        <section
+          class="formCard"
+        >
+          <p
+            class="text text normal left m"
+          >
+            Authorization
+          </p>
+          <div
+            class="content"
+          >
+            <form>
+              <div
+                class="flex inputWrapper justifyCenter alignStart directionColumn nowrap"
+              >
+                <label
+                  class="label"
+                  for="login"
+                >
+                  login
+                </label>
+                <input
+                  class="input"
+                  data-testid="login_input_first-name"
+                  name="login"
+                  style="height: 0px;"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <div
+                class="flex inputWrapper justifyCenter alignStart directionColumn nowrap"
+              >
+                <label
+                  class="label"
+                  for="password"
+                >
+                  password
+                </label>
+                <input
+                  class="input"
+                  data-testid="login_input_password"
+                  name="password"
+                  style="height: 0px;"
+                  type="password"
+                  value=""
+                />
+              </div>
+            </form>
+          </div>
+          <div
+            class="flex  fullWidth justifyCenter alignCenter directionRow nowrap"
+          >
+            <div
+              class="flex justifyCenter alignCenter directionColumn gap20 nowrap fullWidth"
+            >
+              <button
+                class="button default fullWidth"
+                type="submit"
+              >
+                <span
+                  class="selectIcon"
+                />
+                Sign In
+              </button>
+              <button
+                class="button default fullWidth signInYandex"
+                type="button"
+              >
+                <span
+                  class="selectIcon"
+                />
+                <div
+                  class="flex justifyCenter alignCenter directionRow gap20 nowrap"
+                >
+                  Sign In
+                  <svg
+                    data-file-name="SvgYandexIcon"
+                  />
+                </div>
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+      <a
+        class="link"
+        href="/registration"
+      >
+        <div
+          class="flex justifyCenter alignCenter directionColumn gap12 nowrap"
+        >
+          <p
+            class="text normal center s"
+          >
+            x
+          </p>
+          <p
+            class="text signUpText normal left s"
+          >
+            Don not have an account yet?
+          </p>
+        </div>
+      </a>
+    </div>
+  </main>
+</div>
+`;

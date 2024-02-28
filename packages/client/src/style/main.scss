@@ -1,0 +1,32 @@
+@import 'typography.scss';
+@import 'reset.scss';
+@import 'variables.scss';
+
+* {
+  font-family: 'Press Start 2P', system-ui;
+  color: var(--white);
+  -webkit-text-stroke: 1px var(--black);
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0 auto;
+}
+
+main {
+  height: 100vh;
+}
+
+@mixin page-container {
+  padding: 85px 104px 65px;
+  min-height: 100vh;
+}
+
+@mixin grid-template {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    'title'
+    'main'
+    'actions';
+}

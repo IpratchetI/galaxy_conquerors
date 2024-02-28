@@ -1,0 +1,29 @@
+@mixin background {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@mixin leaderBoard-background {
+  background: url('@assets/backgrounds/leaderBoard.png');
+  @include background;
+}
+
+@mixin main-background {
+  background: url('@assets/backgrounds/main.png');
+  @include background;
+}
+
+@mixin error-background {
+  background: url('@assets/backgrounds/error.jpeg');
+  @include background;
+}
+
+@mixin startgame-background {
+  background: url('@assets/backgrounds/startgame.png');
+  @include background;
+}
+
+@mixin system-background {
+  background: url('@assets/backgrounds/login-background.png');
+  @include background;
+}

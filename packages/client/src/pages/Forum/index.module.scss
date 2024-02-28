@@ -1,0 +1,19 @@
+@import 'src/style/main';
+@import 'src/style/backgrounds';
+
+.forumPage {
+  font-size: var(--font-size-20);
+
+  @include page-container;
+  @include leaderBoard-background;
+  @include grid-template;
+}
+
+.title {
+  margin-bottom: 85px;
+  grid-area: title;
+}
+
+.buttons {
+  grid-area: actions;
+}

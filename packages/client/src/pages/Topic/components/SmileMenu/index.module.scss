@@ -1,0 +1,42 @@
+@import 'src/style/main';
+
+.smileMenuButton,
+.smile {
+  cursor: pointer;
+  background: transparent;
+  padding: 0;
+  border: 0;
+}
+
+.smileMenuWrapper {
+  position: absolute;
+  bottom: -15px;
+  right: 15px;
+}
+
+.openedMenu {
+  width: 100%;
+  max-width: 160px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 30px);
+  background-color: var(--white);
+  border: 1px solid var(--black);
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+
+  .smile {
+    vertical-align: center;
+    font-size: var(--font-size-20);
+    padding: 0 5px 5px;
+
+    &:hover {
+      background-color: var(--sky);
+      border-radius: 5px;
+    }
+  }
+}
+
+.selectedReaction {
+  font-size: var(--font-size-30);
+}

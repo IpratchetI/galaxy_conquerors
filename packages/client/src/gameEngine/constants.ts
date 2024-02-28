@@ -1,0 +1,12 @@
+export const enemyBorder = 100;
+export const initialShipOffsetX = 25;
+export const initialShipOffsetY = 50;
+export const animationFrameDuration = 50;
+export const shipVerticalOffset = 50;
+export const shipSpeed = 10;
+export const shipSize = 100;
+export const enemyWidth = 70;
+export const enemyHeight = 70;
+export const bulletWidth = 20;
+export const bulletHeight = 70;
+export const bulletSpeed = 10;

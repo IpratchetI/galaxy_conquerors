@@ -1,0 +1,32 @@
+@import '../../style/backgrounds';
+
+.leaderboardPage {
+  @include leaderBoard-background;
+  padding: 85px 104px;
+  min-height: 100vh;
+  min-width: 100vw;
+
+  .leaderboardTitle {
+    font-size: var(--font-size-60);
+    margin-bottom: 85px;
+    grid-area: title;
+  }
+
+  .button {
+    border: none;
+    border-radius: 10px;
+    font-size: var(--font-size-30);
+    width: 260px;
+    height: 70px;
+
+    &:hover {
+      background-color: var(--white);
+      color: var(--sky);
+    }
+
+    &:active {
+      background-color: var(--white);
+      color: var(--sky);
+    }
+  }
+}

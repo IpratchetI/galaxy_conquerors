@@ -1,0 +1,39 @@
+.modal {
+  position: fixed;
+  inset: 0;
+
+  opacity: 0;
+  overflow: scroll;
+
+  pointer-events: none;
+  z-index: var(--z-index-1000);
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.content {
+  position: relative;
+  padding: 50px 45px;
+  border-radius: 28px;
+  background: var(--white);
+  transition: 0.2s transform;
+  transform: scale(0.5);
+  margin: auto;
+  width: fit-content;
+  z-index: var(--z-index-1001);
+}
+
+.opened {
+  pointer-events: auto;
+  opacity: 1;
+  z-index: var(--z-index-1001);
+
+  .content {
+    transform: scale(1);
+  }
+}

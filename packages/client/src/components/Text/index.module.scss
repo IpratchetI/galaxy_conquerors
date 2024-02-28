@@ -1,0 +1,59 @@
+.text {
+  color: var(--white);
+  white-space: pre-line;
+  -webkit-text-stroke: 1px var(--black);
+}
+
+.focus,
+.selected {
+  color: var(--sky);
+}
+
+.fillBlack {
+  color: var(--black);
+}
+
+.focus {
+  -webkit-text-stroke: 2px var(--black);
+}
+
+.error {
+  color: var(--error);
+}
+
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.xs {
+  font-size: var(--font-size-12);
+  -webkit-text-stroke: 0 var(--black);
+}
+
+.s {
+  font-size: var(--font-size-20);
+}
+
+.m {
+  font-size: var(--font-size-30);
+}
+
+.l {
+  font-size: var(--font-size-45);
+}
+
+.xl {
+  font-size: var(--font-size-60);
+}
+
+.xxl {
+  font-size: var(--font-size-80);
+}
