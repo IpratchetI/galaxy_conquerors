@@ -48,7 +48,7 @@
 `yarn preview --scope client`
 `yarn preview --scope server`
 
-### Запуск сборки
+### Запуск сборки с ssr
 
 ```yarn run start```
 
