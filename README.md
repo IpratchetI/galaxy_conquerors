@@ -48,6 +48,10 @@
 `yarn preview --scope client`
 `yarn preview --scope server`
 
+### Запуск сборки
+
+```yarn run start```
+
 ## Хуки
 В проекте используется [lefthook](https://github.com/evilmartians/lefthook)
 Если очень-очень нужно пропустить проверки, используйте `--no-verify` (но не злоупотребляйте :)
