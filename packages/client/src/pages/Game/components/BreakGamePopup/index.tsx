@@ -3,7 +3,6 @@ import { Button, ButtonVariant } from '@components/Button';
 import { useNavigate } from 'react-router-dom';
 
 import { Modal, Spacer, Text } from '@/components';
-
 import { routerPaths } from '@/constants/routerPaths';
 
 interface BreakPopupProps {

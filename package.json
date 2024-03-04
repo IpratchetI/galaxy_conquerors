@@ -12,7 +12,10 @@
     "format": "lerna run format",
     "lint:fix": "lerna run lint -- --fix && yarn run format",
     "preview": "lerna run preview",
-    "typecheck": "lerna run typecheck"
+    "typecheck": "lerna run typecheck",
+    "start:client": "lerna run start --scope=client",
+    "start:server": "lerna run build --scope=server",
+    "start": "lerna run start"
   },
   "license": "MIT",
   "workspaces": [
