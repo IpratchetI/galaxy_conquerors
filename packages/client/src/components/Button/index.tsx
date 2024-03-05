@@ -1,8 +1,11 @@
 import { ButtonHTMLAttributes } from 'react';
 import classNames from 'classnames';
+import { useTheme } from '@hooks/useTheme';
+import { Theme } from '@providers/ThemeProvider/constants';
 
 import s from './index.module.scss';
-import SelectIcon from './SelectIcon.svg';
+import SelectIconBlue from './assets/select.svg';
+import SelectIconPink from './assets/select-pink.svg';
 
 export enum ButtonVariant {
 	DEFAULT = 'Default',
@@ -26,6 +29,8 @@ export const Button = (props: ButtonProps) => {
 		...otherProps
 	} = props;
 
+	const { theme } = useTheme();
+
 	const mods = {
 		[s.text]: variant === ButtonVariant.TEXT,
 		[s.default]: variant === ButtonVariant.DEFAULT,
@@ -38,7 +43,10 @@ export const Button = (props: ButtonProps) => {
 			className={classNames(s.button, mods, className)}
 			type={type}
 			title={text}>
-			<span className={s.selectIcon}>{variant === ButtonVariant.TEXT && <SelectIcon />}</span>
+			<span className={s.selectIcon}>
+				{variant === ButtonVariant.TEXT &&
+					(theme === Theme.LIGHT ? <SelectIconBlue /> : <SelectIconPink />)}
+			</span>
 			{children || text}
 		</button>
 	);

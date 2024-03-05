@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useNotification } from '@hooks/useNotification';
 import { useNavigate } from 'react-router-dom';
 
-import { Spacer, Text } from '@/components';
+import { Spacer, Text, ThemeSwitcher } from '@/components';
 import { routerPaths } from '@/constants/routerPaths';
 
 import { LinksList } from './components/LinksList';
@@ -30,7 +30,7 @@ export const Main = () => {
 
 	return (
 		<main className={styles.background}>
-			<Spacer direction="column" fullHeight gap="80">
+			<Spacer direction="column" fullHeight gap="50">
 				<Text tag="h1" size="xxl" align="center">
 					{'Galaxy \n Conquerors'}
 				</Text>
@@ -38,6 +38,7 @@ export const Main = () => {
 					<LinksList />
 				</nav>
 			</Spacer>
+			<ThemeSwitcher className={styles.themeSwitcher} />
 		</main>
 	);
 };

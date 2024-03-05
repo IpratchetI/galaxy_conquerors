@@ -15,6 +15,7 @@ const config: Config = {
 		'^@components/(.*)$': '<rootDir>/src/components/$1',
 		'^@models/(.*)$': '<rootDir>/src/models/$1',
 		'^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
+		'^@providers/(.*)$': '<rootDir>/src/providers/$1',
 		'^@services/(.*)$': '<rootDir>/src/services/$1',
 		'\\.(css|scss)$': 'identity-obj-proxy'
 	},
