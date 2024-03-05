@@ -6,6 +6,7 @@ import PinkThemeIcon from '@assets/icons/theme-pink.svg';
 import { useTheme } from '@/hooks/useTheme';
 import { useAppDispatch } from '@/store';
 import { Icon } from '@/components';
+
 import { setUserTheme } from '@/store/reducers/user/userActionCreator';
 
 interface ThemeSwitcherProps {
