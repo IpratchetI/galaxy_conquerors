@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev:client": "vite",
-    "dev": "cross-env NODE_ENV=development ts-node --esm server.ts && tsc server.ts",
+    "dev": "cross-env NODE_ENV=development ts-node --esm server.ts",
     "build:client": "vite build --outDir dist/client --ssrManifest",
     "build:server": "vite build --outDir dist/server --ssr src/entry-server.tsx && cross-env NODE_ENV=production tsc -p tsconfig.server.json",
     "build": "yarn build:client && yarn build:server",

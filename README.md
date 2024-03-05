@@ -24,11 +24,10 @@
 ```yarn lerna add {your_dep} --dev --scope server```
 
 ### Запуск в контейнере DOCKER
-установить docker локально
-выполнить yarn dev
-выполнить docker compose up --build 
-соберутся контейнеры с базой клиентом и сервером
 
+1. установить docker локально
+2. выполнить yarn dev
+3. выполнить docker compose up --build
 
 ### Тесты
 
