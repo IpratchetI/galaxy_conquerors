@@ -17,8 +17,12 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
-    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
   "include": ["src", "server.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.worker.json" }]
+  "references": [
+    { "path": "./tsconfig.node.json" },
+    { "path": "./tsconfig.worker.json" },
+    { "path": "./tsconfig.server.json" }
+  ]
 }

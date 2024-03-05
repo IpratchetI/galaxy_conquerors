@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 
 import './style/main.scss';
+import { Provider } from 'react-redux';
+
 import { registerServiceWorker, unregisterServiceWorker } from '@/utils/registerWorker';
 import App from '@/app';
-import { Provider } from 'react-redux';
+
 import store from './store';
 
 ReactDOM.hydrateRoot(
