@@ -1,9 +1,13 @@
-import fs from 'node:fs/promises';
+import { promises as fs } from 'fs';
+
 import * as path from 'path';
 import * as http from 'http';
 
 import { createServer as createViteServer } from 'vite';
+import { Request, Response } from 'express';
+// const express = require('express');
 import express from 'express';
+
 const isProduction = process.env.NODE_ENV === 'production';
 const port = process.env.CLIENT_PORT || 3000;
 
@@ -44,7 +48,8 @@ async function createServer() {
 		? app.use('/', express.static('./dist/client', { index: false }))
 		: app.use(vite.middlewares);
 
-	app.use('*', async (req, res) => {
+	app.use('*', async (req: Request, res: Response) => {
+		// app.use('*', async (req, res) => {
 		try {
 			const url = req.originalUrl;
 

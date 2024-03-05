@@ -35,6 +35,7 @@ services:
             - postgres
 
     postgres:
+      container_name: postgres
       image: postgres:15     
       ports:
         - "${POSTGRES_PORT}:${POSTGRES_PORT}"
