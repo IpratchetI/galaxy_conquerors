@@ -1,4 +1,4 @@
-import React, { JSX, memo, ReactNode, ReactSVGElement } from 'react';
+import React, { memo } from 'react';
 
 import { classnames } from '@/utils/classnames';
 
