@@ -5,7 +5,6 @@ import * as http from 'http';
 
 import { createServer as createViteServer } from 'vite';
 import { Request, Response } from 'express';
-// const express = require('express');
 import express from 'express';
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -49,7 +48,6 @@ async function createServer() {
 		: app.use(vite.middlewares);
 
 	app.use('*', async (req: Request, res: Response) => {
-		// app.use('*', async (req, res) => {
 		try {
 			const url = req.originalUrl;
 
