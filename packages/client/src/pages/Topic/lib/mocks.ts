@@ -24,7 +24,8 @@ export const COMMENTS_LIST: CommentModel[] = [
 				id: 0,
 				text: 'text'
 			}
-		]
+		],
+		reactions: { '😁': 4, '🔥': 6 }
 	},
 	{
 		id: 1,
@@ -40,7 +41,8 @@ export const COMMENTS_LIST: CommentModel[] = [
 				id: 1,
 				text: 'not very long'
 			}
-		]
+		],
+		reactions: { '🤔': 1 }
 	},
 	{
 		id: 2,
@@ -50,6 +52,7 @@ export const COMMENTS_LIST: CommentModel[] = [
 				id: 0,
 				text: 'simple answer text'
 			}
-		]
+		],
+		reactions: { '👍': 10, '👌': 2 }
 	}
 ];
