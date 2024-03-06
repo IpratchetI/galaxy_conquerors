@@ -1,5 +1,6 @@
 import { LeaderboardRequest } from '@models/api/leaders';
 import { LeaderboardData } from '@models/leaders';
+
 import { TEAM_NAME } from '@/constants/leaderBoard';
 
 import { baseApi } from './baseApi';

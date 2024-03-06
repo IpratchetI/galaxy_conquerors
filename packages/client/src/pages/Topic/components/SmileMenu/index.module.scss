@@ -15,24 +15,37 @@
 }
 
 .openedMenu {
-  width: 100%;
-  max-width: 160px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 30px);
+  display: flex;
+  flex-direction: column;
+  max-width: 148px;
   background-color: var(--white);
   border: 1px solid var(--black);
-  gap: 10px;
   padding: 10px;
   border-radius: 10px;
 
-  .smileButton {
-    width: 35px;
-    height: 35px;
-    font-size: var(--font-size-20);
+  .groupName {
+    padding: 5px 0px 10px;
+    font-size: 0.8rem;
+  }
 
-    &:hover {
-      background-color: var(--sky);
-      border-radius: 5px;
+  .smilesGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    .smileButton {
+      width: 35px;
+      height: 35px;
+      font-size: var(--font-size-20);
+
+      &:hover {
+        background-color: var(--sky);
+        border-radius: 5px;
+      }
+
+      .smile {
+        height: 26px;
+      }
     }
 
     .smile {

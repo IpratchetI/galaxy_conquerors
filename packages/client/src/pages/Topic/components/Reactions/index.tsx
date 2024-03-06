@@ -10,7 +10,6 @@ export const Reactions = (props: IReactionProps) => {
 	if (!Object.keys(props.reactions).length) {
 		return null;
 	}
-
 	return (
 		<Spacer gap="12" className={styles.reactions}>
 			{Object.entries(props.reactions).map(([reaction, count]) => (
