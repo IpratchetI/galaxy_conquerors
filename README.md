@@ -26,8 +26,8 @@
 ### Запуск в контейнере DOCKER
 
 1. установить docker локально
-2. выполнить yarn install
-3. выполнить docker compose up --build
+2. yarn install
+3. docker compose up --build
 
 ### Тесты
 
