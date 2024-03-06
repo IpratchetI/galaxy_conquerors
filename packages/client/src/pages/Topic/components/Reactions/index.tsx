@@ -7,7 +7,11 @@ interface IReactionProps {
 }
 
 export const Reactions = (props: IReactionProps) => {
-	return !Object.keys(props.reactions).length ? null : (
+	if (!Object.keys(props.reactions).length) {
+		return null;
+	}
+
+	return (
 		<Spacer gap="12" className={styles.reactions}>
 			{Object.entries(props.reactions).map(([reaction, count]) => (
 				<Spacer key={reaction} className={styles.reaction}>

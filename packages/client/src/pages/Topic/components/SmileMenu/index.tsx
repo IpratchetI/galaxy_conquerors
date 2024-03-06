@@ -25,11 +25,8 @@ export const SmileMenu = () => {
 		<Spacer direction="column" align="end" gap="8" className={s.smileMenuWrapper} ref={clickRef}>
 			{isOpen && (
 				<div className={s.openedMenu}>
-					{SMILES.map((smile, i) => (
-						<Button
-							key={`smile-${i}`}
-							className={s.smileButton}
-							onClick={() => handlerSelectSmile()}>
+					{SMILES.map((smile, index) => (
+						<Button key={`smile-${index}`} className={s.smileButton} onClick={handlerSelectSmile}>
 							<div className={s.smile}>{smile}</div>
 						</Button>
 					))}

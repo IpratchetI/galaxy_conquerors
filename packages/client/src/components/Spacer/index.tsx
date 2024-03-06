@@ -115,7 +115,7 @@ export const spaceLeftClasses = {
 	80: styles.spaceLeft80
 };
 
-export const Spacer = forwardRef(function Spacer(props: SpacerProps, ref) {
+const SpacerComponent = forwardRef((props: SpacerProps, ref) => {
 	const {
 		className,
 		children,
@@ -162,3 +162,6 @@ export const Spacer = forwardRef(function Spacer(props: SpacerProps, ref) {
 		</div>
 	);
 });
+
+SpacerComponent.displayName = 'Spacer';
+export const Spacer = SpacerComponent;

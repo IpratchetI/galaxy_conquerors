@@ -10,7 +10,8 @@ export const getTopicsList = createAsyncThunk(
 		try {
 			return await ForumService.getTopicsList();
 		} catch (e) {
-			return rejectWithValue((e as AxiosError).response?.data ?? DEFAULT_ERROR);
+			const response = rejectWithValue((e as AxiosError).response?.data ?? DEFAULT_ERROR);
+			return response;
 		}
 	}
 );
