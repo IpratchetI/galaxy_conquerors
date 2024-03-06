@@ -8,7 +8,7 @@ export type TopicModel = {
 
 export type GetTopics = Pick<TopicModel, 'id' | 'name' | 'length'>[];
 
-export type ForumChildrenId = string;
+export type ForumChildrenId = number;
 
 export type CommentModel = {
 	id: ForumChildrenId;

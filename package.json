@@ -33,6 +33,7 @@
   "dependencies": {
     "docker": "^1.0.0",
     "eslint-plugin-react": "^7.33.2",
+    "nanoid": "^5.0.6",
     "node": "^21.2.0",
     "yarn": "^1.22.21"
   }

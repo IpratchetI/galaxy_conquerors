@@ -5,6 +5,7 @@ import express from 'express';
 import { createClientAndConnect } from './db';
 import { SERVER_BASE_URL } from './constants';
 import router from './routes';
+
 dotenv.config();
 
 const { SERVER_PORT, CLIENT_PORT } = process.env;
@@ -34,3 +35,4 @@ app.get('/', (_, response) => {
 app.listen(serverPort, () => {
 	console.log(`  ➜ 🎸 Server is listening on port: ${serverPort}`);
 });
+

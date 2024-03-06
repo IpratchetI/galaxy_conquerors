@@ -1,13 +1,14 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useImperativeHandle, KeyboardEvent, useRef } from 'react';
 import { Input } from '@components/Input';
-
-import s from './index.module.scss';
 import { useParams } from 'react-router-dom';
+import { uniqId } from '@utils/uniqId';
+
 import { useAppDispatch } from '@/store';
 import { addNewComment, addNewMessage } from '@/store/reducers/forum/forumReducer';
 import { forumState, useAppSelector, userState } from '@/store/selectors';
-import { v4 as uuidv4 } from 'uuid';
+
+import s from './index.module.scss';
 
 type FormValues = {
 	message: string;
@@ -18,7 +19,7 @@ export const MessageForm = () => {
 	const { topics } = useAppSelector(forumState);
 
 	const { topicId } = useParams();
-	const currentTopic = topics.find(topic => topic.id === topicId!);
+	const currentTopic = topics.find(topic => topic.id === parseInt(topicId!, 10));
 
 	const dispatch = useAppDispatch();
 	const {
@@ -43,7 +44,7 @@ export const MessageForm = () => {
 			if (user.id === lastCommentUserId) {
 				dispatch(
 					addNewMessage({
-						id: uuidv4(),
+						id: uniqId(),
 						text: getValues().message
 					})
 				);
@@ -51,11 +52,11 @@ export const MessageForm = () => {
 				dispatch(
 					addNewComment({
 						comment: {
-							id: uuidv4(),
+							id: uniqId(),
 							userId: user.id,
 							messages: [
 								{
-									id: '0',
+									id: 0,
 									text: getValues().message
 								}
 							]
