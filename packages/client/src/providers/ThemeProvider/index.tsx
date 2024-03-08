@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useMemo, useState } from 'react';
-import { PostgresUserModel } from '@models/user';
 
-import { useAppSelector, userState } from '@/store/selectors';
+import { getUserTheme } from '@/store/reducers/theme/themeActionCreator';
+import { useAppDispatch } from '@/store';
 
 import { ThemeContext } from './context';
 import { LOCAL_STORAGE_THEME_KEY, Theme } from './constants';
@@ -12,19 +12,19 @@ interface ThemeProviderProps {
 }
 
 const ThemeProvider = ({ children, initialTheme }: ThemeProviderProps) => {
-	const { userDataBase } = useAppSelector(userState);
+	const dispatch = useAppDispatch();
 	const [theme, setTheme] = useState<Theme>(initialTheme || Theme.LIGHT);
 
 	useEffect(() => {
 		const themeFromStorage =
-			(localStorage?.getItem(LOCAL_STORAGE_THEME_KEY) as Theme) || Theme.LIGHT;
+			(localStorage?.getItem(LOCAL_STORAGE_THEME_KEY) as Theme) || Theme.LIGHT; // TODO: забирать эти данные с бека вместо локал-стораджа
 
-		if (userDataBase) {
-			setTheme((userDataBase as PostgresUserModel).theme);
-		} else {
+		if (themeFromStorage) {
 			setTheme(themeFromStorage);
 		}
-	}, [userDataBase]);
+
+		dispatch(getUserTheme(1));
+	}, [dispatch]);
 
 	if (typeof window !== 'undefined') {
 		document.body.className = theme;
