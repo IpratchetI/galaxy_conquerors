@@ -8,9 +8,10 @@
 }
 
 .comment {
+  margin-right: 40px;
   position: relative;
   background-color: var(--white);
-  width: 100%;
+  width: calc(100% - 40px);
   height: min-content;
   padding: 25px 40px;
   border-radius: 20px;
@@ -35,6 +36,9 @@
 }
 
 .currentUserComment {
+  margin-left: 40px;
+  margin-right: 0px;
+
   background-color: var(--sky);
 
   .author {

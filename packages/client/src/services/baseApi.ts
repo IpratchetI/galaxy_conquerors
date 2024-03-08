@@ -6,3 +6,7 @@ import { BASE_API } from '@/constants/baseApi';
 export const baseApi = axios.create({
 	baseURL: BASE_API
 });
+
+export const baseBackEndApi = axios.create({
+	baseURL: BASE_API
+});

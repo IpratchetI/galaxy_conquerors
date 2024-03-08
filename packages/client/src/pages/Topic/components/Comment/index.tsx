@@ -6,19 +6,16 @@ import { Spacer } from '@/components';
 
 import s from './index.module.scss';
 
-import { CURRENT_USER_ID } from '../../lib/constants';
-import { USERS } from '../../lib/mocks';
 import { SmileMenu } from '../SmileMenu';
+import { useAppSelector, userState } from '@/store/selectors';
 
-type CommentProps = CommentModel;
+type CommentProps = CommentModel & { authorName: string };
 
 export const Comment = (props: CommentProps) => {
-	const { userId, messages } = props;
-	const commentAuthor = USERS.find(user => user.id === userId);
-	const isMainComment = commentAuthor?.id === CURRENT_USER_ID;
-	const authorName = useMemo(() => {
-		return commentAuthor?.name ?? 'UNKNOWN';
-	}, []);
+	const { user } = useAppSelector(userState);
+	const { userId, messages, authorName } = props;
+
+	const isMainComment = userId === user?.id;
 
 	const mods = {
 		[s.currentUserComment]: isMainComment
