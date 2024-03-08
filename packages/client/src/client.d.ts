@@ -11,4 +11,5 @@ export {};
 declare global {
 	var __PRELOADED_STATE__: TPreloadedState;
 	const __SERVER_PORT__: number;
+	const __API_SERVER_HOST__: string;
 }

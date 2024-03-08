@@ -1,5 +1,8 @@
 import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 
+import { getUserTheme } from '@/store/reducers/theme/themeActionCreator';
+import { useAppDispatch } from '@/store';
+
 import { ThemeContext } from './context';
 import { LOCAL_STORAGE_THEME_KEY, Theme } from './constants';
 
@@ -9,6 +12,7 @@ interface ThemeProviderProps {
 }
 
 const ThemeProvider = ({ children, initialTheme }: ThemeProviderProps) => {
+	const dispatch = useAppDispatch();
 	const [theme, setTheme] = useState<Theme>(initialTheme || Theme.LIGHT);
 
 	useEffect(() => {
@@ -18,7 +22,9 @@ const ThemeProvider = ({ children, initialTheme }: ThemeProviderProps) => {
 		if (themeFromStorage) {
 			setTheme(themeFromStorage);
 		}
-	}, []);
+
+		dispatch(getUserTheme(1));
+	}, [dispatch]);
 
 	if (typeof window !== 'undefined') {
 		document.body.className = theme;
