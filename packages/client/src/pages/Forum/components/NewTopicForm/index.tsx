@@ -31,7 +31,6 @@ export const NewTopicForm = ({ onClick }: NewTopicFormProps) => {
 	} = useForm<FormValues>();
 
 	const onSubmit: SubmitHandler<FormValues> = () => {
-		console.log([user!.id, user!.first_name]);
 		dispatch(
 			addNewTopic({
 				id: uuidv4(),
