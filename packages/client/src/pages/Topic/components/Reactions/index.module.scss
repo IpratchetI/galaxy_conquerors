@@ -1,0 +1,22 @@
+.reactions {
+  max-width: 50%;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: default;
+}
+
+.reaction {
+  padding: 5px;
+  background-color: var(--grey-40);
+  border-radius: 5px;
+}
+
+.reactionEmoji {
+  height: 26px;
+}
+
+.reactionCount {
+  margin-left: 5px;
+  font-size: 20px;
+  height: 18px;
+}

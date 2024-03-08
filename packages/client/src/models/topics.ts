@@ -12,10 +12,12 @@ export type TopicId = string;
 
 export type CommentModel = {
 	id: string;
-	userId: number; // for current step is simple
+	userId: number;
 	messages: IMessage[];
+	reactions: Record<ReactionModel, number>;
 };
 
+export type ReactionModel = string;
 export interface IMessage {
 	id: string;
 	text: string;

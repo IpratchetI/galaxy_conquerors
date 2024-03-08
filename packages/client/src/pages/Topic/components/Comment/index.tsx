@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import classNames from 'classnames';
 import { CommentModel } from '@models/topics';
+import { Reactions } from '@pages/Topic/components/Reactions';
 
 import { Spacer } from '@/components';
 
@@ -28,6 +29,7 @@ export const Comment = (props: CommentProps) => {
 					{i === 0 && <span className={s.author}>{authorName}</span>}
 					<span className={s.text}>{text}</span>
 					{!isMainComment && <SmileMenu />}
+					<Reactions reactions={props.reactions} />
 				</Spacer>
 			))}
 		</Spacer>

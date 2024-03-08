@@ -29,6 +29,12 @@ class ForumService {
 			withCredentials: true
 		});
 	}
+
+	// addReaction(topicId: TopicId, messageId: ) {
+	// 	return baseBackEndApi.post(this._controllerName + `topic/${topicId}/message/`, data, {
+	// 		withCredentials: true
+	// 	});
+	// }
 }
 
 const instance = new ForumService();

@@ -17,7 +17,6 @@ services:
           - SERVER_PORT=${SERVER_PORT}
     server:
         container_name: prakticum-server
-        image: prackicum-server
         build:
             context: .
             dockerfile: Dockerfile.server
@@ -28,9 +27,16 @@ services:
             - "${SERVER_PORT}:${SERVER_PORT}"
         environment:
           SERVER_PORT: ${SERVER_PORT}
+          POSTGRES_USER: ${POSTGRES_USER}
+          POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+          POSTGRES_DB: ${POSTGRES_DB}
+          POSTGRES_PORT: ${POSTGRES_PORT}
+        depends_on:
+            - postgres
 
     postgres:
-      image: postgres:14     
+      container_name: postgres
+      image: postgres:15     
       ports:
         - "${POSTGRES_PORT}:${POSTGRES_PORT}"
       environment:
@@ -39,4 +45,3 @@ services:
         POSTGRES_DB: ${POSTGRES_DB}
       volumes:
         - ./tmp/pgdata:/var/lib/postgresql/data
-
