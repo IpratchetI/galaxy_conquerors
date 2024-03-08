@@ -1,7 +1,23 @@
-import { TopicId } from './../models/topics';
 import { NewComment } from '@/store/reducers/forum/forumReducer';
-import { IMessage, TopicModel, Topics } from '@models/topics';
+import { IMessage, TopicModel, Topics, ForumChildrenId } from '@models/topics';
 import { baseBackEndApi } from './baseApi';
+
+export type AddComment = {
+	data: NewComment;
+	topicId: ForumChildrenId;
+};
+
+export type AddMessage = {
+	data: IMessage;
+	topicId: ForumChildrenId;
+};
+
+export type AddReaction = {
+	topicId: ForumChildrenId;
+	commentId: ForumChildrenId;
+	messageId: ForumChildrenId;
+	reaction: string;
+};
 
 class ForumService {
 	private _controllerName = 'forum/';
@@ -18,23 +34,27 @@ class ForumService {
 		});
 	}
 
-	addComment(data: NewComment, topicId: TopicId) {
+	addComment({ data, topicId }: AddComment) {
 		return baseBackEndApi.post(this._controllerName + `topic/${topicId}`, data, {
 			withCredentials: true
 		});
 	}
 
-	addMessage(data: IMessage, topicId: TopicId) {
+	addMessage({ data, topicId }: AddMessage) {
 		return baseBackEndApi.post(this._controllerName + `topic/${topicId}/message`, data, {
 			withCredentials: true
 		});
 	}
 
-	// addReaction(topicId: TopicId, messageId: ) {
-	// 	return baseBackEndApi.post(this._controllerName + `topic/${topicId}/message/`, data, {
-	// 		withCredentials: true
-	// 	});
-	// }
+	addReaction({ topicId, messageId, commentId, reaction }: AddReaction) {
+		return baseBackEndApi.post(
+			this._controllerName + `topic/${topicId}/comments/${commentId}/message/${messageId}`,
+			reaction,
+			{
+				withCredentials: true
+			}
+		);
+	}
 }
 
 const instance = new ForumService();

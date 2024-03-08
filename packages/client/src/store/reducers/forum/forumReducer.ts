@@ -1,4 +1,4 @@
-import { CommentModel, IMessage, TopicId } from './../../../models/topics';
+import { CommentModel, IMessage, ForumChildrenId } from './../../../models/topics';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ErrorResponse } from '@models/api/errorResponse';
 import { TopicModel, Topics } from '@models/topics';
@@ -6,7 +6,7 @@ import { UserModel } from '@models/user';
 
 export type ForumState = {
 	topics: Topics;
-	currentTopicId?: TopicId;
+	currentTopicId?: ForumChildrenId;
 	error?: ErrorResponse;
 	topicError?: ErrorResponse;
 	isLoading: boolean;
@@ -28,7 +28,7 @@ const forumSlice = createSlice({
 		getTopicsList: (state: ForumState, action: PayloadAction<Topics>) => {
 			state.topics = action.payload;
 		},
-		getTopic: (state: ForumState, action: PayloadAction<TopicId>) => {
+		getTopic: (state: ForumState, action: PayloadAction<ForumChildrenId>) => {
 			state.currentTopicId = action.payload;
 		},
 		addNewTopic: (state: ForumState, action: PayloadAction<TopicModel>) => {

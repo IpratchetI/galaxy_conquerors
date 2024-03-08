@@ -1,5 +1,5 @@
 export type TopicModel = {
-	id: TopicId;
+	id: ForumChildrenId;
 	name: string;
 	comments: CommentModel[];
 	length: number;
@@ -8,19 +8,19 @@ export type TopicModel = {
 
 export type GetTopics = Pick<TopicModel, 'id' | 'name' | 'length'>[];
 
-export type TopicId = string;
+export type ForumChildrenId = string;
 
 export type CommentModel = {
-	id: string;
+	id: ForumChildrenId;
 	userId: number;
 	messages: IMessage[];
-	reactions: Record<ReactionModel, number>;
 };
 
 export type ReactionModel = string;
 export interface IMessage {
-	id: string;
+	id: ForumChildrenId;
 	text: string;
+	reactions?: Record<ReactionModel, number>;
 }
 
 export type Topics = TopicModel[];

@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import classNames from 'classnames';
 import { CommentModel } from '@models/topics';
 import { Reactions } from '@pages/Topic/components/Reactions';
@@ -24,12 +23,12 @@ export const Comment = (props: CommentProps) => {
 
 	return (
 		<Spacer direction="column" className={s.commentsWrapper}>
-			{messages.map(({ id, text }, i) => (
+			{messages.map(({ id, text, reactions }, i) => (
 				<Spacer direction="column" align="start" key={id} className={classNames(s.comment, mods)}>
 					{i === 0 && <span className={s.author}>{authorName}</span>}
 					<span className={s.text}>{text}</span>
 					{!isMainComment && <SmileMenu />}
-					<Reactions reactions={props.reactions} />
+					{reactions && <Reactions reactions={reactions} />}
 				</Spacer>
 			))}
 		</Spacer>
