@@ -48,7 +48,7 @@ class ForumService {
 
 	addReaction({ topicId, messageId, commentId, reaction }: AddReaction) {
 		return baseBackEndApi.post(
-			this._controllerName + `topic/${topicId}/comments/${commentId}/message/${messageId}`,
+			this._controllerName + `topic/${topicId}/comments/${commentId}/message/${messageId}/reaction`,
 			reaction,
 			{
 				withCredentials: true
