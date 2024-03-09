@@ -37,34 +37,4 @@ export const TOPICS_LIST: Topics = [
 		length: 121300842394,
 		users: USERS
 	}
-	// {
-	// 	id: '5',
-	// 	name: 'Long name for test naming and some more words and phrases and more and more and more',
-	// 	comments: COMMENTS_LIST,
-	// 	length: 100000
-	// },
-	// {
-	// 	id: '6',
-	// 	name: 'Topic 2',
-	// 	comments: COMMENTS_LIST,
-	// 	length: 60
-	// },
-	// {
-	// 	id: '7',
-	// 	name: 'Topic 10',
-	// 	comments: COMMENTS_LIST,
-	// 	length: 60
-	// },
-	// {
-	// 	id: '8',
-	// 	name: 'No name',
-	// 	comments: COMMENTS_LIST,
-	// 	length: 60
-	// },
-	// {
-	// 	id: '9',
-	// 	name: 'DEFAULT',
-	// 	comments: COMMENTS_LIST,
-	// 	length: 60
-	// }
 ];
