@@ -37,32 +37,35 @@ export const MessageForm = () => {
 	useImperativeHandle(ref, () => messageInputRef.current);
 
 	const onSubmit: SubmitHandler<FormValues> = () => {
-		const lastCommentUserId = currentTopic?.comments.at(-1)?.userId;
+		if (user) {
+			const lastCommentUserId = currentTopic?.comments.at(-1)?.userId;
 
-		if (user?.id === lastCommentUserId) {
-			dispatch(
-				addNewMessage({
-					id: uuidv4(),
-					text: getValues().message
-				})
-			);
-		} else {
-			dispatch(
-				addNewComment({
-					comment: {
+			if (user.id === lastCommentUserId) {
+				dispatch(
+					addNewMessage({
 						id: uuidv4(),
-						userId: user!.id,
-						messages: [
-							{
-								id: '0',
-								text: getValues().message
-							}
-						]
-					},
-					user: { id: user!.id, first_name: user!.first_name }
-				})
-			);
+						text: getValues().message
+					})
+				);
+			} else {
+				dispatch(
+					addNewComment({
+						comment: {
+							id: uuidv4(),
+							userId: user.id,
+							messages: [
+								{
+									id: '0',
+									text: getValues().message
+								}
+							]
+						},
+						user: { id: user.id, first_name: user.first_name }
+					})
+				);
+			}
 		}
+
 		reset();
 	};
 
