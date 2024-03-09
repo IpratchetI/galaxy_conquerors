@@ -1,12 +1,20 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthService } from '@services/authService';
 import { AxiosError } from 'axios';
-import { ProfileData, UserLoginModel, UserRegistrationModel } from '@models/user';
+import {
+	PostgresUserModel,
+	ProfileData,
+	UserLoginModel,
+	UserRegistrationModel
+} from '@models/user';
 import UserProfileService from '@services/userProfileService';
 import AvatarService from '@services/avatarService';
+import { Theme } from '@providers/ThemeProvider/constants';
 
 import { DEFAULT_ERROR } from '@/store/constants/error';
-import { updateAuth } from '@/store/reducers/user/userReducer';
+import { setUserFromPostgres, updateAuth } from '@/store/reducers/user/userReducer';
+import { userState } from '@/store/selectors';
+import { RootState } from '@/store';
 
 export const getUser = createAsyncThunk('user/getUser', async (_, { rejectWithValue }) => {
 	try {
@@ -76,6 +84,61 @@ export const updateUserAvatar = createAsyncThunk(
 			return updatedUserData;
 		} catch (e) {
 			return rejectWithValue((e as AxiosError).response?.data ?? DEFAULT_ERROR);
+		}
+	}
+);
+
+export const postUserToDataBase = createAsyncThunk(
+	'user/postUserToDataBase',
+	async (userData: PostgresUserModel, { rejectWithValue }) => {
+		try {
+			await UserProfileService.saveProfileDataToDataBase(userData);
+		} catch (e) {
+			return rejectWithValue((e as AxiosError).response?.data ?? DEFAULT_ERROR);
+		}
+	}
+);
+
+export const getUserFromDataBase = createAsyncThunk(
+	'user/getUserFromDataBase',
+	async (userId: PostgresUserModel['id'], { rejectWithValue, dispatch }) => {
+		try {
+			const response = await UserProfileService.getProfileDataFromDataBase(userId);
+
+			if (response) {
+				dispatch(setUserFromPostgres(response));
+			}
+		} catch (e) {
+			dispatch(setUserFromPostgres('empty'));
+			return rejectWithValue((e as AxiosError).response?.data ?? DEFAULT_ERROR);
+		}
+	}
+);
+
+export const setUserTheme = createAsyncThunk(
+	'theme/setUserTheme',
+	async (theme: Theme, { getState, rejectWithValue }) => {
+		const state = getState();
+		const userInfo = userState(state as RootState);
+
+		if (userInfo.user?.id) {
+			const id = userInfo.user?.id;
+
+			const request = {
+				theme,
+				userId: id
+			};
+
+			try {
+				await UserProfileService.setTheme(request);
+			} catch (error) {
+				if (error instanceof Error) {
+					const axiosError = error as AxiosError;
+					return rejectWithValue(axiosError.response?.data ?? DEFAULT_ERROR);
+				} else {
+					return rejectWithValue(DEFAULT_ERROR);
+				}
+			}
 		}
 	}
 );

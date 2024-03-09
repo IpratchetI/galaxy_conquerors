@@ -1,57 +1,40 @@
-import { Router, type Request, type Response } from 'express';
+import { type Request, type Response, Router } from 'express';
 
-import {
-	ERROR_MESSAGE_INVALID_BODY,
-	GET_THEME_ROUTE,
-	SERVER_BASE_URL,
-	SET_THEME_ROUTE
-} from '../constants';
+import { THEME_ROUTE } from './constants';
+
+import { ERROR_MESSAGE_INVALID_BODY } from '../constants';
 import User from '../db-models/user';
-import Theme from '../db-models/theme';
 
 export const themesRoutes = (router: Router) => {
-	const themesRouter: Router = Router()
-		.put(SET_THEME_ROUTE, async (req: Request, res: Response) => {
-			try {
-				const body = req.body;
-				const { user, theme } = body ?? {};
+	const themesRouter: Router = Router().put(THEME_ROUTE, async (req: Request, res: Response) => {
+		try {
+			const body = req.body;
+			const { userId, theme } = body ?? {};
 
-				if (!user || !theme) {
-					res.status(400);
-					res.send(ERROR_MESSAGE_INVALID_BODY);
-					return;
-				}
-
-				const { id } = user;
-
-				const [userFromDb] = await User.findOrCreate({
-					where: { id },
-					defaults: { ...user, theme }
-				});
-
-				await userFromDb.save();
-
-				res.status(200);
-				res.send('Тема приложения успешно изменена');
-			} catch (err) {
-				console.error(err);
-			}
-		})
-
-		.get(GET_THEME_ROUTE, async (req: Request, res: Response) => {
-			const { id } = req.query;
-
-			if (!id) {
+			if (!userId || !theme) {
 				res.status(400);
-				res.send('Не указан id пользователя');
+				res.send(ERROR_MESSAGE_INVALID_BODY);
+				return;
 			}
 
-			const user = await User.findByPk(`${id}`);
-			const theme = await Theme.findByPk(`${user?.theme_id}`);
+			const user = await User.findByPk(`${userId}`);
+
+			if (!user) {
+				res.status(400);
+				res.json('Пользователь не найден');
+				return;
+			}
+
+			user.theme = theme;
+
+			await user?.save();
 
 			res.status(200);
-			res.json({ theme: theme || 'app_light_theme' });
-		});
+			res.json('Тема приложения успешно изменена');
+		} catch (err) {
+			console.error(err);
+		}
+	});
 
-	router.use(SERVER_BASE_URL, themesRouter);
+	router.use('/', themesRouter);
 };
