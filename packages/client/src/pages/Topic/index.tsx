@@ -1,36 +1,30 @@
 import { Button } from '@components/Button';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { TOPICS_LIST } from '@pages/Forum/lib/mocks';
 
 import { Text } from '@/components';
-import { getTopic } from '@/store/reducers/forum/forumReducer';
 import { forumState, useAppSelector } from '@/store/selectors';
-import { useAppDispatch } from '@/store';
 
 import s from './index.module.scss';
 import { MessageForm } from './components/MessageForm';
 import { Comment } from './components/Comment';
+import { useEffect, useRef } from 'react';
 
 export const TopicPage = () => {
-	const { currentTopic, isLoading, topicError } = useAppSelector(forumState);
-	const dispatch = useAppDispatch();
+	const { topics, isLoading, topicError } = useAppSelector(forumState);
 	const navigate = useNavigate();
+	const containerRef = useRef<HTMLDivElement>(null);
 	const { topicId } = useParams();
-
-	useEffect(() => {
-		if (!topicId) return;
-
-		const selectedTopic = TOPICS_LIST?.find(topic => topic.id === +topicId);
-
-		if (selectedTopic) {
-			dispatch(getTopic(selectedTopic));
-		}
-	}, [topicId]);
+	const currentTopic = topics.find(topic => topic.id === topicId!);
 
 	const handleHistoryBack = () => {
 		navigate(-1);
 	};
+	useEffect(() => {
+		if (containerRef.current) {
+			containerRef.current.scrollTop =
+				containerRef.current.scrollHeight - containerRef.current.clientHeight;
+		}
+	}, [currentTopic]);
 
 	if (isLoading) {
 		return (
@@ -50,10 +44,10 @@ export const TopicPage = () => {
 
 	return (
 		<div className={s.topicPage}>
-			<h2 className={s.title}>Interesting projects</h2>
-			<div className={s.topicContent}>
+			<h2 className={s.title}>{currentTopic?.name}</h2>
+			<div className={s.topicContent} ref={containerRef}>
 				{currentTopic?.comments?.map(comment => (
-					<Comment key={comment.id} {...comment} />
+					<Comment key={comment.id} authorName={currentTopic.users[comment.userId]} {...comment} />
 				))}
 			</div>
 			<div className={s.actions}>

@@ -26,7 +26,7 @@ export const SmileMenu = () => {
 			{isOpen && (
 				<div className={s.openedMenu}>
 					{Object.entries(SMILES).map(([group, smiles]) => (
-						<>
+						<div key={group}>
 							<div className={s.groupName}>{group}</div>
 							<section key={group} className={s.smilesGroup}>
 								{smiles.map((smile, i) => (
@@ -35,7 +35,7 @@ export const SmileMenu = () => {
 									</Button>
 								))}
 							</section>
-						</>
+						</div>
 					))}
 				</div>
 			)}

@@ -1,18 +1,59 @@
-import { TOPICS_LIST } from '@pages/Forum/lib/mocks';
-import { COMMENTS_LIST } from '@pages/Topic/lib/mocks';
+import { NewComment } from '@/store/reducers/forum/forumReducer';
+import { IMessage, TopicModel, Topics, ForumChildrenId } from '@models/topics';
+import { baseBackEndApi } from './baseApi';
+
+export type AddComment = {
+	data: NewComment;
+	topicId: ForumChildrenId;
+};
+
+export type AddMessage = {
+	data: IMessage;
+	topicId: ForumChildrenId;
+};
+
+export type AddReaction = {
+	topicId: ForumChildrenId;
+	commentId: ForumChildrenId;
+	messageId: ForumChildrenId;
+	reaction: string;
+};
 
 class ForumService {
+	private _controllerName = 'forum/';
+
 	getTopicsList() {
-		return Promise.resolve(TOPICS_LIST);
+		return baseBackEndApi.get<Topics>(this._controllerName + 'topics', {
+			withCredentials: true
+		});
 	}
 
-	getTopic() {
-		return Promise.resolve(COMMENTS_LIST);
+	addTopic(data: TopicModel) {
+		return baseBackEndApi.post(this._controllerName + `topic/${data.id}`, data, {
+			withCredentials: true
+		});
 	}
 
-	addReaction() {
-		//TODO эндпоинт добавления реакции
-		return null;
+	addComment({ data, topicId }: AddComment) {
+		return baseBackEndApi.post(this._controllerName + `topic/${topicId}`, data, {
+			withCredentials: true
+		});
+	}
+
+	addMessage({ data, topicId }: AddMessage) {
+		return baseBackEndApi.post(this._controllerName + `topic/${topicId}/message`, data, {
+			withCredentials: true
+		});
+	}
+
+	addReaction({ topicId, messageId, commentId, reaction }: AddReaction) {
+		return baseBackEndApi.post(
+			this._controllerName + `topic/${topicId}/comments/${commentId}/message/${messageId}/reaction`,
+			reaction,
+			{
+				withCredentials: true
+			}
+		);
 	}
 }
 

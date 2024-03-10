@@ -1,58 +1,45 @@
 import { CommentModel } from '@models/topics';
 
-export const USERS: Array<{ id: number; name: string }> = [
-	{
-		id: 0,
-		name: 'user1'
-	},
-	{
-		id: 1,
-		name: 'user2'
-	},
-	{
-		id: 2,
-		name: 'user3'
-	}
-];
+export const USERS: Record<number, string> = { 0: 'user0', 1: 'user 1', 2: 'user2' };
 
 export const COMMENTS_LIST: CommentModel[] = [
 	{
-		id: 0,
+		id: '0',
 		userId: 0,
 		messages: [
 			{
-				id: 0,
-				text: 'text'
+				id: '0',
+				text: 'text',
+				reactions: { '😁': 4, '🔥': 6 }
 			}
-		],
-		reactions: { '😁': 4, '🔥': 6 }
+		]
 	},
 	{
-		id: 1,
+		id: '1',
 		userId: 2,
 		messages: [
 			{
-				id: 0,
+				id: '0',
 				text:
 					'loooooong very veeeery looooooooooooooon super long text' +
 					' with numbers and some words'
 			},
 			{
-				id: 1,
-				text: 'not very long'
+				id: '1',
+				text: 'not very long',
+				reactions: { '🤔': 1 }
 			}
-		],
-		reactions: { '🤔': 1 }
+		]
 	},
 	{
-		id: 2,
+		id: '2',
 		userId: 0,
 		messages: [
 			{
-				id: 0,
-				text: 'simple answer text'
+				id: '0',
+				text: 'simple answer text',
+				reactions: { '👍': 10, '👌': 2 }
 			}
-		],
-		reactions: { '👍': 10, '👌': 2 }
+		]
 	}
 ];

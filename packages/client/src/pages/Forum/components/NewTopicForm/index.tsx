@@ -5,6 +5,10 @@ import { Input } from '@components/Input';
 import { Spacer } from '@/components';
 
 import s from './index.module.scss';
+import { useAppDispatch } from '@/store';
+import { addNewTopic } from '@/store/reducers/forum/forumReducer';
+import { v4 as uuidv4 } from 'uuid';
+import { useAppSelector, userState } from '@/store/selectors';
 
 type NewTopicFormProps = {
 	onClick(): void;
@@ -15,15 +19,28 @@ type FormValues = {
 };
 
 export const NewTopicForm = ({ onClick }: NewTopicFormProps) => {
+	const dispatch = useAppDispatch();
+	const { user } = useAppSelector(userState);
+
 	const {
 		register,
 		handleSubmit,
+		getValues,
+		reset,
 		formState: { errors }
 	} = useForm<FormValues>();
 
 	const onSubmit: SubmitHandler<FormValues> = () => {
-		// todo: add handler
-		console.log('created');
+		dispatch(
+			addNewTopic({
+				id: uuidv4(),
+				name: getValues().topicName,
+				comments: [],
+				length: 0,
+				users: { [user!.id]: user!.first_name }
+			})
+		);
+		reset();
 		onClick();
 	};
 
