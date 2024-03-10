@@ -1,8 +1,9 @@
-import { CommentModel, IMessage, ForumChildrenId } from './../../../models/topics';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ErrorResponse } from '@models/api/errorResponse';
 import { TopicModel, Topics } from '@models/topics';
 import { UserModel } from '@models/user';
+
+import { CommentModel, IMessage, ForumChildrenId } from './../../../models/topics';
 
 export type ForumState = {
 	topics: Topics;
@@ -11,6 +12,7 @@ export type ForumState = {
 	topicError?: ErrorResponse;
 	isLoading: boolean;
 };
+
 export type NewComment = {
 	comment: CommentModel;
 	user: Pick<UserModel, 'first_name' | 'id'>;

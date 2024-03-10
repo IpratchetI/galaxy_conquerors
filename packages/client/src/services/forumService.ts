@@ -1,6 +1,8 @@
-import { NewComment } from '@/store/reducers/forum/forumReducer';
 import { IMessage, TopicModel, Topics, ForumChildrenId } from '@models/topics';
-import { baseBackEndApi } from './baseApi';
+
+import { NewComment } from '@/store/reducers/forum/forumReducer';
+
+import { serverBaseApi } from './baseApi';
 
 export type AddComment = {
 	data: NewComment;
@@ -23,31 +25,31 @@ class ForumService {
 	private _controllerName = 'forum/';
 
 	getTopicsList() {
-		return baseBackEndApi.get<Topics>(this._controllerName + 'topics', {
+		return serverBaseApi.get<Topics>(this._controllerName + 'topics', {
 			withCredentials: true
 		});
 	}
 
 	addTopic(data: TopicModel) {
-		return baseBackEndApi.post(this._controllerName + `topic/${data.id}`, data, {
+		return serverBaseApi.post(this._controllerName + `topic/${data.id}`, data, {
 			withCredentials: true
 		});
 	}
 
 	addComment({ data, topicId }: AddComment) {
-		return baseBackEndApi.post(this._controllerName + `topic/${topicId}`, data, {
+		return serverBaseApi.post(this._controllerName + `topic/${topicId}`, data, {
 			withCredentials: true
 		});
 	}
 
 	addMessage({ data, topicId }: AddMessage) {
-		return baseBackEndApi.post(this._controllerName + `topic/${topicId}/message`, data, {
+		return serverBaseApi.post(this._controllerName + `topic/${topicId}/message`, data, {
 			withCredentials: true
 		});
 	}
 
 	addReaction({ topicId, messageId, commentId, reaction }: AddReaction) {
-		return baseBackEndApi.post(
+		return serverBaseApi.post(
 			this._controllerName + `topic/${topicId}/comments/${commentId}/message/${messageId}/reaction`,
 			reaction,
 			{
