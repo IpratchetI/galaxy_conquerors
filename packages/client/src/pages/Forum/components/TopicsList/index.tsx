@@ -1,11 +1,10 @@
-import React, { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { Link } from '@components/Link';
 import { TopicModel } from '@models/topics';
-import { TOPICS_LIST } from '@pages/Forum/lib/mocks';
 
 import { abbreviateNumber } from '@/utils/abbreviateNumber';
 import { Text } from '@/components';
-import { getTopicsList, getTopic } from '@/store/reducers/forum/forumReducer';
+import { getTopic } from '@/store/reducers/forum/forumReducer';
 import { forumState, useAppSelector } from '@/store/selectors';
 import { useAppDispatch } from '@/store';
 
@@ -17,16 +16,12 @@ export const TopicsList = () => {
 	const { topics, error: forumError, isLoading } = useAppSelector(forumState);
 	const dispatch = useAppDispatch();
 
-	useEffect(() => {
-		dispatch(getTopicsList(TOPICS_LIST));
-	}, []);
-
 	const handleClick = useCallback(
 		(topicId: TopicModel['id']) => {
 			const selectedTopic = topics?.find(topic => topic.id === topicId);
 
 			if (selectedTopic) {
-				dispatch(getTopic(selectedTopic));
+				dispatch(getTopic(selectedTopic.id));
 			}
 		},
 		[topics]

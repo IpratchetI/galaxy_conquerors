@@ -1,19 +1,26 @@
 export type TopicModel = {
-	id: number;
+	id: ForumChildrenId;
 	name: string;
 	comments: CommentModel[];
 	length: number;
+	users: Record<number, string>;
 };
 
+export type GetTopics = Pick<TopicModel, 'id' | 'name' | 'length'>[];
+
+export type ForumChildrenId = string;
+
 export type CommentModel = {
-	id: number;
-	userId: number; // for current step is simple
+	id: ForumChildrenId;
+	userId: number;
 	messages: IMessage[];
 };
 
+export type ReactionModel = string;
 export interface IMessage {
-	id: number;
+	id: ForumChildrenId;
 	text: string;
+	reactions?: Record<ReactionModel, number>;
 }
 
 export type Topics = TopicModel[];
