@@ -80,7 +80,7 @@ export const Registration = () => {
 										type={type}
 										error={
 											error && {
-												message: validate(fieldName, value, isFieldRequired)
+												message: validate(fieldName, value ? value : '', isFieldRequired)
 											}
 										}
 										{...register(fieldName, validateOptions)}>

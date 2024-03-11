@@ -26,7 +26,7 @@ async function getStyleSheets() {
 }
 
 const initialState = {
-	uiState: { sounds: true, music: true }
+	userState: { isAuth: true, isLoading: false, score: { maxScore: 0, lastGameScore: 0 } }
 };
 
 async function createServer() {

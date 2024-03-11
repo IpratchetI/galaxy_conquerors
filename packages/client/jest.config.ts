@@ -24,7 +24,8 @@ const config: Config = {
 		'^.+\\.svg$': 'jest-transformer-svg'
 	},
 	globals: {
-		__SERVER_PORT__: process.env.SERVER_PORT || 3001
+		__SERVER_PORT__: process.env.SERVER_PORT || 3001,
+		__API_SERVER_HOST__: process.env.SERVER_HOST || 'localhost'
 	},
 	testTimeout: 200000
 };

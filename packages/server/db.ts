@@ -1,24 +1,45 @@
-import { Client } from 'pg';
+import * as process from 'process';
+
+import { type SequelizeOptions, Sequelize } from 'sequelize-typescript';
+
+import User from './db-models/user';
 
 const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT, POSTGRES_HOST } = process.env;
+const isDockerEnvironment = Number(process.env.DOCKER_ENVIRONMENT) === 1;
 
-export const createClientAndConnect = async (): Promise<Client | null> => {
+export const createClientAndConnect = async (): Promise<Sequelize | null> => {
 	try {
-		const client = new Client({
-			user: POSTGRES_USER,
-			host: POSTGRES_HOST,
-			database: POSTGRES_DB,
-			password: POSTGRES_PASSWORD,
-			port: Number(POSTGRES_PORT)
-		});
+		const sequelizeOptions: SequelizeOptions = {
+			dialect: 'postgres',
+			username: POSTGRES_USER ?? 'postgres',
+			host: isDockerEnvironment ? POSTGRES_HOST ?? 'postgres' : POSTGRES_PORT,
+			database: POSTGRES_DB ?? 'postgres',
+			password: POSTGRES_PASSWORD ?? 'postgres',
+			port: Number(POSTGRES_PORT) ?? 5432,
+			models: [User]
+		};
 
-		await client.connect();
+		const sequelize = new Sequelize(sequelizeOptions);
 
-		const res = await client.query('SELECT NOW()');
-		console.log('  ➜ 🎸 Connected to the database at:', res?.rows?.[0].now);
-		client.end();
+		await sequelize
+			.authenticate()
+			.then(() => {
+				console.log('Authenticated at the database');
+			})
+			.catch(e => {
+				console.log('Huston, we have a problem: ', e);
+			});
 
-		return client;
+		sequelize
+			.sync()
+			.then(res => {
+				console.log('  ➜ 🎸 Connected to the database with options:', res.options);
+			})
+			.catch(e => {
+				console.log('Synchronization error: ', e);
+			});
+
+		return sequelize;
 	} catch (e) {
 		console.error(e);
 	}

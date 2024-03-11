@@ -23,10 +23,12 @@ export default defineConfig({
 		}
 	},
 	server: {
-		port: Number(process.env.CLIENT_PORT) || 3000
+		port: Number(process.env.CLIENT_PORT) || 3000,
+		host: process.env.SERVER_HOST || ''
 	},
 	define: {
-		__SERVER_PORT__: process.env.SERVER_PORT
+		__SERVER_PORT__: process.env.SERVER_PORT || 3001,
+		__API_SERVER_HOST__: process.env.SERVER_HOST
 	},
 	plugins: [
 		svgr({
