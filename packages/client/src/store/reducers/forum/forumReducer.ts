@@ -63,11 +63,8 @@ const forumSlice = createSlice({
 			}
 
 			if (message && message.reactions) {
-				if (message.reactions[action.payload.reaction]) {
-					message.reactions[action.payload.reaction] += 1;
-				} else {
-					message.reactions[action.payload.reaction] = 1;
-				}
+				message.reactions[action.payload.reaction] =
+					(message.reactions[action.payload.reaction] || 0) + 1;
 			}
 		}
 	}
