@@ -1,12 +1,12 @@
 import React, { memo, useCallback } from 'react';
 import { Theme } from '@providers/ThemeProvider/constants';
+import LightThemeIcon from '@assets/icons/theme.svg';
+import PinkThemeIcon from '@assets/icons/theme-pink.svg';
 
 import { useTheme } from '@/hooks/useTheme';
 import { useAppDispatch } from '@/store';
 import { Icon } from '@/components';
-
-const LightThemeIcon = 'src/assets/icons/theme.svg';
-const PinkThemeIcon = 'src/assets/icons/theme-pink.svg';
+import { setUserTheme } from '@/store/reducers/user/userActionCreator';
 
 interface ThemeSwitcherProps {
 	className?: string;
@@ -18,17 +18,13 @@ export const ThemeSwitcher = memo(({ className }: ThemeSwitcherProps) => {
 
 	const onToggleHandler = useCallback(() => {
 		toggleTheme(theme => {
-			// TODO: логика сохранения темы на сервере
+			dispatch(setUserTheme(theme));
 		});
 	}, [dispatch, toggleTheme]);
 
 	return (
-		<Icon
-			className={className}
-			svg={theme === Theme.LIGHT ? PinkThemeIcon : LightThemeIcon}
-			clickable
-			size={40}
-			onClick={onToggleHandler}
-		/>
+		<Icon className={className} clickable size={40} onClick={onToggleHandler}>
+			{theme === Theme.LIGHT ? <PinkThemeIcon /> : <LightThemeIcon />}
+		</Icon>
 	);
 });

@@ -1,12 +1,12 @@
-import React, { JSX, memo, ReactNode, ReactSVGElement } from 'react';
+import React, { memo } from 'react';
 
 import { classnames } from '@/utils/classnames';
 
 import styles from './index.module.scss';
 
 interface IconBaseProps {
+	children: React.ReactNode;
 	className?: string;
-	svg: string;
 	size?: number;
 }
 
@@ -22,17 +22,12 @@ interface ClickableIconProps extends IconBaseProps {
 type IconProps = NonClickableIconProps | ClickableIconProps;
 
 export const Icon = memo((props: IconProps) => {
-	const { className, svg, size = 24, clickable, ...otherProps } = props;
+	const { children, className, size = 24, clickable, ...otherProps } = props;
 
 	const icon = (
-		<img
-			className={classnames(styles.icon, {}, [className])}
-			width={size}
-			height={size}
-			alt=""
-			src={svg}
-			{...otherProps}
-		/>
+		<div className={classnames(styles.icon, {}, [className])} {...otherProps}>
+			{children}
+		</div>
 	);
 
 	if (clickable) {
