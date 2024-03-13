@@ -7,10 +7,11 @@ import { EMPTY_RESULTS_ERROR } from '../constants/messages';
 
 class CommentService {
 	public async getComments({ data }: { data: CommentsRequest }): Promise<Comment[]> {
+		const { topicId, offset, limit } = data;
 		return await Comment.findAll({
-			where: { topicId: data.topicId },
-			offset: data.offset,
-			limit: data.limit
+			where: { topicId },
+			offset: offset,
+			limit: limit
 		});
 	}
 

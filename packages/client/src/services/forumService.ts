@@ -1,39 +1,47 @@
-import { TopicModel, Topics, ForumChildrenId, TopicsPagination } from '@models/topics';
+import { Topics, ForumChildrenId, TopicsPagination, NewTopicModel } from '@models/topics';
 
 import { serverBaseApi } from './baseApi';
 import { COMMENTS_ROUTE, TOPIC_ROUTE } from 'server/routes/constants';
 
 export type AddComment = {
-	data: string;
+	content: string;
 	topicId: number;
+	userId: number;
 };
 
 export type GetComments = {
-	offset: number;
-	limit: number;
+	offset?: number;
+	limit?: number;
 	topicId: ForumChildrenId;
 };
 
 class ForumService {
-	getTopicsList({ offset, limit }: TopicsPagination) {
+	getTopicsList({ offset = 0, limit = 10 }: TopicsPagination) {
 		return serverBaseApi.get<Topics>(TOPIC_ROUTE + `/${offset}/${limit}`, {
 			withCredentials: true
 		});
 	}
 
-	addTopic(data: TopicModel) {
+	addTopic(data: NewTopicModel) {
 		return serverBaseApi.post(TOPIC_ROUTE, data, {
 			withCredentials: true
 		});
 	}
-	getCommentsList({ offset, limit, topicId }: GetComments) {
+
+	getTopic(topicId: number) {
+		return serverBaseApi.post(TOPIC_ROUTE + `/${topicId}`, {
+			withCredentials: true
+		});
+	}
+
+	getCommentsList({ offset = 0, limit = 10, topicId }: GetComments) {
 		return serverBaseApi.get<Topics>(COMMENTS_ROUTE + `/${topicId}/${offset}/${limit}`, {
 			withCredentials: true
 		});
 	}
 
-	addComment({ data, topicId }: AddComment) {
-		return serverBaseApi.post(COMMENTS_ROUTE + `/${topicId}`, data, {
+	addComment(body: AddComment) {
+		return serverBaseApi.post(COMMENTS_ROUTE, body, {
 			withCredentials: true
 		});
 	}

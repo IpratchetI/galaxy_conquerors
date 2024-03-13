@@ -41,9 +41,6 @@ class User extends Model {
 	@AllowNull(false)
 	@Column(DataType.TEXT)
 	theme: string;
-
-	@Column(DataType.INTEGER)
-	theme_id: number;
 }
 
 export default User;

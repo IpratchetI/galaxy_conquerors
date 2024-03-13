@@ -3,6 +3,7 @@ import CommentService from './service';
 import type { Request, Response } from 'express';
 
 import { REQUEST_ERROR, SERVER_ERROR } from '../constants/messages';
+import * as console from 'console';
 
 class CommentController {
 	public getComments = async (request: Request, response: Response) => {
@@ -41,6 +42,9 @@ class CommentController {
 				response.json(comment).status(200);
 			}
 		} catch (e) {
+			if (e instanceof Error) {
+				console.error(e, e.stack);
+			}
 			response.status(500).json({
 				response: SERVER_ERROR,
 				reason: e

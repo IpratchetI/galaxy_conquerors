@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ErrorResponse } from '@models/api/errorResponse';
+import { ActionErrorResponse, ErrorResponse } from '@models/api/errorResponse';
 import { TopicModel, Topics, ForumChildrenId } from '@models/topics';
 
 import { CommentDto } from 'server/forum/comment/types';
+import { getTopic } from '@/store/reducers/forum/forumActionCreator';
 
 export type ForumState = {
 	topics: Topics;
@@ -10,6 +11,7 @@ export type ForumState = {
 	error?: ErrorResponse;
 	topicError?: ErrorResponse;
 	isLoading: boolean;
+	currentTopic?: TopicModel;
 };
 
 const initialState: ForumState = {
@@ -24,8 +26,11 @@ const forumSlice = createSlice({
 		getTopicsList: (state: ForumState, action: PayloadAction<Topics>) => {
 			state.topics = action.payload;
 		},
-		getCommentsList: (state: ForumState, action: PayloadAction<ForumChildrenId>) => {
-			state.currentTopicId = action.payload;
+		getCommentsList: (state: ForumState, action: PayloadAction<CommentDto[]>) => {
+			if (state.currentTopic) {
+				state.currentTopic.comments = action.payload.concat(state.currentTopic.comments ?? []);
+				state.currentTopic.commentsCount += action.payload.length;
+			}
 		},
 		addNewTopic: (state: ForumState, action: PayloadAction<TopicModel>) => {
 			state.topics.push(action.payload);
@@ -35,9 +40,10 @@ const forumSlice = createSlice({
 
 			if (currentTopic) {
 				currentTopic.comments.push(action.payload);
-				currentTopic.length++;
+				currentTopic.commentsCount++;
 			}
 		},
+		// TODO: https://linear.app/galaxyconquerors/issue/GAL-60/dorabotki-po-api-foruma
 		updateComment: (
 			state: ForumState,
 			action: PayloadAction<{ messageId: number; reaction: string }>
@@ -55,6 +61,24 @@ const forumSlice = createSlice({
 			// 		(reactedComment.reactions[action.payload.reaction] || 0) + 1;
 			// }
 		}
+	},
+	extraReducers: builder => {
+		builder.addCase(getTopic.pending, (state: ForumState) => {
+			state.isLoading = true;
+		});
+		builder.addCase(getTopic.fulfilled, (state: ForumState, action: PayloadAction<TopicModel>) => {
+			state.isLoading = false;
+			state.error = undefined;
+
+			if (action?.payload) {
+				state.currentTopicId = action.payload?.id;
+				state.currentTopic = action?.payload;
+			}
+		});
+		builder.addCase(getTopic.rejected, (state: ForumState, action: PayloadAction<any>) => {
+			state.isLoading = false;
+			state.error = action.payload as ActionErrorResponse;
+		});
 	}
 });
 

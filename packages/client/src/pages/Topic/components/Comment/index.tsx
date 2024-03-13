@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { CommentModel } from '@models/topics';
 import { Reactions } from '@pages/Topic/components/Reactions';
 
 import { Spacer } from '@/components';
@@ -7,15 +6,17 @@ import { useAppSelector, userState } from '@/store/selectors';
 
 import s from './index.module.scss';
 
-import { SmileMenu } from '../SmileMenu';
+import { CommentDto } from 'server/forum/comment/types';
 
-type CommentProps = CommentModel & { authorName: string };
+type CommentProps = {
+	comment: CommentDto;
+};
 
 export const Comment = (props: CommentProps) => {
 	const { user } = useAppSelector(userState);
-	const { userId, messages, authorName } = props;
+	const { comment } = props;
 
-	const isMainComment = userId === user?.id;
+	const isMainComment = comment.userId === user?.id;
 
 	const mods = {
 		[s.currentUserComment]: isMainComment
@@ -23,14 +24,14 @@ export const Comment = (props: CommentProps) => {
 
 	return (
 		<Spacer direction="column" className={s.commentsWrapper}>
-			{messages.map(({ id, text, reactions }, i) => (
-				<Spacer direction="column" align="start" key={id} className={classNames(s.comment, mods)}>
-					{i === 0 && <span className={s.author}>{authorName}</span>}
-					<span className={s.text}>{text}</span>
-					{!isMainComment && <SmileMenu messageId={id} />}
-					{reactions && <Reactions reactions={reactions} />}
-				</Spacer>
-			))}
+			<Spacer direction="column" align="start" className={classNames(s.comment, mods)}>
+				<span className={s.author}>{comment?.author?.first_name}</span>
+				<span className={s.text}>{comment.content}</span>
+
+				{/* TODO: https://linear.app/galaxyconquerors/issue/GAL-60/dorabotki-po-api-foruma */}
+				{/*{!isMainComment && <SmileMenu messageId={id} />}*/}
+				{/*{reactions && <Reactions reactions={reactions} />}*/}
+			</Spacer>
 		</Spacer>
 	);
 };

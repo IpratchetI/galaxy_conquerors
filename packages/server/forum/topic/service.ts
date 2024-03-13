@@ -1,6 +1,6 @@
 import { Topic } from './model';
 
-import type { TopicCreateRequest, TopicDto, TopicsRequest } from './types';
+import type { TopicCreateRequest, TopicDto, TopicGetRequest, TopicsRequest } from './types';
 
 import { EMPTY_RESULTS_ERROR, REQUEST_ERROR } from '../constants/messages';
 
@@ -10,6 +10,10 @@ class TopicService {
 			offset: data.offset,
 			limit: data.limit
 		});
+	}
+
+	public async getTopic(data: TopicGetRequest): Promise<Topic | null> {
+		return await Topic.findOne({ where: { id: data.topicId } });
 	}
 
 	public async createTopic(data: TopicCreateRequest): Promise<TopicDto> {

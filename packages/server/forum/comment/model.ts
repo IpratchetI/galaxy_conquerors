@@ -1,5 +1,4 @@
-import { Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
-import { BelongsTo } from 'sequelize';
+import { Column, DataType, ForeignKey, Model, Table, BelongsTo } from 'sequelize-typescript';
 
 import type { CommentDto } from './types';
 import User, { type UserDto } from '../../db-models/user';
@@ -15,7 +14,11 @@ export class Comment extends Model<Comment, Partial<CommentDto>> {
 	@Column(DataType.INTEGER)
 	declare topicId: number;
 
-	// @ts-ignore
+	@ForeignKey(() => User)
+	@Column(DataType.INTEGER)
+	declare userId: number;
+
+	// TODO: https://linear.app/galaxyconquerors/issue/GAL-60/dorabotki-po-api-foruma
 	@BelongsTo(() => User)
 	declare author: UserDto;
 }

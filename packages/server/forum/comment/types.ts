@@ -1,10 +1,10 @@
-import type UserDto from '../../db-models/user';
-
 export interface CommentDto {
 	id?: number;
 	content?: string;
 	topicId?: number;
-	author?: UserDto;
+	// TODO: https://linear.app/galaxyconquerors/issue/GAL-60/dorabotki-po-api-foruma
+	// author?: UserDto;
+	userId?: number;
 	createdAt?: Date;
 }
 
@@ -13,12 +13,13 @@ export interface CommentUpdateRequest {
 }
 
 export interface CommentCreateRequest {
-	body: string;
+	content: string;
 	topicId: number;
+	userId: number;
 }
 
 export interface CommentsRequest {
 	topicId: number;
-	offset: number;
-	limit: number;
+	offset?: number;
+	limit?: number;
 }

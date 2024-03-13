@@ -1,13 +1,19 @@
+import type { Comment } from '../comment/model';
+
 export interface TopicDto {
 	id?: number;
-	title?: string;
 	createdAt?: Date;
-	commentsId?: number;
+	commentsCount?: number;
+	comments?: Comment[];
+	title?: string;
+}
+
+export interface TopicGetRequest {
+	topicId: number;
 }
 
 export interface TopicCreateRequest {
 	title: string;
-	body: string;
 }
 
 export interface TopicsRequest {

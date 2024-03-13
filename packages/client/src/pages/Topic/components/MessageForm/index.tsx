@@ -39,7 +39,8 @@ export const MessageForm = () => {
 			dispatch(
 				addNewComment({
 					topicId: Number(topicId),
-					data: getValues().message
+					userId: user?.id,
+					content: getValues().message
 				})
 			);
 		}

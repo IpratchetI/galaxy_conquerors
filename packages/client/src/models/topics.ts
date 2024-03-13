@@ -2,15 +2,18 @@ import { CommentDto } from 'server/forum/comment/types';
 
 export type TopicModel = {
 	id: ForumChildrenId;
-	name: string;
+	title: string;
 	comments: CommentDto[];
-	length: number;
-	users: Record<number, string>;
+	commentsCount: number;
+};
+
+export type NewTopicModel = {
+	title: string;
 };
 
 export type TopicsPagination = {
-	offset: number;
-	limit: number;
+	limit?: number;
+	offset?: number;
 };
 
 export type ForumChildrenId = number;
