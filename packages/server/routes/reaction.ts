@@ -5,7 +5,7 @@ import type { Router, Request, Response } from 'express';
 import { Reaction } from '../db-models/reaction';
 
 export const reactionRoutes = (router: Router) => {
-	router.post(REACTION_ROUTE + '/add', async (req: Request, res: Response) => {
+	router.post(REACTION_ROUTE, async (req: Request, res: Response) => {
 		try {
 			const body = req.body;
 			const { reaction, commentId } = body ?? {};
@@ -21,19 +21,8 @@ export const reactionRoutes = (router: Router) => {
 				reaction
 			});
 
-			//TODO возвращать реакции сообщения и обновлять ими стейт
-			// const response = await Reaction.findAll({
-			// 	attributes: ['reaction'],
-			// 	where: {
-			// 		comment_id: commentId
-			// 	},
-			// 	group: 'reaction'
-			// });
-
-			const response = 'OK';
-
 			res.status(200);
-			res.json(response);
+			res.json('OK');
 		} catch (err) {
 			console.error(err);
 		}

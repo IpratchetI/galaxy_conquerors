@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import { PostgresUserModel, ProfileData, UserModel } from '@models/user';
-import { baseApi, serverBaseApi } from '@services/baseApi';
+import { yandexBaseApi, serverBaseApi } from '@services/baseApi';
 import { AxiosPromise } from 'axios/index';
 import { ThemeState } from '@models/theme';
 
@@ -11,7 +11,7 @@ class UserProfileService {
 
 	async getProfileData(): Promise<ProfileData> {
 		try {
-			const response = await baseApi.get(this.profilePath);
+			const response = await yandexBaseApi.get(this.profilePath);
 			return {
 				first_name: response.data.first_name,
 				second_name: response.data.second_name,
@@ -26,7 +26,7 @@ class UserProfileService {
 
 	async saveProfileData(data: ProfileData) {
 		try {
-			return baseApi.put<UserModel>(this.profilePath, data, {
+			return yandexBaseApi.put<UserModel>(this.profilePath, data, {
 				withCredentials: true
 			});
 		} catch (error) {

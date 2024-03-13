@@ -6,16 +6,10 @@ export type AddReaction = {
 };
 
 class ReactionService {
-	private _controllerName = 'reaction/';
+	private _controllerName = 'reaction';
 
 	addReaction({ commentId, reaction }: AddReaction) {
-		return serverBaseApi.post(
-			this._controllerName + 'add',
-			{ commentId, reaction },
-			{
-				withCredentials: true
-			}
-		);
+		return serverBaseApi.post(this._controllerName, { commentId, reaction });
 	}
 }
 
