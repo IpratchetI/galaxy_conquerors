@@ -35,4 +35,3 @@ app.get('/', (_, response) => {
 app.listen(serverPort, () => {
 	console.log(`  ➜ 🎸 Server is listening on port: ${serverPort}`);
 });
-

@@ -10,6 +10,16 @@ import {
 	TableOptions
 } from 'sequelize-typescript';
 
+export interface UserDto {
+	id: number;
+	first_name: string;
+	second_name: string;
+	login: string;
+	email: string;
+	phone: string;
+	avatar?: string;
+}
+
 @Table({
 	timestamps: true,
 	createdAt: 'created_at',
@@ -31,6 +41,9 @@ class User extends Model {
 	@AllowNull(false)
 	@Column(DataType.TEXT)
 	theme: string;
+
+	@Column(DataType.INTEGER)
+	theme_id: number;
 }
 
 export default User;

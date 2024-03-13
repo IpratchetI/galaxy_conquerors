@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react';
 import { Text } from '@/components';
 import { forumState, useAppSelector } from '@/store/selectors';
 
+import s from './index.module.scss';
 import { MessageForm } from './components/MessageForm';
 import { Comment } from './components/Comment';
 import s from './index.module.scss';
@@ -24,7 +25,7 @@ export const TopicPage = () => {
 			containerRef.current.scrollTop =
 				containerRef.current.scrollHeight - containerRef.current.clientHeight;
 		}
-	}, []);
+	}, [currentTopic]);
 
 	if (isLoading) {
 		return (
