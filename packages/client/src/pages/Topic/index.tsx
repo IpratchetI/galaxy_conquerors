@@ -1,20 +1,20 @@
 import { Button } from '@components/Button';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 
 import { Text } from '@/components';
 import { forumState, useAppSelector } from '@/store/selectors';
 
-import s from './index.module.scss';
 import { MessageForm } from './components/MessageForm';
 import { Comment } from './components/Comment';
-import { useEffect, useRef } from 'react';
+import s from './index.module.scss';
 
 export const TopicPage = () => {
 	const { topics, isLoading, topicError } = useAppSelector(forumState);
 	const navigate = useNavigate();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const { topicId } = useParams();
-	const currentTopic = topics.find(topic => topic.id === topicId!);
+	const currentTopic = topics.find(topic => topic.id === parseInt(topicId!, 10));
 
 	const handleHistoryBack = () => {
 		navigate(-1);
@@ -24,7 +24,7 @@ export const TopicPage = () => {
 			containerRef.current.scrollTop =
 				containerRef.current.scrollHeight - containerRef.current.clientHeight;
 		}
-	}, [currentTopic]);
+	}, []);
 
 	if (isLoading) {
 		return (

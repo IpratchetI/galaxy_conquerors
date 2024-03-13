@@ -1,30 +1,30 @@
 import { UserLoginModel, UserModel, UserRegistrationModel } from '@models/user';
 
-import { baseApi } from './baseApi';
+import { yandexBaseApi } from './baseApi';
 
 class AuthService {
 	private _controllerName = 'auth/';
 
 	signIn(data: UserLoginModel) {
-		return baseApi.post(this._controllerName + 'signin', data, {
+		return yandexBaseApi.post(this._controllerName + 'signin', data, {
 			withCredentials: true
 		});
 	}
 
 	signUp(user: UserRegistrationModel) {
-		return baseApi.post(this._controllerName + 'signup', user, {
+		return yandexBaseApi.post(this._controllerName + 'signup', user, {
 			withCredentials: true
 		});
 	}
 
 	getUser() {
-		return baseApi.get<UserModel>(this._controllerName + 'user', {
+		return yandexBaseApi.get<UserModel>(this._controllerName + 'user', {
 			withCredentials: true
 		});
 	}
 
 	logout() {
-		return baseApi.post(
+		return yandexBaseApi.post(
 			this._controllerName + 'logout',
 			{},
 			{

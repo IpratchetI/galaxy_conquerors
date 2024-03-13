@@ -4,41 +4,41 @@ export const USERS: Record<number, string> = { 0: 'user0', 1: 'user 1', 2: 'user
 
 export const COMMENTS_LIST: CommentModel[] = [
 	{
-		id: '0',
+		id: 0,
 		userId: 0,
 		messages: [
 			{
-				id: '0',
+				id: 10,
 				text: 'text',
-				reactions: { '😁': 4, '🔥': 6 }
+				reactions: {}
 			}
 		]
 	},
 	{
-		id: '1',
+		id: 1,
 		userId: 2,
 		messages: [
 			{
-				id: '0',
+				id: 11,
 				text:
 					'loooooong very veeeery looooooooooooooon super long text' +
 					' with numbers and some words'
 			},
 			{
-				id: '1',
+				id: 12,
 				text: 'not very long',
-				reactions: { '🤔': 1 }
+				reactions: {}
 			}
 		]
 	},
 	{
-		id: '2',
+		id: 2,
 		userId: 0,
 		messages: [
 			{
-				id: '0',
+				id: 13,
 				text: 'simple answer text',
-				reactions: { '👍': 10, '👌': 2 }
+				reactions: {}
 			}
 		]
 	}

@@ -10,6 +10,7 @@
       "@services/*": ["src/services/*"],
       "@hooks/*": ["src/hooks/*"],
       "@providers/*": ["src/providers/*"],
+      "@utils/*": ["src/utils/*"],
       "@/*": ["src/*"]
     }
   }

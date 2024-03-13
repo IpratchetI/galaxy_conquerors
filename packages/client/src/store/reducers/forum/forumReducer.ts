@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
 import { ErrorResponse } from '@models/api/errorResponse';
 import { TopicModel, Topics } from '@models/topics';
 import { UserModel } from '@models/user';
@@ -45,11 +45,32 @@ const forumSlice = createSlice({
 			currentTopic.comments.push(action.payload.comment);
 			currentTopic.users[action.payload.user.id] = action.payload.user.first_name;
 			currentTopic.length++;
+		},
+		updateComment: (
+			state: ForumState,
+			action: PayloadAction<{ messageId: number; reaction: string }>
+		) => {
+			const currentTopic = state.topics.find(topic => topic.id === state.currentTopicId)!;
+
+			let message;
+			for (let i = 0; i < currentTopic.comments.length; i++) {
+				for (let j = 0; j < currentTopic.comments[i].messages.length; j++) {
+					if (currentTopic.comments[i].messages[j].id === action.payload.messageId) {
+						message = currentTopic.comments[i].messages[j];
+						break;
+					}
+				}
+			}
+
+			if (message && message.reactions) {
+				message.reactions[action.payload.reaction] =
+					(message.reactions[action.payload.reaction] || 0) + 1;
+			}
 		}
 	}
 });
 
-export const { getTopic, getTopicsList, addNewTopic, addNewMessage, addNewComment } =
+export const { getTopic, getTopicsList, addNewTopic, addNewMessage, addNewComment, updateComment } =
 	forumSlice.actions;
 
 export default forumSlice.reducer;

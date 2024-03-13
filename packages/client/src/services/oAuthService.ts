@@ -1,12 +1,12 @@
 import { OAuthSignInRequest } from '@models/oauth';
 
-import { baseApi } from './baseApi';
+import { yandexBaseApi } from './baseApi';
 
 class OAuthService {
 	private _controllerName = 'oauth/';
 
 	getServiceId(redirecrUri: string) {
-		return baseApi
+		return yandexBaseApi
 			.get<{ service_id: string }>(
 				this._controllerName + `yandex/service-id?redirect_uri=${encodeURIComponent(redirecrUri)}`,
 				{ withCredentials: true }
@@ -15,7 +15,7 @@ class OAuthService {
 	}
 
 	signIn(data: OAuthSignInRequest) {
-		return baseApi.post(this._controllerName + 'yandex', data, { withCredentials: true });
+		return yandexBaseApi.post(this._controllerName + 'yandex', data, { withCredentials: true });
 	}
 }
 

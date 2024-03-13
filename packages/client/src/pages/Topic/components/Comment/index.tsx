@@ -3,11 +3,11 @@ import { CommentModel } from '@models/topics';
 import { Reactions } from '@pages/Topic/components/Reactions';
 
 import { Spacer } from '@/components';
+import { useAppSelector, userState } from '@/store/selectors';
 
 import s from './index.module.scss';
 
 import { SmileMenu } from '../SmileMenu';
-import { useAppSelector, userState } from '@/store/selectors';
 
 type CommentProps = CommentModel & { authorName: string };
 
@@ -27,7 +27,7 @@ export const Comment = (props: CommentProps) => {
 				<Spacer direction="column" align="start" key={id} className={classNames(s.comment, mods)}>
 					{i === 0 && <span className={s.author}>{authorName}</span>}
 					<span className={s.text}>{text}</span>
-					{!isMainComment && <SmileMenu />}
+					{!isMainComment && <SmileMenu messageId={id} />}
 					{reactions && <Reactions reactions={reactions} />}
 				</Spacer>
 			))}
