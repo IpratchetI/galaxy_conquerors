@@ -22,7 +22,7 @@ services:
         container_name: prakticum-server
         image: prackicum-server
         env_file:
-            - .env.sample
+            - .env
         build:
             context: .
             dockerfile: Dockerfile.server
