@@ -19,7 +19,12 @@ app.use(express.json());
 
 const corsOptions = {
 	credentials: true,
-	origin: [`http://127.0.0.1:${clientPort}`, `http://localhost:${clientPort}`]
+	origin: [
+		`http://127.0.0.1:${clientPort}`,
+		`http://127.0.0.1:${serverPort}`,
+		`http://localhost:${clientPort}`,
+		`http://localhost:${serverPort}`
+	]
 };
 
 app.use(cors(corsOptions));
@@ -35,4 +40,3 @@ app.get('/', (_, response) => {
 app.listen(serverPort, () => {
 	console.log(`  ➜ 🎸 Server is listening on port: ${serverPort}`);
 });
-

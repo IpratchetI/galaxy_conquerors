@@ -1,12 +1,10 @@
 import { Button, ButtonVariant } from '@components/Button';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Input } from '@components/Input';
-import { uniqId } from '@utils/uniqId';
 
 import { Spacer } from '@/components';
 import { useAppDispatch } from '@/store';
-import { addNewTopic } from '@/store/reducers/forum/forumReducer';
-import { useAppSelector, userState } from '@/store/selectors';
+import { addNewTopic } from '@/store/reducers/forum/forumActionCreator';
 
 import s from './index.module.scss';
 
@@ -20,7 +18,6 @@ type FormValues = {
 
 export const NewTopicForm = ({ onClick }: NewTopicFormProps) => {
 	const dispatch = useAppDispatch();
-	const { user } = useAppSelector(userState);
 
 	const {
 		register,
@@ -33,11 +30,7 @@ export const NewTopicForm = ({ onClick }: NewTopicFormProps) => {
 	const onSubmit: SubmitHandler<FormValues> = () => {
 		dispatch(
 			addNewTopic({
-				id: uniqId(),
-				name: getValues().topicName,
-				comments: [],
-				length: 0,
-				users: { [user!.id]: user!.first_name }
+				title: getValues().topicName
 			})
 		);
 		reset();

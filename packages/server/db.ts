@@ -4,6 +4,7 @@ import { type SequelizeOptions, Sequelize } from 'sequelize-typescript';
 
 import User from './db-models/user';
 import { Reaction } from './db-models/reaction';
+import { Comment, Topic } from './forum';
 
 const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT, POSTGRES_HOST } = process.env;
 const isDockerEnvironment = Number(process.env.DOCKER_ENVIRONMENT) === 1;
@@ -17,7 +18,7 @@ export const createClientAndConnect = async (): Promise<Sequelize | null> => {
 			database: POSTGRES_DB ?? 'postgres',
 			password: POSTGRES_PASSWORD ?? 'postgres',
 			port: Number(POSTGRES_PORT) ?? 5432,
-			models: [User, Reaction]
+			models: [User, Reaction, Topic, Comment]
 		};
 
 		const sequelize = new Sequelize(sequelizeOptions);

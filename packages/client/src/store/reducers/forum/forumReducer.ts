@@ -1,9 +1,9 @@
-import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
-import { ErrorResponse } from '@models/api/errorResponse';
-import { TopicModel, Topics } from '@models/topics';
-import { UserModel } from '@models/user';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ActionErrorResponse, ErrorResponse } from '@models/api/errorResponse';
+import { TopicModel, Topics, ForumChildrenId } from '@models/topics';
 
-import { CommentModel, IMessage, ForumChildrenId } from './../../../models/topics';
+import { CommentDto } from 'server/forum/comment/types';
+import { getTopic } from '@/store/reducers/forum/forumActionCreator';
 
 export type ForumState = {
 	topics: Topics;
@@ -11,11 +11,7 @@ export type ForumState = {
 	error?: ErrorResponse;
 	topicError?: ErrorResponse;
 	isLoading: boolean;
-};
-
-export type NewComment = {
-	comment: CommentModel;
-	user: Pick<UserModel, 'first_name' | 'id'>;
+	currentTopic?: TopicModel;
 };
 
 const initialState: ForumState = {
@@ -30,47 +26,63 @@ const forumSlice = createSlice({
 		getTopicsList: (state: ForumState, action: PayloadAction<Topics>) => {
 			state.topics = action.payload;
 		},
-		getTopic: (state: ForumState, action: PayloadAction<ForumChildrenId>) => {
-			state.currentTopicId = action.payload;
+		getCommentsList: (state: ForumState, action: PayloadAction<CommentDto[]>) => {
+			if (state.currentTopic) {
+				state.currentTopic.comments = action.payload.concat(state.currentTopic.comments ?? []);
+				state.currentTopic.commentsCount += action.payload.length;
+			}
 		},
 		addNewTopic: (state: ForumState, action: PayloadAction<TopicModel>) => {
 			state.topics.push(action.payload);
 		},
-		addNewMessage: (state: ForumState, action: PayloadAction<IMessage>) => {
-			const currentTopic = state.topics.find(topic => topic.id === state.currentTopicId!)!;
-			currentTopic.comments.at(-1)?.messages.push(action.payload);
+		addNewComment: (state: ForumState, action: PayloadAction<CommentDto>) => {
+			const currentTopic = state.topics.find(topic => topic.id === state.currentTopicId!);
+
+			if (currentTopic) {
+				currentTopic.comments.push(action.payload);
+				currentTopic.commentsCount++;
+			}
 		},
-		addNewComment: (state: ForumState, action: PayloadAction<NewComment>) => {
-			const currentTopic = state.topics.find(topic => topic.id === state.currentTopicId!)!;
-			currentTopic.comments.push(action.payload.comment);
-			currentTopic.users[action.payload.user.id] = action.payload.user.first_name;
-			currentTopic.length++;
-		},
+		// TODO: https://linear.app/galaxyconquerors/issue/GAL-60/dorabotki-po-api-foruma
 		updateComment: (
 			state: ForumState,
 			action: PayloadAction<{ messageId: number; reaction: string }>
 		) => {
-			const currentTopic = state.topics.find(topic => topic.id === state.currentTopicId)!;
+			const currentTopic = state.topics.find(topic => topic.id === state.currentTopicId);
 
-			let message;
-			for (let i = 0; i < currentTopic.comments.length; i++) {
-				for (let j = 0; j < currentTopic.comments[i].messages.length; j++) {
-					if (currentTopic.comments[i].messages[j].id === action.payload.messageId) {
-						message = currentTopic.comments[i].messages[j];
-						break;
-					}
-				}
-			}
+			if (!currentTopic) return;
 
-			if (message && message.reactions) {
-				message.reactions[action.payload.reaction] =
-					(message.reactions[action.payload.reaction] || 0) + 1;
-			}
+			const reactedComment = currentTopic.comments.find(
+				comment => comment.id === action.payload.messageId
+			);
+
+			// if (reactedComment && reactedComment.reactions) {
+			// 	reactedComment.reactions[action.payload.reaction] =
+			// 		(reactedComment.reactions[action.payload.reaction] || 0) + 1;
+			// }
 		}
+	},
+	extraReducers: builder => {
+		builder.addCase(getTopic.pending, (state: ForumState) => {
+			state.isLoading = true;
+		});
+		builder.addCase(getTopic.fulfilled, (state: ForumState, action: PayloadAction<TopicModel>) => {
+			state.isLoading = false;
+			state.error = undefined;
+
+			if (action?.payload) {
+				state.currentTopicId = action.payload?.id;
+				state.currentTopic = action?.payload;
+			}
+		});
+		builder.addCase(getTopic.rejected, (state: ForumState, action: PayloadAction<any>) => {
+			state.isLoading = false;
+			state.error = action.payload as ActionErrorResponse;
+		});
 	}
 });
 
-export const { getTopic, getTopicsList, addNewTopic, addNewMessage, addNewComment, updateComment } =
+export const { getCommentsList, getTopicsList, addNewTopic, addNewComment, updateComment } =
 	forumSlice.actions;
 
 export default forumSlice.reducer;

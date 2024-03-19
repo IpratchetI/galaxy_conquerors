@@ -1,20 +1,22 @@
+import { CommentDto } from 'server/forum/comment/types';
+
 export type TopicModel = {
 	id: ForumChildrenId;
-	name: string;
-	comments: CommentModel[];
-	length: number;
-	users: Record<number, string>;
+	title: string;
+	comments: CommentDto[];
+	commentsCount: number;
 };
 
-export type GetTopics = Pick<TopicModel, 'id' | 'name' | 'length'>[];
+export type NewTopicModel = {
+	title: string;
+};
+
+export type TopicsPagination = {
+	limit?: number;
+	offset?: number;
+};
 
 export type ForumChildrenId = number;
-
-export type CommentModel = {
-	id: ForumChildrenId;
-	userId: number;
-	messages: IMessage[];
-};
 
 export type ReactionModel = string;
 export interface IMessage {
