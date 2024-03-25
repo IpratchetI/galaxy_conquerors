@@ -1,4 +1,4 @@
-import { UserLoginModel, UserModel, UserRegistrationModel } from '@models/user';
+import { PostgresUserModel, UserLoginModel, UserModel, UserRegistrationModel } from '@models/user';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ErrorResponse } from '@models/api/errorResponse';
 
@@ -20,6 +20,7 @@ export type UserState = {
 	error?: ErrorResponse;
 	isLoading: boolean;
 	score: UserScore;
+	userDataBase: PostgresUserModel | 'empty';
 };
 
 const authInitialValue = () => {
@@ -33,7 +34,8 @@ const authInitialValue = () => {
 const initialState: UserState = {
 	isAuth: authInitialValue(),
 	isLoading: false,
-	score: { maxScore: 0, lastGameScore: 0 }
+	score: { maxScore: 0, lastGameScore: 0 },
+	userDataBase: 'empty'
 };
 
 const userSlice = createSlice({
@@ -49,6 +51,9 @@ const userSlice = createSlice({
 		},
 		updateScore: (state: UserState, action: PayloadAction<UserScore>) => {
 			state.score = action.payload;
+		},
+		setUserFromPostgres: (state: UserState, action: PayloadAction<PostgresUserModel | 'empty'>) => {
+			state.userDataBase = action.payload;
 		}
 	},
 	extraReducers: builder => {
@@ -61,6 +66,6 @@ const userSlice = createSlice({
 	}
 });
 
-export const { catchError, updateAuth, updateScore } = userSlice.actions;
+export const { catchError, updateAuth, updateScore, setUserFromPostgres } = userSlice.actions;
 
 export default userSlice.reducer;

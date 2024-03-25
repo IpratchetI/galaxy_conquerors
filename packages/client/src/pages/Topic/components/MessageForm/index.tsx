@@ -1,6 +1,11 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useImperativeHandle, KeyboardEvent, useRef } from 'react';
 import { Input } from '@components/Input';
+import { useParams } from 'react-router-dom';
+
+import { useAppDispatch } from '@/store';
+import { addNewComment } from '@/store/reducers/forum/forumActionCreator';
+import { useAppSelector, userState } from '@/store/selectors';
 
 import s from './index.module.scss';
 
@@ -9,9 +14,16 @@ type FormValues = {
 };
 
 export const MessageForm = () => {
+	const { user } = useAppSelector(userState);
+
+	const { topicId } = useParams();
+
+	const dispatch = useAppDispatch();
 	const {
 		register,
 		handleSubmit,
+		getValues,
+		reset,
 		formState: { errors }
 	} = useForm<FormValues>();
 
@@ -23,12 +35,22 @@ export const MessageForm = () => {
 	useImperativeHandle(ref, () => messageInputRef.current);
 
 	const onSubmit: SubmitHandler<FormValues> = () => {
-		// todo: add handler
-		console.log('send');
+		if (user && topicId) {
+			dispatch(
+				addNewComment({
+					topicId: Number(topicId),
+					userId: user?.id,
+					content: getValues().message
+				})
+			);
+		}
+
+		reset();
 	};
 
 	const handleUserKeyPress = (event: KeyboardEvent<HTMLTextAreaElement>) => {
 		if (event.key === 'Enter' && !event.shiftKey) {
+			event.preventDefault();
 			handleSubmit(onSubmit)();
 		}
 	};

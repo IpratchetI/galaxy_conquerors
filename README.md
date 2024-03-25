@@ -23,6 +23,11 @@
 Если вы хотите добавить dev зависимость, проделайте то же самое, но с флагом `dev`
 ```yarn lerna add {your_dep} --dev --scope server```
 
+### Запуск в контейнере DOCKER
+
+1. установить docker локально
+2. yarn install
+3. docker compose up --build
 
 ### Тесты
 
@@ -47,6 +52,10 @@
 
 `yarn preview --scope client`
 `yarn preview --scope server`
+
+### Запуск сборки с ssr
+
+```yarn run start```
 
 ## Хуки
 В проекте используется [lefthook](https://github.com/evilmartians/lefthook)

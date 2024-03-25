@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { UserModel } from '@models/user';
 
-import { baseApi } from './baseApi';
+import { yandexBaseApi } from './baseApi';
 
 class AvatarService {
 	async uploadAvatar(file: File) {
@@ -9,7 +9,7 @@ class AvatarService {
 			const formData = new FormData();
 			formData.append('avatar', file);
 
-			return baseApi.put<UserModel>('user/profile/avatar', formData, {
+			return yandexBaseApi.put<UserModel>('user/profile/avatar', formData, {
 				withCredentials: true,
 				headers: {
 					// todo: добавить токен

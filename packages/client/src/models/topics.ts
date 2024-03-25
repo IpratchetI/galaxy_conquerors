@@ -1,19 +1,28 @@
+import { CommentDto } from 'server/forum/comment/types';
+
 export type TopicModel = {
-	id: number;
-	name: string;
-	comments: CommentModel[];
-	length: number;
+	id: ForumChildrenId;
+	title: string;
+	comments: CommentDto[];
+	commentsCount: number;
 };
 
-export type CommentModel = {
-	id: number;
-	userId: number; // for current step is simple
-	messages: IMessage[];
+export type NewTopicModel = {
+	title: string;
 };
 
+export type TopicsPagination = {
+	limit?: number;
+	offset?: number;
+};
+
+export type ForumChildrenId = number;
+
+export type ReactionModel = string;
 export interface IMessage {
-	id: number;
+	id: ForumChildrenId;
 	text: string;
+	reactions?: Record<ReactionModel, number>;
 }
 
 export type Topics = TopicModel[];

@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 
-import { baseApi } from './baseApi';
+import { yandexBaseApi } from './baseApi';
 
 class ChangePasswordService {
 	async changePassword(oldPassword: string, newPassword: string): Promise<void> {
@@ -9,7 +9,7 @@ class ChangePasswordService {
 			formData.append('oldPassword', oldPassword);
 			formData.append('newPassword', newPassword);
 
-			await baseApi.put('user/password', formData, {
+			await yandexBaseApi.put('user/password', formData, {
 				withCredentials: true,
 				headers: {
 					'Content-Type': 'application/json'

@@ -1,36 +1,48 @@
 import { Button } from '@components/Button';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { TOPICS_LIST } from '@pages/Forum/lib/mocks';
+import { useEffect, useRef, useState } from 'react';
 
 import { Text } from '@/components';
-import { getTopic } from '@/store/reducers/forum/forumReducer';
 import { forumState, useAppSelector } from '@/store/selectors';
-import { useAppDispatch } from '@/store';
 
-import s from './index.module.scss';
 import { MessageForm } from './components/MessageForm';
 import { Comment } from './components/Comment';
+import s from './index.module.scss';
+import { UNTITLED } from '@/constants/text';
+import { useAppDispatch } from '@/store';
+import { getCommentsList, getTopic } from '@/store/reducers/forum/forumActionCreator';
 
 export const TopicPage = () => {
 	const { currentTopic, isLoading, topicError } = useAppSelector(forumState);
-	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+	const containerRef = useRef<HTMLDivElement>(null);
 	const { topicId } = useParams();
-
-	useEffect(() => {
-		if (!topicId) return;
-
-		const selectedTopic = TOPICS_LIST?.find(topic => topic.id === +topicId);
-
-		if (selectedTopic) {
-			dispatch(getTopic(selectedTopic));
-		}
-	}, [topicId]);
+	const dispatch = useAppDispatch();
 
 	const handleHistoryBack = () => {
 		navigate(-1);
 	};
+
+	useEffect(() => {
+		if (containerRef.current) {
+			containerRef.current.scrollTop =
+				containerRef.current.scrollHeight - containerRef.current.clientHeight;
+		}
+	}, [currentTopic]);
+
+	useEffect(() => {
+		if (!currentTopic && topicId) {
+			dispatch(getTopic(Number(topicId)));
+		}
+
+		if (currentTopic && !currentTopic.comments) {
+			dispatch(
+				getCommentsList({
+					topicId: currentTopic.id
+				})
+			);
+		}
+	}, [currentTopic, topicId]);
 
 	if (isLoading) {
 		return (
@@ -50,10 +62,10 @@ export const TopicPage = () => {
 
 	return (
 		<div className={s.topicPage}>
-			<h2 className={s.title}>Interesting projects</h2>
-			<div className={s.topicContent}>
+			<h2 className={s.title}>{currentTopic?.title ?? UNTITLED}</h2>
+			<div className={s.topicContent} ref={containerRef}>
 				{currentTopic?.comments?.map(comment => (
-					<Comment key={comment.id} {...comment} />
+					<Comment key={comment.id} comment={comment} />
 				))}
 			</div>
 			<div className={s.actions}>

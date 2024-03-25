@@ -1,3 +1,5 @@
+import { LegacyRef, forwardRef } from 'react';
+
 import { classnames } from '@/utils/classnames';
 
 import { SpacerProps } from './types';
@@ -113,7 +115,7 @@ export const spaceLeftClasses = {
 	80: styles.spaceLeft80
 };
 
-export const Spacer = (props: SpacerProps) => {
+const SpacerComponent = forwardRef((props: SpacerProps, ref) => {
 	const {
 		className,
 		children,
@@ -152,8 +154,14 @@ export const Spacer = (props: SpacerProps) => {
 	};
 
 	return (
-		<div className={classnames(styles.flex, mods, classes)} {...otherProps}>
+		<div
+			className={classnames(styles.flex, mods, classes)}
+			{...otherProps}
+			ref={ref as LegacyRef<HTMLDivElement>}>
 			{children}
 		</div>
 	);
-};
+});
+
+SpacerComponent.displayName = 'Spacer';
+export const Spacer = SpacerComponent;

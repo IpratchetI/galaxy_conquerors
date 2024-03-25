@@ -3,6 +3,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Input } from '@components/Input';
 
 import { Spacer } from '@/components';
+import { useAppDispatch } from '@/store';
+import { addNewTopic } from '@/store/reducers/forum/forumActionCreator';
 
 import s from './index.module.scss';
 
@@ -15,15 +17,23 @@ type FormValues = {
 };
 
 export const NewTopicForm = ({ onClick }: NewTopicFormProps) => {
+	const dispatch = useAppDispatch();
+
 	const {
 		register,
 		handleSubmit,
+		getValues,
+		reset,
 		formState: { errors }
 	} = useForm<FormValues>();
 
 	const onSubmit: SubmitHandler<FormValues> = () => {
-		// todo: add handler
-		console.log('created');
+		dispatch(
+			addNewTopic({
+				title: getValues().topicName
+			})
+		);
+		reset();
 		onClick();
 	};
 

@@ -1,7 +1,7 @@
 @import 'src/style/main';
 
 .smileMenuButton,
-.smile {
+.smileButton {
   cursor: pointer;
   background: transparent;
   padding: 0;
@@ -15,28 +15,43 @@
 }
 
 .openedMenu {
-  width: 100%;
-  max-width: 160px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 30px);
+  display: flex;
+  flex-direction: column;
+  max-width: min-content;
   background-color: var(--white);
   border: 1px solid var(--black);
-  gap: 10px;
   padding: 10px;
   border-radius: 10px;
+  max-height: 150px;
+  overflow-y: auto;
 
-  .smile {
-    vertical-align: center;
-    font-size: var(--font-size-20);
-    padding: 0 5px 5px;
+  .groupName {
+    padding: 5px 0px 10px;
+    font-size: 0.8rem;
+  }
 
-    &:hover {
-      background-color: var(--sky);
-      border-radius: 5px;
+  .smilesGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    .smileButton {
+      width: 35px;
+      height: 35px;
+      font-size: var(--font-size-20);
+
+      &:hover {
+        background-color: var(--sky);
+        border-radius: 5px;
+      }
+
+      .smile {
+        height: 26px;
+      }
+    }
+
+    .smile {
+      height: 26px;
     }
   }
-}
-
-.selectedReaction {
-  font-size: var(--font-size-30);
 }

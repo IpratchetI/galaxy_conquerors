@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { baseApi } from './baseApi';
+
+import { yandexBaseApi } from './baseApi';
 
 interface AddNewLeaderServiceRequest {
 	data: Record<string, any>;
@@ -11,7 +12,9 @@ export const addNewLeaderService = async (
 	requestData: AddNewLeaderServiceRequest
 ): Promise<AxiosResponse<any>> => {
 	try {
-		const response = await baseApi.post('/leaderboard', requestData, { withCredentials: true });
+		const response = await yandexBaseApi.post('/leaderboard', requestData, {
+			withCredentials: true
+		});
 		console.log('Результат игры успешно отправлен на сервер лидерборда', response.data);
 		return response;
 	} catch (error) {

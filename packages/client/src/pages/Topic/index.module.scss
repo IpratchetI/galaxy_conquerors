@@ -3,6 +3,7 @@
 
 .topicPage {
   font-size: var(--font-size-45);
+  height: 100vh;
 
   @include page-container;
   @include leaderBoard-background;
@@ -16,6 +17,8 @@
 }
 
 .topicContent {
+  flex-grow: 1;
+  overflow-y: auto;
   grid-area: main;
   border-radius: 20px;
   background-color: var(--white);

@@ -1,3 +1,5 @@
+import { Theme } from '@providers/ThemeProvider/constants';
+
 export interface UserModel {
 	id: number;
 	first_name: string;
@@ -6,6 +8,7 @@ export interface UserModel {
 	email: string;
 	phone: string;
 	avatar?: string;
+	theme?: Theme;
 }
 
 export type UserLoginModel = {
@@ -17,3 +20,9 @@ export type UserRegistrationModel = {
 } & Omit<UserModel, 'avatar' | 'id'>;
 
 export type ProfileData = Omit<UserModel, 'id' | 'avatar'>;
+
+export type PostgresUserModel = {
+	id: number;
+	first_name: string;
+	theme: Theme;
+};
