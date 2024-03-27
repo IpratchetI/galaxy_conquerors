@@ -24,13 +24,13 @@ import { loginInputsConfig, loginInputsDefaults } from './constants';
 import '@styles/main.scss';
 import styles from './index.module.scss';
 
-const redirectUri = isDev()
-	? 'http://localhost:3000/login'
-	: 'https://camel-case-galaxy-conquerors-34.ya-praktikum.tech/login';
-
-console.log('redirectUri', redirectUri);
-
 export const Login = () => {
+	const redirectUri = isDev()
+		? 'http://localhost:3000/login'
+		: 'https://camel-case-galaxy-conquerors-34.ya-praktikum.tech/login';
+
+	console.log('redirectUri', redirectUri);
+
 	const dispatch = useAppDispatch();
 	const { user, error: userError } = useAppSelector(userState);
 
