@@ -15,7 +15,7 @@ class OAuthService {
 	}
 
 	signIn(data: OAuthSignInRequest) {
-		return yandexBaseApi.post(this._controllerName + 'yandex', data, { withCredentials: true });
+		return yandexBaseApi.post(this._controllerName + 'yandex', data);
 	}
 }
 

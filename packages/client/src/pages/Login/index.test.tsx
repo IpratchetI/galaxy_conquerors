@@ -4,6 +4,10 @@ import { TestWrapper } from '@/test/components/TestWrapper';
 
 import { Login } from './';
 
+jest.mock('@utils/isDev', () => ({
+	isDev: () => true
+}));
+
 describe('Login Page', () => {
 	let usernameInput: HTMLInputElement;
 	let passwordInput: HTMLInputElement;
