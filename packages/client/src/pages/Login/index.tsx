@@ -9,8 +9,8 @@ import { FormCard } from '@components/FormCard';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { OAuthService } from '@services/oAuthService';
 import YandexIcon from '@assets/icons/yandexIcon.svg';
-import { isDev } from '@utils/isDev';
 
+import { isDev } from '@/utils/isDev';
 import { routerPaths } from '@/constants/routerPaths';
 import { Spacer } from '@/components';
 import { validate } from '@/utils/validate';
