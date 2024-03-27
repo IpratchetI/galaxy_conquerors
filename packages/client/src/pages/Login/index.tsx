@@ -25,9 +25,7 @@ import '@styles/main.scss';
 import styles from './index.module.scss';
 
 export const Login = () => {
-	const redirectUri = isDev()
-		? 'http://localhost:3000/login'
-		: 'https://camel-case-galaxy-conquerors-34.ya-praktikum.tech/login';
+	const redirectUri = 'http://camel-case-galaxy-conquerors-34.ya-praktikum.tech:3000/login';
 
 	console.log('redirectUri', redirectUri);
 
