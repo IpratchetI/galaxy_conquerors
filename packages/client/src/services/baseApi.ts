@@ -4,7 +4,8 @@ import { BASE_API, SERVER_API } from '@/constants/baseApi';
 
 // todo: Нужно добавить обработчик ошибок на 401, 403 и похожие универсальные
 export const yandexBaseApi = axios.create({
-	baseURL: BASE_API
+	baseURL: BASE_API,
+	withCredentials: true
 });
 
 export const serverBaseApi = axios.create({
