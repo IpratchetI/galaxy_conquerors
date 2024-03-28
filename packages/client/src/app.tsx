@@ -4,7 +4,7 @@ import { AppRouter } from '@components/AppRouter/AppRouter';
 import ThemeProvider from '@providers/ThemeProvider';
 
 function App() {
-	console.log('Galaxy Conquerors awesome!');
+	console.log('Galaxy Conquerors awesome!!');
 	return (
 		<ErrorBoundary
 			fallback={<ErrorPage type="common" />}
